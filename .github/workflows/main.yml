@@ -30,8 +30,7 @@ jobs:
         git commit -m "$commit_msg"
     - name: Pull repository (2)
       run: git pull
-    - name: Push commit to master
+    - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        branch: master
         github_token: ${{ secrets.GITHUB_TOKEN }}
