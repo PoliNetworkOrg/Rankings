@@ -1,4 +1,4 @@
-name: Aggiorna Graduatorie
+name: Update Rankings
 
 on:
   schedule:
@@ -19,14 +19,14 @@ jobs:
     - name: Get GraduatorieScript
       run: curl -Lo aggiorna_graduatorie.py https://raw.githubusercontent.com/PoliNetworkOrg/GraduatorieScript/main/main.py
     - name: Run aggiorna_graduatorie.py
-      run: python3 ./aggiorna_graduatorie.py "$(git rev-parse --show-toplevel)/graduatorie"
+      run: python3 ./aggiorna_graduatorie.py "$(git rev-parse --show-toplevel)/docs"
     - name: Create commit
       run: |
         [[ -z $(git status --porcelain) ]] && exit 0
         git add .
         git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
         git config --local user.name 'github-actions[bot]'
-        TZ= printf -v commit_msg 'update graduatorie: %(%c)T'
+        TZ= printf -v commit_msg 'update rankings: %(%c)T'
         git commit -m "$commit_msg"
     - name: Pull repository (2)
       run: git pull
