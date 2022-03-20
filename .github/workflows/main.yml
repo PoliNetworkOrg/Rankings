@@ -31,7 +31,7 @@ jobs:
     - name: Pull repository (2)
       run: git pull
     - name: Push changes
-      uses: ad-m/github-push-action
+      uses: ad-m/github-push-action@master
       with:
         branch: main
         github_token: ${{ secrets.GITHUB_TOKEN }}
