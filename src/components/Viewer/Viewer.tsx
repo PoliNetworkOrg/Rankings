@@ -5,13 +5,7 @@ import Select from "../ui/Select"
 import Input from "../ui/Input"
 import MobileContext from "../../contexts/MobileContext"
 
-// the following hard-coded const and types
-// should be changed to dynamic data somehow
-// from the API via JSON
-import { DATA as TEST_DATA } from "../../utils/data"
-
-// emulate data coming from script
-const JSONED_DATA = JSON.parse(JSON.stringify(TEST_DATA))
+import DATA from "../../utils/data/data.json"
 
 type School = "Ingegneria" | "Architettura" | "Design" | "Urbanistica"
 const ABS_ORDER = "ABSOLUTE ORDER"
@@ -21,9 +15,9 @@ type Structure = {
   school: School
   years: {
     year: number
-    global: TableData
     phases: {
       phase: string
+      global: TableData
       courses: {
         name: string
         table: TableData
@@ -35,7 +29,7 @@ type Structure = {
 export default function Viewer() {
   const { isMobile } = useContext(MobileContext)
 
-  const data: Structure = JSONED_DATA
+  const data: Structure = DATA as Structure
   const schools: string[] = data.map(v => v.school)
   const [activeSchool, setActiveSchool] = useState<string>(schools[0])
   const school = data.find(v => v.school === activeSchool)!
@@ -57,21 +51,27 @@ export default function Viewer() {
   const [activePhase, setActivePhase] = useState<string>(
     phases.length > 0 ? phases[0].phase : ""
   )
-
-  const global = useMemo(() => (yearData ? yearData.global : [[]]), [yearData])
-
   useEffect(() => {
     if (phases.length && !phases.find(p => p.phase === activePhase)) {
       setActivePhase(phases[0].phase)
     }
   }, [activePhase, phases])
 
+  const phaseData = phases.find(p => p.phase === activePhase)
+
+  const global = useMemo(
+    () => (phaseData ? phaseData.global : [[]]),
+    [phaseData]
+  )
+
   const courses = useMemo(() => {
     const list: { name: string; table: (string | number)[][] }[] = []
     if (global[0].length) list.push({ name: ABS_ORDER, table: global })
+
     const phasesCourses = phases
       ?.find(v => v.phase === activePhase)
       ?.courses.filter(c => c.table[0].length) // only course with data
+
     phasesCourses?.map(c => list.push(c))
     return list
   }, [activePhase, global, phases])
@@ -120,17 +120,17 @@ export default function Viewer() {
           />
           <Spacer addMargin />
           <ButtonSelect
-            options={phases.map(v => v.phase)}
+            options={phases.map(v => v.phase).sort()}
             active={activePhase}
             onOptionSelect={o => setActivePhase(o)}
           />
           <Spacer addMargin />
           <div
-            className={`grid w-full flex-grow ${
+            className={`grid min-h-0 w-full flex-grow items-start ${
               isMobile
                 ? "grid-cols-1 grid-rows-[auto_auto_1fr]"
                 : "grid-cols-[1fr_4fr] grid-rows-[auto_1fr]"
-            } items-start`}
+            } `}
           >
             <div
               className={
@@ -149,7 +149,7 @@ export default function Viewer() {
               className={`${
                 isMobile
                   ? "row-start-1 row-end-2"
-                  : "row-start-1 row-end-3 border-r border-slate-800/20 pr-4 dark:border-slate-300/20"
+                  : "row-start-1 row-end-3 border-r border-slate-800/20 pr-1 dark:border-slate-300/20"
               } h-full w-auto`}
             >
               {isMobile ? (
@@ -168,7 +168,7 @@ export default function Viewer() {
                   active={activeCourse}
                   onOptionSelect={o => setActiveCourse(o)}
                   useColumn
-                  className="h-full w-auto"
+                  className="h-full w-auto overflow-y-auto pb-4 pr-2 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600"
                 />
               )}
             </div>
@@ -245,7 +245,7 @@ function Table({ school, data, isGlobalRanking = false, ...p }: TableProps) {
 
   return (
     <>
-      <table className="mb-1 w-full border-collapse" {...p}>
+      <table className="mb-2 w-full border-collapse" {...p}>
         {school === "Design" &&
           (isGlobalRanking ? (
             <thead>
@@ -341,7 +341,6 @@ function Table({ school, data, isGlobalRanking = false, ...p }: TableProps) {
             <thead>
               <tr>
                 <Th>Test Score</Th>
-                <Th>OFA TEST</Th>
                 <Th>Overall Position</Th>
                 <Th>Admitted enroll in (course)</Th>
               </tr>
