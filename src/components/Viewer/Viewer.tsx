@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useEffect, useId, useMemo, useState } from "react"
-import ButtonSelect from "../ButtonSelect"
+import { useContext, useEffect, useId, useMemo, useState } from "react"
+import ButtonSelect from "../ui/ButtonSelect"
+import Select from "../ui/Select"
+import Input from "../ui/Input"
+import MobileContext from "../../contexts/MobileContext"
 
 // the following hard-coded const and types
 // should be changed to dynamic data somehow
@@ -30,6 +33,8 @@ type Structure = {
 }[]
 
 export default function Viewer() {
+  const { isMobile } = useContext(MobileContext)
+
   const data: Structure = JSONED_DATA
   const schools: string[] = data.map(v => v.school)
   const [activeSchool, setActiveSchool] = useState<string>(schools[0])
@@ -83,13 +88,22 @@ export default function Viewer() {
     }
   }, [activeCourse, coursesList])
 
+  const [filter, setFilter] = useState<string>("")
+  const filtered = courseData?.filter(
+    a => a.filter(b => b.toString().includes(filter)).length
+  )
+
   //debug
   // useEffect(() => {
   //   console.log({ school, yearsList, phases, courses, coursesList })
   // }, [coursesList, phases, school, courses, yearsList])
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center gap-4 overflow-hidden px-2 py-4">
+    <div
+      className={`relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center gap-4 ${
+        isMobile ? "overflow-y-auto overflow-x-hidden" : "overflow-hidden"
+      } px-2 py-4`}
+    >
       <ButtonSelect
         options={schools}
         active={activeSchool}
@@ -110,20 +124,61 @@ export default function Viewer() {
             onOptionSelect={o => setActivePhase(o)}
           />
           <Spacer />
-          <div className="grid w-full flex-grow grid-cols-[1fr_4fr] items-start gap-4 overflow-auto">
-            <ButtonSelect
-              options={coursesList}
-              active={activeCourse}
-              onOptionSelect={o => setActiveCourse(o)}
-              useColumn
-              className="w-auto"
+          <div
+            className={`grid w-full flex-grow ${
+              isMobile
+                ? "grid-cols-1 grid-rows-[auto_auto_1fr]"
+                : "grid-cols-[1fr_4fr] grid-rows-[auto_1fr]"
+            } items-start gap-4`}
+          >
+            <Input
+              className={
+                isMobile
+                  ? "sticky top-0 row-start-2 row-end-3"
+                  : "col-start-2 col-end-3 row-start-1"
+              }
+              value={filter}
+              onValue={v => setFilter(v)}
+              placeholder="Filter..."
             />
-            <div className="h-full overflow-scroll border-l border-slate-800/20 pl-4 pr-2 scrollbar-thin scrollbar-thumb-slate-300 dark:border-slate-300/20 dark:scrollbar-thumb-slate-600">
-              {courseData ? (
+            <div
+              className={`${
+                isMobile
+                  ? "row-start-1 row-end-2"
+                  : "row-start-1 row-end-3 border-r border-slate-800/20 pr-4 dark:border-slate-300/20"
+              } h-full w-auto`}
+            >
+              {isMobile ? (
+                <>
+                  <Select
+                    options={coursesList}
+                    value={activeCourse}
+                    onChange={e => setActiveCourse(e.currentTarget.value)}
+                  />
+                  <Spacer className="mt-4" />
+                </>
+              ) : (
+                <ButtonSelect
+                  options={coursesList}
+                  active={activeCourse}
+                  onOptionSelect={o => setActiveCourse(o)}
+                  useColumn
+                  className="h-full w-auto"
+                />
+              )}
+            </div>
+            <div
+              className={`${
+                isMobile
+                  ? "row-start-3 row-end-4"
+                  : "row-start-2 row-end-3 overflow-scroll scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600"
+              } h-full  pr-2 `}
+            >
+              {filtered ? (
                 <Table
                   isGlobalRanking={activeCourse === ABS_ORDER}
                   school={activeSchool as School}
-                  data={courseData}
+                  data={filtered}
                 />
               ) : (
                 <p>Data not available for this year</p>
@@ -137,8 +192,15 @@ export default function Viewer() {
     </div>
   )
 }
-function Spacer() {
-  return <hr className="w-full border-slate-800/20 dark:border-slate-300/20" />
+
+type SpacerProps = React.HTMLAttributes<HTMLHRElement>
+function Spacer({ className = "", ...p }: SpacerProps) {
+  return (
+    <hr
+      className={`w-full border-slate-800/20 dark:border-slate-300/20 ${className}`}
+      {...p}
+    />
+  )
 }
 
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
@@ -147,11 +209,6 @@ interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   isGlobalRanking?: boolean
 }
 function Table({ school, data, isGlobalRanking = false, ...p }: TableProps) {
-  const [filter, setFilter] = useState<string>("")
-  const filtered = data.filter(
-    a => a.filter(b => b.toString().includes(filter)).length
-  )
-
   const Th = ({
     children,
     ...p
@@ -179,12 +236,6 @@ function Table({ school, data, isGlobalRanking = false, ...p }: TableProps) {
 
   return (
     <>
-      <input
-        className="mb-4 w-full rounded border-none p-2 outline-none dark:bg-slate-600"
-        value={filter}
-        onChange={e => setFilter(e.currentTarget.value)}
-        placeholder="Filter..."
-      />
       <table className="mb-1 w-full border-collapse" {...p}>
         {school === "Design" &&
           (isGlobalRanking ? (
@@ -303,7 +354,7 @@ function Table({ school, data, isGlobalRanking = false, ...p }: TableProps) {
             </thead>
           ))}
         <tbody>
-          {filtered.map((row, x) => (
+          {data.map((row, x) => (
             <tr key={`${id}-${x}`}>
               {row.map((value, y) => (
                 <Td key={`${id}-${x}-${y}`}>{value}</Td>

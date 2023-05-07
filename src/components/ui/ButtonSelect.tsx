@@ -19,14 +19,14 @@ export default function ButtonSelect<T extends number | string>({
   return (
     <div
       className={`${
-        useColumn ? "flex flex-col gap-4" : "flex gap-8"
-      } w-full justify-center max-sm:flex-wrap ${className ?? ""}`}
+        useColumn ? "flex flex-col justify-start" : "flex justify-center"
+      } w-full gap-4 max-sm:flex-wrap ${className ?? ""}`}
       {...p}
     >
       {options.map((o, i) => (
         <Button
           key={`${id}btn-${i}`}
-          className="flex-1"
+          className={useColumn ? "" : "flex-1"}
           onClick={() => onOptionSelect(o)}
           active={active === o}
         >
