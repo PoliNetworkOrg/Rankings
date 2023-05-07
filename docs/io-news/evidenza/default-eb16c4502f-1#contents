@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head><meta charset="utf-8"/><link href="../style/graduatorie.css" rel="stylesheet" type="text/css"/><link href="../style/desktop.css" rel="stylesheet" type="text/css"/><link href="../style/ateneo2014.css" rel="stylesheet" type="text/css"/>
+<meta charset="utf-8"/>
+<!-- 
+	build by sitepackagebuilder.com
+
+	This website is powered by TYPO3 - inspiring people to share!
+	TYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.
+	TYPO3 is copyright 1998-2023 of Kasper Skaarhoj. Extensions are copyright of their respective owners.
+	Information and contribution at https://typo3.org/
+-->
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Icons/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<title>Centro Nazionale per la mobilità sostenibile: polimi</title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta content="TYPO3 CMS" name="generator"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="index,follow" name="robots"/>
+<meta content="origin" name="referrer"/>
+<meta content="Dettaglio News" name="keywords"/>
+<meta content="Dettaglio News" property="og:title"/>
+<meta content="Politecnico di Milano" property="og:site_name"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="notranslate" name="google"/>
+<meta content="no" name="apple-mobile-web-app-capable"/>
+<link href="/typo3temp/assets/css/6a844fe2ff.css?1665130370" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/assegniricerca/Resources/Public/Scss/layout.css?1664347619" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/bandigara/Resources/Public/Scss/layout.css?1674637974" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/bandita/Resources/Public/Scss/layout.css?1674562950" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/borsestudiopremi/Resources/Public/Scss/layout.css?1664347624" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/procedureselezione/Resources/Public/Scss/layout.css?1664347629" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/ricercatorideterminato/Resources/Public/Scss/layout.css?1664347632" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/bootstrap/css/bootstrap.css?1680005168" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/bootstrap/css/navbar-fixed-top.css?1680005168" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/animate.css?1680005168" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/slider-pro.css?1680005169" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/custom.css?1680005172" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/rteCustomClasses.css?1680005169" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/fontawesome.min.css?1680005169" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/oldStyle.css?1680005169" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/social/Resources/Public/Scss/monthly.css?1664347634" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/comunicatistampa/Resources/Public/Scss/layout.css?1663589329" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/master/Resources/Public/Scss/layout.css?1679053825" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/didatticainnovativa/Resources/Public/Scss/didatticaInnovativa.css?1677765980" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/didattica/Resources/Public/Scss/layout.css?1663232652" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/ricercatoribandipnrr/Resources/Public/Scss/layout.css?1667557602" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/we_cookie_consent/Resources/Public/Stylesheet/style.css?1656059345" media="all" rel="stylesheet" type="text/css"/>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/jquery.min.js?1680005168" type="text/javascript"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script>document.createElement('video');</script>
+    <![endif]-->
+<meta content="True" name="HandheldFriendly"/>
+<meta content="320" name="MobileOptimized"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-120x120.png" rel="apple-touch-icon"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-120x120-precomposed.png" rel="apple-touch-icon-precomposed"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/180x180.png" rel="apple-touch-icon" sizes="120x120"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-120x120-precomposed.png" rel="apple-touch-icon-precomposed" sizes="120x120"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-152x152-precomposed.png" rel="apple-touch-icon-precomposed" sizes="152x152"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/167x167.png" rel="apple-touch-icon" sizes="167x167"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/180x180.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="/in-evidenza/dettaglio-news/evidenza/default-eb16c4502f-1" rel="canonical">
+<link href="/in-evidenza/dettaglio-news/evidenza/default-eb16c4502f-1" hreflang="it_IT" rel="alternate">
+<link href="/en/spotlight/news-details/evidenza/default-eb16c4502f-1" hreflang="en-US" rel="alternate">
+<link href="/in-evidenza/dettaglio-news/evidenza/default-eb16c4502f-1" hreflang="x-default" rel="alternate">
+<script>
+	/*<![CDATA[*/
+<!--
+function openPic(url, winName, winParams) {
+                var theWindow = window.open(url, winName, winParams);
+                if (theWindow)	{theWindow.focus();}
+            }
+
+// -->
+	/*]]>*/
+</script>
+</link></link></link></link></meta></head>
+<body>
+<a id="top" name="top"></a><!-- off canvas rimosso --><div class="content-wrap"><header class="navbar-fixed-top"><div id="boxAunica"><div id="polij_utente_corrente"></div></div><a class="lavora ita" href="https://www.polimi.it/lavorare-al-politecnico/">Lavora con noi</a><!--Include your brand here inizio --><a class="navbar-brand mobile" href="/" title="Politecnico di Milano - homepage"><img alt="Politecnico di Milano" src="/typo3conf/ext/sitepackage/Resources/Public/Images/04_Polimi_logotipo_bandiera-1riga_bianco.svg"/></a><a class="navbar-brand desktop" href="/" title="Politecnico di Milano - homepage"><img alt="Politecnico di Milano" src="/typo3conf/ext/sitepackage/Resources/Public/Images/LogoPoli160_web.svg"/></a><!--Include your brand here fine --><nav><ul class="liv0 dropdown" id="mainMenu"><li><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" title="Menu Principale">Menu</a><ul class="liv1 dropdown-menu" id="principale"><li class="ifSub dropdown-submenu"><a class="ifsub" href="/il-politecnico" role="button" tabindex="-1" title="Il Politecnico">Il Politecnico</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/il-politecnico/chi-siamo" tabindex="-1" title="Chi siamo">Chi siamo</a></li><li class="no"><a class="no" href="/il-politecnico/network-internazionali" tabindex="-1" title="Network internazionali">Network internazionali</a></li><li class="no"><a class="no" href="/il-politecnico/progetti-di-ateneo" tabindex="-1" title="Progetti di Ateneo">Progetti di Ateneo</a></li><li class="no"><a class="no" href="/il-politecnico/il-politecnico-nella-storia" tabindex="-1" title="Il Politecnico nella storia">Il Politecnico nella storia</a></li><li class="no"><a class="no" href="/il-politecnico/organizzazione" tabindex="-1" title="Organizzazione">Organizzazione</a></li><li class="no"><a class="no" href="https://www.normativa.polimi.it" tabindex="-1" title="Statuto e Regolamenti">Statuto e Regolamenti</a></li><li class="no"><a class="no" href="https://www.protocollo.polimi.it/albo/viewer?view=html" tabindex="-1" title="Albo Ufficiale di Ateneo">Albo Ufficiale di Ateneo</a></li><li class="no"><a class="no" href="/il-politecnico/spazi-polimi" tabindex="-1" title="Spazi Polimi">Spazi Polimi</a></li><li class="no"><a class="no" href="/il-politecnico/orari-edifici-e-campus" tabindex="-1" title="Orari edifici e Campus">Orari edifici e Campus</a></li><li class="no"><a class="no" href="/lavorare-al-politecnico" tabindex="-1" title="Lavorare al Politecnico">Lavorare al Politecnico</a></li><li class="no"><a class="no" href="/imprese/partecipa-a-una-gara" tabindex="-1" title="Bandi di gara">Bandi di gara</a></li><li class="no"><a class="no" href="/press-room" tabindex="-1" title="Comunicati e rassegna stampa">Comunicati e rassegna stampa</a></li><li class="no"><a class="no" href="/il-politecnico/competizioni-internazionali" tabindex="-1" title="Competizioni internazionali">Competizioni internazionali</a></li><li class="no"><a class="no" href="/il-politecnico/logo-e-immagine-coordinata" tabindex="-1" title="Logo e immagine coordinata">Logo e immagine coordinata</a></li></ul></li><li class="ifSub dropdown-submenu"><a class="ifsub" href="/corsi" role="button" tabindex="-1" title="Corsi">Corsi</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/corsi/corsi-di-laurea" tabindex="-1" title="Corsi di Laurea">Corsi di Laurea</a></li><li class="no"><a class="no" href="/corsi/corsi-di-laurea-magistrale" tabindex="-1" title="Corsi di Laurea Magistrale">Corsi di Laurea Magistrale</a></li><li class="no"><a class="no" href="/corsi/corsi-di-laurea-e-laurea-magistrale-con-altri-atenei" tabindex="-1" title="Corsi di Laurea e Laurea magistrale con altri Atenei">Corsi di Laurea e Laurea magistrale con altri Atenei</a></li><li class="no"><a class="no" href="/corsi/master-universitari-e-corsi-post-laurea" tabindex="-1" title="Master universitari e Corsi Post-Laurea">Master universitari e Corsi Post-Laurea</a></li><li class="no"><a class="no" href="/corsi/didattica-innovativa" tabindex="-1" title="Passion in Action">Passion in Action</a></li><li class="no"><a class="no" href="/corsi/dottorato" tabindex="-1" title="Dottorato">Dottorato</a></li><li class="no"><a class="no" href="/corsi/scuola-di-specializzazione" tabindex="-1" title="Scuola di specializzazione">Scuola di specializzazione</a></li><li class="no"><a class="no" href="/corsi/percorsi-di-alta-formazione" tabindex="-1" title="Percorsi di alta formazione">Percorsi di alta formazione</a></li><li class="no"><a class="no" href="/corsi/moocs-polimi-open-knowledge" tabindex="-1" title="Moocs - Polimi Open Knowledge">Moocs - Polimi Open Knowledge</a></li><li class="no"><a class="no" href="/corsi/corsi-di-lingua" tabindex="-1" title="Corsi di lingua">Corsi di lingua</a></li><li class="no"><a class="no" href="https://www.youtube.com/playlist?list=PL_06oobzMEuvpHIGeRXy7ndCYuiXDEpWR" tabindex="-1" title="Entra in aula">Entra in aula</a></li><li class="no"><a class="no" href="/corsi/percorsi-fit-formazione-iniziale-tirocinio" tabindex="-1" title="Percorsi FIT (Formazione Iniziale Tirocinio)">Percorsi FIT (Formazione Iniziale Tirocinio)</a></li></ul></li><li class="ifSub dropdown-submenu"><a class="ifsub" href="/ricerca/news-e-comunicati" role="button" tabindex="-1" title="Ricerca">Ricerca</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/ricerca/news-e-comunicati" tabindex="-1" title="News e Comunicati">News e Comunicati</a></li><li class="no"><a class="no" href="/ricerca/la-ricerca-al-politecnico" tabindex="-1" title="La Ricerca al Politecnico">La Ricerca al Politecnico</a></li><li class="no"><a class="no" href="/ricerca/video-e-moocs" tabindex="-1" title="Video e MOOCs">Video e MOOCs</a></li><li class="no"><a class="no" href="/ricerca/contatti" tabindex="-1" title="Contatti">Contatti</a></li></ul></li><li class="ifSub dropdown-submenu"><a class="ifsub" href="/impatto-sociale" role="button" tabindex="-1" title="Impatto sociale">Impatto sociale</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/impatto-sociale/sviluppo-sostenibile" tabindex="-1" title="Sviluppo sostenibile">Sviluppo sostenibile</a></li><li class="no"><a class="no" href="/impatto-sociale/innovazione" tabindex="-1" title="Innovazione">Innovazione</a></li><li class="no"><a class="no" href="/impatto-sociale/attivita-culturali-1" tabindex="-1" title="Attività culturali">Attività culturali</a></li><li class="no"><a class="no" href="/impatto-sociale/divulgazione-scientifica" tabindex="-1" title="Divulgazione scientifica">Divulgazione scientifica</a></li><li class="no"><a class="no" href="http://www.polisocial.polimi.it/it/off-campus/" tabindex="-1" title="Relazioni con il territorio">Relazioni con il territorio</a></li><li class="no"><a class="no" href="/impatto-sociale/alumni" tabindex="-1" title="Alumni">Alumni</a></li></ul></li><li class="ifSub dropdown-submenu"><a class="ifsub" href="/campus-e-servizi" role="button" tabindex="-1" title="Campus e servizi">Campus e servizi</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/campus-e-servizi/residenze-e-punti-di-ristoro" tabindex="-1" title="Residenze e punti di ristoro">Residenze e punti di ristoro</a></li><li class="no"><a class="no" href="/campus-e-servizi/biblioteche-e-archivi" tabindex="-1" title="Biblioteche e archivi">Biblioteche e archivi</a></li><li class="no"><a class="no" href="/campus-e-servizi/aule-e-spazi-studio" tabindex="-1" title="Aule e spazi studio">Aule e spazi studio</a></li><li class="no"><a class="no" href="/campus-e-servizi/mobilita-internazionale" tabindex="-1" title="Mobilità Internazionale">Mobilità Internazionale</a></li><li class="no"><a class="no" href="/campus-e-servizi/pari-opportunita-e-inclusione" tabindex="-1" title="Pari opportunità e inclusione">Pari opportunità e inclusione</a></li><li class="no"><a class="no" href="/campus-e-servizi/benessere-psicologico" tabindex="-1" title="Benessere psicologico">Benessere psicologico</a></li><li class="no"><a class="no" href="/campus-e-servizi/sport-e-tempo-libero" tabindex="-1" title="Sport e tempo libero">Sport e tempo libero</a></li><li class="no"><a class="no" href="/campus-e-servizi/lavoro-e-collaborazioni" tabindex="-1" title="Lavoro e collaborazioni">Lavoro e collaborazioni</a></li><li class="no"><a class="no" href="/campus-e-servizi/negozi" tabindex="-1" title="Negozi">Negozi</a></li><li class="no"><a class="no" href="/campus-e-servizi/borse-di-studio" tabindex="-1" title="Borse di studio">Borse di studio</a></li></ul></li><span id="strutture"><li class="menuStrutture"><a class="no" href="/il-politecnico/organizzazione/strutture/poli-territoriali" tabindex="-1" title="poli-territoriali">poli-territoriali</a></li><li class="menuStrutture"><a class="no" href="/ricerca/la-ricerca-al-politecnico/dipartimenti" tabindex="-1" title="dipartimenti">dipartimenti</a></li><li class="menuStrutture"><a class="no" href="/corsi/scuole" tabindex="-1" title="scuole">scuole</a></li></span></ul></li><li><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" title="Info per">Info per</a><ul class="liv1 dropdown-menu" id="infoPer"><li class="ifsub"><a class="ifsub" href="/futuri-studenti" tabindex="-1" title="Futuri studenti">Futuri studenti</a></li><li class="ifsub"><a class="ifsub" href="/studenti-iscritti" tabindex="-1" title="Studenti iscritti">Studenti iscritti</a></li><li class="no"><a class="no" href="/campus-e-servizi/mobilita-internazionale" tabindex="-1" title="Studenti in mobilità internazionale">Studenti in mobilità internazionale</a></li><li class="no"><a class="no" href="http://www.alumni.polimi.it" tabindex="-1" title="AlumniPolimi">Alumni</a></li><li class="ifsub"><a class="ifsub" href="/personale-docente" tabindex="-1" title="Personale Docente">Personale Docente</a></li><li class="ifsub"><a class="ifsub" href="/personale-tecnico-amministrativo" tabindex="-1" title="Personale Tecnico Amministrativo">Personale Tecnico Amministrativo</a></li><li class="ifsub"><a class="ifsub" href="/imprese" tabindex="-1" title="Imprese">Imprese</a></li><li class="ifsub"><a class="ifsub" href="/press-room" tabindex="-1" title="Press Room">Stampa</a></li></ul></li><li><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" title="Strumenti">Strumenti</a><ul class="liv1 dropdown-menu" id="strumenti"><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=376" title="Servizi Online">Servizi Online</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=2169" title="Stato dei servizi ICT">Stato dei servizi ICT</a></li><li class="liv1 no"><a class="no" href="https://webeep.polimi.it" title="WeBeep">WeBeep</a></li><li class="liv1 no"><a class="no" href="https://chatbotstudenti.eu-de.mybluemix.net/" title="Polimi ChatBot">Contatti per studenti</a></li><li class="liv1 no"><a class="no" href="https://go.polimi.it/rubrica" title="Cerca contatti">Rubrica tel. e mail</a></li><li class="liv1 no"><a class="no" href="/studenti-iscritti/calendario-e-scadenze" title="Calendario accademico">Calendario accademico</a></li><li class="liv1 no"><a class="no" href="https://scadenziario.polimi.it/index.php?id=5&amp;L=0" title="Scadenze studenti">Scadenze studenti</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=147" title="Cerca aule">Cerca aule</a></li><li class="liv1 no"><a class="no" href="/campus-e-servizi/aule-e-spazi-studio/spazi-studio/spazi-studio-milano" title="Spazi studio">Spazi studio</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=167&amp;evn_RICERCAINCARICHI=EVENTO" title="Cerca docenti">Cerca docenti</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=166" title="Cerca insegnamenti">Cerca insegnamenti</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=126" title="Orario lezioni">Orario lezioni</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=1595" title="Appelli di esame">Appelli di esame</a></li><li class="liv1 no"><a class="no" href="http://www.biblio.polimi.it" title="Cerca in biblioteca">Cerca in biblioteca</a></li><li class="liv1 no"><a class="no" href="http://www.intranet.polimi.it" title="Intranet">Intranet</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=174" title="Mappe dei Campus">Mappe dei Campus</a></li><li class="liv1 no"><a class="no" href="/bandi-e-concorsi" title="Bandi e concorsi">Bandi e concorsi</a></li></ul></li><li><a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" title="Cambia lingua">Lingua</a><ul class="liv1 dropdown-menu" id="menulang"><li id="liitalian"><span class="cur"><a href="/in-evidenza/dettaglio-news/evidenza/default-eb16c4502f-1">ITA</a></span></li><li id="lienglish"><span class="no"><a href="/en/spotlight/news-details/evidenza/default-eb16c4502f-1">ENG</a></span></li></ul></li></ul></nav></header><ol class="breadcrumb"><li><a href="/" title="Home">Home</a></li></ol><div id="contents"><div id="content"><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-list frame-layout-0" id="c42273"><div class="news-single-item"><!-- <div style="float:right;"><a href="/in-evidenza/dettaglio-news/evidenza/archivio-gabriele-basilico-donazione-al-politecnico" title="Archivio Gabriele Basilico: donazione al Politecnico">Archivio Gabriele Basilico: donazione al Politecnico&nbsp;&gt;</a></div><a href="/in-evidenza/dettaglio-news/evidenza/default-eb16c4502f" title="Il Politecnico delle Donne">&lt;&nbsp;Il Politecnico delle Donne</a> --><div class="news-single-rightbox"><span class="newsDate">08.11.2022</span><span class="newsTime">17:11</span><!--  Categoria: Ateneo  <br />
+    --></div><h1>Centro Nazionale per la mobilità sostenibile</h1><h2>Pubblicata la call per la/il General Manager</h2><hr class="cl-right"/><p><strong>Il Politecnico di Milano è capofila del progetto finanziato in ambito PNRR. Scadenza per l’invio delle manifestazioni di interesse: 28 novembre</strong></p><p>La Fondazione Centro nazionale per la mobilità sostenibile ( MOST)  ha attivato una call per la/il General Manager.<br/><br/>
+Attraverso specifici programmi e attività di ricerca e innovazione, <a href="https://www.mur.gov.it/sites/default/files/2022-06/22_06_28%20Scheda_centro%20nazionale%20mobilit%C3%A0%20sostenibile_PNRR_MUR.pdf" rel="noreferrer" target="_blank">il Centro</a> punterà a promuovere una “mobilità sostenibile” innovativa con nuove soluzioni leggere, nuovi sistemi di propulsione, carburanti a idrogeno ed elettrici e a rendere più sicuro il sistema di mobilità con prodotti e processi digitali per favorire la gestione intelligente, il monitoraggio e la manutenzione predittiva, riducendo gli incidenti mortali.<br/><br/>
+Tra gli obiettivi del Centro la resilienza e l’efficienza dei sistemi di mobilità, con soluzioni e servizi per il trasporto pubblico e privato, la creazione di una mobilità personalizzata e accessibile per una nuova inclusione sociale e il potenziamento della filiera, della competitività nazionale e della visibilità internazionale.</p><p>Il profilo ricercato è disponibile <a href="/fileadmin/user_upload/MOST/Call-CN-MOST-Direttore.pdf">a questo link</a></p><hr class="cl-right"/><!-- --></div></div></div></div></div><a class="glyphicon" href="#contents" id="back-to-top" title="Back to top"></a><footer><ul class="cercaContattiDoveSiamo"><li><a href="/footer/contattaci/contatti-e-posta-elettronica-certificata-pec" target="_self">Contatti e PEC</a></li><li><a href="https://go.polimi.it/rubrica">Rubrica</a></li><li><a href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=174">Dove siamo</a></li><li><a href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=376">Servizi Online</a></li></ul><ul class="menu_footer"><li><a href="/footer/policy/amministrazione-trasparente" target="_self">Amministrazione trasparente</a></li><li><a href="/privacy" target="_self">Privacy</a></li><li><a href="/footer/policy/amministrazione-trasparente/altri-contenuti/altri-contenuti-accessibilita-e-catalogo-di-dati-metadati-e-banche-dati" target="_self">Accessibilità</a></li><li><a href="/footer/policy/diploma-supplement" target="_self">Diploma Supplement</a></li><li><a href="http://www.spp.polimi.it/">Sicurezza</a></li></ul><ul class="menu_footer"><li><a href="https://www.cug.polimi.it">Comitato Unico di Garanzia</a></li><li><a href="/il-politecnico/organizzazione/organi-di-ateneo/consigliera-di-fiducia" target="_self">Consigliera di fiducia</a></li><li><a href="/campus-e-servizi/pari-opportunita-e-inclusione/disabilita-e-dsa" target="_self">Disabilità e DSA</a></li><li><a href="/campus-e-servizi/benessere-psicologico" target="_self">Counseling e sostegno psicologico</a></li><li><a href="/il-politecnico/organizzazione/organi-di-ateneo/garante-della-trasparenza" target="_self">Garante della Trasparenza</a></li></ul><div class="address">INDIRIZZO<br/>Politecnico di Milano<br/>Piazza Leonardo da Vinci, 32<br/>20133 Milano<br/>P.IVA 04376620151<br/>C.F. 80057930150</div></footer>
+<div class="tx-we-cookie-consent">
+</div>
+<script src="/typo3conf/ext/didatticainnovativa/Resources/Public/Js/vanilla.js?1677765980"></script>
+<script src="https://aunicalogin.polimi.it/aunicalogin/cookie_ateneo/utente.js.jsp" type="text/javascript"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/anchoreasing.js?1680005168" type="text/javascript"></script>
+<script src="/typo3conf/ext/we_cookie_consent/Resources/Public/JavaScript/Controller/ConsentController.js?1656059345"></script>
+<script type="text/javascript">var klaroConfig = {"acceptAll":true,"additionalClass":"","cookieDomain":"","cookieExpiresAfterDays":"365","default":false,"elementID":"klaro","groupByPurpose":true,"hideDeclineAll":false,"hideLearnMore":false,"htmlTexts":true,"lang":"en","mustConsent":false,"poweredBy":"https:\/\/consent.websedit.de","privacyPolicy":"\/privacy","storageMethod":"cookie","storageName":"klaro","stylePrefix":"klaro we_cookie_consent","testing":false,"consentMode":true,"translations":{"en":{"consentModal":{"title":"Impostazioni privacy","description":"\u00c8 possibile specificare le impostazioni di privacy che seguono."},"privacyPolicy":{"text":"Informazioni dettagliate e le modalit\u00e0 di revoca del consenso sono disponibili nella nostra {privacyPolicy}.","name":"Privacy policy"},"consentNotice":{"description":"Questo sito utilizza i cookies per le statistiche e per agevolare la navigazione nelle pagine del sito e delle applicazioni web. Maggiori informazioni sono disponibili alla pagina dell'\u003Ca href=\"\/privacy\"\u003Einformativa sulla privacy\u003C\/a\u003E.","changeDescription":"Dall'ultima visita sono state apportate modifiche alle impostazioni sulla privacy. Ti preghiamo di aggiornare le impostazioni.","learnMore":"Modifica le impostazioni"},"contextualConsent":{"acceptOnce":"Accetto","acceptAlways":"Sempre","description":"Vuoi caricare il contenuto esterno fornito da {title}?"},"service":{"disableAll":{"title":"Accetta tutti","description":"Hai il diritto di revocare il tuo consenso in qualsiasi momento, sia singolarmente che nella sua interezza. In caso di revoca del consenso al trattamento dei dati, i dati raccolti legalmente fino alla revoca possono ancora essere trattati dal fornitore."},"optOut":{"title":"(Opt-Out)","description":"Questa applicazione \u00e8 caricata per impostazione predefinita (ma \u00e8 possibile disabilitarla)."},"required":{"title":"(Sempre necessario)","description":"Questa applicazione \u00e8 sempre necessaria"},"purpose":"Categoria","purposes":"Necessari"},"purposes":{"unknown":"Non assegnato","altri":{"title":"Altri","description":""},"analitici":{"title":"Analitici","description":""},"necessari":{"title":"Necessari","description":""},"analitici di terze parti":{"title":"Analitici di terze parti","description":""}},"ok":"Accetta","save":"Salva le impostazioni","acceptAll":"Accetta tutti","acceptSelected":"Accetta i selezionati","decline":"Rifiuta","close":"Close","poweredBy":"Provided by websedit"}},"services":[],"purposeOrder":["altri","analitici","analitici di terze parti","necessari","unknown"]}</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'youtube',
+		title: 'Youtube.com',
+        description: 'YouTube&nbsp;è una&nbsp;piattaforma&nbsp;web 2.0&nbsp;che consente la condivisione e visualizzazione in&nbsp;rete&nbsp;di&nbsp;contenuti multimediali di proprietà di Google LLC.',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Youtube.com'}}, 
+        purposes: ['altri'],
+        cookies: [['VISITOR_INFO1_LIVE', '/', ''], ['YSC', '/', ''], ['ytidb::LAST_RESULT_ENTRY_KEY', '/', ''], ['yt-remote-cast-available', '/', ''], ['yt-remote-cast-installed', '/', ''], ['yt-remote-connected-devices', '/', ''], ['yt-remote-device-id', '/', ''], ['yt-remote-fast-check-period', '/', ''], ['yt-remote-session-app', '/', ''], ['yt-remote-session-name', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'other-8',
+		title: 'Web Analitics Italia',
+        description: 'Web Analytics Italia è una piattaforma che offre le statistiche in tempo reale dei visitatori dei siti della Pubblica Amministrazione, nel pieno rispetto della normativa europea sul trattamento dei dati personali (GDPR - General Data Protecion Regulation)',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Web Analitics Italia'}}, 
+        purposes: ['analitici'],
+        cookies: [['_pk_id#', '/', ''], ['_pk_ses#', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'other-6',
+		title: 'Politecnico di Milano',
+        description: 'Questo script permette di identificare e preservare l\'autenticazione di un utente registrato presso i servizi online del Politecnico di Milano.',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Politecnico di Milano'}}, 
+        purposes: ['necessari'],
+        cookies: [['SSL_JSESSIONID', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'other-4',
+		title: 'Google CSE',
+        description: 'Google Custom Search Engine, ora Programmable Search Engine, è una piattaforma fornita da Google che consente agli sviluppatori Web di presentare informazioni specializzate nelle ricerche Web, perfezionare e classificare le query e creare motori di ricerca personalizzati, basati su Google Search.',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Google CSE'}}, 
+        purposes: ['analitici di terze parti'],
+        cookies: [['CONSENT', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'other-1',
+		title: 'Share this',
+        description: 'Share This fornisce strumenti di condivisione dei contenuti di questo sito web sui tuoi canali social',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Share this'}}, 
+        purposes: ['analitici di terze parti', 'necessari'],
+        cookies: [['__sharethis_cookie_test__', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script src="/typo3conf/ext/we_cookie_consent/Resources/Public/Library/klaro/klaro.js" type="text/javascript"></script>
+<!-- Bootstrap core JavaScript
+     ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/bootstrap.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/ie10-viewport-bug-workaround.js"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/jquery.sliderPro.min.js" type="text/javascript"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/accordion.js" type="text/javascript"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/polimi.js" type="text/javascript"></script>
+</body>
+</html>
