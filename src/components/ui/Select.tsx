@@ -1,3 +1,5 @@
+import { useId } from "react"
+
 interface Props<T> extends React.HTMLAttributes<HTMLSelectElement> {
   options: T[] | readonly T[]
   value: T
@@ -9,6 +11,7 @@ export default function Select<T extends string | number>({
   className,
   ...p
 }: Props<T>) {
+  const id = useId()
   return (
     <select
       value={value}
@@ -16,7 +19,9 @@ export default function Select<T extends string | number>({
       {...p}
     >
       {options.map(o => (
-        <option value={o}>{o}</option>
+        <option key={`select${id}${o}`} value={o}>
+          {o}
+        </option>
       ))}
     </select>
   )

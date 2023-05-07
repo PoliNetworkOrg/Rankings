@@ -100,16 +100,17 @@ export default function Viewer() {
 
   return (
     <div
-      className={`relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center gap-4 ${
+      className={`relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center ${
         isMobile ? "overflow-y-auto overflow-x-hidden" : "overflow-hidden"
-      } px-2 py-4`}
+      } px-2`}
     >
       <ButtonSelect
         options={schools}
         active={activeSchool}
         onOptionSelect={o => setActiveSchool(o)}
+        className="pt-4"
       />
-      <Spacer />
+      <Spacer addMargin />
       {yearsList.length && phases.length && coursesList.length ? (
         <>
           <ButtonSelect
@@ -117,30 +118,33 @@ export default function Viewer() {
             active={activeYear}
             onOptionSelect={o => setActiveYear(o)}
           />
-          <Spacer />
+          <Spacer addMargin />
           <ButtonSelect
             options={phases.map(v => v.phase)}
             active={activePhase}
             onOptionSelect={o => setActivePhase(o)}
           />
-          <Spacer />
+          <Spacer addMargin />
           <div
             className={`grid w-full flex-grow ${
               isMobile
                 ? "grid-cols-1 grid-rows-[auto_auto_1fr]"
                 : "grid-cols-[1fr_4fr] grid-rows-[auto_1fr]"
-            } items-start gap-4`}
+            } items-start`}
           >
-            <Input
+            <div
               className={
                 isMobile
-                  ? "sticky top-0 row-start-2 row-end-3"
-                  : "col-start-2 col-end-3 row-start-1"
+                  ? "sticky top-[-1px] row-start-2 row-end-3 bg-white py-4 dark:bg-slate-900"
+                  : "col-start-2 col-end-3 row-start-1 px-4 pb-4"
               }
-              value={filter}
-              onValue={v => setFilter(v)}
-              placeholder="Filter..."
-            />
+            >
+              <Input
+                value={filter}
+                onValue={v => setFilter(v)}
+                placeholder="Filter..."
+              />
+            </div>
             <div
               className={`${
                 isMobile
@@ -154,8 +158,9 @@ export default function Viewer() {
                     options={coursesList}
                     value={activeCourse}
                     onChange={e => setActiveCourse(e.currentTarget.value)}
+                    className="mb-4"
                   />
-                  <Spacer className="mt-4" />
+                  <Spacer />
                 </>
               ) : (
                 <ButtonSelect
@@ -170,9 +175,9 @@ export default function Viewer() {
             <div
               className={`${
                 isMobile
-                  ? "row-start-3 row-end-4"
-                  : "row-start-2 row-end-3 overflow-scroll scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600"
-              } h-full  pr-2 `}
+                  ? "row-start-3 row-end-4 w-full overflow-x-scroll"
+                  : "row-start-2 row-end-3 overflow-scroll pl-4 pr-2 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600"
+              } h-full`}
             >
               {filtered ? (
                 <Table
@@ -193,11 +198,15 @@ export default function Viewer() {
   )
 }
 
-type SpacerProps = React.HTMLAttributes<HTMLHRElement>
-function Spacer({ className = "", ...p }: SpacerProps) {
+interface SpacerProps extends React.HTMLAttributes<HTMLHRElement> {
+  addMargin?: boolean
+}
+function Spacer({ className = "", addMargin = false, ...p }: SpacerProps) {
   return (
     <hr
-      className={`w-full border-slate-800/20 dark:border-slate-300/20 ${className}`}
+      className={`w-full border-slate-800/20 dark:border-slate-300/20 ${
+        addMargin ? "my-4" : ""
+      } ${className}`}
       {...p}
     />
   )
