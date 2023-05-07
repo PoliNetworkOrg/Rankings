@@ -34,7 +34,7 @@ export default function Viewer() {
   const [activeSchool, setActiveSchool] = useState<string>(schools[0])
   const school = data.find(v => v.school === activeSchool)!
 
-  const yearsList = school.years.map(y => y.year)
+  const yearsList = school.years.map(y => y.year).sort((a, b) => b - a)
   const [activeYear, setActiveYear] = useState<number>(
     yearsList.length > 0 ? yearsList[0] : -1
   )
@@ -48,14 +48,15 @@ export default function Viewer() {
   const yearData = school.years.find(y => y.year === activeYear)
 
   const phases = useMemo(() => (yearData ? yearData.phases : []), [yearData])
+  const phasesList = phases.map(p => p.phase).sort()
   const [activePhase, setActivePhase] = useState<string>(
-    phases.length > 0 ? phases[0].phase : ""
+    phasesList.length > 0 ? phasesList[0] : ""
   )
   useEffect(() => {
     if (phases.length && !phases.find(p => p.phase === activePhase)) {
-      setActivePhase(phases[0].phase)
+      setActivePhase(phasesList[0])
     }
-  }, [activePhase, phases])
+  }, [activePhase, phases, phasesList])
 
   const phaseData = phases.find(p => p.phase === activePhase)
 
@@ -105,7 +106,7 @@ export default function Viewer() {
       } px-2`}
     >
       <ButtonSelect
-        options={schools}
+        options={schools.sort()}
         active={activeSchool}
         onOptionSelect={o => setActiveSchool(o)}
         className="pt-4"
@@ -120,7 +121,7 @@ export default function Viewer() {
           />
           <Spacer addMargin />
           <ButtonSelect
-            options={phases.map(v => v.phase).sort()}
+            options={phasesList}
             active={activePhase}
             onOptionSelect={o => setActivePhase(o)}
           />
