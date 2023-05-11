@@ -90,9 +90,7 @@ export default function Viewer() {
   }, [activeCourse, coursesList])
 
   const [filter, setFilter] = useState<string>("")
-  const filtered = courseData?.filter(
-    a => a.filter(b => b.toString().includes(filter)).length
-  )
+  const filtered = courseData?.filter(a => a.join(" ").includes(filter))
 
   //debug
   // useEffect(() => {
@@ -363,13 +361,17 @@ function Table({ school, data, isGlobalRanking = false, ...p }: TableProps) {
             </thead>
           ))}
         <tbody>
-          {data.map((row, x) => (
-            <tr key={`${id}-${x}`}>
-              {row.map((value, y) => (
-                <Td key={`${id}-${x}-${y}`}>{value}</Td>
-              ))}
-            </tr>
-          ))}
+          {data.length ? (
+            data.map((row, x) => (
+              <tr key={`${id}-${x}`}>
+                {row.map((value, y) => (
+                  <Td key={`${id}-${x}-${y}`}>{value}</Td>
+                ))}
+              </tr>
+            ))
+          ) : (
+            <Td colSpan={20}>No data found</Td>
+          )}
         </tbody>
       </table>
     </>
