@@ -21,7 +21,7 @@ export default function Button({
           ? "bg-blue-300 hover:bg-blue-300/80 dark:bg-blue-700 dark:hover:bg-blue-700/80"
           : disabled
           ? "cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-400"
-          : "bg-slate-200 hover:bg-slate-400/80 dark:bg-slate-700 dark:hover:bg-slate-700/80"
+          : "bg-slate-200 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-700/80"
       }`}
       onClick={e => {
         if (!disabled) onClick?.(e)
