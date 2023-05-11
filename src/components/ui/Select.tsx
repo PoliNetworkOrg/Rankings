@@ -15,7 +15,7 @@ export default function Select<T extends string | number>({
   return (
     <select
       value={value}
-      className={`w-full rounded-lg border-none bg-slate-300 p-2 outline-none dark:bg-slate-700 ${className}`}
+      className={`w-full rounded-lg border-none bg-slate-200 p-2 outline-none dark:bg-slate-700 ${className}`}
       {...p}
     >
       {options.map(o => (

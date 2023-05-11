@@ -9,7 +9,8 @@ const MobileContext = createContext<IMobileContext>({
 })
 
 type Props = React.HTMLAttributes<React.ProviderProps<IMobileContext>>
-export function MobileProvier({ ...p }: Props) {
+
+export function MobileProvider({ ...p }: Props) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 
   window.addEventListener("resize", () => {

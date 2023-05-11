@@ -1,7 +1,15 @@
+import {
+  MdOutlineLightMode as LightIcon,
+  MdOutlineDarkMode as DarkIcon
+} from "react-icons/md"
 import { LINKS } from "../utils/constants"
 import logo from "../static/logo3000.webp"
+import { useContext } from "react"
+import DarkModeContext from "../contexts/DarkModeContext"
+import { IconContext } from "react-icons"
 
 export default function Header() {
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
   return (
     <div className="w-full border-b border-slate-800/20 dark:border-slate-300/20">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-2 py-4">
@@ -21,8 +29,14 @@ export default function Header() {
             Graduatorie PoliMi
           </h1>
         </div>
-        <div className="text-right max-sm:flex-[0.25] sm:flex-1">
-          <span>i18n</span>
+        <div className="flex items-center justify-end max-sm:flex-[0.25] sm:flex-1">
+          <IconContext.Provider
+            value={{ size: "2rem", className: "react-icons" }}
+          >
+            <button onClick={toggleDarkMode}>
+              {isDarkMode ? <DarkIcon /> : <LightIcon />}
+            </button>
+          </IconContext.Provider>
         </div>
       </div>
     </div>

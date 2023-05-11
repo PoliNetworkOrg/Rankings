@@ -167,7 +167,7 @@ export default function Viewer() {
                   active={activeCourse}
                   onOptionSelect={o => setActiveCourse(o)}
                   useColumn
-                  className="h-full w-auto overflow-y-auto pb-4 pr-2 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600"
+                  className="h-full w-auto overflow-y-auto pb-4 pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-600"
                 />
               )}
             </div>
@@ -175,7 +175,7 @@ export default function Viewer() {
               className={`${
                 isMobile
                   ? "row-start-3 row-end-4 w-full overflow-x-scroll"
-                  : "row-start-2 row-end-3 overflow-scroll pl-4 pr-2 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600"
+                  : "row-start-2 row-end-3 overflow-scroll pl-4 pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-600"
               } h-full`}
             >
               {filtered ? (
