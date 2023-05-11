@@ -125,10 +125,10 @@ export default function Viewer() {
           />
           <Spacer addMargin />
           <div
-            className={`grid min-h-0 w-full flex-grow items-start ${
+            className={`grid w-full flex-grow items-start ${
               isMobile
                 ? "grid-cols-1 grid-rows-[auto_auto_1fr]"
-                : "grid-cols-[1fr_4fr] grid-rows-[auto_1fr]"
+                : "min-h-0 grid-cols-[1fr_4fr] grid-rows-[auto_1fr] "
             } `}
           >
             <div
@@ -174,7 +174,7 @@ export default function Viewer() {
             <div
               className={`${
                 isMobile
-                  ? "row-start-3 row-end-4 w-full overflow-x-scroll"
+                  ? "row-start-3 row-end-4 w-full overflow-y-visible overflow-x-scroll"
                   : "row-start-2 row-end-3 overflow-scroll pl-4 pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-600"
               } h-full`}
             >
