@@ -1,30 +1,15 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useContext, useEffect, useId, useMemo, useState } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
+import DATA from "../../utils/data/data.json"
+import { School, Structure, TableData } from "../../utils/types"
+import Table from "./Table"
+import Spinner from "../ui/Spinner.tsx"
 import ButtonSelect from "../ui/ButtonSelect"
 import Select from "../ui/Select"
 import Input from "../ui/Input"
 import MobileContext from "../../contexts/MobileContext"
 
-import DATA from "../../utils/data/data.json"
-
-type School = "Ingegneria" | "Architettura" | "Design" | "Urbanistica"
 const ABS_ORDER = "ABSOLUTE ORDER"
-
-type TableData = (string | number)[][]
-type Structure = {
-  school: School
-  years: {
-    year: number
-    phases: {
-      phase: string
-      global: TableData
-      courses: {
-        name: string
-        table: TableData
-      }[]
-    }[]
-  }[]
-}[]
 
 export default function Viewer() {
   const { isMobile } = useContext(MobileContext)
@@ -66,7 +51,7 @@ export default function Viewer() {
   )
 
   const courses = useMemo(() => {
-    const list: { name: string; table: (string | number)[][] }[] = []
+    const list: { name: string; table: TableData }[] = []
     if (global[0].length) list.push({ name: ABS_ORDER, table: global })
 
     const phasesCourses = phases
@@ -92,10 +77,14 @@ export default function Viewer() {
   const [filter, setFilter] = useState<string>("")
   const filtered = courseData?.filter(a => a.join(" ").includes(filter))
 
-  //debug
-  // useEffect(() => {
-  //   console.log({ school, yearsList, phases, courses, coursesList })
-  // }, [coursesList, phases, school, courses, yearsList])
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    if (!activeSchool) return
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
+  }, [activeSchool])
 
   return (
     <div
@@ -110,7 +99,9 @@ export default function Viewer() {
         className="pt-4"
       />
       <Spacer addMargin />
-      {yearsList.length && phases.length && coursesList.length ? (
+      {isLoading ? (
+        <Spinner loading={isLoading} />
+      ) : coursesList.length ? (
         <>
           <ButtonSelect
             options={yearsList}
@@ -191,7 +182,7 @@ export default function Viewer() {
           </div>
         </>
       ) : (
-        <NoData />
+        <></>
       )}
     </div>
   )
@@ -209,175 +200,4 @@ function Spacer({ className = "", addMargin = false, ...p }: SpacerProps) {
       {...p}
     />
   )
-}
-
-interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
-  school: School
-  data: (string | number)[][]
-  isGlobalRanking?: boolean
-}
-function Table({ school, data, isGlobalRanking = false, ...p }: TableProps) {
-  const Th = ({
-    children,
-    ...p
-  }: React.ThHTMLAttributes<HTMLTableCellElement>) => (
-    <th
-      className="max-w-[8rem] border border-slate-800/20 p-1 text-sm dark:border-slate-300/20"
-      {...p}
-    >
-      {children}
-    </th>
-  )
-  const Td = ({
-    children,
-    ...p
-  }: React.TdHTMLAttributes<HTMLTableCellElement>) => (
-    <td
-      className="border border-slate-800/20 p-1 text-center text-sm font-normal dark:border-slate-300/20"
-      {...p}
-    >
-      {children}
-    </td>
-  )
-
-  const id = useId()
-
-  return (
-    <>
-      <table className="mb-2 w-full border-collapse" {...p}>
-        {school === "Design" &&
-          (isGlobalRanking ? (
-            <thead>
-              <tr>
-                <Th>Test Score</Th>
-                <Th>OFA TEST</Th>
-                <Th>Overall Position</Th>
-                <Th>Admitted enroll in (course)</Th>
-              </tr>
-            </thead>
-          ) : (
-            <thead>
-              <tr>
-                <Th rowSpan={2}>Position</Th>
-                <Th rowSpan={2}>Birth Date</Th>
-                <Th rowSpan={2}>Enroll allowed</Th>
-                <Th rowSpan={2}>Test Score</Th>
-                <Th colSpan={6}>Sections Score</Th>
-                <Th rowSpan={2}>Correct ENG Answers</Th>
-                <Th rowSpan={2}>Debit in ENG</Th>
-              </tr>
-              <tr>
-                <Th>Geometry and Representation</Th>
-                <Th>Verbal Comp.</Th>
-                <Th>History of Design and Art</Th>
-                <Th>Logic</Th>
-                <Th>General Culture</Th>
-                <Th>English</Th>
-              </tr>
-            </thead>
-          ))}
-        {school === "Ingegneria" &&
-          (isGlobalRanking ? (
-            <thead>
-              <tr>
-                <Th>Test Score</Th>
-                <Th>OFA TEST</Th>
-                <Th>OFA TENG</Th>
-                <Th>Overall Position</Th>
-                <Th>Admitted enroll in (course)</Th>
-              </tr>
-            </thead>
-          ) : (
-            <thead>
-              <tr>
-                <Th rowSpan={2}>Position</Th>
-                <Th rowSpan={2}>Birth Date</Th>
-                <Th rowSpan={2}>Enroll allowed</Th>
-                <Th rowSpan={2}>Test Score</Th>
-                <Th colSpan={4}>Sections Score</Th>
-                <Th rowSpan={2}>Correct ENG Answers</Th>
-                <Th rowSpan={2}>OFA TEST</Th>
-                <Th rowSpan={2}>OFA TENG</Th>
-              </tr>
-              <tr>
-                <Th>English</Th>
-                <Th>Maths</Th>
-                <Th>Verbal Comp.</Th>
-                <Th>Physics</Th>
-              </tr>
-            </thead>
-          ))}
-        {school === "Architettura" &&
-          (isGlobalRanking ? (
-            <thead>
-              <tr>
-                <Th>Test Score</Th>
-                <Th>OFA TENG</Th>
-                <Th>Overall Position</Th>
-                <Th>Status</Th>
-              </tr>
-            </thead>
-          ) : (
-            <thead>
-              <tr>
-                <Th rowSpan={2}>Position</Th>
-                <Th rowSpan={2}>Birth Date</Th>
-                <Th rowSpan={2}>Enroll allowed</Th>
-                <Th rowSpan={2}>Test Score</Th>
-                <Th colSpan={5}>Sections Score</Th>
-              </tr>
-              <tr>
-                <Th>General Culture</Th>
-                <Th>Logic</Th>
-                <Th>History</Th>
-                <Th>Drawing and Representation</Th>
-                <Th>Physics and Maths</Th>
-              </tr>
-            </thead>
-          ))}
-        {school === "Urbanistica" &&
-          (isGlobalRanking ? (
-            <thead>
-              <tr>
-                <Th>Test Score</Th>
-                <Th>Overall Position</Th>
-                <Th>Admitted enroll in (course)</Th>
-              </tr>
-            </thead>
-          ) : (
-            <thead>
-              <tr>
-                <Th rowSpan={2}>Position</Th>
-                <Th rowSpan={2}>Birth Date</Th>
-                <Th rowSpan={2}>Enroll allowed</Th>
-                <Th rowSpan={2}>Test Score</Th>
-                <Th colSpan={6}>Sections Score</Th>
-              </tr>
-              <tr>
-                <Th>Interview</Th>
-                <Th>Composition</Th>
-                <Th>Motivational Letter</Th>
-              </tr>
-            </thead>
-          ))}
-        <tbody>
-          {data.length ? (
-            data.map((row, x) => (
-              <tr key={`${id}-${x}`}>
-                {row.map((value, y) => (
-                  <Td key={`${id}-${x}-${y}`}>{value}</Td>
-                ))}
-              </tr>
-            ))
-          ) : (
-            <Td colSpan={20}>No data found</Td>
-          )}
-        </tbody>
-      </table>
-    </>
-  )
-}
-
-function NoData() {
-  return <p>No data available</p>
 }
