@@ -1,16 +1,22 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useContext, useEffect, useMemo, useState } from "react"
+import ReactPaginate from "react-paginate"
+import {
+  MdNavigateBefore as PrevIcon,
+  MdNavigateNext as NextIcon
+} from "react-icons/md"
 import DATA from "../../utils/data/data.json"
 import Store from "../../utils/data/data.ts"
 import { Course, Phase, School, Structure, TableData } from "../../utils/types"
 import Table from "./Table"
 import Spinner from "../ui/Spinner.tsx"
-import ButtonSelect from "../ui/ButtonSelect"
-import Select from "../ui/Select"
 import Input from "../ui/Input"
 import MobileContext from "../../contexts/MobileContext"
 import useFilter from "../../hooks/useFilter.tsx"
 import EnrollStats from "./EnrollStats.tsx"
+import Page from "../ui/Page.tsx"
+import usePaginate from "../../hooks/usePaginate.ts"
+import DynamicSelect, { ButtonSelect } from "../ui/DynamicSelect.tsx"
 
 const ABS_ORDER = "ABSOLUTE ORDER"
 
@@ -104,50 +110,58 @@ export default function Viewer() {
     }, 500)
   }, [activeSchool])
 
+  const { rows, pageCount, handlePageClick } = usePaginate<TableData>({
+    data: filteredData,
+    itemsPerPage: 400
+  })
+
   // here starts data analysis
   const enrollStats = Store.enrollStats(table)
 
   return (
-    <div
-      className={`relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center ${
-        isMobile ? "overflow-y-auto overflow-x-hidden" : "overflow-hidden"
-      } px-2`}
+    <Page
+      className={`px-2 ${
+        isMobile
+          ? "overflow-y-auto overflow-x-hidden"
+          : "max-h-screen overflow-hidden"
+      }`}
+      paddingTop={false}
     >
       <ButtonSelect
         options={schools.sort()}
-        active={activeSchool}
+        value={activeSchool}
         onOptionSelect={o => setActiveSchool(o)}
         className="pt-4"
       />
-      <Spacer addMargin />
+      <Spacer addMargin="y" />
       {isLoading ? (
         <Spinner loading={isLoading} />
       ) : coursesList.length ? (
         <>
-          <ButtonSelect
-            options={yearsList}
-            active={activeYear}
-            onOptionSelect={o => setActiveYear(o)}
+          <DynamicSelect
+            options={yearsList.map(y => y.toString())}
+            value={activeYear.toString()}
+            onOptionSelect={o => setActiveYear(parseInt(o))}
           />
-          <Spacer addMargin />
-          <ButtonSelect
+          <Spacer addMargin="y" />
+          <DynamicSelect
             options={phasesList}
-            active={activePhase}
+            value={activePhase}
             onOptionSelect={o => setActivePhase(o)}
           />
-          <Spacer addMargin />
+          <Spacer addMargin="y" />
           <div
             className={`grid w-full flex-grow items-start ${
               isMobile
                 ? "grid-cols-1 grid-rows-[auto_auto_1fr]"
-                : "min-h-0 grid-cols-[1fr_4fr] grid-rows-[auto_1fr] "
+                : "min-h-0 grid-cols-[1fr_4fr] grid-rows-[auto_1fr_auto] "
             } `}
           >
             <div
               className={
                 isMobile
                   ? "sticky top-[-1px] row-start-2 row-end-3 bg-white py-4 dark:bg-slate-900"
-                  : "col-start-2 col-end-3 row-start-1 px-4 pb-4"
+                  : "col-start-2 col-end-3 row-start-1 pb-4 pl-4"
               }
             >
               <EnrollStats stats={enrollStats} />
@@ -161,44 +175,53 @@ export default function Viewer() {
               className={`${
                 isMobile
                   ? "row-start-1 row-end-2"
-                  : "row-start-1 row-end-3 border-r border-slate-800/20 pr-1 dark:border-slate-300/20"
+                  : "row-start-1 row-end-4 border-r border-slate-800/20 pr-2 dark:border-slate-300/20"
               } h-full w-auto`}
             >
-              {isMobile ? (
-                <>
-                  <Select
-                    options={coursesList}
-                    value={activeCourse}
-                    onChange={e => setActiveCourse(e.currentTarget.value)}
-                    className="mb-4"
-                  />
-                  <Spacer />
-                </>
-              ) : (
-                <ButtonSelect
-                  options={coursesList}
-                  active={activeCourse}
-                  onOptionSelect={o => setActiveCourse(o)}
-                  useColumn
-                  className="h-full w-auto overflow-y-auto pb-4 pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-600"
-                />
-              )}
+              <DynamicSelect
+                options={coursesList}
+                value={activeCourse}
+                onOptionSelect={setActiveCourse}
+                useColumn
+              />
+              {isMobile && <Spacer addMargin="top" />}
             </div>
             <div
               className={`${
                 isMobile
-                  ? "row-start-3 row-end-4 w-full overflow-y-visible overflow-x-scroll"
-                  : "row-start-2 row-end-3 overflow-scroll pl-4 pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-600"
-              } h-full`}
+                  ? "row-start-3 row-end-4 w-full overflow-x-auto"
+                  : "row-start-2 row-end-3 overflow-y-auto overflow-x-hidden pl-4 pr-2"
+              } h-full scrollbar-thin`}
             >
               {filteredData ? (
                 <Table
                   isGlobalRanking={activeCourse === ABS_ORDER}
                   school={activeSchool as School}
-                  data={filteredData}
+                  data={rows}
                 />
               ) : (
                 <p>Data not available for this year</p>
+              )}
+            </div>
+            <div
+              className={`${
+                isMobile
+                  ? "row-start-4 row-end-5 w-full"
+                  : "row-start-3 row-end-4 overflow-y-auto overflow-x-hidden pl-4 pr-2"
+              } h-full scrollbar-thin`}
+            >
+              {pageCount > 1 && (
+                <ReactPaginate
+                  pageCount={pageCount}
+                  onPageChange={handlePageClick}
+                  renderOnZeroPageCount={null}
+                  breakLabel="..."
+                  pageRangeDisplayed={1}
+                  marginPagesDisplayed={2}
+                  className="react-paginate mx-auto my-4"
+                  previousLabel={<PrevIcon className="inline-flex" size={24} />}
+                  nextLabel={<NextIcon className="inline-flex" size={24} />}
+                />
               )}
             </div>
           </div>
@@ -206,19 +229,23 @@ export default function Viewer() {
       ) : (
         <></>
       )}
-    </div>
+    </Page>
   )
 }
 
 interface SpacerProps extends React.HTMLAttributes<HTMLHRElement> {
-  addMargin?: boolean
+  addMargin?: "top" | "bottom" | "y" | "none"
 }
-function Spacer({ className = "", addMargin = false, ...p }: SpacerProps) {
+function Spacer({ className = "", addMargin = "none", ...p }: SpacerProps) {
+  const margin =
+    (addMargin === "y" && "my-4") ||
+    (addMargin === "top" && "mt-4") ||
+    (addMargin === "bottom" && "mb-4") ||
+    (addMargin === "none" && "")
+
   return (
     <hr
-      className={`w-full border-slate-800/20 dark:border-slate-300/20 ${
-        addMargin ? "my-4" : ""
-      } ${className}`}
+      className={`w-full border-slate-800/20 dark:border-slate-300/20 ${margin} ${className}`}
       {...p}
     />
   )

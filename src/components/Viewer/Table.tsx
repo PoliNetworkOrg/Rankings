@@ -43,11 +43,6 @@ export default function Table({
 }: TableProps) {
   const id = useId()
 
-  const { rows, pageCount, handlePageClick } = usePaginate<TableData>({
-    data,
-    itemsPerPage: 400
-  })
-
   return (
     <>
       <table className="mb-2 w-full border-collapse" {...p}>
@@ -57,8 +52,8 @@ export default function Table({
           isGlobalRanking={isGlobalRanking}
         />
         <tbody>
-          {rows.length ? (
-            rows.map((row, x) => (
+          {data.length ? (
+            data.map((row, x) => (
               <tr key={`${id}-${x}`}>
                 {row.map((value, y) => (
                   <Td key={`${id}-${x}-${y}`}>{value}</Td>
@@ -72,16 +67,6 @@ export default function Table({
           )}
         </tbody>
       </table>
-      {pageCount > 1 && (
-        <ReactPaginate
-          pageCount={pageCount}
-          onPageChange={handlePageClick}
-          renderOnZeroPageCount={null}
-          className="react-paginate my-4"
-          previousLabel={<PrevIcon className="inline-flex" size={24} />}
-          nextLabel={<NextIcon className="inline-flex" size={24} />}
-        />
-      )}
     </>
   )
 }

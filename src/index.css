@@ -3,25 +3,26 @@
 @tailwind utilities;
 
 ul.react-paginate {
-  @apply max-w-sm sm:max-w-full flex justify-center items-center min-h-0 gap-4
+  @apply max-w-sm sm:max-w-full flex justify-center items-center min-h-0 max-sm:gap-2 gap-4;
 }
 
 ul.react-paginate li a {
-  @apply py-2 px-3 cursor-pointer bg-slate-200 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-700/80 rounded-lg select-none
+  @apply py-2 px-3 cursor-pointer bg-slate-200 hover:bg-slate-300/80 dark:bg-slate-700 dark:hover:bg-slate-700/80 rounded-lg select-none;
 }
 
 ul.react-paginate li.previous a,
 ul.react-paginate li.next a,
 ul.react-paginate li.break a {
-  @apply px-2
+  @apply px-2;
 }
 ul.react-paginate li.selected a {
-  @apply bg-blue-300 hover:bg-blue-300/80 dark:bg-blue-700 dark:hover:bg-blue-700/80
+  @apply bg-blue-300 hover:bg-blue-300/80 dark:bg-blue-700 dark:hover:bg-blue-700/80;
 }
 ul.react-paginate li.disabled a {
-  @apply cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-400 
+  @apply cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-400;
 }
 ul.react-paginate li.disable,
 ul.react-paginate li.disabled a {
   cursor: default;
 }
+
