@@ -62,7 +62,9 @@ export default function Table({
               </tr>
             ))
           ) : (
-            <Td colSpan={20}>No data found</Td>
+            <tr>
+              <Td colSpan={20}>No data found</Td>
+            </tr>
           )}
         </tbody>
       </table>
