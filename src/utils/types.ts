@@ -20,3 +20,10 @@ export type Structure = {
     phases: Phase[]
   }[]
 }[]
+
+export type EnrollStats = {
+  candidates: number
+  allowed: number
+  allowedPct: string
+  minScoreToPass: number
+} | null

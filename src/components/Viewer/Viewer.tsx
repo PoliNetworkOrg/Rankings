@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useContext, useEffect, useMemo, useState } from "react"
 import DATA from "../../utils/data/data.json"
+import Store from "../../utils/data/data.ts"
 import { Course, Phase, School, Structure, TableData } from "../../utils/types"
 import Table from "./Table"
 import Spinner from "../ui/Spinner.tsx"
@@ -9,13 +10,15 @@ import Select from "../ui/Select"
 import Input from "../ui/Input"
 import MobileContext from "../../contexts/MobileContext"
 import useFilter from "../../hooks/useFilter.tsx"
+import EnrollStats from "./EnrollStats.tsx"
 
 const ABS_ORDER = "ABSOLUTE ORDER"
 
 export default function Viewer() {
   const { isMobile } = useContext(MobileContext)
+  const store = new Store(DATA as Structure)
+  const data = store.data
 
-  const data: Structure = DATA as Structure
   const schools: School[] = data.map(v => v.school)
   const [activeSchool, setActiveSchool] = useState<School>(schools[0])
   const school = data.find(v => v.school === activeSchool)!
@@ -101,6 +104,9 @@ export default function Viewer() {
     }, 500)
   }, [activeSchool])
 
+  // here starts data analysis
+  const enrollStats = Store.enrollStats(table)
+
   return (
     <div
       className={`relative mx-auto flex w-full max-w-7xl flex-1 flex-col items-center ${
@@ -144,6 +150,7 @@ export default function Viewer() {
                   : "col-start-2 col-end-3 row-start-1 px-4 pb-4"
               }
             >
+              <EnrollStats stats={enrollStats} />
               <Input
                 value={filterValue}
                 onValue={updateFilter}
