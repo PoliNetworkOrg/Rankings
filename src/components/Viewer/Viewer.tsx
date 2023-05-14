@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useContext, useEffect, useMemo, useState } from "react"
 import DATA from "../../utils/data/data.json"
-import { School, Structure, TableData } from "../../utils/types"
+import { Course, Phase, School, Structure, TableData } from "../../utils/types"
 import Table from "./Table"
 import Spinner from "../ui/Spinner.tsx"
 import ButtonSelect from "../ui/ButtonSelect"
@@ -15,8 +15,8 @@ export default function Viewer() {
   const { isMobile } = useContext(MobileContext)
 
   const data: Structure = DATA as Structure
-  const schools: string[] = data.map(v => v.school)
-  const [activeSchool, setActiveSchool] = useState<string>(schools[0])
+  const schools: School[] = data.map(v => v.school)
+  const [activeSchool, setActiveSchool] = useState<School>(schools[0])
   const school = data.find(v => v.school === activeSchool)!
 
   const yearsList = school.years.map(y => y.year).sort((a, b) => b - a)
@@ -32,8 +32,11 @@ export default function Viewer() {
 
   const yearData = school.years.find(y => y.year === activeYear)
 
-  const phases = useMemo(() => (yearData ? yearData.phases : []), [yearData])
-  const phasesList = phases.map(p => p.phase).sort()
+  const phases: Phase[] = useMemo(
+    () => (yearData ? yearData.phases : []),
+    [yearData]
+  )
+  const phasesList: string[] = phases.map(p => p.phase).sort()
   const [activePhase, setActivePhase] = useState<string>(
     phasesList.length > 0 ? phasesList[0] : ""
   )
@@ -43,30 +46,35 @@ export default function Viewer() {
     }
   }, [activePhase, phases, phasesList])
 
-  const phaseData = phases.find(p => p.phase === activePhase)
+  const phaseData: Phase | undefined = phases.find(p => p.phase === activePhase)
 
   const global = useMemo(
     () => (phaseData ? phaseData.global : [[]]),
     [phaseData]
   )
 
-  const courses = useMemo(() => {
-    const list: { name: string; table: TableData }[] = []
-    if (global[0].length) list.push({ name: ABS_ORDER, table: global })
+  const courses: Course[] = useMemo(() => {
+    const courses: Course[] = []
+    if (global[0].length) courses.push({ name: ABS_ORDER, table: global })
 
-    const phasesCourses = phases
+    // add courses from current phase
+    phases
       ?.find(v => v.phase === activePhase)
       ?.courses.filter(c => c.table[0].length) // only course with data
+      ?.map(c => courses.push(c))
 
-    phasesCourses?.map(c => list.push(c))
-    return list
+    return courses
   }, [activePhase, global, phases])
 
-  const coursesList = useMemo(() => courses?.map(c => c.name), [courses])
+  const coursesList: string[] = useMemo(
+    () => courses.map(c => c.name),
+    [courses]
+  )
   const [activeCourse, setActiveCourse] = useState<string>(
     coursesList.length ? coursesList[0] : ""
   )
-  const courseData = courses?.find(c => c.name === activeCourse)?.table
+  const table: TableData =
+    courses.find(c => c.name === activeCourse)?.table ?? []
 
   useEffect(() => {
     if (coursesList.length && !coursesList.includes(activeCourse)) {
@@ -75,9 +83,10 @@ export default function Viewer() {
   }, [activeCourse, coursesList])
 
   const [filter, setFilter] = useState<string>("")
-  const filtered = courseData?.filter(a => a.join(" ").includes(filter))
+  const filtered: TableData =
+    table.filter(a => a.join(" ").includes(filter)) ?? []
 
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   useEffect(() => {
     if (!activeSchool) return
     setIsLoading(true)

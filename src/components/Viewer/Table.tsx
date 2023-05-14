@@ -43,7 +43,7 @@ export default function Table({
 }: TableProps) {
   const id = useId()
 
-  const { rows, pageCount, handlePageClick } = usePaginate({
+  const { rows, pageCount, handlePageClick } = usePaginate<TableData>({
     data,
     itemsPerPage: 400
   })
