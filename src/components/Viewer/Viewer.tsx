@@ -8,6 +8,7 @@ import ButtonSelect from "../ui/ButtonSelect"
 import Select from "../ui/Select"
 import Input from "../ui/Input"
 import MobileContext from "../../contexts/MobileContext"
+import useFilter from "../../hooks/useFilter.tsx"
 
 const ABS_ORDER = "ABSOLUTE ORDER"
 
@@ -82,9 +83,14 @@ export default function Viewer() {
     }
   }, [activeCourse, coursesList])
 
-  const [filter, setFilter] = useState<string>("")
-  const filtered: TableData =
-    table.filter(a => a.join(" ").includes(filter)) ?? []
+  const { filterValue, filtered, updateFilter } = useFilter<TableData>({
+    data: table,
+    delay: 200,
+    filterFunction: (table, filter) =>
+      table.filter(a =>
+        a.join(" ").toLowerCase().includes(filter.toLowerCase())
+      )
+  })
 
   const [isLoading, setIsLoading] = useState<boolean>(true)
   useEffect(() => {
@@ -139,8 +145,8 @@ export default function Viewer() {
               }
             >
               <Input
-                value={filter}
-                onValue={v => setFilter(v)}
+                value={filterValue}
+                onValue={updateFilter}
                 placeholder="Filter..."
               />
             </div>
