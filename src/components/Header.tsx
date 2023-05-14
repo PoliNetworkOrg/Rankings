@@ -11,7 +11,7 @@ import { IconContext } from "react-icons"
 export default function Header() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
   return (
-    <div className="w-full border-b border-slate-800/20 dark:border-slate-300/20">
+    <header className="w-full border-b border-slate-800/20 dark:border-slate-300/20">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-2 py-4">
         <div className="max-sm:flex-[0.25] sm:flex-1">
           <a
@@ -39,6 +39,6 @@ export default function Header() {
           </IconContext.Provider>
         </div>
       </div>
-    </div>
+    </header>
   )
 }
