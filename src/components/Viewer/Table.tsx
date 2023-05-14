@@ -51,7 +51,11 @@ export default function Table({
   return (
     <>
       <table className="mb-2 w-full border-collapse" {...p}>
-        <TableHeader school={school} isGlobalRanking={isGlobalRanking} />
+        <TableHeader
+          colNum={data[0].length || 0}
+          school={school}
+          isGlobalRanking={isGlobalRanking}
+        />
         <tbody>
           {rows.length ? (
             rows.map((row, x) => (
@@ -85,9 +89,10 @@ export default function Table({
 interface TableHeaderProps
   extends React.HTMLAttributes<HTMLTableSectionElement> {
   school: School
+  colNum: number
   isGlobalRanking?: boolean
 }
-function TableHeader({ isGlobalRanking, school }: TableHeaderProps) {
+function TableHeader({ isGlobalRanking, school, colNum }: TableHeaderProps) {
   return (
     <thead>
       {school === "Design" &&
@@ -105,7 +110,7 @@ function TableHeader({ isGlobalRanking, school }: TableHeaderProps) {
               <Th rowSpan={2}>Birth Date</Th>
               <Th rowSpan={2}>Enroll allowed</Th>
               <Th rowSpan={2}>Test Score</Th>
-              <Th colSpan={6}>Sections Score</Th>
+              <Th colSpan={colNum > 11 ? 6 : 5}>Sections Score</Th>
               <Th rowSpan={2}>Correct ENG Answers</Th>
               <Th rowSpan={2}>Debit in ENG</Th>
             </tr>
@@ -115,7 +120,7 @@ function TableHeader({ isGlobalRanking, school }: TableHeaderProps) {
               <Th>History of Design and Art</Th>
               <Th>Logic</Th>
               <Th>General Culture</Th>
-              <Th>English</Th>
+              {colNum > 11 && <Th>English</Th>}
             </tr>
           </>
         ))}
@@ -164,6 +169,12 @@ function TableHeader({ isGlobalRanking, school }: TableHeaderProps) {
               <Th rowSpan={2}>Enroll allowed</Th>
               <Th rowSpan={2}>Test Score</Th>
               <Th colSpan={5}>Sections Score</Th>
+              {colNum === 11 && (
+                <>
+                  <Th rowSpan={2}>Correct ENG Answers</Th>
+                  <Th rowSpan={2}>OFA TENG</Th>
+                </>
+              )}
             </tr>
             <tr>
               <Th>General Culture</Th>
