@@ -83,7 +83,7 @@ export default function Viewer() {
     }
   }, [activeCourse, coursesList])
 
-  const { filterValue, filtered, updateFilter } = useFilter<TableData>({
+  const { filterValue, filteredData, updateFilter } = useFilter<TableData>({
     data: table,
     delay: 200,
     filterFunction: (table, filter) =>
@@ -184,11 +184,11 @@ export default function Viewer() {
                   : "row-start-2 row-end-3 overflow-scroll pl-4 pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-600"
               } h-full`}
             >
-              {filtered ? (
+              {filteredData ? (
                 <Table
                   isGlobalRanking={activeCourse === ABS_ORDER}
                   school={activeSchool as School}
-                  data={filtered}
+                  data={filteredData}
                 />
               ) : (
                 <p>Data not available for this year</p>
