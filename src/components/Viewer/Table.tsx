@@ -1,11 +1,5 @@
 import { useId } from "react"
-import ReactPaginate from "react-paginate"
-import {
-  MdNavigateBefore as PrevIcon,
-  MdNavigateNext as NextIcon
-} from "react-icons/md"
 import { School, TableData } from "../../utils/types"
-import usePaginate from "../../hooks/usePaginate"
 
 const Th = ({
   children,
@@ -44,7 +38,7 @@ export default function Table({
   const id = useId()
 
   return (
-    <table className="mb-[1px] w-full border-collapse" {...p}>
+    <table className="relative mb-[1px] w-full border-collapse" {...p}>
       <TableHeader
         colNum={data[0].length || 0}
         school={school}
@@ -77,7 +71,7 @@ interface TableHeaderProps
 }
 function TableHeader({ isGlobalRanking, school, colNum }: TableHeaderProps) {
   return (
-    <thead>
+    <thead className="sticky top-[-1px] z-10 bg-slate-200 dark:bg-slate-800">
       {school === "Design" &&
         (isGlobalRanking ? (
           <tr>
