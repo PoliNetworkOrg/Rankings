@@ -44,30 +44,28 @@ export default function Table({
   const id = useId()
 
   return (
-    <>
-      <table className="mb-[1px] w-full border-collapse" {...p}>
-        <TableHeader
-          colNum={data[0].length || 0}
-          school={school}
-          isGlobalRanking={isGlobalRanking}
-        />
-        <tbody>
-          {data.length ? (
-            data.map((row, x) => (
-              <tr key={`${id}-${x}`}>
-                {row.map((value, y) => (
-                  <Td key={`${id}-${x}-${y}`}>{value}</Td>
-                ))}
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <Td colSpan={20}>No data found</Td>
+    <table className="mb-[1px] w-full border-collapse" {...p}>
+      <TableHeader
+        colNum={data[0].length || 0}
+        school={school}
+        isGlobalRanking={isGlobalRanking}
+      />
+      <tbody>
+        {data.length ? (
+          data.map((row, x) => (
+            <tr key={`${id}-${x}`}>
+              {row.map((value, y) => (
+                <Td key={`${id}-${x}-${y}`}>{value}</Td>
+              ))}
             </tr>
-          )}
-        </tbody>
-      </table>
-    </>
+          ))
+        ) : (
+          <tr>
+            <Td colSpan={20}>No data found</Td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   )
 }
 
