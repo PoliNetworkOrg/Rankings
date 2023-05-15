@@ -45,7 +45,7 @@ export default function Table({
 
   return (
     <>
-      <table className="mb-2 w-full border-collapse" {...p}>
+      <table className="mb-[1px] w-full border-collapse" {...p}>
         <TableHeader
           colNum={data[0].length || 0}
           school={school}

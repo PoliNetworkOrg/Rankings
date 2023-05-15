@@ -74,7 +74,7 @@ export function ButtonSelect<T extends string>({
     <div
       className={`${
         useColumn
-          ? "h-full w-auto flex-col justify-start overflow-y-auto scrollbar-thin pr-2"
+          ? "h-full w-auto flex-col justify-start overflow-y-auto pr-2 scrollbar-thin"
           : "justify-center"
       } flex w-full gap-4 max-sm:flex-wrap ${className}`}
       {...p}
