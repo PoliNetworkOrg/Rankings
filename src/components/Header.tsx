@@ -25,9 +25,7 @@ export default function Header() {
           </a>
         </div>
         <div className="flex-1 text-center">
-          <h1 className="text-2xl font-bold max-md:text-xl">
-            Graduatorie PoliMi
-          </h1>
+          <h1 className="text-2xl font-bold max-md:text-xl">Rankings</h1>
         </div>
         <div className="flex items-center justify-end max-sm:flex-[0.25] sm:flex-1">
           <IconContext.Provider
