@@ -123,7 +123,7 @@ export default function Viewer() {
       className={`px-2 ${
         isMobile
           ? "overflow-y-auto overflow-x-hidden"
-          : "max-h-screen overflow-hidden"
+          : "max-h-[calc(100vh-97px)] overflow-hidden"
       }`}
     >
       <ButtonSelect
