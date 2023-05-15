@@ -125,13 +125,11 @@ export default function Viewer() {
           ? "overflow-y-auto overflow-x-hidden"
           : "max-h-screen overflow-hidden"
       }`}
-      paddingTop={false}
     >
       <ButtonSelect
         options={schools.sort()}
         value={activeSchool}
         onOptionSelect={o => setActiveSchool(o)}
-        className="pt-4"
       />
       <Spacer addMargin="y" />
       {isLoading ? (
@@ -160,7 +158,7 @@ export default function Viewer() {
             <div
               className={
                 isMobile
-                  ? "sticky top-[-1px] row-start-2 row-end-3 bg-white py-4 dark:bg-slate-900"
+                  ? "sticky top-[-1px] row-start-2 row-end-3 bg-white py-3 dark:bg-slate-900"
                   : "col-start-2 col-end-3 row-start-1 pb-4 pl-4"
               }
             >
@@ -238,9 +236,9 @@ interface SpacerProps extends React.HTMLAttributes<HTMLHRElement> {
 }
 function Spacer({ className = "", addMargin = "none", ...p }: SpacerProps) {
   const margin =
-    (addMargin === "y" && "my-4") ||
-    (addMargin === "top" && "mt-4") ||
-    (addMargin === "bottom" && "mb-4") ||
+    (addMargin === "y" && "my-4 max-md:my-3") ||
+    (addMargin === "top" && "mt-4 max-md:mt-3") ||
+    (addMargin === "bottom" && "mb-4 max-md:mb-3") ||
     (addMargin === "none" && "")
 
   return (

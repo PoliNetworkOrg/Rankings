@@ -15,7 +15,7 @@ export default function Page({
       className={`relative ${
         fullWidth ? "max-w-full" : "mx-auto max-w-7xl"
       } flex w-full flex-1 flex-col items-center px-2 ${
-        paddingTop ? "py-4" : "pb-4"
+        paddingTop ? "py-4 max-sm:py-3" : "pb-4 max-sm:pb-3"
       } ${className}`}
     >
       {children}

@@ -76,7 +76,7 @@ export function ButtonSelect<T extends string>({
         useColumn
           ? "h-full w-auto flex-col justify-start overflow-y-auto pr-2 scrollbar-thin"
           : "justify-center"
-      } flex w-full gap-4 max-sm:flex-wrap ${className}`}
+      } flex w-full gap-4 max-sm:gap-3 max-sm:flex-wrap ${className}`}
       {...p}
     >
       {options.map((o, i) => (
