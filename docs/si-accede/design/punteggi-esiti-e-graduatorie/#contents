@@ -90,7 +90,9 @@
             che contiene le opzioni ereditate da polimi_2018
              TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-header frame-layout-0" id="c65915"><header><h1 class="">
                 Futuri studenti
-            </h1></header></div><div class="container cce-row" id="c65911"><div class="flexitems rowitems"><div class="item"><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            </h1></header></div><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-text frame-layout-0" id="c74668"><p class="mybutton"><a href="/futuri-studenti/ammissione-ai-corsi-di-laurea/architettura"><strong>TEST DI ARCHITETTURA: 26 LUGLIO 2023</strong></a></p></div><div class="container cce-row" id="c65911"><div class="flexitems rowitems"><div class="item"><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
             che contiene le opzioni ereditate da polimi_2018
              TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-textmedia frame-layout-0" id="c65908"><header><h3 class="">
                 Offerta formativa
