@@ -23,7 +23,6 @@
 <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" type="text/javascript"></script>
 <script src="/typo3conf/ext/sitepackage/Resources/Public/Bootstrap/js/bootstrap.min.js?1682578572" type="text/javascript"></script>
 <script async="async" src="//platform-api.sharethis.com/js/sharethis.js#property=5a858f9b225fbd0013ea3f7c&amp;product=custom-share-buttons'" type="text/javascript"></script>
-<link href="/it/lista-news?tx_news_pi1%5B%40widget_0%5D%5BcurrentPage%5D=2&amp;cHash=2cdd23fa835f72cca87d4ddd751dc2b6" rel="next">
 <script type="text/javascript">
           var _paq = window._paq = window._paq || [];
           /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -42,7 +41,7 @@
 <link href="https://www.design.polimi.it/en/news-list" hreflang="en-US" rel="alternate">
 <link href="https://www.design.polimi.it/it/lista-news" hreflang="x-default" rel="alternate">
 <link href="https://www.design.polimi.it/it/lista-news" rel="canonical">
-</link></link></link></link></link></meta></head>
+</link></link></link></link></meta></head>
 <body>
 <div class="container-fluid p-0">
 <header class="header">
@@ -1144,28 +1143,12 @@
 </div>
 <div class="frame frame-default frame-type-list frame-layout-0" id="c28"><header><h2 class="ce-headline-center">
 				Lista News
-			</h2></header><div class="news news_list"><!--TYPO3SEARCH_end--><div class="news-list-view evidenzalist" id="news-container-28"><div class="page-navigation"><p>
-				Page 1 of 2.
-			</p><ul class="f3-widget-paginator"><li class="current">1</li><li><a href="/it/lista-news?tx_news_pi1%5B%40widget_0%5D%5BcurrentPage%5D=2&amp;cHash=2cdd23fa835f72cca87d4ddd751dc2b6">2</a></li><li class="last next"><a href="/it/lista-news?tx_news_pi1%5B%40widget_0%5D%5BcurrentPage%5D=2&amp;cHash=2cdd23fa835f72cca87d4ddd751dc2b6">
-							Next
-						</a></li></ul></div><div class="news-clear"></div><!--
+			</h2></header><div class="news news_list"><!--TYPO3SEARCH_end--><div class="news-list-view evidenzalist" id="news-container-28"><!--
 	=====================
 		Partials/List/Item.html
 --><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=783&amp;cHash=4ff129380aaab075e7aa704654953195" title="Trasferimenti da altri Atenei ai corsi di Laurea della Scuola del Design A.A. 2023/2024"><i class="fa fa-angle-right"><span class="title">
 						
 						Trasferimenti da altri Atenei ai corsi di Laurea della Scuola del Design A.A. 2023/2024
-					</span></i></a></h4></span></i><!--
-	=====================
-		Partials/List/Item.html
---><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=752&amp;cHash=3acfa6f7e9711ac66ef2398ba87f535c" title="Prove audio-video laureandi maggio"><i class="fa fa-angle-right"><span class="title">
-						
-						Prove audio-video laureandi maggio
-					</span></i></a></h4></span></i><!--
-	=====================
-		Partials/List/Item.html
---><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=748&amp;cHash=48335ed86eff8e021eeb851a54083e49" title="BORSE DI STUDIO &quot;TESI ALL'ESTERO&quot;"><i class="fa fa-angle-right"><span class="title">
-						
-						BORSE DI STUDIO "TESI ALL'ESTERO"
 					</span></i></a></h4></span></i><!--
 	=====================
 		Partials/List/Item.html
@@ -1208,11 +1191,13 @@
 --><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=602&amp;cHash=d2eff80464a532992bc9f4d2f7f724fc" title="Posti disponibili Corsi a scelta Laurea Triennale"><i class="fa fa-angle-right"><span class="title">
 						
 						Posti disponibili Corsi a scelta Laurea Triennale
-					</span></i></a></h4></span></i><div class="page-navigation"><p>
-				Page 1 of 2.
-			</p><ul class="f3-widget-paginator"><li class="current">1</li><li><a href="/it/lista-news?tx_news_pi1%5B%40widget_0%5D%5BcurrentPage%5D=2&amp;cHash=2cdd23fa835f72cca87d4ddd751dc2b6">2</a></li><li class="last next"><a href="/it/lista-news?tx_news_pi1%5B%40widget_0%5D%5BcurrentPage%5D=2&amp;cHash=2cdd23fa835f72cca87d4ddd751dc2b6">
-							Next
-						</a></li></ul></div><div class="news-clear"></div></div><!--TYPO3SEARCH_begin--></div></div>
+					</span></i></a></h4></span></i><!--
+	=====================
+		Partials/List/Item.html
+--><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=591&amp;cHash=7989f3ec82e987f74a13e625acee64db" title="Ambassador Scuola del Design - Corsi attivati A.A. 2022-23"><i class="fa fa-angle-right"><span class="title">
+						
+						Ambassador Scuola del Design - Corsi attivati A.A. 2022-23
+					</span></i></a></h4></span></i></div><!--TYPO3SEARCH_begin--></div></div>
 </div>
 <div class="fa socialIcons" data-section-menu="Social Networks" id="socialNetworks"><a href="https://www.youtube.com/polimi" title="PoliMyTube il canale youtube del Politecnico di Milano"><i class="fa youtube"><span class="screenReader">Youtube</span></i></a><a href="https://www.facebook.com/polimi" title="PoliMi on Facebook"><i class="fa facebook"><span class="screenReader">Facebook</span></i></a><a href="https://twitter.com/polimi" title="PoliMi on Twitter"><i class="fa twitter"><span class="screenReader">Twitter</span></i></a><a href="https://podcasts.apple.com/it/artist/politecnico-di-milano/1280589395" title="PoliMi on iTunes U"><i class="fa itunesU"><span class="screenReader">iTunes U</span></i></a><a href="https://www.instagram.com/polimi" title="PoliMi on Instagram"><i class="fa instagram"><span class="screenReader">Instagrram</span></i></a><a href="https://it.linkedin.com/edu/politecnico-di-milano-13843" title="PoliMi on LinkedIn"><i class="fa linkedin"><span class="screenReader">LinkedIn</span></i></a></div>
 <div class="foot"><span class="address">Piazza Leonardo da Vinci 32, 20133 Milano</span><span class="here"><a href="/it/footer/dove-siamo"><i class="fa fa-map-marker fa-stack-2x"><span class="dove">Dove Siamo</span></i></a></span>
