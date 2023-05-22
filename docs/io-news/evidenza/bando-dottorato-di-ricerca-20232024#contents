@@ -66,21 +66,6 @@
 <link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-152x152-precomposed.png" rel="apple-touch-icon-precomposed" sizes="152x152"/>
 <link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/167x167.png" rel="apple-touch-icon" sizes="167x167"/>
 <link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/180x180.png" rel="apple-touch-icon" sizes="180x180"/>
-<!-- Matomo -->
-<script>
-  var _paq = window._paq = window._paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="https://polimiapp.matomo.cloud/";
-    _paq.push(['setTrackerUrl', u+'matomo.php']);
-    _paq.push(['setSiteId', '3']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.async=true; g.src='//cdn.matomo.cloud/polimiapp.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Matomo Code -->
 <link href="/in-evidenza/dettaglio-news/evidenza/bando-dottorato-di-ricerca-20232024" rel="canonical">
 <link href="/in-evidenza/dettaglio-news/evidenza/bando-dottorato-di-ricerca-20232024" hreflang="it_IT" rel="alternate">
 <link href="/en/spotlight/news-details/evidenza/phd-call-20232024" hreflang="en-US" rel="alternate">
