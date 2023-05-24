@@ -1151,6 +1151,12 @@
 								</a></li><li><a href="/it/lista-news">1</a></li><li class="current">2</li></ul></div><div class="news-clear"></div><!--
 	=====================
 		Partials/List/Item.html
+--><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=602&amp;cHash=d2eff80464a532992bc9f4d2f7f724fc" title="Posti disponibili Corsi a scelta Laurea Triennale"><i class="fa fa-angle-right"><span class="title">
+						
+						Posti disponibili Corsi a scelta Laurea Triennale
+					</span></i></a></h4></span></i><!--
+	=====================
+		Partials/List/Item.html
 --><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=591&amp;cHash=7989f3ec82e987f74a13e625acee64db" title="Ambassador Scuola del Design - Corsi attivati A.A. 2022-23"><i class="fa fa-angle-right"><span class="title">
 						
 						Ambassador Scuola del Design - Corsi attivati A.A. 2022-23
