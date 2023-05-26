@@ -1151,6 +1151,12 @@
 						</a></li></ul></div><div class="news-clear"></div><!--
 	=====================
 		Partials/List/Item.html
+--><i class="article articletype-1" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/fileadmin/user_upload/news/2022/Aule_Workshop_5-9_giugno_23.pdf" target="_blank" title="Aule workshop 5-9 giugno 2023"><i class="fa fa-angle-right"><span class="title">
+						
+						Aule workshop 5-9 giugno 2023
+					</span></i></a></h4></span></i><!--
+	=====================
+		Partials/List/Item.html
 --><i class="article articletype-2" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="https://www.polimi.it/apertura/dettaglio-apertura/home/elezioni-studentesche" target="_blank" title="Elezioni studentesche biennio 2023-2025"><i class="fa fa-angle-right"><span class="title">
 						
 						Elezioni studentesche biennio 2023-2025
@@ -1202,12 +1208,6 @@
 --><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=610&amp;cHash=a931954b4e4af110e6d735f26819d14b" title="GRADUATORIE DI SCORRIMENTO AMMISSIONI CORSI DI LAUREA MAGISTRALE SCUOLA DEL DESIGN"><i class="fa fa-angle-right"><span class="title">
 						
 						GRADUATORIE DI SCORRIMENTO AMMISSIONI CORSI DI LAUREA MAGISTRALE SCUOLA DEL DESIGN
-					</span></i></a></h4></span></i><!--
-	=====================
-		Partials/List/Item.html
---><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=608&amp;cHash=d9ea01107f189572bd89d3da00c0b23b" title="Posti disponibili Corsi a scelta Laurea Magistrale"><i class="fa fa-angle-right"><span class="title">
-						
-						Posti disponibili Corsi a scelta Laurea Magistrale
 					</span></i></a></h4></span></i><div class="page-navigation"><p>
 				Page 1 of 2.
 			</p><ul class="f3-widget-paginator"><li class="current">1</li><li><a href="/it/lista-news?tx_news_pi1%5B%40widget_0%5D%5BcurrentPage%5D=2&amp;cHash=2cdd23fa835f72cca87d4ddd751dc2b6">2</a></li><li class="last next"><a href="/it/lista-news?tx_news_pi1%5B%40widget_0%5D%5BcurrentPage%5D=2&amp;cHash=2cdd23fa835f72cca87d4ddd751dc2b6">
