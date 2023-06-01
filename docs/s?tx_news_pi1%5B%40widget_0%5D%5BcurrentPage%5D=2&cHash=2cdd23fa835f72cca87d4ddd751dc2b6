@@ -1151,6 +1151,12 @@
 								</a></li><li><a href="/it/lista-news">1</a></li><li class="current">2</li></ul></div><div class="news-clear"></div><!--
 	=====================
 		Partials/List/Item.html
+--><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=610&amp;cHash=a931954b4e4af110e6d735f26819d14b" title="GRADUATORIE DI SCORRIMENTO AMMISSIONI CORSI DI LAUREA MAGISTRALE SCUOLA DEL DESIGN"><i class="fa fa-angle-right"><span class="title">
+						
+						GRADUATORIE DI SCORRIMENTO AMMISSIONI CORSI DI LAUREA MAGISTRALE SCUOLA DEL DESIGN
+					</span></i></a></h4></span></i><!--
+	=====================
+		Partials/List/Item.html
 --><i class="article articletype-0" itemscope="itemscope" itemtype="http://schema.org/Article"><!-- header --><span class="header"><h4><a href="/it/lista-news/dettaglio-news?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=608&amp;cHash=d9ea01107f189572bd89d3da00c0b23b" title="Posti disponibili Corsi a scelta Laurea Magistrale"><i class="fa fa-angle-right"><span class="title">
 						
 						Posti disponibili Corsi a scelta Laurea Magistrale
