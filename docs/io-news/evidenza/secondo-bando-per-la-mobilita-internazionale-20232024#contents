@@ -31,14 +31,14 @@
 <link href="/typo3conf/ext/borsestudiopremi/Resources/Public/Scss/layout.css?1664347624" media="all" rel="stylesheet" type="text/css"/>
 <link href="/typo3conf/ext/procedureselezione/Resources/Public/Scss/layout.css?1664347629" media="all" rel="stylesheet" type="text/css"/>
 <link href="/typo3conf/ext/ricercatorideterminato/Resources/Public/Scss/layout.css?1664347632" media="all" rel="stylesheet" type="text/css"/>
-<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/bootstrap/css/bootstrap.css?1680005168" media="all" rel="stylesheet" type="text/css"/>
-<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/bootstrap/css/navbar-fixed-top.css?1680005168" media="all" rel="stylesheet" type="text/css"/>
-<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/animate.css?1680005168" media="all" rel="stylesheet" type="text/css"/>
-<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/slider-pro.css?1680005169" media="all" rel="stylesheet" type="text/css"/>
-<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/custom.css?1680005172" media="all" rel="stylesheet" type="text/css"/>
-<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/rteCustomClasses.css?1680005169" media="all" rel="stylesheet" type="text/css"/>
-<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/fontawesome.min.css?1680005169" media="all" rel="stylesheet" type="text/css"/>
-<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/oldStyle.css?1680005169" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/bootstrap/css/bootstrap.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/bootstrap/css/navbar-fixed-top.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/animate.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/slider-pro.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/custom.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/rteCustomClasses.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/fontawesome.min.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/oldStyle.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
 <link href="/typo3conf/ext/social/Resources/Public/Scss/monthly.css?1664347634" media="all" rel="stylesheet" type="text/css"/>
 <link href="/typo3conf/ext/comunicatistampa/Resources/Public/Scss/layout.css?1684324901" media="all" rel="stylesheet" type="text/css"/>
 <link href="/typo3conf/ext/master/Resources/Public/Scss/layout.css?1685453263" media="all" rel="stylesheet" type="text/css"/>
@@ -46,7 +46,7 @@
 <link href="/typo3conf/ext/didattica/Resources/Public/Scss/layout.css?1663232652" media="all" rel="stylesheet" type="text/css"/>
 <link href="/typo3conf/ext/ricercatoribandipnrr/Resources/Public/Scss/layout.css?1667557602" media="all" rel="stylesheet" type="text/css"/>
 <link href="/typo3conf/ext/we_cookie_consent/Resources/Public/Stylesheet/style.css?1656059345" media="all" rel="stylesheet" type="text/css"/>
-<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/jquery.min.js?1680005168" type="text/javascript"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/jquery.min.js?1686144908" type="text/javascript"></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -107,7 +107,7 @@ function openPic(url, winName, winParams) {
 </div>
 <script src="/typo3conf/ext/didatticainnovativa/Resources/Public/Js/vanilla.js?1677765980"></script>
 <script src="https://aunicalogin.polimi.it/aunicalogin/cookie_ateneo/utente.js.jsp" type="text/javascript"></script>
-<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/anchoreasing.js?1680005168" type="text/javascript"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/anchoreasing.js?1686144908" type="text/javascript"></script>
 <script src="/typo3conf/ext/we_cookie_consent/Resources/Public/JavaScript/Controller/ConsentController.js?1656059345"></script>
 <script type="text/javascript">var klaroConfig = {"acceptAll":true,"additionalClass":"","cookieDomain":"","cookieExpiresAfterDays":"365","default":false,"elementID":"klaro","groupByPurpose":true,"hideDeclineAll":false,"hideLearnMore":false,"htmlTexts":true,"lang":"en","mustConsent":false,"poweredBy":"https:\/\/consent.websedit.de","privacyPolicy":"\/privacy","storageMethod":"cookie","storageName":"klaro","stylePrefix":"klaro we_cookie_consent","testing":false,"consentMode":true,"translations":{"en":{"consentModal":{"title":"Impostazioni privacy","description":"\u00c8 possibile specificare le impostazioni di privacy che seguono."},"privacyPolicy":{"text":"Informazioni dettagliate e le modalit\u00e0 di revoca del consenso sono disponibili nella nostra {privacyPolicy}.","name":"Privacy policy"},"consentNotice":{"description":"Questo sito utilizza i cookies per le statistiche e per agevolare la navigazione nelle pagine del sito e delle applicazioni web. Maggiori informazioni sono disponibili alla pagina dell'\u003Ca href=\"\/privacy\"\u003Einformativa sulla privacy\u003C\/a\u003E.","changeDescription":"Dall'ultima visita sono state apportate modifiche alle impostazioni sulla privacy. Ti preghiamo di aggiornare le impostazioni.","learnMore":"Modifica le impostazioni"},"contextualConsent":{"acceptOnce":"Accetto","acceptAlways":"Sempre","description":"Vuoi caricare il contenuto esterno fornito da {title}?"},"service":{"disableAll":{"title":"Accetta tutti","description":"Hai il diritto di revocare il tuo consenso in qualsiasi momento, sia singolarmente che nella sua interezza. In caso di revoca del consenso al trattamento dei dati, i dati raccolti legalmente fino alla revoca possono ancora essere trattati dal fornitore."},"optOut":{"title":"(Opt-Out)","description":"Questa applicazione \u00e8 caricata per impostazione predefinita (ma \u00e8 possibile disabilitarla)."},"required":{"title":"(Sempre necessario)","description":"Questa applicazione \u00e8 sempre necessaria"},"purpose":"Categoria","purposes":"Necessari"},"purposes":{"unknown":"Non assegnato","altri":{"title":"Altri","description":""},"analitici":{"title":"Analitici","description":""},"necessari":{"title":"Necessari","description":""},"analitici di terze parti":{"title":"Analitici di terze parti","description":""}},"ok":"Accetta","save":"Salva le impostazioni","acceptAll":"Accetta tutti","acceptSelected":"Accetta i selezionati","decline":"Rifiuta","close":"Close","poweredBy":"Provided by websedit"}},"services":[],"purposeOrder":["altri","analitici","analitici di terze parti","necessari","unknown"]}</script><script type="text/javascript">
     klaroConfig.services.push({
