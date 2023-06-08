@@ -6,9 +6,9 @@ import Homepage from "./pages/Homepage"
 import About from "./pages/About"
 import Privacy from "./pages/Privacy"
 
-const router = createBrowserRouter([
+const routes =  [
   {
-    path: "/",
+    path: "",
     element: <Layout />,
     children: [
       {
@@ -25,7 +25,9 @@ const router = createBrowserRouter([
       }
     ]
   }
-])
+]
+
+const router = createBrowserRouter(routes, {basename: "/beta"})
 
 function Layout() {
   return (
