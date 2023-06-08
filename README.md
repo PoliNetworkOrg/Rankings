@@ -3,6 +3,7 @@
 
 - https://polinetworkorg.github.io/RankingsBeta/
 - https://github.com/PoliNetworkOrg/GraduatorieScript
+- https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp
 
 ## Setup
 #### Requirements:
@@ -10,7 +11,7 @@
 - [pnpm](https://pnpm.io/installation) >= 8.3.1 (installation via corepack is ok)
 
 #### Install deps and start:
-1. Clone this repo (branch `react-rewrite` until not merged)
+1. Clone this repo
 2. Install deps
     ```sh
     pnpm install
