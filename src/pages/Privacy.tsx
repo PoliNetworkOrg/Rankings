@@ -3,6 +3,7 @@ import Page from "../components/ui/Page"
 export default function Privacy() {
   return (
     <Page>
+      <h2>Privacy</h2>
       <p>
         Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit
         enim labore culpa sint ad nisi Lorem pariatur mollit ex esse
