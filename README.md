@@ -14,7 +14,7 @@
 1. Clone this repo
 2. Install deps
     ```sh
-    pnpm install
+    pnpm i
     ```
 3. Start
     ```sh
