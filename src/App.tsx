@@ -8,7 +8,7 @@ import Privacy from "./pages/Privacy"
 
 const routes = [
   {
-    path: "beta",
+    path: "/",
     element: <Layout />,
     children: [
       {
