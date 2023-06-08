@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-# Rankings
+
+# RankingsBeta
 
 - https://rankings.polinetwork.org
 - https://github.com/PoliNetworkOrg/GraduatorieScript
@@ -19,6 +19,6 @@
     ```sh
     pnpn dev
     ```
-=======
-# RankingsBeta
->>>>>>> main
+
+
+ 
