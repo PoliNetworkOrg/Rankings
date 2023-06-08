@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Rankings
 
 - https://rankings.polinetwork.org
@@ -18,3 +19,6 @@
     ```sh
     pnpn dev
     ```
+=======
+# RankingsBeta
+>>>>>>> main
