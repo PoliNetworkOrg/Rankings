@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head><meta charset="utf-8"/><link href="../style/graduatorie.css" rel="stylesheet" type="text/css"/><link href="../style/desktop.css" rel="stylesheet" type="text/css"/><link href="../style/ateneo2014.css" rel="stylesheet" type="text/css"/>
+<meta charset="utf-8"/>
+<!-- 
+	build by sitepackagebuilder.com
+
+	This website is powered by TYPO3 - inspiring people to share!
+	TYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.
+	TYPO3 is copyright 1998-2023 of Kasper Skaarhoj. Extensions are copyright of their respective owners.
+	Information and contribution at https://typo3.org/
+-->
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Icons/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<title>Futuri studenti: polimi</title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta content="TYPO3 CMS" name="generator"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="index,follow" name="robots"/>
+<meta content="origin" name="referrer"/>
+<meta content="Futuri studenti" name="keywords"/>
+<meta content="Futuri studenti" property="og:title"/>
+<meta content="Politecnico di Milano" property="og:site_name"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="notranslate" name="google"/>
+<meta content="no" name="apple-mobile-web-app-capable"/>
+<link href="/typo3temp/assets/css/6a844fe2ff.css?1665130370" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/assegniricerca/Resources/Public/Scss/layout.css?1664347619" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/bandigara/Resources/Public/Scss/layout.css?1674637974" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/bandita/Resources/Public/Scss/layout.css?1674562950" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/borsestudiopremi/Resources/Public/Scss/layout.css?1664347624" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/procedureselezione/Resources/Public/Scss/layout.css?1664347629" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/ricercatorideterminato/Resources/Public/Scss/layout.css?1664347632" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/bootstrap/css/bootstrap.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/bootstrap/css/navbar-fixed-top.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/animate.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/slider-pro.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/custom.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/rteCustomClasses.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/fontawesome.min.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/oldStyle.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Styles/shareThis.css?1686144908" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/social/Resources/Public/Scss/monthly.css?1664347634" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/comunicatistampa/Resources/Public/Scss/layout.css?1684324901" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/master/Resources/Public/Scss/layout.css?1685453263" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/didatticainnovativa/Resources/Public/Scss/didatticaInnovativa.css?1677765980" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/didattica/Resources/Public/Scss/layout.css?1663232652" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/ricercatoribandipnrr/Resources/Public/Scss/layout.css?1667557602" media="all" rel="stylesheet" type="text/css"/>
+<link href="/typo3conf/ext/we_cookie_consent/Resources/Public/Stylesheet/style.css?1656059345" media="all" rel="stylesheet" type="text/css"/>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/jquery.min.js?1686144908" type="text/javascript"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script>document.createElement('video');</script>
+    <![endif]-->
+<meta content="True" name="HandheldFriendly"/>
+<meta content="320" name="MobileOptimized"/>
+<script async="async" src="//platform-api.sharethis.com/js/sharethis.js#property=5a858f9b225fbd0013ea3f7c&amp;product=custom-share-buttons" type="text/javascript"></script>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-120x120.png" rel="apple-touch-icon"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-120x120-precomposed.png" rel="apple-touch-icon-precomposed"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/180x180.png" rel="apple-touch-icon" sizes="120x120"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-120x120-precomposed.png" rel="apple-touch-icon-precomposed" sizes="120x120"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/apple-touch-icon-152x152-precomposed.png" rel="apple-touch-icon-precomposed" sizes="152x152"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/167x167.png" rel="apple-touch-icon" sizes="167x167"/>
+<link href="/typo3conf/ext/sitepackage/Resources/Public/Images/favicons/180x180.png" rel="apple-touch-icon" sizes="180x180"/>
+<!-- Matomo -->
+<script>
+   var _paq = window._paq = window._paq || [];
+   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+   _paq.push(['trackPageView']);
+   _paq.push(['enableLinkTracking']);
+   (function() {
+     var u="https://polimiapp.matomo.cloud/";
+     _paq.push(['setTrackerUrl', u+'matomo.php']);
+     _paq.push(['setSiteId', '3']);
+     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+     g.async=true; g.src='//cdn.matomo.cloud/polimiapp.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+   })();
+ </script>
+<!-- End Matomo Code -->
+<link href="/futuri-studenti" rel="canonical">
+</link></meta></head>
+<body class="home polinternational">
+<a id="top" name="top"></a><!-- off canvas rimosso --><div class="content-wrap"><header class="navbar-fixed-top"><div id="boxAunica"><div id="polij_utente_corrente"></div></div><a class="lavora ita" href="https://www.polimi.it/lavorare-al-politecnico/">Lavora con noi</a><!--Include your brand here inizio --><a class="navbar-brand mobile" href="/" title="Politecnico di Milano - homepage"><img alt="Politecnico di Milano" src="/typo3conf/ext/sitepackage/Resources/Public/Images/04_Polimi_logotipo_bandiera-1riga_bianco.svg"/></a><a class="navbar-brand desktop" href="/" title="Politecnico di Milano - homepage"><img alt="Politecnico di Milano" src="/typo3conf/ext/sitepackage/Resources/Public/Images/LogoPoli160_web.svg"/></a><!--Include your brand here fine --><nav><ul class="liv0 dropdown" id="mainMenu"><li><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" title="Menu Principale">Menu</a><ul class="liv1 dropdown-menu" id="principale"><li class="ifSub dropdown-submenu"><a class="ifsub" href="/il-politecnico" role="button" tabindex="-1" title="Il Politecnico">Il Politecnico</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/il-politecnico/chi-siamo" tabindex="-1" title="Chi siamo">Chi siamo</a></li><li class="no"><a class="no" href="/il-politecnico/network-internazionali" tabindex="-1" title="Network internazionali">Network internazionali</a></li><li class="no"><a class="no" href="/il-politecnico/progetti-di-ateneo" tabindex="-1" title="Progetti di Ateneo">Progetti di Ateneo</a></li><li class="no"><a class="no" href="/il-politecnico/il-politecnico-nella-storia" tabindex="-1" title="Il Politecnico nella storia">Il Politecnico nella storia</a></li><li class="no"><a class="no" href="/il-politecnico/organizzazione" tabindex="-1" title="Organizzazione">Organizzazione</a></li><li class="no"><a class="no" href="https://www.normativa.polimi.it" tabindex="-1" title="Statuto e Regolamenti">Statuto e Regolamenti</a></li><li class="no"><a class="no" href="https://www.protocollo.polimi.it/albo/viewer?view=html" tabindex="-1" title="Albo Ufficiale di Ateneo">Albo Ufficiale di Ateneo</a></li><li class="no"><a class="no" href="/il-politecnico/spazi-polimi" tabindex="-1" title="Spazi Polimi">Spazi Polimi</a></li><li class="no"><a class="no" href="/il-politecnico/orari-edifici-e-campus" tabindex="-1" title="Orari edifici e Campus">Orari edifici e Campus</a></li><li class="no"><a class="no" href="/lavorare-al-politecnico" tabindex="-1" title="Lavorare al Politecnico">Lavorare al Politecnico</a></li><li class="no"><a class="no" href="/imprese/partecipa-a-una-gara" tabindex="-1" title="Bandi di gara">Bandi di gara</a></li><li class="no"><a class="no" href="/press-room" tabindex="-1" title="Comunicati e rassegna stampa">Comunicati e rassegna stampa</a></li><li class="no"><a class="no" href="/il-politecnico/competizioni-internazionali" tabindex="-1" title="Competizioni internazionali">Competizioni internazionali</a></li><li class="no"><a class="no" href="/il-politecnico/logo-e-immagine-coordinata" tabindex="-1" title="Logo e immagine coordinata">Logo e immagine coordinata</a></li></ul></li><li class="ifSub dropdown-submenu"><a class="ifsub" href="/corsi" role="button" tabindex="-1" title="Corsi">Corsi</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/corsi/corsi-di-laurea" tabindex="-1" title="Corsi di Laurea">Corsi di Laurea</a></li><li class="no"><a class="no" href="/corsi/corsi-di-laurea-magistrale" tabindex="-1" title="Corsi di Laurea Magistrale">Corsi di Laurea Magistrale</a></li><li class="no"><a class="no" href="/corsi/corsi-di-laurea-e-laurea-magistrale-con-altri-atenei" tabindex="-1" title="Corsi di Laurea e Laurea magistrale con altri Atenei">Corsi di Laurea e Laurea magistrale con altri Atenei</a></li><li class="no"><a class="no" href="/corsi/master-universitari-e-corsi-post-laurea" tabindex="-1" title="Master universitari e Corsi Post-Laurea">Master universitari e Corsi Post-Laurea</a></li><li class="no"><a class="no" href="/corsi/didattica-innovativa" tabindex="-1" title="Passion in Action">Passion in Action</a></li><li class="no"><a class="no" href="/corsi/dottorato" tabindex="-1" title="Dottorato">Dottorato</a></li><li class="no"><a class="no" href="/corsi/scuola-di-specializzazione" tabindex="-1" title="Scuola di specializzazione">Scuola di specializzazione</a></li><li class="no"><a class="no" href="/corsi/percorsi-di-alta-formazione" tabindex="-1" title="Percorsi di alta formazione">Percorsi di alta formazione</a></li><li class="no"><a class="no" href="/corsi/moocs-polimi-open-knowledge" tabindex="-1" title="Moocs - Polimi Open Knowledge">Moocs - Polimi Open Knowledge</a></li><li class="no"><a class="no" href="/corsi/corsi-di-lingua" tabindex="-1" title="Corsi di lingua">Corsi di lingua</a></li><li class="no"><a class="no" href="https://www.youtube.com/playlist?list=PL_06oobzMEuvpHIGeRXy7ndCYuiXDEpWR" tabindex="-1" title="Entra in aula">Entra in aula</a></li><li class="no"><a class="no" href="/corsi/percorsi-fit-formazione-iniziale-tirocinio" tabindex="-1" title="Percorsi FIT (Formazione Iniziale Tirocinio)">Percorsi FIT (Formazione Iniziale Tirocinio)</a></li></ul></li><li class="ifSub dropdown-submenu"><a class="ifsub" href="/ricerca/news-e-comunicati" role="button" tabindex="-1" title="Ricerca">Ricerca</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/ricerca/news-e-comunicati" tabindex="-1" title="News e Comunicati">News e Comunicati</a></li><li class="no"><a class="no" href="/ricerca/la-ricerca-al-politecnico" tabindex="-1" title="La Ricerca al Politecnico">La Ricerca al Politecnico</a></li><li class="no"><a class="no" href="/ricerca/video-e-moocs" tabindex="-1" title="Video e MOOCs">Video e MOOCs</a></li><li class="no"><a class="no" href="/ricerca/contatti" tabindex="-1" title="Contatti">Contatti</a></li></ul></li><li class="ifSub dropdown-submenu"><a class="ifsub" href="/impatto-sociale" role="button" tabindex="-1" title="Impatto sociale">Impatto sociale</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/impatto-sociale/sviluppo-sostenibile" tabindex="-1" title="Sviluppo sostenibile">Sviluppo sostenibile</a></li><li class="no"><a class="no" href="/impatto-sociale/innovazione" tabindex="-1" title="Innovazione">Innovazione</a></li><li class="no"><a class="no" href="/impatto-sociale/attivita-culturali-1" tabindex="-1" title="Attività culturali">Attività culturali</a></li><li class="no"><a class="no" href="/impatto-sociale/divulgazione-scientifica" tabindex="-1" title="Divulgazione scientifica">Divulgazione scientifica</a></li><li class="no"><a class="no" href="http://www.polisocial.polimi.it/it/off-campus/" tabindex="-1" title="Relazioni con il territorio">Relazioni con il territorio</a></li><li class="no"><a class="no" href="/impatto-sociale/alumni" tabindex="-1" title="Alumni">Alumni</a></li></ul></li><li class="ifSub dropdown-submenu"><a class="ifsub" href="/campus-e-servizi" role="button" tabindex="-1" title="Campus e servizi">Campus e servizi</a><span class="caret"></span><ul class="liv2 dropdown-menu" role="menu"><li class="no"><a class="no" href="/campus-e-servizi/residenze-e-punti-di-ristoro" tabindex="-1" title="Residenze e punti di ristoro">Residenze e punti di ristoro</a></li><li class="no"><a class="no" href="/campus-e-servizi/biblioteche-e-archivi" tabindex="-1" title="Biblioteche e archivi">Biblioteche e archivi</a></li><li class="no"><a class="no" href="/campus-e-servizi/aule-e-spazi-studio" tabindex="-1" title="Aule e spazi studio">Aule e spazi studio</a></li><li class="no"><a class="no" href="/campus-e-servizi/mobilita-internazionale" tabindex="-1" title="Mobilità Internazionale">Mobilità Internazionale</a></li><li class="no"><a class="no" href="/campus-e-servizi/pari-opportunita-e-inclusione" tabindex="-1" title="Pari opportunità e inclusione">Pari opportunità e inclusione</a></li><li class="no"><a class="no" href="/campus-e-servizi/benessere-psicologico" tabindex="-1" title="Benessere psicologico">Benessere psicologico</a></li><li class="no"><a class="no" href="/campus-e-servizi/sport-e-tempo-libero" tabindex="-1" title="Sport e tempo libero">Sport e tempo libero</a></li><li class="no"><a class="no" href="/campus-e-servizi/lavoro-e-collaborazioni" tabindex="-1" title="Lavoro e collaborazioni">Lavoro e collaborazioni</a></li><li class="no"><a class="no" href="/campus-e-servizi/negozi" tabindex="-1" title="Negozi">Negozi</a></li><li class="no"><a class="no" href="/campus-e-servizi/borse-di-studio" tabindex="-1" title="Borse di studio">Borse di studio</a></li></ul></li><span id="strutture"><li class="menuStrutture"><a class="no" href="/il-politecnico/organizzazione/strutture/poli-territoriali" tabindex="-1" title="poli-territoriali">poli-territoriali</a></li><li class="menuStrutture"><a class="no" href="/ricerca/la-ricerca-al-politecnico/dipartimenti" tabindex="-1" title="dipartimenti">dipartimenti</a></li><li class="menuStrutture"><a class="no" href="/corsi/scuole" tabindex="-1" title="scuole">scuole</a></li></span></ul></li><li><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" title="Info per">Info per</a><ul class="liv1 dropdown-menu" id="infoPer"><li class="cur"><a class="cur" href="/futuri-studenti" tabindex="-1" title="Futuri studenti">Futuri studenti</a></li><li class="ifsub"><a class="ifsub" href="/studenti-iscritti" tabindex="-1" title="Studenti iscritti">Studenti iscritti</a></li><li class="no"><a class="no" href="/campus-e-servizi/mobilita-internazionale" tabindex="-1" title="Studenti in mobilità internazionale">Studenti in mobilità internazionale</a></li><li class="no"><a class="no" href="http://www.alumni.polimi.it" tabindex="-1" title="AlumniPolimi">Alumni</a></li><li class="ifsub"><a class="ifsub" href="/personale-docente" tabindex="-1" title="Personale Docente">Personale Docente</a></li><li class="ifsub"><a class="ifsub" href="/personale-tecnico-amministrativo" tabindex="-1" title="Personale Tecnico Amministrativo">Personale Tecnico Amministrativo</a></li><li class="ifsub"><a class="ifsub" href="/imprese" tabindex="-1" title="Imprese">Imprese</a></li><li class="ifsub"><a class="ifsub" href="/press-room" tabindex="-1" title="Press Room">Stampa</a></li></ul></li><li><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" title="Strumenti">Strumenti</a><ul class="liv1 dropdown-menu" id="strumenti"><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=376" title="Servizi Online">Servizi Online</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=2169" title="Stato dei servizi ICT">Stato dei servizi ICT</a></li><li class="liv1 no"><a class="no" href="https://webeep.polimi.it" title="WeBeep">WeBeep</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=2655&amp;lang=IT" title="Polimi ChatBot">Contatti per studenti</a></li><li class="liv1 no"><a class="no" href="https://go.polimi.it/rubrica" title="Cerca contatti">Rubrica tel. e mail</a></li><li class="liv1 no"><a class="no" href="/studenti-iscritti/calendario-e-scadenze" title="Calendario accademico">Calendario accademico</a></li><li class="liv1 no"><a class="no" href="https://scadenziario.polimi.it/index.php?id=5&amp;L=0" title="Scadenze studenti">Scadenze studenti</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=147" title="Cerca aule">Cerca aule</a></li><li class="liv1 no"><a class="no" href="/campus-e-servizi/aule-e-spazi-studio/spazi-studio/spazi-studio-milano" title="Spazi studio">Spazi studio</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=167&amp;evn_RICERCAINCARICHI=EVENTO" title="Cerca docenti">Cerca docenti</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=166" title="Cerca insegnamenti">Cerca insegnamenti</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=126" title="Orario lezioni">Orario lezioni</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=1595" title="Appelli di esame">Appelli di esame</a></li><li class="liv1 no"><a class="no" href="http://www.biblio.polimi.it" title="Cerca in biblioteca">Cerca in biblioteca</a></li><li class="liv1 no"><a class="no" href="http://www.intranet.polimi.it" title="Intranet">Intranet</a></li><li class="liv1 no"><a class="no" href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=174" title="Mappe dei Campus">Mappe dei Campus</a></li><li class="liv1 no"><a class="no" href="/bandi-e-concorsi" title="Bandi e concorsi">Bandi e concorsi</a></li></ul></li><li><a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" title="Cambia lingua">Lingua</a><ul class="liv1 dropdown-menu" id="menulang"><li id="liitalian"><span class="cur"><a href="/futuri-studenti">ITA</a></span></li><li id="lienglish"><span class="userdef"> ENG </span></li></ul></li></ul></nav></header><!-- HOME PAGE --><div id="contents"><div id="content"><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-header frame-layout-0" id="c65915"><header><h1 class="">
+                Futuri studenti
+            </h1></header></div><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-text frame-layout-0" id="c74668"><p class="mybutton"><a href="/futuri-studenti/ammissione-ai-corsi-di-laurea/architettura"><strong>TEST DI ARCHITETTURA: 26 LUGLIO 2023</strong></a></p></div><div class="container cce-row" id="c65911"><div class="flexitems rowitems"><div class="item"><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-textmedia frame-layout-0" id="c65908"><header><h3 class="">
+                Offerta formativa
+            </h3></header><div class="ce-textpic ce-center ce-above"><div class="ce-gallery" data-ce-columns="1" data-ce-images="1"><div class="ce-outer"><div class="ce-inner"><div class="ce-row"><div class="ce-column"><figure class="image"><img alt="Studenti a lezione" class="image-embed-item" height="320" loading="lazy" src="/fileadmin/user_upload/futuri-studenti/library-immagini/20090504_Politecnico_0224_500x320.jpg" width="500"/></figure></div></div></div></div></div><div class="ce-bodytext"><ul><li><a href="/futuri-studenti/corsi-di-laurea">Corsi di laurea</a></li><li><a href="/futuri-studenti/corsi-di-laurea-magistrale">Corsi di laurea magistrale</a></li><li><a href="/futuri-studenti/corsi-post-laurea">Corsi post-laurea: master e dottorato</a></li><li><a href="/futuri-studenti/lordinamento-degli-studi-in-italia">L'ordinamento degli studi</a></li></ul></div></div></div></div><div class="item"><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-textmedia frame-layout-0" id="c65909"><header><h3 class="">
+                Come si accede
+            </h3></header><div class="ce-textpic ce-center ce-above"><div class="ce-gallery" data-ce-columns="1" data-ce-images="1"><div class="ce-outer"><div class="ce-inner"><div class="ce-row"><div class="ce-column"><figure class="image"><img alt="Studenti a uno sportello della Segreteria" class="image-embed-item" height="320" loading="lazy" src="/fileadmin/user_upload/futuri-studenti/library-immagini/20100526_poli_4164_500x320.jpg" width="500"/></figure></div></div></div></div></div><div class="ce-bodytext"><ul><li><a href="/futuri-studenti/ammissione-ai-corsi-di-laurea">Corsi di laurea</a></li><li><a href="/futuri-studenti/ammissione-ai-corsi-di-laurea-magistrale">Corsi di laurea magistrale</a></li><li><a href="/futuri-studenti/ammissione-ai-corsi-singoli">Corsi singoli</a></li><li><a href="/futuri-studenti/trasferimenti-seconde-lauree-iscrizioni-a-seguito-di-decadenza-rinuncia">Trasferimenti, seconde lauree, iscrizioni a seguito di decadenza/rinuncia</a></li></ul></div></div></div></div><div class="item"><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-textmedia frame-layout-0" id="c65910"><header><h3 class="">
+                Per scegliere
+            </h3></header><div class="ce-textpic ce-center ce-above"><div class="ce-gallery" data-ce-columns="1" data-ce-images="1"><div class="ce-outer"><div class="ce-inner"><div class="ce-row"><div class="ce-column"><figure class="image"><img alt="Studenti che passeggiano all'interno del campus" class="image-embed-item" height="320" loading="lazy" src="/fileadmin/user_upload/futuri-studenti/library-immagini/x_sciegliere_500x320.jpg" width="500"/></figure></div></div></div></div></div><div class="ce-bodytext"><ul><li><a href="/futuri-studenti/perche-studiare-al-politecnico">Perché studiare al Politecnico</a></li><li><a href="/futuri-studenti/attivita-di-orientamento">Attività di orientamento</a></li><li><a href="/futuri-studenti/vita-da-studente">Vita da studente</a></li><li><a href="/campus-e-servizi">Campus e servizi</a></li></ul></div></div></div></div></div></div><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-menu_pages frame-layout-270" id="c68411"><ul class="ce-menu ce-menu-270" menu-type="graphics"><li><span class="img"><!-- link pagina target--><a data-toggle="tooltip" href="/landingpages/girlspolimi/" title="Girls@Polimi: Le borse di studio per future ingegnere"><!-- risorsa: immagine di sfondo --><img alt="Immagine di una studentessa" src="/fileadmin/user_upload/futuri-studenti/library-immagini/banner_500X334/girls_2023_Polimi_500x334.jpg" title=""/><span class="text">
+                           
+                                    Girls@Polimi: Le borse di studio per future ingegnere
+                                
+                        </span></a></span><span class="abstract"></span></li><li><span class="img"><!-- link pagina target--><a data-toggle="tooltip" href="/futuri-studenti/attivita-di-orientamento/campus-tour" title="Campus Tour"><!-- risorsa: immagine di sfondo --><img alt="" src="/fileadmin/user_upload/poliorientami/campus_tour_500x334.png" title=""/><span class="text">
+                           
+                                    Campus Tour
+                                
+                        </span></a></span><span class="abstract"></span></li><li><span class="img"><!-- link pagina target--><a data-toggle="tooltip" href="/orientamento-pnrr" title="Corsi di orientamento (PNRR)"><!-- risorsa: immagine di sfondo --><img alt="PNRR" src="/fileadmin/user_upload/futuri-studenti/library-immagini/banner_500X334/PNRR_500x334.jpg" title=""/><span class="text">
+                           
+                                    Corsi di orientamento (PNRR)
+                                
+                        </span></a></span><span class="abstract"></span></li></ul></div><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-menu_subpages frame-layout-250" id="c68393"><ul class="ce-menu ce-menu-250" menu-type="graphics"><li><span class="img"><!-- link pagina target--><a data-toggle="tooltip" href="/futuri-studenti/tasse" title="Tasse"><!-- risorsa: immagine di sfondo --><img alt="Tasse" src="/fileadmin/user_upload/futuri-studenti/library-immagini/icone/tasse.png" title=""/><span class="text">
+                           
+                                    Tasse
+                                
+                        </span></a></span><span class="abstract"></span></li><li><span class="img"><!-- link pagina target--><a data-toggle="tooltip" href="/futuri-studenti/borse-di-studio" title="Borse di studio"><!-- risorsa: immagine di sfondo --><img alt="" src="/fileadmin/user_upload/futuri-studenti/library-immagini/icone/BORSE_STUDIO.png" title=""/><span class="text">
+                           
+                                    Borse di studio
+                                
+                        </span></a></span><span class="abstract"></span></li><li><span class="img"><!-- link pagina target--><a data-toggle="tooltip" href="https://www.residenze.polimi.it/" target="_blank" title="Residenze"><!-- risorsa: immagine di sfondo --><img alt="Residenze" src="/fileadmin/user_upload/futuri-studenti/library-immagini/icone/residenze.png" title=""/><span class="text">
+                           
+                                    Residenze
+                                
+                        </span></a></span><span class="abstract"></span></li><li><span class="img"><!-- link pagina target--><a data-toggle="tooltip" href="/futuri-studenti/contattaci" title="Contattaci"><!-- risorsa: immagine di sfondo --><img alt="" src="/fileadmin/user_upload/futuri-studenti/library-immagini/icone/contacts.png" title=""/><span class="text">
+                           
+                                    Contattaci
+                                
+                        </span></a></span><span class="abstract"></span></li></ul></div><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-header frame-layout-0" id="c70459"><header><h2 class="">
+                News
+            </h2></header></div><div class="container"><section id="news"><div class="ricerca slider-pro" data-section-menu="News" id="tipo3"><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container frame frame-default frame-type-list frame-layout-0" id="c70214"><div class="sp-slides"><div class="sp-slide slideshow-item"><img alt="" class="sp-image" height="320" src="/fileadmin/user_upload/futuri-studenti/library-immagini/news/SummerSchool_960x519_iStock-182059956.jpg" width="500"/><span class="newsCategory"></span><h1 class="newsTitle">       13 e 15 giugno: Corso in preparazione al test di architettura  </h1><!-- <span class="newsTime">10:11</span> --><span class="newsSubHeader"><p>13 giugno in italiano, 15 giugno in inglese</p></span><span class="mynews-list-morelink"><a href="/futuri-studenti/incontro-test-architettura" title="13 e 15 giugno: Corso in preparazione al test di architettura"> scopri </a></span><!-- shareThis BEGIN --><div class="sharethis-inline-share-buttons" data-description="13 e 15 giugno: Corso in preparazione al test di architettura" data-image="" data-message="13 e 15 giugno: Corso in preparazione al test di architettura" data-title="13 e 15 giugno: Corso in preparazione al test di architettura" data-url="https://www.polimi.ithttps://wwww.polimi.it/in-evidenza/dettaglio-news/home/default-ef0f329cd5" style="display: inline-block;">Share</div><!-- shareThis END --></div><div class="sp-slide slideshow-item"><img alt="" class="sp-image" height="320" src="/fileadmin/user_upload/futuri-studenti/library-immagini/news/20090511_Politecnico_2870.jpg" width="500"/><span class="newsCategory"></span><h1 class="newsTitle">       BORSE DI STUDIO "FONDAZIONE INTERMONTE PROGETTO GIOVANI"   </h1><!-- <span class="newsTime">15:38</span> --><span class="newsSubHeader"><p>8 borse, per studenti e studentesse del 5° anno delle superiori che si immatricolano nel 23-24<span class="news-list-morelink"><a href="/futuri-studenti/dettaglio-news?tx_ttnews%5BbackPid%5D=12461&amp;tx_ttnews%5Btt_news%5D=11113&amp;cHash=190426a5e0732521007b150914419e4f" title='BORSE DI STUDIO "FONDAZIONE INTERMONTE PROGETTO GIOVANI"'>scopri</a></span></p></span><span class="mynews-list-morelink"><a href="/futuri-studenti/dettaglio-news?tx_ttnews%5BbackPid%5D=12461&amp;tx_ttnews%5Btt_news%5D=11113&amp;cHash=190426a5e0732521007b150914419e4f" title='BORSE DI STUDIO "FONDAZIONE INTERMONTE PROGETTO GIOVANI"'> scopri </a></span><!-- shareThis BEGIN --><div "="" class="sharethis-inline-share-buttons" data-description="BORSE DI STUDIO " data-image="" data-message="BORSE DI STUDIO " data-title="BORSE DI STUDIO " data-url="https://www.polimi.ithttps://wwww.polimi.it/in-evidenza/dettaglio-news/home/borse-di-studio-fondazione-intermonte-progetto-giovani" fondazione="" giovani"="" intermonte="" progetto="" style="display: inline-block;">Share</div><!-- shareThis END --></div><div class="sp-slide slideshow-item"><img alt="" class="sp-image" height="320" src="/fileadmin/user_upload/futuri-studenti/library-immagini/news/percorsi_eccellenza.jpg" width="467"/><span class="newsCategory"></span><h1 class="newsTitle">       Polo di Cremona: percorsi di eccellenza  </h1><!-- <span class="newsTime">16:12</span> --><span class="newsSubHeader"><p>Per studenti meritevoli che si iscrivono ai corsi del Polo di Cremona</p></span><span class="mynews-list-morelink"><a href="https://www.polo-cremona.polimi.it/futuri-studenti/percorsi-di-eccellenza" title="Polo di Cremona: percorsi di eccellenza"> scopri </a></span><!-- shareThis BEGIN --><div class="sharethis-inline-share-buttons" data-description="Polo di Cremona: percorsi di eccellenza" data-image="" data-message="Polo di Cremona: percorsi di eccellenza" data-title="Polo di Cremona: percorsi di eccellenza" data-url="https://www.polimi.ithttps://wwww.polimi.it/in-evidenza/dettaglio-news/home/default-0ea8a3bde7" style="display: inline-block;">Share</div><!-- shareThis END --></div><div class="sp-slide slideshow-item"><img alt="" class="sp-image" height="320" src="/fileadmin/user_upload/futuri-studenti/library-immagini/news/20100526_poli_4097.jpg" width="500"/><span class="newsCategory"></span><h1 class="newsTitle">       Il canale Podcast del Politecnico  </h1><!-- <span class="newsTime">13:20</span> --><span class="newsSubHeader"><p>Scopri i nostri podcast</p></span><span class="mynews-list-morelink"><a href="/podcast" title="Il canale Podcast del Politecnico"> scopri </a></span><!-- shareThis BEGIN --><div class="sharethis-inline-share-buttons" data-description="Il canale Podcast del Politecnico" data-image="" data-message="Il canale Podcast del Politecnico" data-title="Il canale Podcast del Politecnico" data-url="https://www.polimi.ithttps://wwww.polimi.it/in-evidenza/dettaglio-news/home/default-926b20b787" style="display: inline-block;">Share</div><!-- shareThis END --></div></div></div></div></section></div><!-- aggiunto classe container per tutti i CE e oggetto lib.decodeSectionFrame che decodifica il campo legacy section_frame,
+            che contiene le opzioni ereditate da polimi_2018
+             TODO: valutare se trasferire le opzioni nel nuovo campo frame_class, COSTO: comporta revisione fogli di stile--><div class="container mynews-list-morelink frame frame-default frame-type-header frame-layout-0" id="c65891"><header><h2 class=""><a href="/futuri-studenti/iniziative-di-orientamento">Tutte le news</a></h2></header></div></div></div></div><a class="glyphicon" href="#contents" id="back-to-top" title="Back to top"></a><footer><ul class="cercaContattiDoveSiamo"><li><a href="/footer/contattaci/contatti-e-posta-elettronica-certificata-pec" target="_self">Contatti e PEC</a></li><li><a href="https://go.polimi.it/rubrica">Rubrica</a></li><li><a href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=174">Dove siamo</a></li><li><a href="https://aunicalogin.polimi.it/aunicalogin/getservizio.xml?id_servizio=376">Servizi Online</a></li></ul><ul class="menu_footer"><li><a href="/footer/policy/amministrazione-trasparente" target="_self">Amministrazione trasparente</a></li><li><a href="/privacy" target="_self">Privacy</a></li><li><a href="/footer/policy/amministrazione-trasparente/altri-contenuti/altri-contenuti-accessibilita-e-catalogo-di-dati-metadati-e-banche-dati" target="_self">Accessibilità</a></li><li><a href="/footer/policy/diploma-supplement" target="_self">Diploma Supplement</a></li><li><a href="http://www.spp.polimi.it/">Sicurezza</a></li></ul><ul class="menu_footer"><li><a href="https://www.cug.polimi.it">Comitato Unico di Garanzia</a></li><li><a href="/il-politecnico/organizzazione/organi-di-ateneo/consigliera-di-fiducia" target="_self">Consigliera di fiducia</a></li><li><a href="/campus-e-servizi/pari-opportunita-e-inclusione/disabilita-e-dsa" target="_self">Disabilità e DSA</a></li><li><a href="/campus-e-servizi/benessere-psicologico" target="_self">Counseling e sostegno psicologico</a></li><li><a href="/il-politecnico/organizzazione/organi-di-ateneo/garante-della-trasparenza" target="_self">Garante della Trasparenza</a></li></ul><div class="address">INDIRIZZO<br/>Politecnico di Milano<br/>Piazza Leonardo da Vinci, 32<br/>20133 Milano<br/>P.IVA 04376620151<br/>C.F. 80057930150</div></footer>
+<div class="tx-we-cookie-consent">
+</div>
+<script src="/typo3conf/ext/didatticainnovativa/Resources/Public/Js/vanilla.js?1677765980"></script>
+<script src="https://aunicalogin.polimi.it/aunicalogin/cookie_ateneo/utente.js.jsp" type="text/javascript"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/anchoreasing.js?1686144908" type="text/javascript"></script>
+<script src="/typo3conf/ext/we_cookie_consent/Resources/Public/JavaScript/Controller/ConsentController.js?1656059345"></script>
+<script type="text/javascript">var klaroConfig = {"acceptAll":true,"additionalClass":"","cookieDomain":"","cookieExpiresAfterDays":"365","default":false,"elementID":"klaro","groupByPurpose":true,"hideDeclineAll":false,"hideLearnMore":false,"htmlTexts":true,"lang":"en","mustConsent":false,"poweredBy":"https:\/\/consent.websedit.de","privacyPolicy":"\/privacy","storageMethod":"cookie","storageName":"klaro","stylePrefix":"klaro we_cookie_consent","testing":false,"consentMode":true,"translations":{"en":{"consentModal":{"title":"Impostazioni privacy","description":"\u00c8 possibile specificare le impostazioni di privacy che seguono."},"privacyPolicy":{"text":"Informazioni dettagliate e le modalit\u00e0 di revoca del consenso sono disponibili nella nostra {privacyPolicy}.","name":"Privacy policy"},"consentNotice":{"description":"Questo sito utilizza i cookies per le statistiche e per agevolare la navigazione nelle pagine del sito e delle applicazioni web. Maggiori informazioni sono disponibili alla pagina dell'\u003Ca href=\"\/privacy\"\u003Einformativa sulla privacy\u003C\/a\u003E.","changeDescription":"Dall'ultima visita sono state apportate modifiche alle impostazioni sulla privacy. Ti preghiamo di aggiornare le impostazioni.","learnMore":"Modifica le impostazioni"},"contextualConsent":{"acceptOnce":"Accetto","acceptAlways":"Sempre","description":"Vuoi caricare il contenuto esterno fornito da {title}?"},"service":{"disableAll":{"title":"Accetta tutti","description":"Hai il diritto di revocare il tuo consenso in qualsiasi momento, sia singolarmente che nella sua interezza. In caso di revoca del consenso al trattamento dei dati, i dati raccolti legalmente fino alla revoca possono ancora essere trattati dal fornitore."},"optOut":{"title":"(Opt-Out)","description":"Questa applicazione \u00e8 caricata per impostazione predefinita (ma \u00e8 possibile disabilitarla)."},"required":{"title":"(Sempre necessario)","description":"Questa applicazione \u00e8 sempre necessaria"},"purpose":"Categoria","purposes":"Necessari"},"purposes":{"unknown":"Non assegnato","altri":{"title":"Altri","description":""},"analitici":{"title":"Analitici","description":""},"necessari":{"title":"Necessari","description":""},"analitici di terze parti":{"title":"Analitici di terze parti","description":""}},"ok":"Accetta","save":"Salva le impostazioni","acceptAll":"Accetta tutti","acceptSelected":"Accetta i selezionati","decline":"Rifiuta","close":"Close","poweredBy":"Provided by websedit"}},"services":[],"purposeOrder":["altri","analitici","analitici di terze parti","necessari","unknown"]}</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'youtube',
+		title: 'Youtube.com',
+        description: 'YouTube&nbsp;è una&nbsp;piattaforma&nbsp;web 2.0&nbsp;che consente la condivisione e visualizzazione in&nbsp;rete&nbsp;di&nbsp;contenuti multimediali di proprietà di Google LLC.',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Youtube.com'}}, 
+        purposes: ['altri'],
+        cookies: [['VISITOR_INFO1_LIVE', '/', ''], ['YSC', '/', ''], ['ytidb::LAST_RESULT_ENTRY_KEY', '/', ''], ['yt-remote-cast-available', '/', ''], ['yt-remote-cast-installed', '/', ''], ['yt-remote-connected-devices', '/', ''], ['yt-remote-device-id', '/', ''], ['yt-remote-fast-check-period', '/', ''], ['yt-remote-session-app', '/', ''], ['yt-remote-session-name', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'other-8',
+		title: 'Web Analitics Italia',
+        description: 'Web Analytics Italia è una piattaforma che offre le statistiche in tempo reale dei visitatori dei siti della Pubblica Amministrazione, nel pieno rispetto della normativa europea sul trattamento dei dati personali (GDPR - General Data Protecion Regulation)',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Web Analitics Italia'}}, 
+        purposes: ['analitici'],
+        cookies: [['_pk_id#', '/', ''], ['_pk_ses#', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'other-6',
+		title: 'Politecnico di Milano',
+        description: 'Questo script permette di identificare e preservare l\'autenticazione di un utente registrato presso i servizi online del Politecnico di Milano.',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Politecnico di Milano'}}, 
+        purposes: ['necessari'],
+        cookies: [['SSL_JSESSIONID', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'other-4',
+		title: 'Google CSE',
+        description: 'Google Custom Search Engine, ora Programmable Search Engine, è una piattaforma fornita da Google che consente agli sviluppatori Web di presentare informazioni specializzate nelle ricerche Web, perfezionare e classificare le query e creare motori di ricerca personalizzati, basati su Google Search.',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Google CSE'}}, 
+        purposes: ['analitici di terze parti'],
+        cookies: [['CONSENT', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.services.push({
+		name: 'other-1',
+		title: 'Share this',
+        description: 'Share This fornisce strumenti di condivisione dei contenuti di questo sito web sui tuoi canali social',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        translations: {'en':{'title':'Share this'}}, 
+        purposes: ['analitici di terze parti', 'necessari'],
+        cookies: [['__sharethis_cookie_test__', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script src="/typo3conf/ext/we_cookie_consent/Resources/Public/Library/klaro/klaro.js" type="text/javascript"></script>
+<!-- Bootstrap core JavaScript
+     ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/bootstrap.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/ie10-viewport-bug-workaround.js"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/jquery.sliderPro.min.js" type="text/javascript"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/accordion.js" type="text/javascript"></script>
+<script src="/typo3conf/ext/sitepackage/Resources/Public/Javascript/polimi.js" type="text/javascript"></script>
+</body>
+</html>
