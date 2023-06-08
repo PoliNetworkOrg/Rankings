@@ -40,7 +40,7 @@ export default function Table({
   return (
     <table className="relative mb-[1px] w-full border-collapse" {...p}>
       <TableHeader
-        colNum={data[0].length || 0}
+        colNum={data.length > 0 ? data[0].length : 0 || 0}
         school={school}
         isGlobalRanking={isGlobalRanking}
       />
