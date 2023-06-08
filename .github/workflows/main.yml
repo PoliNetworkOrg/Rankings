@@ -1,37 +1,54 @@
-name: Update Rankings
+name: Deploy
 
 on:
-  schedule:
-  - cron: "0 2,20 * * *"
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  aggiorna_graduatorie:
-    runs-on: ubuntu-20.04
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Install dependencies
-      run: |
-        sudo apt-get install bash curl git python3 python3-pip
-        sudo pip3 install beautifulsoup4
-        sudo pip3 install lxml
-    - name: Pull repository (1)
-      uses: actions/checkout@v2
-    - name: Get GraduatorieScript
-      run: curl -Lo aggiorna_graduatorie.py https://raw.githubusercontent.com/PoliNetworkOrg/GraduatorieScript/main/main.py
-    - name: Run aggiorna_graduatorie.py
-      run: python3 ./aggiorna_graduatorie.py "$(git rev-parse --show-toplevel)/docs"
-    - name: Create commit
-      run: |
-        [[ -z $(git status --porcelain) ]] && exit 0
-        git add .
-        git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
-        git config --local user.name 'github-actions[bot]'
-        TZ= printf -v commit_msg 'update rankings: %(%c)T'
-        git commit -m "$commit_msg"
-    - name: Pull repository (2)
-      run: git pull
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        branch: main
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        
+        
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
+
+      - name: Install dependencies
+        run: pnpm i
+        
+      - name: Build project
+        run: pnpm build
+
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v3
+        with:
+          name: production-files
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: production-files
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
