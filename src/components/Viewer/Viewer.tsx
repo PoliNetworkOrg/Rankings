@@ -17,6 +17,7 @@ import EnrollStats from "./EnrollStats.tsx"
 import Page from "../ui/Page.tsx"
 import usePaginate from "../../hooks/usePaginate.ts"
 import DynamicSelect, { ButtonSelect } from "../ui/DynamicSelect.tsx"
+import Button from "../ui/Button.tsx"
 
 const ABS_ORDER = "ABSOLUTE ORDER"
 
@@ -117,6 +118,34 @@ export default function Viewer() {
 
   // here starts data analysis
   const enrollStats = Store.enrollStats(table)
+
+  function tableToCsv(tableData: TableData) {
+    var s: string = ""
+    for (var i = 0; i < tableData.length; i++) {
+      var row = tableData[i]
+      for (var j = 0; j < row.length; j++) {
+        s += row[j]
+        s += ";"
+      }
+      s += "\n"
+    }
+    return s
+  }
+
+  function downloadButtonPush() {
+    var csvData: BlobPart = tableToCsv(filteredData)
+    var blob = new Blob([csvData], { type: "text/csv" })
+    var url = window.URL.createObjectURL(blob)
+
+    var a = document.createElement("a")
+    a.href = url
+    a.download = (activeCourse ?? "data") + ".csv"
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+
+    window.URL.revokeObjectURL(url)
+  }
 
   return (
     <Page
@@ -227,6 +256,9 @@ export default function Viewer() {
       ) : (
         <></>
       )}
+      <div>
+        <Button onClick={downloadButtonPush}> Download .csv</Button>
+      </div>
     </Page>
   )
 }
