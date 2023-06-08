@@ -1,7 +1,7 @@
 
 # RankingsBeta
 
-- https://rankings.polinetwork.org
+- https://polinetworkorg.github.io/RankingsBeta/
 - https://github.com/PoliNetworkOrg/GraduatorieScript
 
 ## Setup
