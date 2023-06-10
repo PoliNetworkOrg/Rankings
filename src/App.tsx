@@ -27,7 +27,7 @@ const routes = [
   }
 ]
 
-const router = createBrowserRouter(routes, { basename: "/RankingsBeta" })
+const router = createBrowserRouter(routes)
 
 function Layout() {
   return (
