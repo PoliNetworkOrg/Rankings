@@ -7,14 +7,14 @@
 
 ## Setup
 #### Requirements:
-- [NodeJS](http://nodejs.org/) >= 16.20.0 (linux: [nvm](https://github.com/nvm-sh/nvm))
-- [pnpm](https://pnpm.io/installation) >= 8.3.1 (installation via corepack is ok)
+- [NodeJS](http://nodejs.org/) >= LTS (18.16.0) (linux: [nvm](https://github.com/nvm-sh/nvm))
+- [pnpm](https://pnpm.io/installation) >= 8.x (installation via corepack is ok)
 
 #### Install deps and start:
 1. Clone this repo
 2. Install deps
     ```sh
-    pnpm i
+    pnpm install
     ```
 3. Start
     ```sh
