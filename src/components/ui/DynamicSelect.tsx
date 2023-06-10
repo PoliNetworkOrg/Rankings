@@ -76,13 +76,13 @@ export function ButtonSelect<T extends string>({
         useColumn
           ? "h-full w-auto flex-col justify-start overflow-y-auto pr-2 scrollbar-thin"
           : "justify-center"
-      } flex w-full gap-4 max-sm:gap-3 max-sm:flex-wrap ${className}`}
+      } flex w-full gap-4 max-sm:flex-wrap max-sm:gap-3 ${className}`}
       {...p}
     >
       {options.map((o, i) => (
         <Button
           key={`${id}btn-${i}`}
-          className={useColumn ? "" : "flex-1"}
+          className={useColumn ? "" : "flex-1 max-sm:basis-[45%]"}
           onClick={() => onOptionSelect(o)}
           active={value === o}
         >
