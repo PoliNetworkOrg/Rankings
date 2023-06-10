@@ -27,7 +27,9 @@ const routes = [
   }
 ]
 
-const router = createBrowserRouter(routes, { basename: "/RankingsBeta" })
+const router = createBrowserRouter(routes, {
+  basename: import.meta.env.BASE_URL
+})
 
 function Layout() {
   return (
