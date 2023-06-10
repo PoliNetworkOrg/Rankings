@@ -1,11 +1,16 @@
-
 # RankingsBeta
 
-- https://polinetworkorg.github.io/RankingsBeta/
-- https://github.com/PoliNetworkOrg/GraduatorieScript
-- https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp
+PREVIEW: https://polinetworkorg.github.io/preview/PoliNetworkOrg/RankingsBeta/branch/main/
 
-## Setup
+- This is a rewrite of the repo [Rankings](https://github.com/PoliNetworkOrg/Rankings) using React.
+- Every time the `main` branch is updated, the website preview build will automatically update too: the preview build is hosted [here](https://PoliNetworkOrg.github.io/preview/PoliNetworkOrg/RankingsBeta/branch/main).  
+- Every PR will also get its own preview deployed by the CI workflows, and the link will be posted as a comment by the bot.
+
+#### Data generation
+- Python script - https://github.com/PoliNetworkOrg/GraduatorieScript
+- C# script (still in dev) - https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp
+
+## Development Setup
 #### Requirements:
 - [NodeJS](http://nodejs.org/) >= LTS (18.16.0) (linux: [nvm](https://github.com/nvm-sh/nvm))
 - [pnpm](https://pnpm.io/installation) >= 8.x (installation via corepack is ok)
