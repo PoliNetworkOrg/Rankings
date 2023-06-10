@@ -47,7 +47,10 @@ export default function Table({
       <tbody>
         {data.length ? (
           data.map((row, x) => (
-            <tr key={`${id}-${x}`}>
+            <tr
+              key={`${id}-${x}`}
+              className="even:bg-slate-100 dark:even:bg-slate-800"
+            >
               {row.map((value, y) => (
                 <Td key={`${id}-${x}-${y}`}>{value}</Td>
               ))}
