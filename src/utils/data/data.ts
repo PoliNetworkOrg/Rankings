@@ -1,3 +1,4 @@
+import { capitalizeWords } from "../strings"
 import { EnrollStats, Structure, TableData } from "../types"
 
 function tableToFloat(v: string | number) {
@@ -10,13 +11,26 @@ export default class Store {
   _data: Structure
   constructor(data: Structure) {
     this._data = data
+    this.fixLetterCase()
   }
 
   get data() {
     return this._data
   }
 
-  static enrollStats(table: TableData): EnrollStats {
+  protected fixLetterCase(): void {
+    this._data.forEach(school => {
+      school.years.forEach(year => {
+        year.phases.forEach(phase => {
+          phase.courses.forEach(course => {
+            course.name = capitalizeWords(course.name)
+          })
+        })
+      })
+    })
+  }
+
+  public static getEnrollStats(table: TableData): EnrollStats {
     // check if table is ABS_ORDER
     if (!table.length || table[0].length <= 5) return null
 
