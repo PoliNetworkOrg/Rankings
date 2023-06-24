@@ -6,20 +6,17 @@ export default function About() {
       <h2>About</h2>
 
       <div>
-        Il seguente progetto mira a conservare lo storico delle graduatorie d'ammissione al Politecnico di Milano.
+        Il seguente progetto mira a conservare lo storico delle graduatorie
+        d'ammissione al Politecnico di Milano.
       </div>
 
-      <div>
-        Sviluppato con amore da PoliNetwork
-      </div>
+      <div>Sviluppato con amore da PoliNetwork</div>
 
-      <div>
-        Developers e collaboratori:
-      </div>
+      <div>Developers e collaboratori:</div>
       <ul>
-      <li>
-      Lorenzo Corallo <a href="https://t.me/lorenzocorallo">Telegram</a>
-      </li>
+        <li>
+          Lorenzo Corallo <a href="https://t.me/lorenzocorallo">Telegram</a>
+        </li>
       </ul>
     </Page>
   )
