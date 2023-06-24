@@ -4,19 +4,15 @@ export default function Privacy() {
   return (
     <Page>
       <h2>Privacy</h2>
-      <p>
-        Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit
-        enim labore culpa sint ad nisi Lorem pariatur mollit ex esse
-        exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit
-        nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor
-        minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure
-        elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor
-        Lorem duis laboris cupidatat officia voluptate. Culpa proident
-        adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod.
-        Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim.
-        Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa
-        et culpa duis.
-      </p>
+      <div>
+        <p>
+          La privacy è un valore fondante di PoliNetwork. Questo sito non
+          utilizza nessun tipo di cookie, né presenta forme di pubblicità o
+          tracciamento. Potete in ogni caso consultare il nostro sito e la
+          nostra raccolta di informative privacy a{" "}
+          <a href="https://polinetwork.org/learnmore/privacy">questo link</a>
+        </p>
+      </div>
     </Page>
   )
 }
