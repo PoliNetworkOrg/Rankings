@@ -119,30 +119,16 @@ export default function Viewer() {
   // here starts data analysis
   const enrollStats = Store.enrollStats(table)
 
-  function tableToCsv(tableData: TableData) {
-    var s: string = ""
-    for (var i = 0; i < tableData.length; i++) {
-      var row = tableData[i]
-      for (var j = 0; j < row.length; j++) {
-        s += row[j]
-        s += ";"
-      }
-      s += "\n"
-    }
-    return s
-  }
-
   function downloadButtonPush() {
-    var csvData: BlobPart = tableToCsv(filteredData)
-    var blob = new Blob([csvData], { type: "text/csv" })
-    var url = window.URL.createObjectURL(blob)
+    const csvData = Store.convertTableToCsv(filteredData)
+    const blob = new Blob([csvData], { type: "text/csv" })
+    const url = window.URL.createObjectURL(blob)
 
-    var a = document.createElement("a")
+    const a = document.createElement("a")
     a.href = url
     a.download = (activeCourse ?? "data") + ".csv"
-    document.body.appendChild(a)
     a.click()
-    document.body.removeChild(a)
+    a.remove()
 
     window.URL.revokeObjectURL(url)
   }

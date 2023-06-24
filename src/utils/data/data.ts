@@ -54,4 +54,17 @@ export default class Store {
       }
     }
   }
+
+  static convertTableToCsv(table: TableData): string {
+    let csv = ""
+    for (let x = 0; x < table.length; x++) {
+      const row = table[x]
+      for (let y = 0; y < row.length; y++) {
+        const field = row[y].toString().replaceAll(",", ".")
+        csv += field + ";"
+      }
+      csv += "\n"
+    }
+    return csv
+  }
 }
