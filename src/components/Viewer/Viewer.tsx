@@ -242,7 +242,7 @@ export default function Viewer() {
       ) : (
         <></>
       )}
-      <div>
+      <div style={{padding: '5px'}}>
         <Button onClick={downloadButtonPush}> Download .csv</Button>
       </div>
     </Page>
