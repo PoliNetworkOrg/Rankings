@@ -3,7 +3,8 @@ import { useContext, useEffect, useMemo, useState } from "react"
 import ReactPaginate from "react-paginate"
 import {
   MdNavigateBefore as PrevIcon,
-  MdNavigateNext as NextIcon
+  MdNavigateNext as NextIcon,
+  MdDownload
 } from "react-icons/md"
 import DATA from "../../utils/data/data.json"
 import Store from "../../utils/data/data.ts"
@@ -119,8 +120,10 @@ export default function Viewer() {
   // here starts data analysis
   const enrollStats = Store.enrollStats(table)
 
-  function downloadButtonPush() {
-    const csvData = Store.convertTableToCsv(filteredData)
+
+  function handleCsvDownload() {
+    const csvData: BlobPart = Store.tableToCsv(filteredData)
+
     const blob = new Blob([csvData], { type: "text/csv" })
     const url = window.URL.createObjectURL(blob)
 
@@ -128,7 +131,9 @@ export default function Viewer() {
     a.href = url
     a.download = (activeCourse ?? "data") + ".csv"
     a.click()
+
     a.remove()
+
 
     window.URL.revokeObjectURL(url)
   }
@@ -167,14 +172,14 @@ export default function Viewer() {
             className={`grid w-full flex-grow items-start ${
               isMobile
                 ? "grid-cols-1 grid-rows-[auto_auto_1fr]"
-                : "min-h-0 grid-cols-[1fr_4fr] grid-rows-[auto_1fr_auto] "
+                : "min-h-0 grid-cols-[1fr_4fr_auto] grid-rows-[auto_1fr_auto] "
             } `}
           >
             <div
               className={
                 isMobile
                   ? "sticky top-[-1px] row-start-2 row-end-3 bg-white py-3 dark:bg-slate-900"
-                  : "col-start-2 col-end-3 row-start-1 pb-4 pl-4"
+                  : "col-start-2 col-end-4 row-start-1 pb-4 pl-4"
               }
             >
               <EnrollStats stats={enrollStats} />
@@ -216,6 +221,13 @@ export default function Viewer() {
                 <p>Data not available for this year</p>
               )}
             </div>
+
+            <div className="col-start-3 col-end-4 row-start-2 row-end-4 pl-2">
+              <Button circle onClick={handleCsvDownload}>
+                <MdDownload size={20} />
+              </Button>
+            </div>
+
             <div
               className={`${
                 isMobile
@@ -242,9 +254,7 @@ export default function Viewer() {
       ) : (
         <></>
       )}
-      <div style={{padding: '5px'}}>
-        <Button onClick={downloadButtonPush}> Download .csv</Button>
-      </div>
+
     </Page>
   )
 }
