@@ -55,6 +55,7 @@ export default class Store {
     }
   }
 
+
   static tableToCsv(table: TableData, header?: string[]): string {
     let s = ""
     if (header) {
@@ -73,5 +74,6 @@ export default class Store {
       s += "\n"
     }
     return s
+
   }
 }
