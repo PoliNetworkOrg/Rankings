@@ -120,8 +120,10 @@ export default function Viewer() {
   // here starts data analysis
   const enrollStats = Store.enrollStats(table)
 
+
   function handleCsvDownload() {
     const csvData: BlobPart = Store.tableToCsv(filteredData)
+
     const blob = new Blob([csvData], { type: "text/csv" })
     const url = window.URL.createObjectURL(blob)
 
@@ -129,6 +131,9 @@ export default function Viewer() {
     a.href = url
     a.download = (activeCourse ?? "data") + ".csv"
     a.click()
+
+    a.remove()
+
 
     window.URL.revokeObjectURL(url)
   }
@@ -249,6 +254,7 @@ export default function Viewer() {
       ) : (
         <></>
       )}
+
     </Page>
   )
 }
