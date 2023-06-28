@@ -55,16 +55,25 @@ export default class Store {
     }
   }
 
-  static convertTableToCsv(table: TableData): string {
-    let csv = ""
-    for (let x = 0; x < table.length; x++) {
-      const row = table[x]
-      for (let y = 0; y < row.length; y++) {
-        const field = row[y].toString().replaceAll(",", ".")
-        csv += field + ";"
+
+  static tableToCsv(table: TableData, header?: string[]): string {
+    let s = ""
+    if (header) {
+      for (let i = 0; i < header.length; i++) {
+        s += header[i]
+        s += ";"
       }
-      csv += "\n"
+      s += "\n"
     }
-    return csv
+    for (let i = 0; i < table.length; i++) {
+      const row = table[i]
+      for (let j = 0; j < row.length; j++) {
+        s += row[j].toString().replace(",", ".")
+        s += ";"
+      }
+      s += "\n"
+    }
+    return s
+
   }
 }
