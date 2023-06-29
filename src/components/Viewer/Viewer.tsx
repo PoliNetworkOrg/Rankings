@@ -118,7 +118,7 @@ export default function Viewer() {
   })
 
   // here starts data analysis
-  const enrollStats = Store.enrollStats(table)
+  const enrollStats = Store.getEnrollStats(table)
 
 
   function handleCsvDownload() {
