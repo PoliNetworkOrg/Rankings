@@ -3,7 +3,8 @@ import { useContext, useEffect, useMemo, useState } from "react"
 import ReactPaginate from "react-paginate"
 import {
   MdNavigateBefore as PrevIcon,
-  MdNavigateNext as NextIcon
+  MdNavigateNext as NextIcon,
+  MdDownload
 } from "react-icons/md"
 import DATA from "../../utils/data/data.json"
 import Store from "../../utils/data/data.ts"
@@ -119,30 +120,20 @@ export default function Viewer() {
   // here starts data analysis
   const enrollStats = Store.getEnrollStats(table)
 
-  function tableToCsv(tableData: TableData) {
-    var s: string = ""
-    for (var i = 0; i < tableData.length; i++) {
-      var row = tableData[i]
-      for (var j = 0; j < row.length; j++) {
-        s += row[j]
-        s += ";"
-      }
-      s += "\n"
-    }
-    return s
-  }
 
-  function downloadButtonPush() {
-    var csvData: BlobPart = tableToCsv(filteredData)
-    var blob = new Blob([csvData], { type: "text/csv" })
-    var url = window.URL.createObjectURL(blob)
+  function handleCsvDownload() {
+    const csvData: BlobPart = Store.tableToCsv(filteredData)
 
-    var a = document.createElement("a")
+    const blob = new Blob([csvData], { type: "text/csv" })
+    const url = window.URL.createObjectURL(blob)
+
+    const a = document.createElement("a")
     a.href = url
     a.download = (activeCourse ?? "data") + ".csv"
-    document.body.appendChild(a)
     a.click()
-    document.body.removeChild(a)
+
+    a.remove()
+
 
     window.URL.revokeObjectURL(url)
   }
@@ -181,14 +172,14 @@ export default function Viewer() {
             className={`grid w-full flex-grow items-start ${
               isMobile
                 ? "grid-cols-1 grid-rows-[auto_auto_1fr]"
-                : "min-h-0 grid-cols-[1fr_4fr] grid-rows-[auto_1fr_auto] "
+                : "min-h-0 grid-cols-[1fr_4fr_auto] grid-rows-[auto_1fr_auto] "
             } `}
           >
             <div
               className={
                 isMobile
                   ? "sticky top-[-1px] row-start-2 row-end-3 bg-white py-3 dark:bg-slate-900"
-                  : "col-start-2 col-end-3 row-start-1 pb-4 pl-4"
+                  : "col-start-2 col-end-4 row-start-1 pb-4 pl-4"
               }
             >
               <EnrollStats stats={enrollStats} />
@@ -230,6 +221,13 @@ export default function Viewer() {
                 <p>Data not available for this year</p>
               )}
             </div>
+
+            <div className="col-start-3 col-end-4 row-start-2 row-end-4 pl-2">
+              <Button circle onClick={handleCsvDownload}>
+                <MdDownload size={20} />
+              </Button>
+            </div>
+
             <div
               className={`${
                 isMobile
@@ -256,9 +254,7 @@ export default function Viewer() {
       ) : (
         <></>
       )}
-      <div>
-        <Button onClick={downloadButtonPush}> Download .csv</Button>
-      </div>
+
     </Page>
   )
 }
