@@ -25,18 +25,27 @@ export default function Homepage() {
 
       <hr className="py-4" />
 
-      <h3 className="text-xl font-bold">
-        Benvenuto nello storico delle graduatorie del Politecnico di Milano
-      </h3>
-      <p className="text-lg">Inizia scegliendo la scuola di tuo interesse</p>
-
-      <div className="flex flex-col items-center gap-4 py-4">
-        {data?.schools.map(school => (
-          <Link to={`view/${school}`} key={school}>
-            <Button className="w-32">{school}</Button>
-          </Link>
-        ))}
-      </div>
+      <Page style={{ margin: "auto" }}>
+        <div>
+          <h3 className="text-xl font-bold">
+            Benvenuto nello storico delle graduatorie del Politecnico di Milano
+          </h3>
+          <div style={{ padding: 5 }}></div>
+          <p className="text-lg">
+            Inizia scegliendo la scuola di tuo interesse
+          </p>
+        </div>
+        <div style={{ padding: 15 }}></div>
+        <div className="grid grid-cols-2 gap-2">
+          {data?.schools.map(school => (
+            <div style={{padding:7}}>
+              <Link to={`view/${school}`} key={school}>
+                <Button className="w-32">{school}</Button>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </Page>
     </Page>
   )
 }
