@@ -19,6 +19,7 @@ import StudentResult from "../../utils/types/data/Ranking/StudentResult.ts"
 import ReactPaginate from "react-paginate"
 import BaseTable from "../../utils/types/data/Ranking/BaseTable.ts"
 import CourseTable from "../../utils/types/data/Ranking/CourseTable.ts"
+import ViewHeader from "./Header.tsx"
 
 type Props = {
   school: School
@@ -91,15 +92,15 @@ function Outlet({
       }`}
       fullWidth
     >
-      <div className="grid grid-cols-[20%_auto] grid-rows-[1fr_auto] gap-4 overflow-y-hidden">
-        <div className="row-start-1 row-end-3 col-start-1 col-end-2">
+      <ViewHeader />
+      <div className="grid w-full grid-cols-[20%_auto] grid-rows-[1fr_auto] gap-4 overflow-y-hidden">
+        <div className="col-start-1 col-end-2 row-start-1 row-end-3">
           <DynamicSelect
             options={coursesName}
             onOptionSelect={handleCourseSwitch}
             value={selectedCourse}
             useColumn
           />
-
         </div>
         <div className="col-start-2 col-end-3 row-start-1 row-end-2 overflow-y-auto scrollbar-thin">
           {table && <Table school={school} rows={rows} />}
