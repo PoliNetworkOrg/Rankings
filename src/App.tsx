@@ -45,9 +45,7 @@ const routes: RouteObject[] = [
   }
 ]
 
-const router = createHashRouter(routes, {
-  basename: import.meta.env.BASE_URL
-})
+const router = createHashRouter(routes)
 
 function Layout() {
   const { isLoading } = useContext(DataContext)
