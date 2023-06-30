@@ -18,7 +18,7 @@ import Test from "./pages/Test"
 
 const routes: RouteObject[] = [
   {
-    path: "/",
+    path: "/*",
     element: <Layout />,
     children: [
       {
