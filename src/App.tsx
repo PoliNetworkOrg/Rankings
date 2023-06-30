@@ -2,7 +2,7 @@ import {
   Outlet,
   RouteObject,
   RouterProvider,
-  createBrowserRouter
+  createHashRouter
 } from "react-router-dom"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
@@ -45,9 +45,7 @@ const routes: RouteObject[] = [
   }
 ]
 
-const router = createBrowserRouter(routes, {
-  basename: import.meta.env.BASE_URL
-})
+const router = createHashRouter(routes)
 
 function Layout() {
   const { isLoading } = useContext(DataContext)
