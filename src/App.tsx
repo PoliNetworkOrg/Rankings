@@ -5,6 +5,7 @@ import ContextProvider from "./contexts/ContextProvider"
 import Homepage from "./pages/Homepage"
 import About from "./pages/About"
 import Privacy from "./pages/Privacy"
+import { IconContext } from "react-icons"
 
 const routes = [
   {
@@ -44,7 +45,9 @@ function Layout() {
 export default function App() {
   return (
     <ContextProvider>
-      <RouterProvider router={router} />
+      <IconContext.Provider value={{ size: "28px" }}>
+        <RouterProvider router={router} />
+      </IconContext.Provider>
     </ContextProvider>
   )
 }
