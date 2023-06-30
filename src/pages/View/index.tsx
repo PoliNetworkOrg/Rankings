@@ -12,13 +12,13 @@ export default function View() {
 
   if (!school) return <Navigate to="/" />
 
-  if (school && !year && !phase) return <ChooseYear school={school} />
-
-  if (school && year && !phase)
-    return <ChoosePhase school={school} year={year} />
-
-  if (school && year && phase)
-    return <Viewer school={school} year={year} phase={phase}/>
-
-  return
+  return (
+    <>
+      {school && !year && !phase && <ChooseYear school={school} />}
+      {school && year && !phase && <ChoosePhase school={school} year={year} />}
+      {school && year && phase && (
+        <Viewer school={school} year={year} phase={phase} />
+      )}
+    </>
+  )
 }
