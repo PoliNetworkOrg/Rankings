@@ -6,6 +6,8 @@ import Homepage from "./pages/Homepage"
 import About from "./pages/About"
 import Privacy from "./pages/Privacy"
 import { IconContext } from "react-icons"
+import { useContext } from "react"
+import DataContext from "./contexts/DataContext"
 
 const routes = [
   {
@@ -33,10 +35,12 @@ const router = createBrowserRouter(routes, {
 })
 
 function Layout() {
+  const { isLoading } = useContext(DataContext)
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-start bg-white text-black dark:bg-slate-900 dark:text-white">
       <Header />
-      <Outlet />
+      {!isLoading && <Outlet />}
       <Footer />
     </div>
   )
