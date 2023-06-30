@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react"
 import { Data } from "../utils/data/data"
 
 export interface IDataContext {
-  data: Data
+  data?: Data
   isLoading: boolean
 }
 
@@ -13,7 +13,7 @@ const DataContext = createContext<IDataContext>({
 
 type Props = React.HTMLAttributes<React.ProviderProps<IDataContext>>
 export function DataProvider({ ...p }: Props) {
-  const [data, setData] = useState(new Data())
+  const [data, setData] = useState<Data | undefined>()
   const [isLoading, setIsLoading] = useState(true)
 
   async function init() {
@@ -23,8 +23,8 @@ export function DataProvider({ ...p }: Props) {
   }
 
   useEffect(() => {
-    init()
-  })
+    if (!data) init()
+  }, [data])
 
   return <DataContext.Provider value={{ data, isLoading }} {...p} />
 }
