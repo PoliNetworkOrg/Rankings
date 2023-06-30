@@ -1,11 +1,11 @@
+import urlJoin from "url-join"
 import { LINKS } from "../constants"
-import Path from "../path"
 import { IndexBySchool } from "../types/data/Index/BySchool"
 import School from "../types/data/School"
 
 export class Data {
   protected static readonly _u = LINKS.dataBasePath
-  protected static readonly indexUrl: string = Path.join(
+  protected static readonly indexUrl: string = urlJoin(
     this._u,
     "bySchoolYear.json"
   )
@@ -26,7 +26,7 @@ export class Data {
       for (const [year, files] of Object.entries(years)) {
         data.years.add(parseInt(year))
         for (const file of files) {
-          const url = Path.join(this._u, file.basePath, file.link)
+          const url = urlJoin(this._u, file.basePath, file.link)
           data.urls.push(url)
         }
       }
