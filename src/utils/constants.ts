@@ -13,3 +13,5 @@ export const SCHOOLS = [
 ] as const
 
 export const ALERT_LEVELS = ["error", "warning", "success", "info"] as const
+
+export const ABS_ORDER = "Tutti i corsi"
