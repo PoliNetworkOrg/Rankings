@@ -7,7 +7,7 @@ export default function About() {
         <div style={{ textAlign: "justify" }}>
           <div style={{ padding: 10 }}></div>
           <div style={{ textAlign: "center" }}>
-            <h2>About</h2>
+            <h1><b>About</b></h1>
           </div>
           <div style={{ padding: 20 }}></div>
           <div>
