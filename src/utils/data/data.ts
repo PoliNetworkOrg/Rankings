@@ -17,7 +17,6 @@ export class Data {
 
   public static async init() {
     const data = new Data()
-    console.log(Data.indexUrl)
     data.index = await fetch(Data.indexUrl).then(res => res.json())
     if (!data.index) return null
 
