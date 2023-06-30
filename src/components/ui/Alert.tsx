@@ -1,7 +1,6 @@
 import { MdErrorOutline, MdInfoOutline, MdWarningAmber } from "react-icons/md"
 import { capitalizeWords } from "../../utils/strings"
-
-type Level = "info" | "warning" | "success" | "error"
+import { Level } from "../../utils/types/alert"
 
 type Props = React.HtmlHTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode
