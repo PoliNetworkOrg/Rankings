@@ -2,7 +2,7 @@ import {
   Outlet,
   RouteObject,
   RouterProvider,
-  createHashRouter
+  createBrowserRouter
 } from "react-router-dom"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
@@ -45,7 +45,7 @@ const routes: RouteObject[] = [
   }
 ]
 
-const router = createHashRouter(routes, {
+const router = createBrowserRouter(routes, {
   basename: import.meta.env.BASE_URL
 })
 
