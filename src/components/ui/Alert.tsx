@@ -1,4 +1,9 @@
-import { MdErrorOutline, MdInfoOutline, MdWarningAmber } from "react-icons/md"
+import {
+  MdCheckCircleOutline,
+  MdErrorOutline,
+  MdInfoOutline,
+  MdWarningAmber
+} from "react-icons/md"
 import { capitalizeWords } from "../../utils/strings"
 import { Level } from "../../utils/types/alert"
 
@@ -33,7 +38,7 @@ function GetIcon(level: Level) {
   if (level === "error") return <MdErrorOutline />
   if (level === "warning") return <MdWarningAmber />
   if (level === "info") return <MdInfoOutline />
-  if (level === "success") return <MdErrorOutline />
+  if (level === "success") return <MdCheckCircleOutline />
 }
 
 const getColors = (level: Level) => {
