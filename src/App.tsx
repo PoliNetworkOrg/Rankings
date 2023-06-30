@@ -1,4 +1,4 @@
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom"
+import { Outlet, RouteObject, RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import ContextProvider from "./contexts/ContextProvider"
@@ -11,7 +11,7 @@ import DataContext from "./contexts/DataContext"
 import View from "./pages/View"
 import Test from "./pages/Test"
 
-const routes = [
+const routes: RouteObject[] = [
   {
     path: "/",
     element: <Layout />,
@@ -33,14 +33,14 @@ const routes = [
         element: <Test />
       },
       {
-        path: "view/:school",
+        path: "view/:school/:year?/:phase?",
         element: <View />
       }
     ]
   }
 ]
 
-const router = createBrowserRouter(routes, {
+const router = createHashRouter(routes, {
   basename: import.meta.env.BASE_URL
 })
 
