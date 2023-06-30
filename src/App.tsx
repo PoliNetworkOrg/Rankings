@@ -8,6 +8,7 @@ import Privacy from "./pages/Privacy"
 import { IconContext } from "react-icons"
 import { useContext } from "react"
 import DataContext from "./contexts/DataContext"
+import Test from "./pages/Test"
 
 const routes = [
   {
@@ -25,6 +26,10 @@ const routes = [
       {
         path: "privacy",
         element: <Privacy />
+      },
+      {
+        path: "test",
+        element: <Test />
       }
     ]
   }
