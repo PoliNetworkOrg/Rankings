@@ -12,4 +12,4 @@ export const SCHOOLS = [
   "Urbanistica"
 ] as const
 
-export const ALERT_LEVELS = ["info", "warning", "success", "error"] as const
+export const ALERT_LEVELS = ["error", "warning", "success", "info"] as const
