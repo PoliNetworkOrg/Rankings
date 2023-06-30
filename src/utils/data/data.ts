@@ -18,6 +18,7 @@ export class Data {
 
   public static async init() {
     const data = new Data()
+    console.log(Data.indexUrl)
     data.index = await axios.get(Data.indexUrl).then(res => res.data)
     if (!data.index) return null
 
