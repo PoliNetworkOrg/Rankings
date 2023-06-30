@@ -1,4 +1,3 @@
-import axios from "axios"
 import { LINKS } from "../constants"
 import Path from "../path"
 import { IndexBySchool } from "../types/data/Index/BySchool"
@@ -19,7 +18,7 @@ export class Data {
   public static async init() {
     const data = new Data()
     console.log(Data.indexUrl)
-    data.index = await axios.get(Data.indexUrl).then(res => res.data)
+    data.index = await fetch(Data.indexUrl).then(res => res.json())
     if (!data.index) return null
 
     for (const [school, years] of Object.entries(data.index.schools)) {
