@@ -1,4 +1,5 @@
 import { DarkModeProvider } from "./DarkModeContext"
+import { DataProvider } from "./DataContext"
 import { MobileProvider } from "./MobileContext"
 
 interface Props {
@@ -7,7 +8,9 @@ interface Props {
 export default function ContextProvider({ children }: Props) {
   return (
     <DarkModeProvider>
-      <MobileProvider>{children}</MobileProvider>
+      <DataProvider>
+        <MobileProvider>{children}</MobileProvider>
+      </DataProvider>
     </DarkModeProvider>
   )
 }
