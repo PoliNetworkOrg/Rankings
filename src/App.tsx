@@ -18,7 +18,7 @@ import Test from "./pages/Test"
 
 const routes: RouteObject[] = [
   {
-    path: "/*",
+    path: "/",
     element: <Layout />,
     children: [
       {
@@ -26,19 +26,19 @@ const routes: RouteObject[] = [
         element: <Homepage />
       },
       {
-        path: "about",
+        path: "/about",
         element: <About />
       },
       {
-        path: "privacy",
+        path: "/privacy",
         element: <Privacy />
       },
       {
-        path: "test",
+        path: "/test",
         element: <Test />
       },
       {
-        path: "view/:school/:year?/:phase?",
+        path: "/view/:school/:year?/:phase?",
         element: <View />
       }
     ]
