@@ -15,6 +15,7 @@ type CourseSummary = {
   averageEnglishCorrectAnswers: number
   averageOfWhoPassed: number
   averageScoresOfAllStudents: number
+  minScoreToEnroll: number
   location: string
   title: string
   averagePartialScores: AveragePartialScores
