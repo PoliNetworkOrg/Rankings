@@ -8,6 +8,7 @@ import Privacy from "./pages/Privacy"
 import { IconContext } from "react-icons"
 import { useContext } from "react"
 import DataContext from "./contexts/DataContext"
+import View from "./pages/View"
 import Test from "./pages/Test"
 
 const routes = [
@@ -30,6 +31,10 @@ const routes = [
       {
         path: "test",
         element: <Test />
+      },
+      {
+        path: "view/:school",
+        element: <View />
       }
     ]
   }
