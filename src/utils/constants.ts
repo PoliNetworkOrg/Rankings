@@ -4,3 +4,10 @@ export const LINKS = {
   dataBasePath:
     "https://raw.githubusercontent.com/PoliNetworkOrg/GraduatorieScriptCSharp/main/data/output"
 } as const
+
+export const SCHOOLS = [
+  "Architettura",
+  "Ingegneria",
+  "Design",
+  "Urbanistica"
+] as const
