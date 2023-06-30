@@ -8,12 +8,17 @@ type Props = React.HtmlHTMLAttributes<HTMLDivElement> & {
   level: Level
 }
 
-export default function Alert({ children, className, level, ...props }: Props) {
+export default function Alert({
+  children,
+  className = "",
+  level,
+  ...props
+}: Props) {
   return (
     <div
-      className={`flex w-full rounded-lg bg-${getColor(
+      className={`flex w-full rounded-lg ${getColors(
         level
-      )}-400/40 gap-4 p-4 text-left ${className}`}
+      )} gap-4 p-4 text-left ${className}`}
       {...props}
     >
       <div>{GetIcon(level)}</div>
@@ -32,9 +37,13 @@ function GetIcon(level: Level) {
   if (level === "success") return <MdErrorOutline />
 }
 
-const getColor = (level: Level) => {
-  if (level === "error") return "red"
-  if (level === "warning") return "yellow"
-  if (level === "info") return "blue"
-  if (level === "success") return "green"
+const getColors = (level: Level) => {
+  if (level === "error")
+    return "bg-red-200/30 text-red-900 dark:bg-red-500/10 dark:text-red-100"
+  if (level === "warning")
+    return "bg-amber-200/30 text-amber-900 dark:bg-amber-500/10 dark:text-amber-100"
+  if (level === "info")
+    return "bg-sky-200/30 text-sky-900 dark:bg-sky-400/10 dark:text-sky-100"
+  if (level === "success")
+    return "bg-green-200/30 text-green-900 dark:bg-green-400/10 dark:text-green-100"
 }
