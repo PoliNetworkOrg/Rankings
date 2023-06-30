@@ -6,8 +6,9 @@ import {
   MdNavigateNext as NextIcon,
   MdDownload
 } from "react-icons/md"
+
 import DATA from "../../utils/data/data.json"
-import Store from "../../utils/data/data.ts"
+import Store from "../../utils/data/store.ts"
 import { Course, Phase, School, Structure, TableData } from "../../utils/types"
 import Table from "./Table"
 import Spinner from "../ui/Spinner.tsx"
