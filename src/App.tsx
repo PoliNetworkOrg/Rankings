@@ -1,4 +1,9 @@
-import { Outlet, RouteObject, RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom"
+import {
+  Outlet,
+  RouteObject,
+  RouterProvider,
+  createHashRouter
+} from "react-router-dom"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import ContextProvider from "./contexts/ContextProvider"

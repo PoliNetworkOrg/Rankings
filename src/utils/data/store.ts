@@ -1,15 +1,14 @@
 import { ABS_ORDER } from "../constants"
 import { capitalizeWords } from "../strings"
-import { EnrollStats, Structure, TableData } from "../types"
 import Ranking from "../types/data/Ranking"
 import CourseTable from "../types/data/Ranking/CourseTable"
 import MeritTable from "../types/data/Ranking/MeritTable"
 
-function tableToFloat(v: string | number) {
-  const s = v.toString().replace(",", ".")
-  const parsed = parseFloat(s)
-  return parsed
-}
+// function tableToFloat(v: string | number) {
+//   const s = v.toString().replace(",", ".")
+//   const parsed = parseFloat(s)
+//   return parsed
+// }
 
 export default class Store {
   _ranking: Ranking
@@ -76,23 +75,23 @@ export default class Store {
   //   }
   // }
 
-  static tableToCsv(table: TableData, header?: string[]): string {
-    let s = ""
-    if (header) {
-      for (let i = 0; i < header.length; i++) {
-        s += header[i]
-        s += ";"
-      }
-      s += "\n"
-    }
-    for (let i = 0; i < table.length; i++) {
-      const row = table[i]
-      for (let j = 0; j < row.length; j++) {
-        s += row[j].toString().replace(",", ".")
-        s += ";"
-      }
-      s += "\n"
-    }
-    return s
-  }
+  // static tableToCsv(table: TableData, header?: string[]): string {
+  //   let s = ""
+  //   if (header) {
+  //     for (let i = 0; i < header.length; i++) {
+  //       s += header[i]
+  //       s += ";"
+  //     }
+  //     s += "\n"
+  //   }
+  //   for (let i = 0; i < table.length; i++) {
+  //     const row = table[i]
+  //     for (let j = 0; j < row.length; j++) {
+  //       s += row[j].toString().replace(",", ".")
+  //       s += ";"
+  //     }
+  //     s += "\n"
+  //   }
+  //   return s
+  // }
 }
