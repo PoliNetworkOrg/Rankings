@@ -11,6 +11,7 @@ export default function View() {
   const phase = params.phase
 
   if (!school) return <Navigate to="/" />
+  if (school && year !== undefined && isNaN(year)) return <Navigate to={`/view/${school}`} />
 
   return (
     <>
