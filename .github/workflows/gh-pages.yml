@@ -45,7 +45,7 @@ jobs:
       - name: Build project
         run: pnpm build
         env:
-          PUBLIC_URL: "/RankingsBeta"
+          PUBLIC_URL: "/Rankings"
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
