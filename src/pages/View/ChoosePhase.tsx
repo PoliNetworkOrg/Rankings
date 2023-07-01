@@ -22,7 +22,7 @@ export default function ChoosePhase({ school, year, ...props }: Props) {
   return (
     <Page>
       <ViewHeader />
-      <div {...props} className="grid w-full grid-cols-3 gap-4 py-4">
+      <div {...props} className="grid w-full grid-cols-2 gap-4 py-4">
         {yearData.map(file => (
           <Link to={file.link.replace(".json", "")} key={year}>
             <Button className="w-full">{file.name}</Button>

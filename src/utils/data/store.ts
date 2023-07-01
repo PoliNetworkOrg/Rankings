@@ -3,6 +3,7 @@ import { capitalizeWords } from "../strings"
 import Ranking from "../types/data/Ranking"
 import CourseTable from "../types/data/Ranking/CourseTable"
 import MeritTable from "../types/data/Ranking/MeritTable"
+import StudentResult from "../types/data/Ranking/StudentResult"
 
 // function tableToFloat(v: string | number) {
 //   const s = v.toString().replace(",", ".")
@@ -74,24 +75,70 @@ export default class Store {
   //     }
   //   }
   // }
+  //
 
-  // static tableToCsv(table: TableData, header?: string[]): string {
-  //   let s = ""
-  //   if (header) {
-  //     for (let i = 0; i < header.length; i++) {
-  //       s += header[i]
-  //       s += ";"
-  //     }
-  //     s += "\n"
-  //   }
-  //   for (let i = 0; i < table.length; i++) {
-  //     const row = table[i]
-  //     for (let j = 0; j < row.length; j++) {
-  //       s += row[j].toString().replace(",", ".")
-  //       s += ";"
-  //     }
-  //     s += "\n"
-  //   }
-  //   return s
-  // }
+  static displayBoolean(value?: boolean): string | null {
+    if (value === null || value === undefined) return null
+
+    return value ? "Si" : "No"
+  }
+
+  static getRowsWithNull(rows: StudentResult[]): (string | null)[][] {
+    return rows.map(row => {
+      const a = [
+        row.id ?? null,
+        row.birthDate ?? null,
+        row.result ?? null,
+        row.positionAbsolute ?? null,
+        row.positionCourse ?? null,
+        this.displayBoolean(row.canEnroll),
+        row.canEnrollInto ?? null,
+        row.englishCorrectAnswers ?? null
+      ]
+
+      row.ofa &&
+        Object.values(row.ofa)
+          .map(this.displayBoolean)
+          .forEach(v => a.push(v))
+      row.sectionsResults &&
+        Object.values(row.sectionsResults).forEach(v => a.push(v))
+      const strA = a.map(x => (x === null ? null : x.toString()))
+      return strA
+    })
+  }
+
+  static getHeadersWithNull(rows: StudentResult[]): string[] {
+    const a = [
+      "Matricola",
+      "Data di nascita",
+      "Voto test",
+      "Posizione assoluta",
+      "Posizione nel corso",
+      "Immatricolazione consentita",
+      "Immatricolazione consentita nel corso",
+      "Risposte corrette inglese"
+    ]
+
+    const first = rows[0]
+    if (first.ofa) Object.keys(first.ofa).forEach(v => a.push(v))
+    if (first.sectionsResults)
+      Object.keys(first.sectionsResults)
+        .map(name => "Punteggio sezione " + name)
+        .forEach(v => a.push(v))
+
+    return a
+  }
+
+  public static tableToCsv(table: MeritTable | CourseTable): string {
+    let s = ""
+
+    const headers = this.getHeadersWithNull(table.rows)
+    s += headers.join(";").replace(",", ".").replace("\n", " ") + "\n"
+    const rowWithNull = this.getRowsWithNull(table.rows)
+    rowWithNull.forEach(row => {
+      s += row.join(";").replace(",", ".").replace("\n", " ") + "\n"
+    })
+
+    return s
+  }
 }

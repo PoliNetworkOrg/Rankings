@@ -7,7 +7,7 @@ export default function ViewHeader() {
   if (!school) return <></>
   return (
     <div className="flex w-full items-center justify-start p-2">
-      <div className="flex items-center text-lg">
+      <div className="flex items-center overflow-x-auto text-lg">
         <Link to="/">Homepage</Link>
         <Spacer />
         <Link to={`/view/${school}`}>{school}</Link>
@@ -20,7 +20,7 @@ export default function ViewHeader() {
         {phase && (
           <>
             <Spacer />
-            <Link to={`/view/${school}/${year}`}>{phase}</Link>
+            <p>{phase}</p>
           </>
         )}
       </div>
