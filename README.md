@@ -1,9 +1,6 @@
 # Rankings
 
-PREVIEW: 
-
-* https://polinetworkorg.github.io/preview/PoliNetworkOrg/RankingsBeta/branch/main/
-* https://polinetworkorg.github.io/RankingsBeta/
+* https://rankings.polinetwork.org/
 
 ### Info
 
