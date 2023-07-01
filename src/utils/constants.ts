@@ -1,6 +1,6 @@
 export const LINKS = {
   polinetworkMain: "https://polinetwork.org",
-  githubSource: "https://github.com/PoliNetworkOrg/RankingsBeta",
+  githubSource: "https://github.com/PoliNetworkOrg/Rankings",
   dataBasePath:
     "https://raw.githubusercontent.com/PoliNetworkOrg/GraduatorieScriptCSharp/main/data/output"
 } as const
