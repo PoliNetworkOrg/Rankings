@@ -91,6 +91,7 @@ export default class Store {
   }
 
   static getRowsWithNull(rows: StudentResult[]): (string | null)[][] {
+    if (rows.length === 0) return []
     return rows.map(row => {
       const a = [
         row.id ?? null,
@@ -115,6 +116,7 @@ export default class Store {
   }
 
   static getHeadersWithNull(rows: StudentResult[]): string[] {
+    if (rows.length === 0) return []
     const a = [
       "Matricola",
       "Data di nascita",
