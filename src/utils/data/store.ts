@@ -22,18 +22,25 @@ export default class Store {
     return this._ranking
   }
 
+  private nameSeparator = " | "
   public getCourseNames(): string[] {
-    return this._ranking.byCourse.map(course => course.title)
+    return this._ranking.byCourse.map(
+      course => course.title + this.nameSeparator + course.location
+    )
   }
 
   public getTable(name: string): MeritTable | CourseTable | undefined {
     if (name === ABS_ORDER) return this._ranking.byMerit
-    return this._ranking.byCourse.find(course => course.title === name)
+    return this._ranking.byCourse.find(course => {
+      const split = name.split(this.nameSeparator)
+      return course.title === split[0] && course.location === split[1]
+    })
   }
 
   protected fixLetterCase(): void {
     this._ranking.byCourse.forEach(course => {
       course.title = capitalizeWords(course.title)
+      course.location = capitalizeWords(course.location)
     })
   }
   //
@@ -133,10 +140,10 @@ export default class Store {
     let s = ""
 
     const headers = this.getHeadersWithNull(table.rows)
-    s += headers.join(";").replace(",", ".").replace("\n", " ") + "\n"
+    s += headers.join(";").replaceAll(",", ".").replaceAll("\n", " ") + "\n"
     const rowWithNull = this.getRowsWithNull(table.rows)
     rowWithNull.forEach(row => {
-      s += row.join(";").replace(",", ".").replace("\n", " ") + "\n"
+      s += row.join(";").replaceAll(",", ".").replaceAll("\n", " ") + "\n"
     })
 
     return s
