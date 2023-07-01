@@ -26,7 +26,7 @@ export default function Homepage() {
         ))}
       </div>
 
-      <div style={{ padding: 20 }}></div>
+      <div className="flex-1"></div>
 
       <Alert level={"warning"}>
         <p>
