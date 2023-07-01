@@ -22,6 +22,7 @@ import BaseTable from "../../utils/types/data/Ranking/BaseTable.ts"
 import CourseTable from "../../utils/types/data/Ranking/CourseTable.ts"
 import ViewHeader from "./Header.tsx"
 import Button from "../ui/Button.tsx"
+import { useNavigate } from "react-router-dom"
 
 type Props = {
   school: School
@@ -38,9 +39,12 @@ export default function Viewer({ school, year, phase }: Props) {
     return await data?.loadRanking(school, year, phase)
   }, [data, phase, school, year])
 
+  const navigate = useNavigate()
   useEffect(() => {
-    getRanking().then(r => setRanking(r))
-  }, [getRanking])
+    getRanking()
+      .then(r => setRanking(r))
+      .catch(() => navigate("/"))
+  }, [getRanking, navigate])
 
   if (!ranking) return <Spinner />
 
