@@ -6,13 +6,15 @@ export default function ViewHeader() {
 
   if (!school) return <></>
   return (
-    <div className="flex items-center justify-start p-2">
+    <div className="flex w-full items-center justify-start p-2">
       <div className="flex items-center text-lg">
-        <Link to="/">{school}</Link>
+        <Link to="/">Homepage</Link>
+        <Spacer />
+        <Link to={`/view/${school}`}>{school}</Link>
         {year && (
           <>
             <Spacer />
-            <Link to={`/view/${school}`}>{year}</Link>
+            <Link to={`/view/${school}/${year}`}>{year}</Link>
           </>
         )}
         {phase && (
