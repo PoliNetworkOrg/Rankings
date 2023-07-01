@@ -18,7 +18,7 @@ export default function Homepage() {
       <div style={{ padding: 5 }}></div>
       <p className="text-lg">Inizia scegliendo la scuola di tuo interesse</p>
 
-      <div className="flex flex-col items-center gap-4 py-4">
+      <div className="grid grid-cols-2 items-center gap-4 py-4">
         {data?.schools.map(school => (
           <Link to={`view/${school}`} key={school}>
             <Button className="w-32">{school}</Button>
