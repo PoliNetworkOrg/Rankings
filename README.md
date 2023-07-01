@@ -4,14 +4,12 @@
 
 ### Info
 
-
-- This is a rewrite of the repo [RankingsOld](https://github.com/PoliNetworkOrg/RankingsOld) using React.
 - Every time the `main` branch is updated, the website preview build will automatically update too: the preview build is hosted [here](https://PoliNetworkOrg.github.io/preview/PoliNetworkOrg/Rankings/branch/main).  
 - Every PR will also get its own preview deployed by the CI workflows, and the link will be posted as a comment by the bot.
 
 #### Data generation
-- Python script - https://github.com/PoliNetworkOrg/GraduatorieScript
-- C# script (still in dev) - https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp
+
+- C# script - https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp
 
 ## Development Setup
 #### Requirements:
@@ -28,6 +26,12 @@
     ```sh
     pnpn dev
     ```
+
+
+### Old 
+
+- This is a rewrite of the repo [RankingsOld](https://github.com/PoliNetworkOrg/RankingsOld) using React.
+- Old python script - https://github.com/PoliNetworkOrg/GraduatorieScript
 
 
  
