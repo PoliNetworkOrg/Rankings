@@ -133,10 +133,10 @@ export default class Store {
     let s = ""
 
     const headers = this.getHeadersWithNull(table.rows)
-    s += headers.join(";").replace(",", ".").replace("\n", " ") + "\n"
+    s += headers.join(";").replaceAll(",", ".").replaceAll("\n", " ") + "\n"
     const rowWithNull = this.getRowsWithNull(table.rows)
     rowWithNull.forEach(row => {
-      s += row.join(";").replace(",", ".").replace("\n", " ") + "\n"
+      s += row.join(";").replaceAll(",", ".").replaceAll("\n", " ") + "\n"
     })
 
     return s
