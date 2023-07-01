@@ -1,93 +1,45 @@
-import { capitalizeWords } from "../strings"
-import { EnrollStats, Structure, TableData } from "../types"
+import urlJoin from "url-join"
+import { LINKS } from "../constants"
+import { IndexBySchool } from "../types/data/Index/BySchool"
+import School from "../types/data/School"
+import Ranking from "../types/data/Ranking"
 
-function tableToFloat(v: string | number) {
-  const s = v.toString().replace(",", ".")
-  const parsed = parseFloat(s)
-  return parsed
-}
+export class Data {
+  protected static readonly _u = LINKS.dataBasePath
+  protected static readonly indexUrl: string = urlJoin(
+    this._u,
+    "bySchoolYear.json"
+  )
 
-export default class Store {
-  _data: Structure
-  constructor(data: Structure) {
-    this._data = data
-    this.fixLetterCase()
-  }
+  public index?: IndexBySchool
+  public schools: School[] = []
+  public urls: string[] = []
 
-  get data() {
-    return this._data
-  }
+  public static async init() {
+    const data = new Data()
+    data.index = await fetch(Data.indexUrl).then(res => res.json())
+    if (!data.index) return null
 
-  protected fixLetterCase(): void {
-    this._data.forEach(school => {
-      school.years.forEach(year => {
-        year.phases.forEach(phase => {
-          phase.courses.forEach(course => {
-            course.name = capitalizeWords(course.name)
-          })
-        })
-      })
-    })
-  }
-
-  public static getEnrollStats(table: TableData): EnrollStats {
-    // check if table is ABS_ORDER
-    if (!table.length || table[0].length <= 5) return null
-
-    const candidates = table.length
-    const firstNo = table.findIndex(row => row[2].toString().startsWith("No"))
-    if (firstNo === 0) {
-      // no candidates allowed
-      return {
-        candidates,
-        allowed: 0,
-        allowedPct: "0%",
-        minScoreToPass: 0
-      }
-    } else if (firstNo === -1) {
-      // all candidates allowed
-      return {
-        candidates,
-        allowed: candidates,
-        allowedPct: "100%",
-        minScoreToPass: tableToFloat(table[candidates - 1][3])
-      }
-    } else {
-      // some candidates allowed
-      const lastYes = firstNo === -1 ? candidates - 1 : firstNo - 1
-      const allowed = firstNo === -1 ? candidates : firstNo
-      const allowedPct = firstNo === -1 ? 100 : (allowed * 100) / candidates
-      const minScoreToPass =
-        table[lastYes].length > 3 ? tableToFloat(table[lastYes][3]) : 0
-
-      return {
-        candidates,
-        allowed,
-        allowedPct: allowedPct.toFixed(1) + "%",
-        minScoreToPass
+    for (const [school, years] of Object.entries(data.index.schools)) {
+      data.schools.push(school as School)
+      for (const files of Object.values(years)) {
+        for (const file of files) {
+          const url = urlJoin(this._u, file.basePath, file.link)
+          data.urls.push(url)
+        }
       }
     }
+    return data
   }
 
-
-  static tableToCsv(table: TableData, header?: string[]): string {
-    let s = ""
-    if (header) {
-      for (let i = 0; i < header.length; i++) {
-        s += header[i]
-        s += ";"
-      }
-      s += "\n"
-    }
-    for (let i = 0; i < table.length; i++) {
-      const row = table[i]
-      for (let j = 0; j < row.length; j++) {
-        s += row[j].toString().replace(",", ".")
-        s += ";"
-      }
-      s += "\n"
-    }
-    return s
-
+  public async loadRanking(
+    school: School,
+    year: number,
+    phase: string
+  ): Promise<Ranking> {
+    const filename = phase.endsWith(".json") ? phase : phase + ".json"
+    const url = urlJoin(Data._u, school, year.toString(), filename)
+    const json = await fetch(url).then(res => res.json())
+    return json as Ranking
   }
 }

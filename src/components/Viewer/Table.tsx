@@ -1,5 +1,6 @@
 import { useId } from "react"
-import { School, TableData } from "../../utils/types"
+import School from "../../utils/types/data/School"
+import StudentResult from "../../utils/types/data/Ranking/StudentResult"
 
 const Th = ({
   children,
@@ -26,34 +27,49 @@ const Td = ({
 )
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   school: School
-  data: TableData
+  rows: StudentResult[]
   isGlobalRanking?: boolean
 }
-export default function Table({
-  school,
-  data,
-  isGlobalRanking = false,
-  ...p
-}: TableProps) {
+
+function displayBool(value?: boolean): string | null {
+  if (value === undefined || value === null) return null
+  return value ? "Si" : "No"
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function Table({ school, rows, ...p }: TableProps) {
   const id = useId()
 
   return (
     <table className="relative mb-[1px] w-full border-collapse" {...p}>
-      <TableHeader
-        colNum={data.length > 0 ? data[0].length : 0 || 0}
-        school={school}
-        isGlobalRanking={isGlobalRanking}
-      />
+      <TableHeader row={rows[0]} />
       <tbody>
-        {data.length ? (
-          data.map((row, x) => (
+        {rows.length ? (
+          rows.map((student, x) => (
             <tr
               key={`${id}-${x}`}
               className="even:bg-slate-100 dark:even:bg-slate-800"
             >
-              {row.map((value, y) => (
-                <Td key={`${id}-${x}-${y}`}>{value}</Td>
-              ))}
+              {rows[0].birthDate && <Td>{student.birthDate}</Td>}
+              {rows[0].result && <Td>{student.result}</Td>}
+              {rows[0].positionAbsolute && <Td>{student.positionAbsolute}</Td>}
+              {rows[0].positionCourse && <Td>{student.positionCourse}</Td>}
+              {displayBool(student.canEnroll) && (
+                <Td>{displayBool(student.canEnroll)}</Td>
+              )}
+              {rows[0].canEnrollInto && <Td>{student.canEnrollInto || "-"}</Td>}
+              {rows[0].englishCorrectAnswers && (
+                <Td>{rows[0].englishCorrectAnswers}</Td>
+              )}
+              {rows[0].ofa &&
+                Object.keys(rows[0].ofa).map(ofaName => (
+                  <Td>{displayBool(student.ofa?.[ofaName])}</Td>
+                ))}
+              {rows[0].sectionsResults &&
+                Object.keys(rows[0].sectionsResults).map(section => (
+                  <Td>{rows[0].sectionsResults?.[section]}</Td>
+                ))}
+              {rows[0].id && <Td>{student.id}</Td>}
             </tr>
           ))
         ) : (
@@ -66,128 +82,38 @@ export default function Table({
   )
 }
 
-interface TableHeaderProps
-  extends React.HTMLAttributes<HTMLTableSectionElement> {
-  school: School
-  colNum: number
-  isGlobalRanking?: boolean
+type TableHeaderProps = React.HTMLAttributes<HTMLTableSectionElement> & {
+  row: StudentResult
 }
-function TableHeader({ isGlobalRanking, school, colNum }: TableHeaderProps) {
+function TableHeader({ row }: TableHeaderProps) {
   return (
     <thead className="sticky top-[-1px] z-10 bg-slate-200 dark:bg-slate-800">
-      {school === "Design" &&
-        (isGlobalRanking ? (
-          <tr>
-            <Th>Test Score</Th>
-            <Th>OFA TEST</Th>
-            <Th>Overall Position</Th>
-            <Th>Admitted enroll in (course)</Th>
-          </tr>
-        ) : (
-          <>
-            <tr>
-              <Th rowSpan={2}>Position</Th>
-              <Th rowSpan={2}>Birth Date</Th>
-              <Th rowSpan={2}>Enroll allowed</Th>
-              <Th rowSpan={2}>Test Score</Th>
-              <Th colSpan={colNum > 11 ? 6 : 5}>Sections Score</Th>
-              <Th rowSpan={2}>Correct ENG Answers</Th>
-              <Th rowSpan={2}>Debit in ENG</Th>
-            </tr>
-            <tr>
-              <Th>Geometry and Representation</Th>
-              <Th>Verbal Comp.</Th>
-              <Th>History of Design and Art</Th>
-              <Th>Logic</Th>
-              <Th>General Culture</Th>
-              {colNum > 11 && <Th>English</Th>}
-            </tr>
-          </>
-        ))}
-      {school === "Ingegneria" &&
-        (isGlobalRanking ? (
-          <tr>
-            <Th>Test Score</Th>
-            <Th>OFA TEST</Th>
-            <Th>OFA TENG</Th>
-            <Th>Overall Position</Th>
-            <Th>Admitted enroll in (course)</Th>
-          </tr>
-        ) : (
-          <>
-            <tr>
-              <Th rowSpan={2}>Position</Th>
-              <Th rowSpan={2}>Birth Date</Th>
-              <Th rowSpan={2}>Enroll allowed</Th>
-              <Th rowSpan={2}>Test Score</Th>
-              <Th colSpan={4}>Sections Score</Th>
-              <Th rowSpan={2}>Correct ENG Answers</Th>
-              <Th rowSpan={2}>OFA TEST</Th>
-              <Th rowSpan={2}>OFA TENG</Th>
-            </tr>
-            <tr>
-              <Th>English</Th>
-              <Th>Maths</Th>
-              <Th>Verbal Comp.</Th>
-              <Th>Physics</Th>
-            </tr>
-          </>
-        ))}
-      {school === "Architettura" &&
-        (isGlobalRanking ? (
-          <tr>
-            <Th>Test Score</Th>
-            <Th>OFA TENG</Th>
-            <Th>Overall Position</Th>
-            <Th>Status</Th>
-          </tr>
-        ) : (
-          <>
-            <tr>
-              <Th rowSpan={2}>Position</Th>
-              <Th rowSpan={2}>Birth Date</Th>
-              <Th rowSpan={2}>Enroll allowed</Th>
-              <Th rowSpan={2}>Test Score</Th>
-              <Th colSpan={5}>Sections Score</Th>
-              {colNum === 11 && (
-                <>
-                  <Th rowSpan={2}>Correct ENG Answers</Th>
-                  <Th rowSpan={2}>OFA TENG</Th>
-                </>
-              )}
-            </tr>
-            <tr>
-              <Th>General Culture</Th>
-              <Th>Logic</Th>
-              <Th>History</Th>
-              <Th>Drawing and Representation</Th>
-              <Th>Physics and Maths</Th>
-            </tr>
-          </>
-        ))}
-      {school === "Urbanistica" &&
-        (isGlobalRanking ? (
-          <tr>
-            <Th>Test Score</Th>
-            <Th>Overall Position</Th>
-            <Th>Admitted enroll in (course)</Th>
-          </tr>
-        ) : (
-          <>
-            <tr>
-              <Th rowSpan={2}>Position</Th>
-              <Th rowSpan={2}>Birth Date</Th>
-              <Th rowSpan={2}>Enroll allowed</Th>
-              <Th rowSpan={2}>Test Score</Th>
-              <Th colSpan={6}>Sections Score</Th>
-            </tr>
-            <tr>
-              <Th>Interview</Th>
-              <Th>Composition</Th>
-              <Th>Motivational Letter</Th>
-            </tr>
-          </>
-        ))}
+      <tr>
+        {row.birthDate && <Th rowSpan={2}>Data di nascita</Th>}
+        {row.result && <Th rowSpan={2}>Voto test</Th>}
+        {row.positionAbsolute && <Th rowSpan={2}>Posizione assoluta</Th>}
+        {row.positionCourse && <Th rowSpan={2}>Posizione nel corso</Th>}
+        {displayBool(row.canEnroll) && <Th rowSpan={2}>Immat. consentita</Th>}
+        {row.canEnrollInto && <Th rowSpan={2}>Immat. nel corso</Th>}
+        {row.englishCorrectAnswers && (
+          <Th rowSpan={2}>Risposte corrette inglese</Th>
+        )}
+        {row.ofa &&
+          Object.keys(row.ofa).map(name => <Th rowSpan={2}>OFA {name}</Th>)}
+        {row.sectionsResults && (
+          <Th rowSpan={1} colSpan={Object.keys(row.sectionsResults).length}>
+            Punteggio singole sezioni
+          </Th>
+        )}
+        {row.id && <Th rowSpan={2}>Matricola</Th>}
+      </tr>
+      {row.sectionsResults && (
+        <tr>
+          {Object.keys(row.sectionsResults).map(name => (
+            <Th>{name}</Th>
+          ))}
+        </tr>
+      )}
     </thead>
   )
 }
