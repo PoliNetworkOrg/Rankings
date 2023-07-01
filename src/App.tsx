@@ -1,4 +1,5 @@
 import {
+  Navigate,
   Outlet,
   RouteObject,
   RouterProvider,
@@ -40,6 +41,10 @@ const routes: RouteObject[] = [
       {
         path: "/view/:school/:year?/:phase?",
         element: <View />
+      },
+      {
+        path: "*",
+        element: <Navigate to="/" />
       }
     ]
   }
