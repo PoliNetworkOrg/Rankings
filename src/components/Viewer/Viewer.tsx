@@ -22,6 +22,7 @@ import BaseTable from "../../utils/types/data/Ranking/BaseTable.ts"
 import CourseTable from "../../utils/types/data/Ranking/CourseTable.ts"
 import ViewHeader from "./Header.tsx"
 import Button from "../ui/Button.tsx"
+import { useNavigate } from "react-router-dom"
 
 type Props = {
   school: School
@@ -38,9 +39,12 @@ export default function Viewer({ school, year, phase }: Props) {
     return await data?.loadRanking(school, year, phase)
   }, [data, phase, school, year])
 
+  const navigate = useNavigate()
   useEffect(() => {
-    getRanking().then(r => setRanking(r))
-  }, [getRanking])
+    getRanking()
+      .then(r => setRanking(r))
+      .catch(() => navigate("/"))
+  }, [getRanking, navigate])
 
   if (!ranking) return <Spinner />
 
@@ -118,7 +122,13 @@ function Outlet({
           <MdDownload size={20} />
         </Button>
       </div>
-      <div className="grid w-full grid-cols-[20%_auto] grid-rows-[1fr_auto] gap-4 overflow-y-hidden">
+      <div
+        className={
+          isMobile
+            ? "flex w-full flex-col gap-4 overflow-x-auto"
+            : "grid w-full grid-cols-[20%_auto] grid-rows-[1fr_auto] gap-4 overflow-y-hidden"
+        }
+      >
         <div className="col-start-1 col-end-2 row-start-1 row-end-3">
           <DynamicSelect
             options={coursesName}
