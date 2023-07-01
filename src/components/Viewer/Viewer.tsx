@@ -2,7 +2,8 @@
 import { useCallback, useContext, useEffect, useState } from "react"
 import {
   MdNavigateBefore as PrevIcon,
-  MdNavigateNext as NextIcon
+  MdNavigateNext as NextIcon,
+  MdDownload
 } from "react-icons/md"
 import MobileContext from "../../contexts/MobileContext"
 import Page from "../ui/Page.tsx"
@@ -20,6 +21,8 @@ import ReactPaginate from "react-paginate"
 import BaseTable from "../../utils/types/data/Ranking/BaseTable.ts"
 import CourseTable from "../../utils/types/data/Ranking/CourseTable.ts"
 import ViewHeader from "./Header.tsx"
+import Button from "../ui/Button.tsx"
+import { useNavigate } from "react-router-dom"
 
 type Props = {
   school: School
@@ -36,9 +39,12 @@ export default function Viewer({ school, year, phase }: Props) {
     return await data?.loadRanking(school, year, phase)
   }, [data, phase, school, year])
 
+  const navigate = useNavigate()
   useEffect(() => {
-    getRanking().then(r => setRanking(r))
-  }, [getRanking])
+    getRanking()
+      .then(r => setRanking(r))
+      .catch(() => navigate("/"))
+  }, [getRanking, navigate])
 
   if (!ranking) return <Spinner />
 
@@ -49,6 +55,7 @@ export default function Viewer({ school, year, phase }: Props) {
   const table = store.getTable(selectedCourse)
 
   if (!table) return <Spinner />
+  const csv = Store.tableToCsv(table)
 
   return (
     <Outlet
@@ -59,6 +66,7 @@ export default function Viewer({ school, year, phase }: Props) {
       coursesName={coursesName}
       selectedCourse={selectedCourse}
       handleCourseSwitch={handleCourseSwitch}
+      csv={csv}
     />
   )
 }
@@ -68,6 +76,7 @@ type OutletProps = Props & {
   handleCourseSwitch: (name: string) => void
   coursesName: string[]
   selectedCourse: string
+  csv: string
 }
 
 function Outlet({
@@ -75,13 +84,28 @@ function Outlet({
   handleCourseSwitch,
   coursesName,
   selectedCourse,
-  school
+  school,
+  csv
 }: OutletProps) {
   const { isMobile } = useContext(MobileContext)
   const { rows, pageCount, handlePageClick } = usePaginate<StudentResult[]>({
     data: table.rows ?? [],
     itemsPerPage: 400
   })
+
+  function handleCsvDownload() {
+    const blob = new Blob([csv], { type: "text/csv" })
+    const url = window.URL.createObjectURL(blob)
+
+    const a = document.createElement("a")
+    a.href = url
+    a.download = (selectedCourse ?? "data") + ".csv"
+    a.click()
+
+    a.remove()
+
+    window.URL.revokeObjectURL(url)
+  }
 
   return (
     <Page
@@ -93,7 +117,18 @@ function Outlet({
       fullWidth
     >
       <ViewHeader />
-      <div className="grid w-full grid-cols-[20%_auto] grid-rows-[1fr_auto] gap-4 overflow-y-hidden">
+      <div className="flex w-full justify-end p-2">
+        <Button circle onClick={handleCsvDownload}>
+          <MdDownload size={20} />
+        </Button>
+      </div>
+      <div
+        className={
+          isMobile
+            ? "flex w-full flex-col gap-4 overflow-x-auto"
+            : "grid w-full grid-cols-[20%_auto] grid-rows-[1fr_auto] gap-4 overflow-y-hidden"
+        }
+      >
         <div className="col-start-1 col-end-2 row-start-1 row-end-3">
           <DynamicSelect
             options={coursesName}
