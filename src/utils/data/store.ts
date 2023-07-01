@@ -22,18 +22,25 @@ export default class Store {
     return this._ranking
   }
 
+  private nameSeparator = " | "
   public getCourseNames(): string[] {
-    return this._ranking.byCourse.map(course => course.title)
+    return this._ranking.byCourse.map(
+      course => course.title + this.nameSeparator + course.location
+    )
   }
 
   public getTable(name: string): MeritTable | CourseTable | undefined {
     if (name === ABS_ORDER) return this._ranking.byMerit
-    return this._ranking.byCourse.find(course => course.title === name)
+    return this._ranking.byCourse.find(course => {
+      const split = name.split(this.nameSeparator)
+      return course.title === split[0] && course.location === split[1]
+    })
   }
 
   protected fixLetterCase(): void {
     this._ranking.byCourse.forEach(course => {
       course.title = capitalizeWords(course.title)
+      course.location = capitalizeWords(course.location)
     })
   }
   //
