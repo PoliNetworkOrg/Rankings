@@ -30,18 +30,21 @@ export default function Homepage() {
 
       <Alert level={"warning"}>
         <p>
-          Questo progetto è gestito da PoliNetwork e non è in alcun modo
-          collegato al Politecnico di Milano.
+          Questo progetto è gestito da{" "}
+          <a href="https://polinetwork.org">PoliNetwork</a> e non è in alcun
+          modo collegato al Politecnico di Milano.
         </p>
         <p>
           Gli autori del Progetto non si assumono alcuna responsabilità, né
           garantiscono espressamente o implicitamente l'accuratezza o
           l'affidabilità dei contenuti di questo sito.
         </p>
-        <b>
+        <div style={{ padding: 5 }}></div>
+        <i>
           Se vuoi controllare la tua posizione nella graduatoria per
-          immatricolarti, consulta il sito del Politecnico di Milano
-        </b>
+          immatricolarti, consulta il sito del{" "}
+          <a href="https://polimi.it">Politecnico di Milano</a>
+        </i>
       </Alert>
     </Page>
   )
