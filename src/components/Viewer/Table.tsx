@@ -50,7 +50,6 @@ export default function Table({ school, rows, ...p }: TableProps) {
               key={`${id}-${x}`}
               className="even:bg-slate-100 dark:even:bg-slate-800"
             >
-              {rows[0].id && <Td>{student.id}</Td>}
               {rows[0].birthDate && <Td>{student.birthDate}</Td>}
               {rows[0].result && <Td>{student.result}</Td>}
               {rows[0].positionAbsolute && <Td>{student.positionAbsolute}</Td>}
@@ -70,6 +69,7 @@ export default function Table({ school, rows, ...p }: TableProps) {
                 Object.keys(rows[0].sectionsResults).map(section => (
                   <Td>{rows[0].sectionsResults?.[section]}</Td>
                 ))}
+              {rows[0].id && <Td>{student.id}</Td>}
             </tr>
           ))
         ) : (
@@ -89,7 +89,6 @@ function TableHeader({ row }: TableHeaderProps) {
   return (
     <thead className="sticky top-[-1px] z-10 bg-slate-200 dark:bg-slate-800">
       <tr>
-        {row.id && <Th rowSpan={2}>Matricola</Th>}
         {row.birthDate && <Th rowSpan={2}>Data di nascita</Th>}
         {row.result && <Th rowSpan={2}>Voto test</Th>}
         {row.positionAbsolute && <Th rowSpan={2}>Posizione assoluta</Th>}
@@ -106,6 +105,7 @@ function TableHeader({ row }: TableHeaderProps) {
             Punteggio singole sezioni
           </Th>
         )}
+        {row.id && <Th rowSpan={2}>Matricola</Th>}
       </tr>
       {row.sectionsResults && (
         <tr>
