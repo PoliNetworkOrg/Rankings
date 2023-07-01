@@ -24,14 +24,17 @@ export default class Store {
 
   private nameSeparator = " | "
   public getCourseNames(): string[] {
-    return this._ranking.byCourse.map(
-      course => course.title + this.nameSeparator + course.location
+    return this._ranking.byCourse.map(course =>
+      course.location
+        ? course.title + this.nameSeparator + course.location
+        : course.title
     )
   }
 
   public getTable(name: string): MeritTable | CourseTable | undefined {
     if (name === ABS_ORDER) return this._ranking.byMerit
     return this._ranking.byCourse.find(course => {
+      if (!course.location) return course.title === name
       const split = name.split(this.nameSeparator)
       return course.title === split[0] && course.location === split[1]
     })
