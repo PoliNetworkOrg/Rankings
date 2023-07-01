@@ -138,7 +138,11 @@ function Outlet({
           />
         </div>
         <div className="col-start-2 col-end-3 row-start-1 row-end-2 overflow-y-auto scrollbar-thin">
-          {table && <Table school={school} rows={rows} />}
+          {table && table.rows.length > 0 ? (
+            <Table school={school} rows={rows} />
+          ) : (
+            <p>Nessun dato disponibile</p>
+          )}
         </div>
         <div className="col-start-2 col-end-3 row-start-2 row-end-3">
           {pageCount > 1 && (

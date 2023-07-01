@@ -24,14 +24,17 @@ export default class Store {
 
   private nameSeparator = " | "
   public getCourseNames(): string[] {
-    return this._ranking.byCourse.map(
-      course => course.title + this.nameSeparator + course.location
+    return this._ranking.byCourse.map(course =>
+      course.location
+        ? course.title + this.nameSeparator + course.location
+        : course.title
     )
   }
 
   public getTable(name: string): MeritTable | CourseTable | undefined {
     if (name === ABS_ORDER) return this._ranking.byMerit
     return this._ranking.byCourse.find(course => {
+      if (!course.location) return course.title === name
       const split = name.split(this.nameSeparator)
       return course.title === split[0] && course.location === split[1]
     })
@@ -39,8 +42,8 @@ export default class Store {
 
   protected fixLetterCase(): void {
     this._ranking.byCourse.forEach(course => {
-      course.title = capitalizeWords(course.title)
-      course.location = capitalizeWords(course.location)
+      course.title = capitalizeWords(course.title ?? "")
+      course.location = capitalizeWords(course.location ?? "")
     })
   }
   //
@@ -91,6 +94,7 @@ export default class Store {
   }
 
   static getRowsWithNull(rows: StudentResult[]): (string | null)[][] {
+    if (rows.length === 0) return []
     return rows.map(row => {
       const a = [
         row.id ?? null,
@@ -115,6 +119,7 @@ export default class Store {
   }
 
   static getHeadersWithNull(rows: StudentResult[]): string[] {
+    if (rows.length === 0) return []
     const a = [
       "Matricola",
       "Data di nascita",
