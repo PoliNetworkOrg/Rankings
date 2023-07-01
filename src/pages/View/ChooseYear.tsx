@@ -18,15 +18,12 @@ export default function ChooseYear({ school, ...props }: Props) {
   return (
     <Page>
       <ViewHeader />
-      <div {...props}>
-        {school}
-        <div>
-          {Object.keys(schoolData).map(year => (
-            <Link to={year} key={year}>
-              <Button>{year}</Button>
-            </Link>
-          ))}
-        </div>
+      <div {...props} className="grid w-full grid-flow-col-dense gap-4 py-4">
+        {Object.keys(schoolData).map(year => (
+          <Link to={year} key={year}>
+            <Button className="w-full">{year}</Button>
+          </Link>
+        ))}
       </div>
     </Page>
   )
