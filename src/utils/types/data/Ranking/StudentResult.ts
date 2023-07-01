@@ -1,14 +1,14 @@
 type StudentResult = {
-  birthDate: string
-  canEnroll: boolean
-  canEnrollInto: string
-  englishCorrectAnswers: number
-  id: string
-  positionAbsolute: number
-  positionCourse: number
-  result: number
-  ofa: Ofas
-  sectionsResults: SectionsResults
+  birthDate?: string
+  canEnroll?: boolean
+  canEnrollInto?: string
+  englishCorrectAnswers?: number
+  id?: string
+  positionAbsolute?: number
+  positionCourse?: number
+  result?: number
+  ofa?: Ofas
+  sectionsResults?: SectionsResults
 }
 
 type Ofas = {
