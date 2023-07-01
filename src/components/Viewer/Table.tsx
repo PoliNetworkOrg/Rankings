@@ -50,7 +50,6 @@ export default function Table({ school, rows, ...p }: TableProps) {
               key={`${id}-${x}`}
               className="even:bg-slate-100 dark:even:bg-slate-800"
             >
-              {rows[0].id && <Td>{student.id}</Td>}
               {rows[0].birthDate && <Td>{student.birthDate}</Td>}
               {rows[0].result && <Td>{student.result}</Td>}
               {rows[0].positionAbsolute && <Td>{student.positionAbsolute}</Td>}
@@ -64,12 +63,17 @@ export default function Table({ school, rows, ...p }: TableProps) {
               )}
               {rows[0].ofa &&
                 Object.keys(rows[0].ofa).map(ofaName => (
-                  <Td>{displayBool(student.ofa?.[ofaName])}</Td>
+                  <Td key={`${id}-${x}-${ofaName}`}>
+                    {displayBool(student.ofa?.[ofaName])}
+                  </Td>
                 ))}
               {rows[0].sectionsResults &&
                 Object.keys(rows[0].sectionsResults).map(section => (
-                  <Td>{rows[0].sectionsResults?.[section]}</Td>
+                  <Td key={`${id}-${x}-${section}`}>
+                    {rows[0].sectionsResults?.[section]}
+                  </Td>
                 ))}
+              {rows[0].id && <Td>{student.id}</Td>}
             </tr>
           ))
         ) : (
@@ -89,7 +93,6 @@ function TableHeader({ row }: TableHeaderProps) {
   return (
     <thead className="sticky top-[-1px] z-10 bg-slate-200 dark:bg-slate-800">
       <tr>
-        {row.id && <Th rowSpan={2}>Matricola</Th>}
         {row.birthDate && <Th rowSpan={2}>Data di nascita</Th>}
         {row.result && <Th rowSpan={2}>Voto test</Th>}
         {row.positionAbsolute && <Th rowSpan={2}>Posizione assoluta</Th>}
@@ -100,17 +103,22 @@ function TableHeader({ row }: TableHeaderProps) {
           <Th rowSpan={2}>Risposte corrette inglese</Th>
         )}
         {row.ofa &&
-          Object.keys(row.ofa).map(name => <Th rowSpan={2}>OFA {name}</Th>)}
+          Object.keys(row.ofa).map(name => (
+            <Th key={`header-${name}`} rowSpan={2}>
+              OFA {name}
+            </Th>
+          ))}
         {row.sectionsResults && (
           <Th rowSpan={1} colSpan={Object.keys(row.sectionsResults).length}>
             Punteggio singole sezioni
           </Th>
         )}
+        {row.id && <Th rowSpan={2}>Matricola</Th>}
       </tr>
       {row.sectionsResults && (
         <tr>
           {Object.keys(row.sectionsResults).map(name => (
-            <Th>{name}</Th>
+            <Th key={`header-section-${name}`}>{name}</Th>
           ))}
         </tr>
       )}
