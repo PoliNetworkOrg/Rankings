@@ -1,6 +1,12 @@
 # Rankings
 
-PREVIEW: https://polinetworkorg.github.io/preview/PoliNetworkOrg/Rankings/branch/main/
+PREVIEW: 
+
+* https://polinetworkorg.github.io/preview/PoliNetworkOrg/RankingsBeta/branch/main/
+* https://polinetworkorg.github.io/RankingsBeta/
+
+### Info
+
 
 - This is a rewrite of the repo [Rankings](https://github.com/PoliNetworkOrg/Rankings) using React.
 - Every time the `main` branch is updated, the website preview build will automatically update too: the preview build is hosted [here](https://PoliNetworkOrg.github.io/preview/PoliNetworkOrg/Rankings/branch/main).  
