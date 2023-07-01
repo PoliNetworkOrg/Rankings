@@ -18,7 +18,7 @@ export default function ChooseYear({ school, ...props }: Props) {
   return (
     <Page>
       <ViewHeader />
-      <div {...props} className="grid w-full grid-flow-col-dense gap-4 py-4">
+      <div {...props} className="grid w-full grid-cols-2 gap-4 py-4">
         {Object.keys(schoolData).map(year => (
           <Link to={year} key={year}>
             <Button className="w-full">{year}</Button>
