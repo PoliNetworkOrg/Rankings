@@ -39,8 +39,8 @@ export default class Store {
 
   protected fixLetterCase(): void {
     this._ranking.byCourse.forEach(course => {
-      course.title = capitalizeWords(course.title)
-      course.location = capitalizeWords(course.location)
+      course.title = capitalizeWords(course.title ?? "")
+      course.location = capitalizeWords(course.location ?? "")
     })
   }
   //
