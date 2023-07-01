@@ -63,11 +63,15 @@ export default function Table({ school, rows, ...p }: TableProps) {
               )}
               {rows[0].ofa &&
                 Object.keys(rows[0].ofa).map(ofaName => (
-                  <Td>{displayBool(student.ofa?.[ofaName])}</Td>
+                  <Td key={`${id}-${x}-${ofaName}`}>
+                    {displayBool(student.ofa?.[ofaName])}
+                  </Td>
                 ))}
               {rows[0].sectionsResults &&
                 Object.keys(rows[0].sectionsResults).map(section => (
-                  <Td>{rows[0].sectionsResults?.[section]}</Td>
+                  <Td key={`${id}-${x}-${section}`}>
+                    {rows[0].sectionsResults?.[section]}
+                  </Td>
                 ))}
               {rows[0].id && <Td>{student.id}</Td>}
             </tr>
@@ -99,7 +103,11 @@ function TableHeader({ row }: TableHeaderProps) {
           <Th rowSpan={2}>Risposte corrette inglese</Th>
         )}
         {row.ofa &&
-          Object.keys(row.ofa).map(name => <Th rowSpan={2}>OFA {name}</Th>)}
+          Object.keys(row.ofa).map(name => (
+            <Th key={`header-${name}`} rowSpan={2}>
+              OFA {name}
+            </Th>
+          ))}
         {row.sectionsResults && (
           <Th rowSpan={1} colSpan={Object.keys(row.sectionsResults).length}>
             Punteggio singole sezioni
@@ -110,7 +118,7 @@ function TableHeader({ row }: TableHeaderProps) {
       {row.sectionsResults && (
         <tr>
           {Object.keys(row.sectionsResults).map(name => (
-            <Th>{name}</Th>
+            <Th key={`header-section-${name}`}>{name}</Th>
           ))}
         </tr>
       )}
