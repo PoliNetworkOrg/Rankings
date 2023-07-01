@@ -20,7 +20,7 @@ export default function ViewHeader() {
         {phase && (
           <>
             <Spacer />
-            <Link to={`/view/${school}/${year}`}>{phase}</Link>
+            <p>{phase}</p>
           </>
         )}
       </div>
