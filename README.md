@@ -1,6 +1,6 @@
 # Rankings
 
-* https://rankings.polinetwork.org/
+* https://rankings.polinetwork.org hosts the latest published release
 
 ### Info
 
@@ -13,7 +13,7 @@
 
 ## Development Setup
 #### Requirements:
-- [NodeJS](http://nodejs.org/) >= LTS (18.16.0) (linux: [nvm](https://github.com/nvm-sh/nvm))
+- [NodeJS](http://nodejs.org/) >= LTS (18.16.x) (linux: [nvm](https://github.com/nvm-sh/nvm))
 - [pnpm](https://pnpm.io/installation) >= 8.x (installation via corepack is ok)
 
 #### Install deps and start:
@@ -27,11 +27,7 @@
     pnpn dev
     ```
 
-
 ### Old 
 
-- This is a rewrite of the repo [RankingsOld](https://github.com/PoliNetworkOrg/RankingsOld) using React.
+- This is a rewrite of the repo [RankingsOld](https://github.com/PoliNetworkOrg/RankingsOld) using React (ViteJS)
 - Old python script - https://github.com/PoliNetworkOrg/GraduatorieScript
-
-
- 
