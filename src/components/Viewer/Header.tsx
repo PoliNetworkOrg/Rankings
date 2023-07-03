@@ -20,7 +20,7 @@ export default function ViewHeader() {
         {phase && (
           <>
             <Spacer />
-            <p>{phase}</p>
+            <p>{phase.replaceAll("_", " ")}</p>
           </>
         )}
       </div>
