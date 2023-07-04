@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useCallback, useContext, useEffect, useState } from "react"
 import {
   MdNavigateBefore as PrevIcon,
   MdNavigateNext as NextIcon,
   MdDownload
 } from "react-icons/md"
+import ReactPaginate from "react-paginate"
+import { useNavigate } from "react-router-dom"
 import MobileContext from "../../contexts/MobileContext"
 import Page from "../ui/Page.tsx"
 import DataContext from "../../contexts/DataContext.tsx"
@@ -17,12 +18,12 @@ import Table from "./Table.tsx"
 import { ABS_ORDER } from "../../utils/constants.ts"
 import usePaginate from "../../hooks/usePaginate.ts"
 import StudentResult from "../../utils/types/data/Ranking/StudentResult.ts"
-import ReactPaginate from "react-paginate"
 import BaseTable from "../../utils/types/data/Ranking/BaseTable.ts"
 import CourseTable from "../../utils/types/data/Ranking/CourseTable.ts"
 import ViewHeader from "./Header.tsx"
 import Button from "../ui/Button.tsx"
-import { useNavigate } from "react-router-dom"
+import PhaseSelector from "./PhaseSelector.tsx"
+import { PhaseLink } from "../../utils/types/data/Index/RankingFile.ts"
 
 type Props = {
   school: School
@@ -36,14 +37,14 @@ export default function Viewer({ school, year, phase }: Props) {
   const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER)
 
   const getRanking = useCallback(async () => {
-    return await data?.loadRanking(school, year, phase)
+    return await data.loadRanking(school, year, phase)
   }, [data, phase, school, year])
 
   const navigate = useNavigate()
   useEffect(() => {
     getRanking()
       .then(r => setRanking(r))
-      .catch(() => navigate("/"))
+      .catch(() => navigate("..", { relative: "path" }))
   }, [getRanking, navigate])
 
   if (!ranking) return <Spinner />
@@ -59,6 +60,7 @@ export default function Viewer({ school, year, phase }: Props) {
 
   return (
     <Outlet
+      ranking={ranking}
       school={school}
       year={year}
       phase={phase}
@@ -67,7 +69,6 @@ export default function Viewer({ school, year, phase }: Props) {
       selectedCourse={selectedCourse}
       handleCourseSwitch={handleCourseSwitch}
       csv={csv}
-      ranking={ranking}
     />
   )
 }
@@ -82,19 +83,36 @@ type OutletProps = Props & {
 }
 
 function Outlet({
+  school,
+  year,
   table,
   handleCourseSwitch,
   coursesName,
   selectedCourse,
-  school,
   csv,
   ranking
 }: OutletProps) {
   const { isMobile } = useContext(MobileContext)
+  const { data } = useContext(DataContext)
   const { rows, pageCount, handlePageClick } = usePaginate<StudentResult[]>({
     data: table.rows ?? [],
     itemsPerPage: 400
   })
+
+  const [phasesLinks, setPhasesLinks] = useState<PhaseLink[] | undefined>()
+
+  useEffect(() => {
+    if (selectedCourse === ABS_ORDER) {
+      const phasesLinks = data.getPhasesLinks(school, year)
+      setPhasesLinks(phasesLinks)
+    } else {
+      const phasesLinks = data.getCoursePhasesLinks(
+        ranking,
+        table as CourseTable
+      )
+      setPhasesLinks(phasesLinks)
+    }
+  }, [data, ranking, school, selectedCourse, table, year])
 
   function handleCsvDownload() {
     const blob = new Blob([csv], { type: "text/csv" })
@@ -112,18 +130,21 @@ function Outlet({
 
   return (
     <Page
-      className={`px-2 ${
+      className={`flex gap-4 px-2 ${
         isMobile
-          ? "overflow-y-auto overflow-x-hidden"
-          : "flex max-h-[calc(100vh-97px)] overflow-hidden"
+          ? "flex-col overflow-y-auto overflow-x-hidden"
+          : "max-h-[calc(100vh-97px)] overflow-hidden"
       }`}
       fullWidth
     >
-      <ViewHeader ranking={ranking} />
-      <div className="flex w-full justify-end p-2">
-        <Button circle onClick={handleCsvDownload}>
-          <MdDownload size={20} />
-        </Button>
+      <ViewHeader />
+      <div className="flex w-full justify-between max-sm:flex-col max-sm:gap-4">
+        <PhaseSelector phasesLinks={phasesLinks} />
+        <div className="pl-4">
+          <Button circle onClick={handleCsvDownload}>
+            <MdDownload size={20} />
+          </Button>
+        </div>
       </div>
       <div
         className={

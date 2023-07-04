@@ -10,8 +10,8 @@ export default function ViewHeader({ ranking }: Props) {
 
   if (!school) return <></>
   return (
-    <div className="flex w-full items-center justify-start p-2">
-      <div className="flex items-center overflow-x-auto text-lg">
+    <div className="flex w-full items-center justify-start">
+      <div className="flex items-center overflow-x-auto text-lg scrollbar-thin">
         <Link to="/">Homepage</Link>
         <Spacer />
         <Link to={`/view/${school}`}>{school}</Link>
