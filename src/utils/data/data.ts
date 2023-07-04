@@ -5,6 +5,7 @@ import Ranking from "../types/data/Ranking"
 import { IndexBySchool } from "../types/data/Index/BySchool"
 import { IndexBySchoolYearCourse } from "../types/data/Index/BySchoolYearCourse"
 import CourseTable from "../types/data/Ranking/CourseTable"
+import RankingFile, { PhaseLink } from "../types/data/Index/RankingFile"
 
 export class Data {
   protected static readonly _u = LINKS.dataBasePath
@@ -14,7 +15,7 @@ export class Data {
   )
   protected static readonly coursePhasesUrl: string = urlJoin(
     this._u,
-    "bySchoolYear.json"
+    "bySchoolYearCourse.json"
   )
 
   public index?: IndexBySchool
@@ -53,17 +54,75 @@ export class Data {
     return json as Ranking
   }
 
-  public getCoursePhases(ranking: Ranking, course: CourseTable): string[] {
-    const { title, location } = course
-    const files =
-      this.coursesPhases?.schools[ranking.school][ranking.year][title][
-        location
-      ] ?? []
+  public getYears(school: School): number[] | undefined {
+    const obj = this.index?.schools[school]
+    if (!obj) return
 
-    const phases = files.map(file =>
-      file.link.endsWith(".json") ? file.link.split(".json")[0] : file.link
+    const keys = Object.keys(obj)
+    const years = keys.map(y => parseInt(y))
+    return years
+  }
+
+  private getRankingFiles(
+    school: School,
+    year: number
+  ): RankingFile[] | undefined {
+    if (!this.index) return
+    const files = this.index.schools[school][year]
+    return files
+  }
+
+  private getCoursePhasesFiles(
+    ranking: Ranking,
+    course: CourseTable
+  ): RankingFile[] | undefined {
+    if (!this.coursesPhases) return
+
+    const { title, location } = course
+
+    // since we may have modified the title to display it in a nicer way
+    // on the UI, we need to reset it to the json style (uppercase)
+    const upperTitle = title.toUpperCase()
+
+    // see: https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp/pull/82
+    const locationEmpty = !location || location === ""
+    const fixedLocation = locationEmpty ? "0" : location.toUpperCase()
+
+    const mainObj = this.coursesPhases.schools[ranking.school][ranking.year]
+    const phasesFiles = mainObj[upperTitle][fixedLocation]
+
+    return phasesFiles
+  }
+
+  private convertRankingFileToPhaseLink(file: RankingFile): PhaseLink {
+    return {
+      name: file.name,
+      href: file.link.replace(".json", "")
+    }
+  }
+
+  public getPhasesLinks(school: School, year: number): PhaseLink[] | undefined {
+    const files = this.getRankingFiles(school, year)
+    if (!files) return
+
+    const phasesLinks = files.map(file =>
+      this.convertRankingFileToPhaseLink(file)
     )
 
-    return phases
+    return phasesLinks
+  }
+
+  public getCoursePhasesLinks(
+    ranking: Ranking,
+    course: CourseTable
+  ): PhaseLink[] | undefined {
+    const phasesFiles = this.getCoursePhasesFiles(ranking, course)
+    if (!phasesFiles) return
+
+    const phasesLinks = phasesFiles.map(file =>
+      this.convertRankingFileToPhaseLink(file)
+    )
+
+    return phasesLinks
   }
 }
