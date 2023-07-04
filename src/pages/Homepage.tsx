@@ -19,7 +19,7 @@ export default function Homepage() {
       <p className="text-lg">Inizia scegliendo la scuola di tuo interesse</p>
 
       <div className="grid grid-cols-2 items-center gap-4 py-4">
-        {data?.schools.map(school => (
+        {data.schools.map(school => (
           <Link to={`view/${school}`} key={school}>
             <Button className="w-32">{school}</Button>
           </Link>
