@@ -2,7 +2,7 @@ import BaseTable from "./BaseTable"
 
 type CourseTable = BaseTable & {
   title: string
-  location: string
+  location?: string
   sections: string[]
 }
 

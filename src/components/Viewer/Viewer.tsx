@@ -23,6 +23,8 @@ import CourseTable from "../../utils/types/data/Ranking/CourseTable.ts"
 import ViewHeader from "./Header.tsx"
 import Button from "../ui/Button.tsx"
 import { useNavigate } from "react-router-dom"
+import PhaseSelector from "./PhaseSelector.tsx"
+import { PhaseLink } from "../../utils/types/data/Index/RankingFile.ts"
 
 type Props = {
   school: School
@@ -36,7 +38,7 @@ export default function Viewer({ school, year, phase }: Props) {
   const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER)
 
   const getRanking = useCallback(async () => {
-    return await data?.loadRanking(school, year, phase)
+    return await data.loadRanking(school, year, phase)
   }, [data, phase, school, year])
 
   const navigate = useNavigate()
@@ -59,6 +61,7 @@ export default function Viewer({ school, year, phase }: Props) {
 
   return (
     <Outlet
+      ranking={ranking}
       school={school}
       year={year}
       phase={phase}
@@ -72,6 +75,7 @@ export default function Viewer({ school, year, phase }: Props) {
 }
 
 type OutletProps = Props & {
+  ranking: Ranking
   table: BaseTable | CourseTable
   handleCourseSwitch: (name: string) => void
   coursesName: string[]
@@ -80,18 +84,36 @@ type OutletProps = Props & {
 }
 
 function Outlet({
+  school,
+  year,
   table,
   handleCourseSwitch,
   coursesName,
   selectedCourse,
-  school,
-  csv
+  csv,
+  ranking
 }: OutletProps) {
   const { isMobile } = useContext(MobileContext)
+  const { data } = useContext(DataContext)
   const { rows, pageCount, handlePageClick } = usePaginate<StudentResult[]>({
     data: table.rows ?? [],
     itemsPerPage: 400
   })
+
+  const [phasesLinks, setPhasesLinks] = useState<PhaseLink[] | undefined>()
+
+  useEffect(() => {
+    if (selectedCourse === ABS_ORDER) {
+      const phasesLinks = data.getPhasesLinks(school, year)
+      setPhasesLinks(phasesLinks)
+    } else {
+      const phasesLinks = data.getCoursePhasesLinks(
+        ranking,
+        table as CourseTable
+      )
+      setPhasesLinks(phasesLinks)
+    }
+  }, [data, ranking, school, selectedCourse, table, year])
 
   function handleCsvDownload() {
     const blob = new Blob([csv], { type: "text/csv" })
@@ -109,18 +131,21 @@ function Outlet({
 
   return (
     <Page
-      className={`px-2 ${
+      className={`flex gap-4 px-2 ${
         isMobile
-          ? "overflow-y-auto overflow-x-hidden"
-          : "flex max-h-[calc(100vh-97px)] overflow-hidden"
+          ? "flex-col overflow-y-auto overflow-x-hidden"
+          : "max-h-[calc(100vh-97px)] overflow-hidden"
       }`}
       fullWidth
     >
       <ViewHeader />
-      <div className="flex w-full justify-end p-2">
-        <Button circle onClick={handleCsvDownload}>
-          <MdDownload size={20} />
-        </Button>
+      <div className="flex w-full justify-between max-sm:flex-col max-sm:gap-4">
+        <PhaseSelector phasesLinks={phasesLinks} />
+        <div className="pl-4">
+          <Button circle onClick={handleCsvDownload}>
+            <MdDownload size={20} />
+          </Button>
+        </div>
       </div>
       <div
         className={

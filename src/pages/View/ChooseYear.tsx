@@ -12,15 +12,16 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 
 export default function ChooseYear({ school, ...props }: Props) {
   const { data } = useContext(DataContext)
-  const schoolData = data?.index?.schools[school]
-  if (!schoolData) return <Navigate to="/" />
+
+  const years = data.getYears(school)
+  if (!years) return <Navigate to="/" />
 
   return (
     <Page>
       <ViewHeader />
       <div {...props} className="grid w-full grid-cols-2 gap-4 py-4">
-        {Object.keys(schoolData).map(year => (
-          <Link to={year} key={year}>
+        {years.map(year => (
+          <Link to={year.toString()} key={year}>
             <Button className="w-full">{year}</Button>
           </Link>
         ))}

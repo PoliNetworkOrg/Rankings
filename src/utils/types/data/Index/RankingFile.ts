@@ -8,4 +8,9 @@ type RankingFile = {
   year: number
 }
 
+export type PhaseLink = {
+  name: string
+  href: string
+}
+
 export default RankingFile
