@@ -2,7 +2,7 @@ import { Navigate, useParams } from "react-router-dom"
 import School from "../../utils/types/data/School"
 import ChooseYear from "./ChooseYear"
 import ChoosePhase from "./ChoosePhase"
-import Viewer from "../../components/Viewer/Viewer"
+import Viewer from "../../components/Viewer"
 
 export default function View() {
   const params = useParams()
