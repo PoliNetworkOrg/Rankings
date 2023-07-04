@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useCallback, useContext, useEffect, useState } from "react"
 import {
   MdNavigateBefore as PrevIcon,
@@ -75,12 +74,12 @@ export default function Viewer({ school, year, phase }: Props) {
 }
 
 type OutletProps = Props & {
-  ranking: Ranking
   table: BaseTable | CourseTable
   handleCourseSwitch: (name: string) => void
   coursesName: string[]
   selectedCourse: string
   csv: string
+  ranking: Ranking
 }
 
 function Outlet({
