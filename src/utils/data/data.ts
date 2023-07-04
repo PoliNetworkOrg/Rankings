@@ -45,13 +45,21 @@ export class Data {
     return data
   }
 
-  private getRankingFromCache(url: string): Ranking | undefined {
+  private tryGetRankingFromCache(url: string): Ranking | undefined {
     return this.cache.get(url)
   }
 
   private async fetchAndCacheRanking(url: string): Promise<Ranking> {
     const ranking: Ranking = await fetch(url).then(res => res.json())
     this.cache.set(url, ranking)
+    return ranking
+  }
+
+  private async getRanking(url: string): Promise<Ranking> {
+    const cached = this.tryGetRankingFromCache(url)
+
+    const ranking = cached ?? (await this.fetchAndCacheRanking(url))
+
     return ranking
   }
 
@@ -63,9 +71,7 @@ export class Data {
     const filename = phase.endsWith(".json") ? phase : phase + ".json"
     const url = urlJoin(Data._u, school, year.toString(), filename)
 
-    const cached = this.getRankingFromCache(url)
-
-    const ranking = cached ?? (await this.fetchAndCacheRanking(url))
+    const ranking = await this.getRanking(url)
 
     return ranking
   }
