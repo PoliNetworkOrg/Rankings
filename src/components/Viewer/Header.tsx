@@ -1,13 +1,17 @@
 import { MdNavigateNext } from "react-icons/md"
 import { Link, useParams } from "react-router-dom"
+import Ranking from "../../utils/types/data/Ranking"
 
-export default function ViewHeader() {
-  const { school, year, phase } = useParams()
+type Props = {
+  ranking?: Ranking
+}
+export default function ViewHeader({ ranking }: Props) {
+  const { school, year } = useParams()
 
   if (!school) return <></>
   return (
-    <div className="flex w-full items-center justify-start p-2">
-      <div className="flex items-center overflow-x-auto text-lg">
+    <div className="flex w-full items-center justify-start">
+      <div className="flex items-center overflow-x-auto text-lg scrollbar-thin">
         <Link to="/">Homepage</Link>
         <Spacer />
         <Link to={`/view/${school}`}>{school}</Link>
@@ -17,10 +21,10 @@ export default function ViewHeader() {
             <Link to={`/view/${school}/${year}`}>{year}</Link>
           </>
         )}
-        {phase && (
+        {ranking && (
           <>
             <Spacer />
-            <p>{phase}</p>
+            <p>{ranking.phase}</p>
           </>
         )}
       </div>
