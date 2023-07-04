@@ -15,6 +15,8 @@ export class Data {
   public schools: School[] = []
   public urls: string[] = []
 
+  private cache: Map<string, Ranking> = new Map()
+
   public static async init() {
     const data = new Data()
     data.index = await fetch(Data.indexUrl).then(res => res.json())
@@ -32,6 +34,16 @@ export class Data {
     return data
   }
 
+  private getRankingFromCache(url: string): Ranking | undefined {
+    return this.cache.get(url)
+  }
+
+  private async fetchAndCacheRanking(url: string): Promise<Ranking> {
+    const ranking: Ranking = await fetch(url).then(res => res.json())
+    this.cache.set(url, ranking)
+    return ranking
+  }
+
   public async loadRanking(
     school: School,
     year: number,
@@ -39,7 +51,11 @@ export class Data {
   ): Promise<Ranking> {
     const filename = phase.endsWith(".json") ? phase : phase + ".json"
     const url = urlJoin(Data._u, school, year.toString(), filename)
-    const json = await fetch(url).then(res => res.json())
-    return json as Ranking
+
+    const cached = this.getRankingFromCache(url)
+
+    const ranking = cached ?? (await this.fetchAndCacheRanking(url))
+
+    return ranking
   }
 }
