@@ -5,6 +5,8 @@ import {
   MdNavigateNext as NextIcon,
   MdDownload
 } from "react-icons/md"
+import ReactPaginate from "react-paginate"
+import { useNavigate } from "react-router-dom"
 import MobileContext from "../../contexts/MobileContext"
 import Page from "../ui/Page.tsx"
 import DataContext from "../../contexts/DataContext.tsx"
@@ -17,12 +19,10 @@ import Table from "./Table.tsx"
 import { ABS_ORDER } from "../../utils/constants.ts"
 import usePaginate from "../../hooks/usePaginate.ts"
 import StudentResult from "../../utils/types/data/Ranking/StudentResult.ts"
-import ReactPaginate from "react-paginate"
 import BaseTable from "../../utils/types/data/Ranking/BaseTable.ts"
 import CourseTable from "../../utils/types/data/Ranking/CourseTable.ts"
 import ViewHeader from "./Header.tsx"
 import Button from "../ui/Button.tsx"
-import { useNavigate } from "react-router-dom"
 import PhaseSelector from "./PhaseSelector.tsx"
 import { PhaseLink } from "../../utils/types/data/Index/RankingFile.ts"
 
@@ -45,7 +45,7 @@ export default function Viewer({ school, year, phase }: Props) {
   useEffect(() => {
     getRanking()
       .then(r => setRanking(r))
-      .catch(() => navigate("/"))
+      .catch(() => navigate("..", { relative: "path" }))
   }, [getRanking, navigate])
 
   if (!ranking) return <Spinner />

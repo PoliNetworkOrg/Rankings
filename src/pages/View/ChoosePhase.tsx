@@ -15,7 +15,7 @@ export default function ChoosePhase({ school, year, ...props }: Props) {
   const { data } = useContext(DataContext)
 
   const phases = data.getPhasesLinks(school, year)
-  if (!phases) return <Navigate to="" />
+  if (!phases) return <Navigate to=".." relative="path" />
 
   return (
     <Page>
@@ -23,7 +23,7 @@ export default function ChoosePhase({ school, year, ...props }: Props) {
       <div {...props} className="grid w-full grid-cols-2 gap-4 py-4">
         {phases.map(phase => (
           <Link to={phase.href} key={phase.href}>
-            <Button className="w-full">{phase.name}</Button>
+            <Button className="h-full w-full">{phase.name}</Button>
           </Link>
         ))}
       </div>
