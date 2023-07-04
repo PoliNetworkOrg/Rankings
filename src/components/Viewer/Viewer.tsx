@@ -67,6 +67,7 @@ export default function Viewer({ school, year, phase }: Props) {
       selectedCourse={selectedCourse}
       handleCourseSwitch={handleCourseSwitch}
       csv={csv}
+      ranking={ranking}
     />
   )
 }
@@ -77,6 +78,7 @@ type OutletProps = Props & {
   coursesName: string[]
   selectedCourse: string
   csv: string
+  ranking: Ranking
 }
 
 function Outlet({
@@ -85,7 +87,8 @@ function Outlet({
   coursesName,
   selectedCourse,
   school,
-  csv
+  csv,
+  ranking
 }: OutletProps) {
   const { isMobile } = useContext(MobileContext)
   const { rows, pageCount, handlePageClick } = usePaginate<StudentResult[]>({
@@ -116,7 +119,7 @@ function Outlet({
       }`}
       fullWidth
     >
-      <ViewHeader />
+      <ViewHeader ranking={ranking} />
       <div className="flex w-full justify-end p-2">
         <Button circle onClick={handleCsvDownload}>
           <MdDownload size={20} />

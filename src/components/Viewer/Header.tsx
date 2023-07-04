@@ -1,8 +1,12 @@
 import { MdNavigateNext } from "react-icons/md"
 import { Link, useParams } from "react-router-dom"
+import Ranking from "../../utils/types/data/Ranking"
 
-export default function ViewHeader() {
-  const { school, year, phase } = useParams()
+type Props = {
+  ranking?: Ranking
+}
+export default function ViewHeader({ ranking }: Props) {
+  const { school, year } = useParams()
 
   if (!school) return <></>
   return (
@@ -17,10 +21,10 @@ export default function ViewHeader() {
             <Link to={`/view/${school}/${year}`}>{year}</Link>
           </>
         )}
-        {phase && (
+        {ranking && (
           <>
             <Spacer />
-            <p>{phase}</p>
+            <p>{ranking.phase}</p>
           </>
         )}
       </div>
