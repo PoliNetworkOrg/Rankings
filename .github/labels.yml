@@ -1,0 +1,71 @@
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good for newcomers"
+
+- name: "help wanted"
+  color: "008672"
+  description: "Extra attention is needed"
+
+- name: "priority: high"
+  color: "d93f0b"
+  aliases: ['prioritario']
+
+- name: "priority: medium"
+  color: "fbca04"
+
+- name: "priority: low"
+  color: "0e8a16"
+
+- name: "status: can't reproduce"
+  color: "fec1c1"
+  description: "Bug not reproducible"
+  aliases: ['invalid']
+
+- name: "status: duplicate"
+  color: "cfd3d7"
+  description: "This issue or pull request already exists"
+  aliases: ['duplicate']
+
+- name: "status: needs information"
+  color: "fef2c0"
+  description: "Need further information"
+
+- name: "status: wontfix"
+  color: "eeeeee"
+  description: "This will not be worked on"
+  aliases: ['wontfix']
+
+- name: "status: stale"
+  color: "fbca04"
+  description: "Inactive issues and PRs"
+  aliases: ['stale']
+
+- name: "type: bug"
+  color: "d73a4a"
+  description: "Something isn't working"
+  aliases: ['bug']
+
+- name: "type: docs"
+  color: "006b75"
+  description: "Changes to the documentation"
+  aliases: ['documentation']
+
+- name: "type: feature"
+  color: "84b6eb"
+  description: "New feature or request"
+  aliases: ['enhancement', 'feature']
+
+- name: "type: question"
+  color: "d876e3"
+  description: "Any question on the app or the codebase"
+  aliases: ['question']
+
+- name: "type: chore"
+  color: "99efda"
+  description: "No visual changes for the user (grunt task, config, ci)"
+  aliases: ['chore', 'config', 'ci']
+
+- name: "type: style"
+  color: "146f53"
+  description: "Style/design changes"
+  aliases: ['style', 'design']
