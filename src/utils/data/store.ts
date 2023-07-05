@@ -16,11 +16,11 @@ export default class Store {
     return this._ranking
   }
 
-  private nameSeparator = " | "
+  public static nameSeparator = " | "
   public getCourseNames(): string[] {
     return this._ranking.byCourse.map(course =>
       course.location
-        ? course.title + this.nameSeparator + course.location
+        ? course.title + Store.nameSeparator + course.location
         : course.title
     )
   }
@@ -29,8 +29,24 @@ export default class Store {
     if (name === ABS_ORDER) return this._ranking.byMerit
     return this._ranking.byCourse.find(course => {
       if (!course.location) return course.title === name
-      const split = name.split(this.nameSeparator)
+      const split = name.split(Store.nameSeparator)
       return course.title === split[0] && course.location === split[1]
+    })
+  }
+
+  public static getTable(
+    ranking: Ranking,
+    name: string
+  ): MeritTable | CourseTable | undefined {
+    if (name === ABS_ORDER) return ranking.byMerit
+    return ranking.byCourse.find(course => {
+      if (!course.location)
+        return course.title.toUpperCase() === name.toUpperCase()
+      const split = name.split(Store.nameSeparator)
+      return (
+        course.title.toUpperCase() === split[0].toUpperCase() &&
+        course.location.toUpperCase() === split[1].toUpperCase()
+      )
     })
   }
 

@@ -24,6 +24,8 @@ import ViewHeader from "./Header.tsx"
 import Button from "../ui/Button.tsx"
 import PhaseSelector from "./PhaseSelector.tsx"
 import { PhaseLink } from "../../utils/types/data/Index/RankingFile.ts"
+import VotoCandidatiChart from "../charts/VotoCandidatiChart.tsx"
+import MinScorePhases, { MinScorePhasesObj } from "../charts/MinScorePhases.tsx"
 
 type Props = {
   school: School
@@ -100,6 +102,45 @@ function Outlet({
   })
 
   const [phasesLinks, setPhasesLinks] = useState<PhaseLink[] | undefined>()
+  const [courseStats, setCourseStats] = useState<
+    MinScorePhasesObj | undefined
+  >()
+
+  const getStats = useCallback(async () => {
+    const years = data.getYears(school)
+    if (!years) return
+
+    let yearsStats: MinScorePhasesObj = {}
+    for (const _year of years) {
+      const phases = data.getPhasesLinks(school, _year)
+      if (!phases) continue
+
+      let phasesStats = {}
+      for (const _phase of phases) {
+        const r = await data.loadRanking(school, _year, _phase.href)
+        const localCourse = Store.getTable(r, selectedCourse)
+        if (!localCourse) continue
+
+        const phaseStats = await data.getCourseStats(
+          school,
+          _year,
+          _phase.name,
+          localCourse as CourseTable
+        )
+        if (!phasesStats) continue
+        phasesStats = {
+          ...phasesStats,
+          [_phase.name]: { ...phaseStats }
+        }
+      }
+
+      yearsStats = {
+        ...yearsStats,
+        [_year]: phasesStats
+      }
+    }
+    setCourseStats(yearsStats)
+  }, [data, school, selectedCourse])
 
   useEffect(() => {
     if (selectedCourse === ABS_ORDER) {
@@ -111,8 +152,14 @@ function Outlet({
         table as CourseTable
       )
       setPhasesLinks(phasesLinks)
+
+      getStats()
     }
-  }, [data, ranking, school, selectedCourse, table, year])
+
+    data
+      .getCourseStats(school, year, ranking.phase, table as CourseTable)
+      .then(s => setCourseStats(s))
+  }, [data, getStats, ranking, school, selectedCourse, table, year])
 
   function handleCsvDownload() {
     const blob = new Blob([csv], { type: "text/csv" })
@@ -133,7 +180,7 @@ function Outlet({
       className={`flex gap-4 px-2 ${
         isMobile
           ? "flex-col overflow-y-auto overflow-x-hidden"
-          : "max-h-[calc(100vh-97px)] overflow-hidden"
+          : "overflow-hidden"
       }`}
       fullWidth
     >
@@ -184,6 +231,11 @@ function Outlet({
           )}
         </div>
       </div>
+      <VotoCandidatiChart ranking={ranking} />
+      <div className="h-32"></div>
+      {courseStats && <MinScorePhases stats={courseStats} />}
+
+      <div className="h-32 w-full py-12"></div>
     </Page>
   )
 }

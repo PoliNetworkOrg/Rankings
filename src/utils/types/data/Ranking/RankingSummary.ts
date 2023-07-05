@@ -1,5 +1,5 @@
 type RankingSummary = {
-  courseSummarized: CourseSummary
+  courseSummarized: CourseSummary[]
   howManyCanEnroll: number
   howManyStudents: number
   resultsSummarized: ResultsSummary
@@ -10,7 +10,7 @@ type ResultsSummary = {
   [score: number]: number
 }
 
-type CourseSummary = {
+export type CourseSummary = {
   averageBirthYear: number
   averageEnglishCorrectAnswers: number
   averageOfWhoPassed: number

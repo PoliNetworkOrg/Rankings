@@ -6,6 +6,8 @@ import { IndexBySchool } from "../types/data/Index/BySchool"
 import { IndexBySchoolYearCourse } from "../types/data/Index/BySchoolYearCourse"
 import CourseTable from "../types/data/Ranking/CourseTable"
 import RankingFile, { PhaseLink } from "../types/data/Index/RankingFile"
+import StatsByYear, { SchoolStats } from "../types/data/Stats"
+import { CourseSummary } from "../types/data/Ranking/RankingSummary"
 
 export class Data {
   protected static readonly _u = LINKS.dataBasePath
@@ -17,6 +19,7 @@ export class Data {
     this._u,
     "bySchoolYearCourse.json"
   )
+  protected static readonly baseStatsUrl: string = urlJoin(this._u, "stats")
 
   public index?: IndexBySchool
   public coursesPhases?: IndexBySchoolYearCourse
@@ -140,5 +143,47 @@ export class Data {
     )
 
     return phasesLinks
+  }
+
+  private getYearStatsUrl(year: number | string): string {
+    return urlJoin(Data.baseStatsUrl, year.toString() + ".json")
+  }
+
+  private async fetchYearStats(year: number | string): Promise<StatsByYear> {
+    const url = this.getYearStatsUrl(year)
+    const stats: StatsByYear = await fetch(url).then(res => res.json())
+
+    return stats
+  }
+
+  public async getStats(school: School, year: number): Promise<SchoolStats> {
+    const stats = await this.fetchYearStats(year)
+    return stats.schools[school]
+  }
+
+  public async getCourseStats(
+    school: School,
+    year: number,
+    phaseName: string,
+    course: CourseTable
+  ): Promise<CourseSummary | undefined> {
+    try {
+      const stats = await this.getStats(school, year)
+      const courseStats = stats.list
+        .find(s => {
+          const csPhaseName = s.singleCourseJson.name
+          return csPhaseName === phaseName
+        })
+        ?.stats.courseSummarized.find(cs => {
+          return (
+            cs.title === course.title.toUpperCase() &&
+            cs.location === course.location?.toUpperCase()
+          )
+        })
+
+      return courseStats
+    } catch (_e) {
+      return undefined
+    }
   }
 }

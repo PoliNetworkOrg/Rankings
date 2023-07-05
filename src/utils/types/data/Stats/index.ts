@@ -1,23 +1,18 @@
 import School from "../School"
 import CourseStats from "./CourseStats"
 
-type Stats = {
-  lastUpdate: string
-  stats: StatsByYear
-}
-
 type StatsByYear = {
-  [year: number]: {
-    numStudents: number
-    schools: StatsBySchool
-  }
+  numStudents: number
+  schools: StatsBySchool
 }
 
 type StatsBySchool = {
-  [key in School]: {
-    numStudents: number
-    list: CourseStats[]
-  }
+  [key in School]: SchoolStats
 }
 
-export default Stats
+export type SchoolStats = {
+  numStudents: number
+  list: CourseStats[]
+}
+
+export default StatsByYear
