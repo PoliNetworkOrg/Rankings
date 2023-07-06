@@ -8,7 +8,7 @@ import {
   Legend,
   Cell
 } from "recharts"
-import Ranking from "../../utils/types/data/Ranking"
+import Ranking from "../../utils/types/data/parsed/Ranking"
 
 type Props = {
   ranking?: Ranking
@@ -39,7 +39,7 @@ export default function VotoCandidatiChart({ ranking }: Props) {
         {chartData.map((entry, index) => (
           <Cell
             cursor="pointer"
-            fill={parseInt(entry.voto) >= 60 ? "#82ca9d" : "red"}
+            fill={entry.voto >= 60 ? "#82ca9d" : "red"}
             key={`cell-${index}`}
           />
         ))}
@@ -51,7 +51,7 @@ export default function VotoCandidatiChart({ ranking }: Props) {
 function getData(ranking: Ranking) {
   const stats = ranking.rankingSummary.resultsSummarized
 
-  const chartData = Object.entries(stats).map(([score, candidates]) => ({
+  const chartData = stats.entriesArr().map(([score, candidates]) => ({
     name: score,
     voto: score,
     candidati: candidates

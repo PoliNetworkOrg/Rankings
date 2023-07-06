@@ -7,7 +7,7 @@ import {
   Tooltip,
   Legend
 } from "recharts"
-import { CourseSummary } from "../../utils/types/data/Ranking/RankingSummary"
+import { CourseSummary } from "../../utils/types/data/parsed/Ranking/RankingSummary"
 import { hashCode } from "../../utils/hash"
 
 export type MinScorePhasesObj = {

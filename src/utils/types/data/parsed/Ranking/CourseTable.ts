@@ -1,6 +1,6 @@
-import BaseTable from "./BaseTable"
+import MeritTable from "./MeritTable"
 
-type CourseTable = BaseTable & {
+type CourseTable = MeritTable & {
   title: string
   location?: string
   sections: string[]

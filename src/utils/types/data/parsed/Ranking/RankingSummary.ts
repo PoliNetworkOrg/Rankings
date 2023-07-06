@@ -1,3 +1,5 @@
+import CustomMap from "../../../../CustomMap"
+
 type RankingSummary = {
   courseSummarized: CourseSummary[]
   howManyCanEnroll: number
@@ -5,10 +7,8 @@ type RankingSummary = {
   resultsSummarized: ResultsSummary
 }
 
-type ResultsSummary = {
-  // score = howManyGotThatScore
-  [score: number]: number
-}
+// key = howManyGotThatScore
+export type ResultsSummary = CustomMap<number, number>
 
 export type CourseSummary = {
   averageBirthYear: number
@@ -18,16 +18,14 @@ export type CourseSummary = {
   minScoreToEnroll: number
   location: string
   title: string
-  averagePartialScores: AveragePartialScores
-  howManyOfa: HowManyOfa
+  averagePartialScores: AveragePartialScoresMap
+  howManyOfa: HowManyOfaMap
 }
 
-type AveragePartialScores = {
-  [section: string]: number
-}
+// key = section
+export type AveragePartialScoresMap = CustomMap<string, number>
 
-type HowManyOfa = {
-  [ofa: string]: number
-}
+// key = ofa id
+export type HowManyOfaMap = CustomMap<string, number>
 
 export default RankingSummary
