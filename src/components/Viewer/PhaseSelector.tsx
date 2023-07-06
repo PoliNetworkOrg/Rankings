@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { PhaseLink } from "../../utils/types/data/Index/RankingFile"
+import { PhaseLink } from "../../utils/types/data/parsed/Index/RankingFile"
 import Button from "../ui/Button"
 
 type Props = {

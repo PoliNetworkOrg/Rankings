@@ -10,20 +10,20 @@ import MobileContext from "../../contexts/MobileContext"
 import Page from "../ui/Page.tsx"
 import DataContext from "../../contexts/DataContext.tsx"
 import School from "../../utils/types/data/School.ts"
-import Ranking from "../../utils/types/data/Ranking/index.ts"
+import Ranking from "../../utils/types/data/parsed/Ranking/index.ts"
 import Spinner from "../ui/Spinner.tsx"
 import Store from "../../utils/data/store.ts"
 import DynamicSelect from "../ui/DynamicSelect.tsx"
 import Table from "./Table.tsx"
 import { ABS_ORDER } from "../../utils/constants.ts"
 import usePaginate from "../../hooks/usePaginate.ts"
-import StudentResult from "../../utils/types/data/Ranking/StudentResult.ts"
-import BaseTable from "../../utils/types/data/Ranking/BaseTable.ts"
-import CourseTable from "../../utils/types/data/Ranking/CourseTable.ts"
+import StudentResult from "../../utils/types/data/parsed/Ranking/StudentResult.ts"
+import MeritTable from "../../utils/types/data/parsed/Ranking/MeritTable.ts"
+import CourseTable from "../../utils/types/data/parsed/Ranking/CourseTable.ts"
 import ViewHeader from "./Header.tsx"
 import Button from "../ui/Button.tsx"
 import PhaseSelector from "./PhaseSelector.tsx"
-import { PhaseLink } from "../../utils/types/data/Index/RankingFile.ts"
+import { PhaseLink } from "../../utils/types/data/parsed/Index/RankingFile.ts"
 
 type Props = {
   school: School
@@ -44,7 +44,10 @@ export default function Viewer({ school, year, phase }: Props) {
   useEffect(() => {
     getRanking()
       .then(r => setRanking(r))
-      .catch(() => navigate("..", { relative: "path" }))
+      .catch(err => {
+        console.error(err)
+        navigate("..", { relative: "path" })
+      })
   }, [getRanking, navigate])
 
   if (!ranking) return <Spinner />
@@ -74,7 +77,7 @@ export default function Viewer({ school, year, phase }: Props) {
 }
 
 type OutletProps = Props & {
-  table: BaseTable | CourseTable
+  table: MeritTable | CourseTable
   handleCourseSwitch: (name: string) => void
   coursesName: string[]
   selectedCourse: string

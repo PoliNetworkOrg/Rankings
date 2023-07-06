@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react"
-import { Data } from "../utils/data/data"
+import Data from "../utils/data/data"
 
 export interface IDataContext {
   data: Data
@@ -23,7 +23,7 @@ export function DataProvider({ ...p }: Props) {
   }
 
   useEffect(() => {
-    if (!data.index) init()
+    if (!data.indexBySchoolYear) init()
   }, [data])
 
   return <DataContext.Provider value={{ data, isLoading }} {...p} />
