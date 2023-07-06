@@ -9,11 +9,15 @@ import {
 } from "recharts"
 import { CourseSummary } from "../../utils/types/data/parsed/Ranking/RankingSummary"
 import { hashCode } from "../../utils/hash"
+import CustomMap from "../../utils/CustomMap"
 
-export type MinScorePhasesObj = {
-  [year: number]: {
-    [phase: string]: CourseSummary
-  }
+export type MinScorePhasesObj = CustomMap<number, MinScorePhasesObj_PhasesMap>
+export type MinScorePhasesObj_PhasesMap = CustomMap<string, CourseSummary>
+
+type Data = DataSingle[]
+type DataSingle = {
+  anno: number
+  [phase: string]: number
 }
 
 type Props = {
@@ -64,19 +68,14 @@ export default function MinScorePhases({ stats }: Props) {
   )
 }
 
-function getData(stats: MinScorePhasesObj) {
-  return Object.entries(stats).map(([year, phases]) => {
-    let obj = {
+function getData(stats: MinScorePhasesObj): Data {
+  const data: Data = stats.entriesArr().map(([year, phases]) => {
+    const data: DataSingle = {
       anno: year
     }
-
-    Object.entries(phases).forEach(([phase, stats]) => {
-      obj = {
-        ...obj,
-        [phase]: stats.minScoreToEnroll
-      }
-    })
-
-    return obj
+    phases.forEach((stats, phase) => (data[phase] = stats.minScoreToEnroll))
+    return data
   })
+
+  return data
 }

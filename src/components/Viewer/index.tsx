@@ -25,8 +25,12 @@ import Button from "../ui/Button.tsx"
 import PhaseSelector from "./PhaseSelector.tsx"
 import { PhaseLink } from "../../utils/types/data/parsed/Index/RankingFile.ts"
 import VotoCandidatiChart from "../charts/VotoCandidatiChart.tsx"
-import MinScorePhases, { MinScorePhasesObj } from "../charts/MinScorePhases.tsx"
+import MinScorePhases, {
+  MinScorePhasesObj,
+  MinScorePhasesObj_PhasesMap
+} from "../charts/MinScorePhases.tsx"
 import Data from "../../utils/data/data.ts"
+import CustomMap from "../../utils/CustomMap.ts"
 
 type Props = {
   school: School
@@ -136,10 +140,6 @@ function Outlet({
 
       getStats()
     }
-
-    data
-      .getCourseStats(school, year, ranking.phase, table as CourseTable)
-      .then(s => setCourseStats(s))
   }, [data, getStats, ranking, school, selectedCourse, table, year])
 
   function handleCsvDownload() {
@@ -227,34 +227,28 @@ async function getMinScorePhasesObj(
   school: School,
   selectedCourse: string
 ) {
-  let yearsStats: MinScorePhasesObj = {}
-  for (const _year of years) {
-    const phases = data.getPhasesLinks(school, _year)
+  const yearsStats: MinScorePhasesObj = new CustomMap()
+  for (const year of years) {
+    const phases = data.getPhasesLinks(school, year)
     if (!phases) continue
 
-    let phasesStats = {}
-    for (const _phase of phases) {
-      const r = await data.loadRanking(school, _year, _phase.href)
+    const phasesMap: MinScorePhasesObj_PhasesMap = new CustomMap()
+    for (const phase of phases) {
+      const r = await data.loadRanking(school, year, phase.href)
       const localCourse = Store.getTable(r, selectedCourse)
       if (!localCourse) continue
 
       const phaseStats = await data.getCourseStats(
         school,
-        _year,
-        _phase.name,
+        year,
+        phase.name,
         localCourse as CourseTable
       )
-      if (!phasesStats) continue
-      phasesStats = {
-        ...phasesStats,
-        [_phase.name]: { ...phaseStats }
-      }
+      if (!phaseStats) continue
+      phasesMap.set(phase.name, phaseStats)
     }
 
-    yearsStats = {
-      ...yearsStats,
-      [_year]: phasesStats
-    }
+    yearsStats.set(year, phasesMap)
   }
   return yearsStats
 }
