@@ -1,6 +1,6 @@
 import { MdNavigateNext } from "react-icons/md"
 import { Link, useParams } from "react-router-dom"
-import Ranking from "../../utils/types/data/Ranking"
+import Ranking from "../../utils/types/data/parsed/Ranking"
 
 type Props = {
   ranking?: Ranking

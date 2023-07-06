@@ -1,13 +1,15 @@
 import urlJoin from "url-join"
 import { LINKS } from "../constants"
+import { IndexBySchoolYear } from "../types/data/parsed/Index/BySchoolYear"
+import { IndexBySchoolYearCourse } from "../types/data/parsed/Index/BySchoolYearCourse"
 import School from "../types/data/School"
-import Ranking from "../types/data/Ranking"
-import { IndexBySchool } from "../types/data/Index/BySchool"
-import { IndexBySchoolYearCourse } from "../types/data/Index/BySchoolYearCourse"
-import CourseTable from "../types/data/Ranking/CourseTable"
-import RankingFile, { PhaseLink } from "../types/data/Index/RankingFile"
+import Ranking from "../types/data/parsed/Ranking"
+import JsonParser from "./jsonParser"
+import RankingFile, { PhaseLink } from "../types/data/parsed/Index/RankingFile"
+import CourseTable from "../types/data/parsed/Ranking/CourseTable"
+import CustomMap from "../CustomMap"
 
-export class Data {
+export default class Data {
   protected static readonly _u = LINKS.dataBasePath
   protected static readonly indexUrl: string = urlJoin(
     this._u,
@@ -18,30 +20,35 @@ export class Data {
     "bySchoolYearCourse.json"
   )
 
-  public index?: IndexBySchool
-  public coursesPhases?: IndexBySchoolYearCourse
+  public indexBySchoolYear?: IndexBySchoolYear
+  public indexBySchoolYearCourse?: IndexBySchoolYearCourse
   public schools: School[] = []
   public urls: string[] = []
 
-  private cache: Map<string, Ranking> = new Map()
+  private cache: CustomMap<string, Ranking> = new CustomMap()
 
   public static async init() {
     const data = new Data()
-    data.index = await fetch(Data.indexUrl).then(res => res.json())
-    data.coursesPhases = await fetch(Data.coursePhasesUrl).then(res =>
-      res.json()
-    )
-    if (!data.index) return null
+    data.indexBySchoolYear = await fetch(Data.indexUrl)
+      .then(res => res.json())
+      .then(json => JsonParser.parseIndexBySchoolYear(json))
+    if (!data.indexBySchoolYear) return null
 
-    for (const [school, years] of Object.entries(data.index.schools)) {
-      data.schools.push(school as School)
-      for (const files of Object.values(years)) {
-        for (const file of files) {
+    data.indexBySchoolYearCourse = await fetch(Data.coursePhasesUrl)
+      .then(res => res.json())
+      .then(json => JsonParser.parseIndexBySchoolYearCourse(json))
+
+    data.schools = data.indexBySchoolYear.schools.keysArr()
+
+    data.indexBySchoolYear.schools.forEach(years =>
+      years.forEach(files =>
+        files.forEach(file => {
           const url = urlJoin(this._u, file.basePath, file.link)
           data.urls.push(url)
-        }
-      }
-    }
+        })
+      )
+    )
+
     return data
   }
 
@@ -50,7 +57,10 @@ export class Data {
   }
 
   private async fetchAndCacheRanking(url: string): Promise<Ranking> {
-    const ranking: Ranking = await fetch(url).then(res => res.json())
+    const ranking: Ranking = await fetch(url)
+      .then(res => res.json())
+      .then(json => JsonParser.parseRanking(json))
+
     this.cache.set(url, ranking)
     return ranking
   }
@@ -77,20 +87,15 @@ export class Data {
   }
 
   public getYears(school: School): number[] | undefined {
-    const obj = this.index?.schools[school]
-    if (!obj) return
-
-    const keys = Object.keys(obj)
-    const years = keys.map(y => parseInt(y))
-    return years
+    const schoolMap = this.indexBySchoolYear?.schools.get(school)
+    return schoolMap?.keysArr()
   }
 
   private getRankingFiles(
     school: School,
     year: number
   ): RankingFile[] | undefined {
-    if (!this.index) return
-    const files = this.index.schools[school][year]
+    const files = this.indexBySchoolYear?.schools.get(school)?.get(year)
     return files
   }
 
@@ -98,7 +103,7 @@ export class Data {
     ranking: Ranking,
     course: CourseTable
   ): RankingFile[] | undefined {
-    if (!this.coursesPhases) return
+    if (!this.indexBySchoolYearCourse) return
 
     const { title, location } = course
 
@@ -110,8 +115,10 @@ export class Data {
     const locationEmpty = !location || location === ""
     const fixedLocation = locationEmpty ? "0" : location.toUpperCase()
 
-    const mainObj = this.coursesPhases.schools[ranking.school][ranking.year]
-    const phasesFiles = mainObj[upperTitle][fixedLocation]
+    const mainObj = this.indexBySchoolYearCourse.schools
+      .get(ranking.school)
+      ?.get(ranking.year)
+    const phasesFiles = mainObj?.get(upperTitle)?.get(fixedLocation)
 
     return phasesFiles
   }

@@ -1,8 +1,8 @@
 import StudentResult from "./StudentResult"
 
-type BaseTable = {
+type MeritTable = {
   headers: string[]
   rows: StudentResult[]
 }
 
-export default BaseTable
+export default MeritTable

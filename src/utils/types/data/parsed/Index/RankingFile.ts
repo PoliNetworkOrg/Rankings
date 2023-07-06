@@ -1,4 +1,4 @@
-import School from "../School"
+import School from "../../School"
 
 type RankingFile = {
   link: string

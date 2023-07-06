@@ -1,9 +1,9 @@
 import { ABS_ORDER } from "../constants"
 import { capitalizeWords } from "../strings"
-import Ranking from "../types/data/Ranking"
-import CourseTable from "../types/data/Ranking/CourseTable"
-import MeritTable from "../types/data/Ranking/MeritTable"
-import StudentResult from "../types/data/Ranking/StudentResult"
+import Ranking from "../types/data/parsed/Ranking"
+import CourseTable from "../types/data/parsed/Ranking/CourseTable"
+import MeritTable from "../types/data/parsed/Ranking/MeritTable"
+import StudentResult from "../types/data/parsed/Ranking/StudentResult"
 
 export default class Store {
   _ranking: Ranking
@@ -43,7 +43,6 @@ export default class Store {
 
   static displayBoolean(value?: boolean): string | null {
     if (value === null || value === undefined) return null
-
     return value ? "Si" : "No"
   }
 
@@ -61,12 +60,9 @@ export default class Store {
         row.englishCorrectAnswers ?? null
       ]
 
-      row.ofa &&
-        Object.values(row.ofa)
-          .map(this.displayBoolean)
-          .forEach(v => a.push(v))
-      row.sectionsResults &&
-        Object.values(row.sectionsResults).forEach(v => a.push(v))
+      row.ofa?.forEach(v => a.push(this.displayBoolean(v)))
+      row.sectionsResults?.forEach(v => a.push(v))
+
       const strA = a.map(x => (x === null ? null : x.toString()))
       return strA
     })
@@ -86,11 +82,11 @@ export default class Store {
     ]
 
     const first = rows[0]
-    if (first.ofa) Object.keys(first.ofa).forEach(v => a.push(v))
+    if (first.ofa) first.ofa.keysArr().forEach(v => a.push(v))
     if (first.sectionsResults)
-      Object.keys(first.sectionsResults)
-        .map(name => "Punteggio sezione " + name)
-        .forEach(v => a.push(v))
+      first.sectionsResults
+        .keysArr()
+        .forEach(v => a.push("Punteggio sezione " + v))
 
     return a
   }
