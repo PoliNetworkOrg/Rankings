@@ -22,20 +22,7 @@ type Props = {
 
 export default function MinScorePhases({ stats }: Props) {
   if (!stats) return <></>
-  const data = Object.entries(stats).map(([year, phases]) => {
-    let obj = {
-      anno: year
-    }
-
-    Object.entries(phases).forEach(([phase, stats]) => {
-      obj = {
-        ...obj,
-        [phase]: stats.minScoreToEnroll
-      }
-    })
-
-    return obj
-  })
+  const data = getData(stats)
 
   const phases = data
     .map(year => Object.keys(year).filter(key => key != "anno"))
@@ -75,4 +62,21 @@ export default function MinScorePhases({ stats }: Props) {
       ))}
     </LineChart>
   )
+}
+
+function getData(stats: MinScorePhasesObj) {
+  return Object.entries(stats).map(([year, phases]) => {
+    let obj = {
+      anno: year
+    }
+
+    Object.entries(phases).forEach(([phase, stats]) => {
+      obj = {
+        ...obj,
+        [phase]: stats.minScoreToEnroll
+      }
+    })
+
+    return obj
+  })
 }
