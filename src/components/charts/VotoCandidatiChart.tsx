@@ -16,13 +16,7 @@ type Props = {
 export default function VotoCandidatiChart({ ranking }: Props) {
   if (!ranking) return <></>
 
-  const stats = ranking.rankingSummary.resultsSummarized
-
-  const chartData = Object.entries(stats).map(([score, candidates]) => ({
-    name: score,
-    voto: score,
-    candidati: candidates
-  }))
+  const chartData = getData(ranking)
 
   return (
     <BarChart
@@ -52,4 +46,15 @@ export default function VotoCandidatiChart({ ranking }: Props) {
       </Bar>
     </BarChart>
   )
+}
+
+function getData(ranking: Ranking) {
+  const stats = ranking.rankingSummary.resultsSummarized
+
+  const chartData = Object.entries(stats).map(([score, candidates]) => ({
+    name: score,
+    voto: score,
+    candidati: candidates
+  }))
+  return chartData
 }

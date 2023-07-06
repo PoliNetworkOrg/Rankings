@@ -26,6 +26,7 @@ import PhaseSelector from "./PhaseSelector.tsx"
 import { PhaseLink } from "../../utils/types/data/Index/RankingFile.ts"
 import VotoCandidatiChart from "../charts/VotoCandidatiChart.tsx"
 import MinScorePhases, { MinScorePhasesObj } from "../charts/MinScorePhases.tsx"
+import { Data } from "../../utils/data/data.ts"
 
 type Props = {
   school: School
@@ -110,35 +111,12 @@ function Outlet({
     const years = data.getYears(school)
     if (!years) return
 
-    let yearsStats: MinScorePhasesObj = {}
-    for (const _year of years) {
-      const phases = data.getPhasesLinks(school, _year)
-      if (!phases) continue
-
-      let phasesStats = {}
-      for (const _phase of phases) {
-        const r = await data.loadRanking(school, _year, _phase.href)
-        const localCourse = Store.getTable(r, selectedCourse)
-        if (!localCourse) continue
-
-        const phaseStats = await data.getCourseStats(
-          school,
-          _year,
-          _phase.name,
-          localCourse as CourseTable
-        )
-        if (!phasesStats) continue
-        phasesStats = {
-          ...phasesStats,
-          [_phase.name]: { ...phaseStats }
-        }
-      }
-
-      yearsStats = {
-        ...yearsStats,
-        [_year]: phasesStats
-      }
-    }
+    let yearsStats: MinScorePhasesObj = await getMinScorePhasesObj(
+      years,
+      data,
+      school,
+      selectedCourse
+    )
     setCourseStats(yearsStats)
   }, [data, school, selectedCourse])
 
@@ -238,4 +216,42 @@ function Outlet({
       <div className="h-32 w-full py-12"></div>
     </Page>
   )
+}
+
+async function getMinScorePhasesObj(
+  years: number[],
+  data: Data,
+  school: School,
+  selectedCourse: string
+) {
+  let yearsStats: MinScorePhasesObj = {}
+  for (const _year of years) {
+    const phases = data.getPhasesLinks(school, _year)
+    if (!phases) continue
+
+    let phasesStats = {}
+    for (const _phase of phases) {
+      const r = await data.loadRanking(school, _year, _phase.href)
+      const localCourse = Store.getTable(r, selectedCourse)
+      if (!localCourse) continue
+
+      const phaseStats = await data.getCourseStats(
+        school,
+        _year,
+        _phase.name,
+        localCourse as CourseTable
+      )
+      if (!phasesStats) continue
+      phasesStats = {
+        ...phasesStats,
+        [_phase.name]: { ...phaseStats }
+      }
+    }
+
+    yearsStats = {
+      ...yearsStats,
+      [_year]: phasesStats
+    }
+  }
+  return yearsStats
 }
