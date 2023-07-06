@@ -12,19 +12,19 @@ import {
   IndexBySchoolYear,
   IndexBySchoolYear_SchoolsMap,
   IndexBySchoolYear_YearsMap
-} from "../types/data/parsed/Index/BySchoolYear"
+} from "../types/data/parsed/Index/IndexBySchoolYear"
 import {
   IndexBySchoolYearCourse,
   IndexBySchoolYearCourse_CoursesMap,
   IndexBySchoolYearCourse_LocationsMap,
   IndexBySchoolYearCourse_SchoolsMap,
   IndexBySchoolYearCourse_YearsMap
-} from "../types/data/parsed/Index/BySchoolYearCourse"
+} from "../types/data/parsed/Index/IndexBySchoolYearCourse"
 import {
   IndexByYearSchool,
   IndexByYearSchool_SchoolsMap,
   IndexByYearSchool_YearsMap
-} from "../types/data/parsed/Index/ByYearSchool"
+} from "../types/data/parsed/Index/IndexByYearSchool"
 import Ranking from "../types/data/parsed/Ranking"
 import RankingSummary, {
   AveragePartialScoresMap,
