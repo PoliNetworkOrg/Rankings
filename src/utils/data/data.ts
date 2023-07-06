@@ -10,36 +10,47 @@ import JsonParser from "./jsonParser"
 import RankingFile, { PhaseLink } from "../types/data/parsed/Index/RankingFile"
 import CourseTable from "../types/data/parsed/Ranking/CourseTable"
 import CustomMap from "../CustomMap"
+import { IndexByYearSchool } from "../types/data/parsed/Index/IndexByYearSchool"
 
 export default class Data {
   protected static readonly _u = LINKS.dataBasePath
-  protected static readonly indexUrl: string = urlJoin(
+  protected static readonly indexBySchoolYearUrl: string = urlJoin(
     this._u,
     "bySchoolYear.json"
   )
-  protected static readonly coursePhasesUrl: string = urlJoin(
+  protected static readonly indexBySchoolYearCourseUrl: string = urlJoin(
     this._u,
     "bySchoolYearCourse.json"
+  )
+  protected static readonly indexByYearSchoolUrl: string = urlJoin(
+    this._u,
+    "byYearSchool.json"
   )
   protected static readonly baseStatsUrl: string = urlJoin(this._u, "stats")
 
   public indexBySchoolYear?: IndexBySchoolYear
   public indexBySchoolYearCourse?: IndexBySchoolYearCourse
+  public indexByYearSchool?: IndexByYearSchool
   public schools: School[] = []
   public urls: string[] = []
 
   private cache: CustomMap<string, Ranking> = new CustomMap()
+  private statsByYear: CustomMap<number, StatsByYear> = new CustomMap()
 
   public static async init() {
     const data = new Data()
-    data.indexBySchoolYear = await fetch(Data.indexUrl)
+    data.indexBySchoolYear = await fetch(Data.indexBySchoolYearUrl)
       .then(res => res.json())
       .then(json => JsonParser.parseIndexBySchoolYear(json))
     if (!data.indexBySchoolYear) return null
 
-    data.indexBySchoolYearCourse = await fetch(Data.coursePhasesUrl)
+    data.indexBySchoolYearCourse = await fetch(Data.indexBySchoolYearCourseUrl)
       .then(res => res.json())
       .then(json => JsonParser.parseIndexBySchoolYearCourse(json))
+
+    data.indexByYearSchool = await fetch(Data.indexByYearSchoolUrl)
+      .then(res => res.json())
+      .then(json => JsonParser.parseIndexByYearSchool(json))
 
     data.schools = data.indexBySchoolYear.schools.keysArr()
 
@@ -51,6 +62,12 @@ export default class Data {
         })
       )
     )
+
+    if (data.indexByYearSchool)
+      for (const year of data.indexByYearSchool.years.keys()) {
+        const stats = await data.fetchYearStats(year)
+        data.statsByYear.set(year, stats)
+      }
 
     return data
   }
@@ -171,11 +188,8 @@ export default class Data {
     return stats
   }
 
-  public async getStats(
-    school: School,
-    year: number
-  ): Promise<SchoolStats | undefined> {
-    const stats = await this.fetchYearStats(year)
+  public getStats(school: School, year: number): SchoolStats | undefined {
+    const stats = this.statsByYear.get(year)
     return stats?.schools.get(school)
   }
 
@@ -186,7 +200,7 @@ export default class Data {
     course: CourseTable
   ): Promise<CourseSummary | undefined> {
     try {
-      const stats = await this.getStats(school, year)
+      const stats = this.getStats(school, year)
       const courseStats = stats?.list
         .find(s => {
           const csPhaseName = s.singleCourseJson.name
