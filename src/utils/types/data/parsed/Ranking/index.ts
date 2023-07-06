@@ -1,4 +1,4 @@
-import School from "../School"
+import School from "../../School"
 import CourseTable from "./CourseTable"
 import MeritTable from "./MeritTable"
 import RankingSummary from "./RankingSummary"
