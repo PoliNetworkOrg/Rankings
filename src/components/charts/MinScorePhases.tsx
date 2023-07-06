@@ -8,8 +8,9 @@ import {
   Legend
 } from "recharts"
 import { CourseSummary } from "../../utils/types/data/parsed/Ranking/RankingSummary"
-import { hashCode } from "../../utils/hash"
 import CustomMap from "../../utils/CustomMap"
+import { useContext } from "react"
+import DarkModeContext from "../../contexts/DarkModeContext"
 
 export type MinScorePhasesObj = CustomMap<number, MinScorePhasesObj_PhasesMap>
 export type MinScorePhasesObj_PhasesMap = CustomMap<string, CourseSummary>
@@ -25,6 +26,7 @@ type Props = {
 }
 
 export default function MinScorePhases({ stats }: Props) {
+  const { isDarkMode } = useContext(DarkModeContext)
   if (!stats) return <></>
   const data = getData(stats)
 
@@ -34,9 +36,10 @@ export default function MinScorePhases({ stats }: Props) {
 
   const set = Array.from(new Set(phases))
 
-  const uniquePhases = set.map(phase => ({
+  const colors = generateColors(set.length, isDarkMode)
+  const uniquePhases = set.map((phase, idx) => ({
     phase,
-    color: "#" + Math.abs(hashCode(phase)).toString(16).slice(0, 6)
+    color: colors[idx]
   }))
 
   return (
@@ -78,4 +81,40 @@ function getData(stats: MinScorePhasesObj): Data {
   })
 
   return data
+}
+
+function generateColors(n: number, darkTheme: boolean): string[] {
+  const colors: string[] = []
+  for (let i = 0; i < n; i++) {
+    let r, g, b
+    if (darkTheme) {
+      // Generate a random light color for dark theme
+      r = Math.floor(Math.random() * 100) + 155 // Red component
+      g = Math.floor(Math.random() * 100) + 155 // Green component
+      b = Math.floor(Math.random() * 100) + 155 // Blue component
+    } else {
+      // Generate a random dark color for light theme
+      r = Math.floor(Math.random() * 100) // Red component
+      g = Math.floor(Math.random() * 100) // Green component
+      b = Math.floor(Math.random() * 100) // Blue component
+    }
+    const color = `rgb(${r}, ${g}, ${b})`
+    const hexColor = rgbToHex(color)
+    colors.push(hexColor)
+  }
+  return colors
+}
+
+function rgbToHex(rgb: string): string {
+  const components = rgb.replace(/[^\d,]/g, "").split(",")
+
+  const hexComponents = components.map(component => {
+    const decimalValue = parseInt(component, 10)
+    const hexValue = decimalValue.toString(16).padStart(2, "0")
+    return hexValue
+  })
+
+  const hexColor = "#" + hexComponents.join("")
+
+  return hexColor
 }
