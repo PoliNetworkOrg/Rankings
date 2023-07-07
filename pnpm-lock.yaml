@@ -8,6 +8,9 @@ dependencies:
   '@tanstack/router':
     specifier: 0.0.1-beta.92
     version: 0.0.1-beta.92(react-dom@18.2.0)(react@18.2.0)
+  '@tanstack/router-devtools':
+    specifier: 0.0.1-beta.92
+    version: 0.0.1-beta.92(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -548,6 +551,20 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
+  /@tanstack/router-devtools@0.0.1-beta.92(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-naASaBM5FFBxQP2lrMkmjcidZNjT8nX6/ln07kIaPPTWjwIt9NGLeJnSOjfnT/QUmVPm7rQioDUbG/XeRtCUjQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@babel/runtime': 7.22.6
+      '@tanstack/router': 0.0.1-beta.92(react-dom@18.2.0)(react@18.2.0)
+      date-fns: 2.30.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /@tanstack/router@0.0.1-beta.92(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-s5ilUgxxU8GaKyjdFyH8yBop+RsSh0Suman8buWd0NqRVs/j3+3idL3D1zSzZ5zKvL3gjpZpxKWmbKWeUcEiDA==}
     engines: {node: '>=12'}
@@ -928,6 +945,13 @@ packages:
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
     dev: true
+
+  /date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.22.6
+    dev: false
 
   /debug@4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
