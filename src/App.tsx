@@ -1,12 +1,13 @@
 import ContextProvider from "./contexts/ContextProvider"
 import { IconContext } from "react-icons"
-import Router from "./components/Router"
+import { RouterProvider } from "@tanstack/router"
+import { router } from "./router"
 
 export default function App() {
   return (
     <ContextProvider>
       <IconContext.Provider value={{ size: "28px" }}>
-        <Router />
+        <RouterProvider router={router} />
       </IconContext.Provider>
     </ContextProvider>
   )
