@@ -1,6 +1,6 @@
 import { MdNavigateNext } from "react-icons/md"
-import { Link, useParams } from "react-router-dom"
 import Ranking from "../../utils/types/data/parsed/Ranking"
+import { Link, useParams } from "@tanstack/router"
 
 type Props = {
   ranking?: Ranking
@@ -14,11 +14,15 @@ export default function ViewHeader({ ranking }: Props) {
       <div className="flex items-center overflow-x-auto text-lg scrollbar-thin">
         <Link to="/">Homepage</Link>
         <Spacer />
-        <Link to={`/view/${school}`}>{school}</Link>
+        <Link to="/view/$school" params={{ school }}>
+          {school}
+        </Link>
         {year && (
           <>
             <Spacer />
-            <Link to={`/view/${school}/${year}`}>{year}</Link>
+            <Link to="/view/$school/$year" params={{ school, year }}>
+              {year}
+            </Link>
           </>
         )}
         {ranking && (

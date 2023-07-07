@@ -1,28 +1,35 @@
 import { useContext } from "react"
-import School from "../../utils/types/data/School"
+import { useParams, Link, Navigate } from "@tanstack/router"
 import DataContext from "../../contexts/DataContext"
-import { Link, Navigate } from "react-router-dom"
 import Button from "../../components/ui/Button"
 import Page from "../../components/ui/Page"
 import ViewHeader from "../../components/Viewer/Header"
+import School from "../../utils/types/data/School"
 
-type Props = React.HTMLAttributes<HTMLDivElement> & {
-  school: School
-  year: number
-}
+type Props = React.HTMLAttributes<HTMLDivElement>
 
-export default function ChoosePhase({ school, year, ...props }: Props) {
+export default function ChoosePhase(props: Props) {
   const { data } = useContext(DataContext)
+  const { school, year } = useParams()
+  if (!school) return <Navigate to="/" />
 
-  const phases = data.getPhasesLinks(school, year)
-  if (!phases) return <Navigate to=".." relative="path" />
+  const yearInt = year ? parseInt(year) : NaN
+  if (!year || isNaN(yearInt))
+    return <Navigate to="/view/$school" params={{ school }} />
+
+  const phases = data.getPhasesLinks(school as School, yearInt)
+  if (!phases) return <Navigate to="/view/$school" params={{ school }} />
 
   return (
     <Page>
       <ViewHeader />
       <div {...props} className="grid w-full grid-cols-2 gap-4 py-4">
         {phases.map(phase => (
-          <Link to={phase.href} key={phase.href}>
+          <Link
+            to="/view/$school/$year/$phase"
+            params={{ school, year, phase: phase.href }}
+            key={phase.href}
+          >
             <Button className="h-full w-full">{phase.name}</Button>
           </Link>
         ))}

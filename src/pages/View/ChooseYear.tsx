@@ -1,19 +1,19 @@
-import { useContext } from "react"
+import { HTMLAttributes, useContext } from "react"
+import { useParams, Link, Navigate } from "@tanstack/router"
 import School from "../../utils/types/data/School"
 import DataContext from "../../contexts/DataContext"
-import { Link, Navigate } from "react-router-dom"
 import Button from "../../components/ui/Button"
 import Page from "../../components/ui/Page"
 import ViewHeader from "../../components/Viewer/Header"
 
-type Props = React.HTMLAttributes<HTMLDivElement> & {
-  school: School
-}
-
-export default function ChooseYear({ school, ...props }: Props) {
+type Props = HTMLAttributes<HTMLDivElement>
+export default function ChooseYear(props: Props) {
   const { data } = useContext(DataContext)
+  const { school } = useParams()
 
-  const years = data.getYears(school)
+  if (!school) return <Navigate to="/" />
+
+  const years = data.getYears(school as School)
   if (!years) return <Navigate to="/" />
 
   return (
@@ -21,7 +21,11 @@ export default function ChooseYear({ school, ...props }: Props) {
       <ViewHeader />
       <div {...props} className="grid w-full grid-cols-2 gap-4 py-4">
         {years.map(year => (
-          <Link to={year.toString()} key={year}>
+          <Link
+            to="/view/$school/$year"
+            params={{ school, year: year.toString() }}
+            key={year}
+          >
             <Button className="w-full">{year}</Button>
           </Link>
         ))}

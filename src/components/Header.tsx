@@ -1,12 +1,12 @@
+import { useContext } from "react"
 import {
   MdOutlineLightMode as LightIcon,
   MdOutlineDarkMode as DarkIcon
 } from "react-icons/md"
+import { IconContext } from "react-icons"
 import { LINKS } from "../utils/constants"
 import logo from "../static/logo3000.webp"
-import { useContext } from "react"
 import DarkModeContext from "../contexts/DarkModeContext"
-import { IconContext } from "react-icons"
 
 export default function Header() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)

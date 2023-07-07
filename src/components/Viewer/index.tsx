@@ -5,7 +5,6 @@ import {
   MdDownload
 } from "react-icons/md"
 import ReactPaginate from "react-paginate"
-import { useNavigate } from "react-router-dom"
 import MobileContext from "../../contexts/MobileContext"
 import Page from "../ui/Page.tsx"
 import DataContext from "../../contexts/DataContext.tsx"
@@ -24,32 +23,34 @@ import ViewHeader from "./Header.tsx"
 import Button from "../ui/Button.tsx"
 import PhaseSelector from "./PhaseSelector.tsx"
 import { PhaseLink } from "../../utils/types/data/parsed/Index/RankingFile.ts"
+import { useNavigate, useParams } from "@tanstack/router"
 
-type Props = {
-  school: School
-  year: number
-  phase: string
-}
-
-export default function Viewer({ school, year, phase }: Props) {
+export default function Viewer() {
+  const { school, year, phase } = useParams()
   const { data } = useContext(DataContext)
   const [ranking, setRanking] = useState<Ranking | undefined>()
   const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER)
 
   const getRanking = useCallback(async () => {
-    return await data.loadRanking(school, year, phase)
+    if (!school || !year || !phase) return undefined
+    return await data.loadRanking(school as School, parseInt(year), phase)
   }, [data, phase, school, year])
 
   const navigate = useNavigate()
   useEffect(() => {
-    getRanking()
-      .then(r => setRanking(r))
-      .catch(err => {
-        console.error(err)
-        navigate("..", { relative: "path" })
-      })
-  }, [getRanking, navigate])
+    getRanking().then(r => {
+      if (r) setRanking(r)
+      else {
+        if (!school) navigate({ to: "/" })
+        else if (school && !year)
+          navigate({ to: "/view/$school", params: { school } })
+        else if (school && year)
+          navigate({ to: "/view/$school/$year", params: { school, year } })
+      }
+    })
+  }, [getRanking, navigate, school, year])
 
+  if (!year || !school || !phase) return <></>
   if (!ranking) return <Spinner />
 
   const store = new Store(ranking)
@@ -64,8 +65,8 @@ export default function Viewer({ school, year, phase }: Props) {
   return (
     <Outlet
       ranking={ranking}
-      school={school}
-      year={year}
+      school={school as School}
+      year={parseInt(year)}
       phase={phase}
       table={table}
       coursesName={coursesName}
@@ -76,7 +77,10 @@ export default function Viewer({ school, year, phase }: Props) {
   )
 }
 
-type OutletProps = Props & {
+type OutletProps = {
+  school: School
+  year: number
+  phase: string
   table: MeritTable | CourseTable
   handleCourseSwitch: (name: string) => void
   coursesName: string[]

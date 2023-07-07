@@ -1,9 +1,9 @@
 import { useContext } from "react"
+import { Link } from "@tanstack/router"
 import Alert from "../components/ui/Alert"
 import Page from "../components/ui/Page"
 import DataContext from "../contexts/DataContext"
 import Button from "../components/ui/Button"
-import { Link } from "react-router-dom"
 
 export default function Homepage() {
   const { data } = useContext(DataContext)
@@ -20,7 +20,7 @@ export default function Homepage() {
 
       <div className="grid grid-cols-2 items-center gap-4 py-4">
         {data.schools.map(school => (
-          <Link to={`view/${school}`} key={school}>
+          <Link to="/view/$school" params={{ school: school }} key={school}>
             <Button className="w-32">{school}</Button>
           </Link>
         ))}
