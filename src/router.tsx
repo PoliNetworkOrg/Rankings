@@ -1,8 +1,4 @@
-import {
-  RouterProvider,
-  Router as TRouter,
-  createHashHistory
-} from "@tanstack/router"
+import { Router as TRouter, createHashHistory } from "@tanstack/router"
 import { rootRoute } from "./routes/root"
 import { homepageRoute } from "./routes/homepage"
 import { aboutRoute } from "./routes/about"

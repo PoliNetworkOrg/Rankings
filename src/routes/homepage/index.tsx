@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { Link, Route } from "@tanstack/router"
-import Alert from "../components/ui/Alert"
-import Page from "../components/ui/Page"
-import DataContext from "../contexts/DataContext"
-import Button from "../components/ui/Button"
+import Alert from "../../components/ui/Alert"
+import Page from "../../components/ui/Page"
+import DataContext from "../../contexts/DataContext"
+import Button from "../../components/ui/Button"
 import { rootRoute } from "../root"
 
 export const homepageRoute = new Route({
