@@ -1,8 +1,8 @@
 import { useContext } from "react"
-import Alert from "../components/ui/Alert"
-import Page from "../components/ui/Page"
+import Alert from "../components/custom-ui/Alert"
+import Page from "../components/custom-ui/Page"
 import DataContext from "../contexts/DataContext"
-import Button from "../components/ui/Button"
+import Button from "../components/custom-ui/Button"
 import { Link } from "react-router-dom"
 
 export default function Homepage() {
