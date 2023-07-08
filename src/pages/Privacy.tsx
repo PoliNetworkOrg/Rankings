@@ -1,4 +1,4 @@
-import Page from "../components/ui/Page"
+import Page from "../components/custom-ui/Page"
 
 export default function Privacy() {
   return (
