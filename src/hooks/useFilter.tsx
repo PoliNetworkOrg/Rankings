@@ -19,23 +19,23 @@ export default function useFilter<T extends unknown[]>({
 }: Props<T>): FilterResult<T> {
   const [filterValue, setFilterValue] = useState("")
   const [filteredData, setFilteredData] = useState<T>(data)
-  const [timeoutId, setTimeoutId] = useState<number | null>(null)
+  const [timeoutState, setTimeoutState] = useState<NodeJS.Timeout | null>(null)
 
   const updateFilter = useCallback(
     (filterValue: string) => {
-      if (timeoutId !== null) {
-        clearTimeout(timeoutId)
+      if (timeoutState !== null) {
+        clearTimeout(timeoutState)
       }
 
-      const newTimeoutId = setTimeout(() => {
+      const newTimeout = setTimeout(() => {
         const filteredData = filterFunction(data, filterValue)
         setFilteredData(filteredData)
       }, delay)
 
       setFilterValue(filterValue)
-      setTimeoutId(newTimeoutId)
+      setTimeoutState(newTimeout)
     },
-    [data, filterFunction, delay, timeoutId]
+    [data, filterFunction, delay, timeoutState]
   )
 
   useEffect(() => {
