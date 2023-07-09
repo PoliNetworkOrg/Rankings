@@ -1,10 +1,5 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from "react"
-import {
-  MdNavigateBefore as PrevIcon,
-  MdNavigateNext as NextIcon,
-  MdDownload
-} from "react-icons/md"
-import ReactPaginate from "react-paginate"
+import { MdDownload } from "react-icons/md"
 import { useNavigate } from "react-router-dom"
 import MobileContext from "../../contexts/MobileContext"
 import Page from "../custom-ui/Page.tsx"
@@ -14,8 +9,6 @@ import Ranking from "../../utils/types/data/parsed/Ranking/index.ts"
 import Spinner from "../custom-ui/Spinner.tsx"
 import Table from "./Table.tsx"
 import { ABS_ORDER } from "../../utils/constants.ts"
-import usePaginate from "../../hooks/usePaginate.ts"
-import StudentResult from "../../utils/types/data/parsed/Ranking/StudentResult.ts"
 import CourseTable from "../../utils/types/data/parsed/Ranking/CourseTable.ts"
 import ViewHeader from "./Header.tsx"
 import { Button } from "@/components/ui/button"
@@ -97,11 +90,6 @@ function Outlet({ school, year, ranking, phase }: OutletProps) {
   )
   const csv = useMemo(() => (table ? Store.tableToCsv(table) : ""), [table])
 
-  const { rows, pageCount, handlePageClick } = usePaginate<StudentResult[]>({
-    data: table?.rows ?? [],
-    itemsPerPage: 400
-  })
-
   useEffect(() => {
     if (!table) return
     if (selectedCourse === ABS_ORDER) {
@@ -161,38 +149,15 @@ function Outlet({ school, year, ranking, phase }: OutletProps) {
         </div>
       </div>
 
-      <div
-        className={
-          isMobile
-            ? "flex w-full flex-col gap-4 overflow-x-auto"
-            : "grid w-full grid-cols-[20%_auto] grid-rows-[1fr_auto] gap-4 overflow-y-hidden"
-        }
-      >
+      <div className="flex w-full flex-col gap-4 overflow-x-auto">
         {currentPhase?.name === ranking.phase ? (
-          <>
-            <div className="col-start-1 col-end-3 row-start-1 row-end-2 overflow-y-auto scrollbar-thin">
-              {table && table.rows.length > 0 ? (
-                <Table school={school} rows={rows} />
-              ) : (
-                <p>Nessun dato disponibile</p>
-              )}
-            </div>
-            <div className="col-start-2 col-end-3 row-start-2 row-end-3">
-              {pageCount > 1 && (
-                <ReactPaginate
-                  pageCount={pageCount}
-                  onPageChange={handlePageClick}
-                  renderOnZeroPageCount={null}
-                  breakLabel="..."
-                  pageRangeDisplayed={1}
-                  marginPagesDisplayed={2}
-                  className="react-paginate mx-auto my-2"
-                  previousLabel={<PrevIcon className="inline-flex" size={24} />}
-                  nextLabel={<NextIcon className="inline-flex" size={24} />}
-                />
-              )}
-            </div>
-          </>
+          <div className="col-start-1 col-end-3 row-start-1 row-end-2 overflow-y-auto scrollbar-thin">
+            {table && table.rows.length > 0 ? (
+              <Table school={school} rows={table.rows} />
+            ) : (
+              <p>Nessun dato disponibile</p>
+            )}
+          </div>
         ) : (
           <div className="col-start-1 col-end-3">
             <Spinner />
