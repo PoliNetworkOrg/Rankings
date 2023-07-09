@@ -1,151 +1,345 @@
-import { useId } from "react"
+import { useState } from "react"
+import { Table as TableType } from "@tanstack/react-table"
+import {
+  MdOutlineKeyboardDoubleArrowLeft as DoubleArrowLeft,
+  MdKeyboardDoubleArrowRight as DoubleArrowRight,
+  MdKeyboardArrowLeft as ArrowLeft,
+  MdKeyboardArrowRight as ArrowRight
+} from "react-icons/md"
+import {
+  CellContext,
+  ColumnDef,
+  Header,
+  PaginationState,
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  useReactTable
+} from "@tanstack/react-table"
+
+import { Button } from "@/components/ui/button"
+import {
+  Table as TableComponent,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
 import School from "../../utils/types/data/School"
 import StudentResult from "../../utils/types/data/parsed/Ranking/StudentResult"
 
-const Th = ({
-  children,
-  ...p
-}: React.ThHTMLAttributes<HTMLTableCellElement>) => (
-  <th
-    className="max-w-[8rem] border border-slate-800/20 p-1 text-sm dark:border-slate-300/20"
-    {...p}
-  >
-    {children}
-  </th>
-)
-
-const Td = ({
-  children,
-  ...p
-}: React.TdHTMLAttributes<HTMLTableCellElement>) => (
-  <td
-    className="border border-slate-800/20 p-1 text-center text-sm font-normal dark:border-slate-300/20"
-    {...p}
-  >
-    {children}
-  </td>
-)
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   school: School
   rows: StudentResult[]
   isGlobalRanking?: boolean
 }
 
-function displayBool(value?: boolean): string | null {
-  if (value === undefined || value === null) return null
+function displayBool({
+  getValue
+}: CellContext<StudentResult, unknown>): string | null {
+  const value = getValue<boolean | undefined>()
+  if (value === undefined) return "-"
   return value ? "Si" : "No"
 }
 
-type Has = {
-  [key in keyof StudentResult]: boolean
-}
+function makeHas(rows: StudentResult[]): Record<StudentResultKeys, boolean> {
+  const checkKey = (key: StudentResultKeys) => rows.some(r => r[key])
 
-function makeHas(rows: StudentResult[]): Has {
-  const has: Has = {}
-  for (const key in rows[0]) {
-    has[key as keyof StudentResult] = rows.some(
-      r => r[key as keyof StudentResult]
-    )
+  const has: Record<StudentResultKeys, boolean> = {
+    englishCorrectAnswers: checkKey("englishCorrectAnswers"),
+    sectionsResults: checkKey("sectionsResults"),
+    positionAbsolute: checkKey("positionAbsolute"),
+    positionCourse: checkKey("positionCourse"),
+    birthDate: checkKey("birthDate"),
+    result: checkKey("result"),
+    ofa: checkKey("ofa"),
+    canEnroll: checkKey("canEnroll"),
+    canEnrollInto: checkKey("canEnrollInto"),
+    id: checkKey("id")
   }
   return has
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function Table({ school, rows, ...p }: TableProps) {
-  const id = useId()
+type StudentResultKeys = keyof StudentResult
+
+type ColumnVisibility = {
+  [key in StudentResultKeys]?: boolean
+}
+
+const headerBorder = (
+  header: Header<StudentResult, unknown>,
+  headersLength: number
+) => {
+  if (header.isPlaceholder || headersLength == 1) return ""
+  if (header.index === 0) return "border-r"
+  if (header.index === headersLength - 1) return "border-l"
+  return "border-x"
+}
+
+export default function Table({ rows }: TableProps) {
   const has = makeHas(rows)
+  const columns = getColumns(rows)
+  const [columnVisibility, setColumnVisibility] =
+    useState<ColumnVisibility>(has)
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageSize: 15,
+    pageIndex: 0
+  })
+
+  const table = useReactTable({
+    data: rows,
+    columns,
+    state: {
+      columnVisibility,
+      pagination
+    },
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    onPaginationChange: setPagination
+  })
 
   return (
-    <table className="relative mb-[1px] w-full border-collapse" {...p}>
-      <TableHeader has={has} rows={rows} />
-      <tbody>
-        {rows.length ? (
-          rows.map((student, x) => (
-            <tr
-              key={`${id}-${x}`}
-              className="even:bg-slate-100 dark:even:bg-slate-800"
-            >
-              {has.birthDate && <Td>{student.birthDate}</Td>}
-              {has.result && <Td>{student.result}</Td>}
-              {has.positionAbsolute && <Td>{student.positionAbsolute}</Td>}
-              {has.positionCourse && <Td>{student.positionCourse}</Td>}
-              {displayBool(student.canEnroll) && (
-                <Td>{displayBool(student.canEnroll)}</Td>
-              )}
-              {has.canEnrollInto && <Td>{student.canEnrollInto || "-"}</Td>}
-              {has.englishCorrectAnswers && (
-                <Td>{student.englishCorrectAnswers}</Td>
-              )}
-              {has.ofa &&
-                student.ofa &&
-                student.ofa
-                  .entriesArr()
-                  .map(([name, value]) => (
-                    <Td key={`${id}-${x}-${name}`}>{displayBool(value)}</Td>
+    <div className="w-full">
+      <div className="rounded-md border border-slate-400 dark:border-slate-500 [&_*]:border-slate-400 [&_*]:dark:border-slate-500">
+        <TableComponent>
+          <TableHeader>
+            {table.getHeaderGroups().map(headerGroup => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map(header => {
+                  return (
+                    <TableHead
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className={headerBorder(
+                        header,
+                        headerGroup.headers.length
+                      )}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  )
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map(row => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  className="divide-x"
+                >
+                  {row.getVisibleCells().map(cell => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
                   ))}
-
-              {has.sectionsResults &&
-                student.sectionsResults &&
-                student.sectionsResults
-                  .entriesArr()
-                  .map(([section, value]) => (
-                    <Td key={`${id}-${x}-${section}`}>{value}</Td>
-                  ))}
-
-              {has.id && <Td>{student.id}</Td>}
-            </tr>
-          ))
-        ) : (
-          <tr>
-            <Td colSpan={20}>No data found</Td>
-          </tr>
-        )}
-      </tbody>
-    </table>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </TableComponent>
+      </div>
+      <TablePagination table={table} />
+    </div>
   )
 }
 
-type TableHeaderProps = React.HTMLAttributes<HTMLTableSectionElement> & {
-  has: Has
-  rows: StudentResult[]
+interface DataTablePaginationProps<TData> {
+  table: TableType<TData>
 }
-function TableHeader({ has, rows }: TableHeaderProps) {
-  const firstOfa = rows.find(r => r.ofa)?.ofa
-  const firstSectionResults = rows.find(r => r.sectionsResults)?.sectionsResults
 
+export function TablePagination<TData>({
+  table
+}: DataTablePaginationProps<TData>) {
   return (
-    <thead className="sticky top-[-1px] z-10 bg-slate-200 dark:bg-slate-800">
-      <tr>
-        {has.birthDate && <Th rowSpan={2}>Data di nascita</Th>}
-        {has.result && <Th rowSpan={2}>Voto test</Th>}
-        {has.positionAbsolute && <Th rowSpan={2}>Posizione assoluta</Th>}
-        {has.positionCourse && <Th rowSpan={2}>Posizione nel corso</Th>}
-        {displayBool(has.canEnroll) && <Th rowSpan={2}>Immat. consentita</Th>}
-        {has.canEnrollInto && <Th rowSpan={2}>Immat. nel corso</Th>}
-        {has.englishCorrectAnswers && (
-          <Th rowSpan={2}>Risposte corrette inglese</Th>
-        )}
-        {has.ofa &&
-          firstOfa &&
-          firstOfa.keysArr().map(name => (
-            <Th key={`header-${name}`} rowSpan={2}>
-              OFA {name}
-            </Th>
-          ))}
-        {has.sectionsResults && firstSectionResults && (
-          <Th rowSpan={1} colSpan={firstSectionResults.keysArr().length}>
-            Punteggio singole sezioni
-          </Th>
-        )}
-        {has.id && <Th rowSpan={2}>Matricola</Th>}
-      </tr>
-      {has.sectionsResults && firstSectionResults && (
-        <tr>
-          {firstSectionResults.keysArr().map(name => (
-            <Th key={`header-section-${name}`}>{name}</Th>
-          ))}
-        </tr>
-      )}
-    </thead>
+    <div className="my-2 flex items-center justify-end max-sm:flex-col max-sm:items-start max-sm:gap-2 sm:space-x-6">
+      <div className="sm:flex-1">
+        <p className="text-sm font-medium">
+          Totale righe: {table.getCoreRowModel().rows.length}
+        </p>
+      </div>
+      <div className="flex items-center space-x-2">
+        <p className="text-sm font-medium">Righe per pagina</p>
+        <Select
+          value={`${table.getState().pagination.pageSize}`}
+          onValueChange={value => {
+            table.setPageSize(Number(value))
+          }}
+        >
+          <SelectTrigger className="h-8 w-[70px]">
+            <SelectValue placeholder={table.getState().pagination.pageSize} />
+          </SelectTrigger>
+          <SelectContent side="top">
+            {[15, 30, 50, 100].map(pageSize => (
+              <SelectItem key={pageSize} value={`${pageSize}`}>
+                {pageSize}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex max-sm:w-full max-sm:justify-between">
+        <div className="mr-2 flex items-center text-sm font-medium">
+          <p>
+            Pagina {table.getState().pagination.pageIndex + 1} di{" "}
+            {table.getPageCount()}
+          </p>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0 text-sm"
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <span className="sr-only">Go to first page</span>
+            <DoubleArrowLeft />
+          </Button>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0 text-sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <span className="sr-only">Go to previous page</span>
+            <ArrowLeft />
+          </Button>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0 text-sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <span className="sr-only">Go to next page</span>
+            <ArrowRight />
+          </Button>
+          <Button
+            variant="outline"
+            className="h-8 w-8 p-0 text-sm"
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            <span className="sr-only">Go to last page</span>
+            <DoubleArrowRight />
+          </Button>
+        </div>
+      </div>
+    </div>
   )
+}
+
+function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
+  return [
+    {
+      accessorKey: "positionCourse",
+      header: "Posizione",
+      columns: [
+        {
+          accessorKey: "positionAbsolute",
+          header: "Merito"
+        },
+        {
+          accessorKey: "positionCourse",
+          header: "Corso"
+        }
+      ]
+    },
+    {
+      accessorKey: "result",
+      header: "Punteggio",
+      cell: ({ getValue }) => getValue<number>().toFixed(2)
+    },
+    {
+      header: "Immatricolazione",
+      columns: [
+        {
+          accessorKey: "canEnroll",
+          header: "Consentita",
+          cell: displayBool
+        },
+        {
+          accessorKey: "canEnrollInto",
+          header: "Corso",
+          cell: ({ getValue }) => getValue() ?? "-"
+        }
+      ]
+    },
+    {
+      id: "ofa",
+      header: "Ofa",
+      columns:
+        rows
+          .find(r => r.ofa)
+          ?.ofa?.keysArr()
+          .map(ofaName => ({
+            header: ofaName,
+            accessorFn: row => row.ofa?.get(ofaName),
+            cell: displayBool
+          })) ?? []
+    },
+    {
+      header: "Risultati singole sezioni",
+      id: "sectionsResults",
+      columns:
+        rows
+          .find(r => r.sectionsResults)
+          ?.sectionsResults?.keysArr()
+          .map(sectionName => ({
+            header: sectionName,
+            accessorFn: row => row.sectionsResults?.get(sectionName),
+            cell: ({ getValue }) => getValue<number>().toFixed(2)
+          })) ?? []
+    },
+    {
+      header: "Risposte corrette",
+      columns: [
+        {
+          accessorKey: "englishCorrectAnswers",
+          header: "Inglese"
+        }
+      ]
+    },
+    {
+      header: "Dati personali",
+      columns: [
+        {
+          accessorKey: "id",
+          header: "Matricola (hash)",
+          cell: ({ getValue }) => getValue().slice(0, 10)
+        },
+        {
+          accessorKey: "birthDate",
+          header: "Data di nascita"
+        }
+      ]
+    }
+  ]
 }
