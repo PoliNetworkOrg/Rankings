@@ -2,7 +2,7 @@ import { useContext } from "react"
 import School from "../../utils/types/data/School"
 import DataContext from "../../contexts/DataContext"
 import { Link, Navigate } from "react-router-dom"
-import Button from "../../components/custom-ui/Button"
+import { Button } from "@/components/ui/button"
 import Page from "../../components/custom-ui/Page"
 import ViewHeader from "../../components/Viewer/Header"
 
@@ -22,7 +22,9 @@ export default function ChooseYear({ school, ...props }: Props) {
       <div {...props} className="grid w-full grid-cols-2 gap-4 py-4">
         {years.map(year => (
           <Link to={year.toString()} key={year}>
-            <Button className="w-full">{year}</Button>
+            <Button className="w-full" variant="secondary">
+              {year}
+            </Button>
           </Link>
         ))}
       </div>

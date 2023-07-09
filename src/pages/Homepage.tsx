@@ -2,7 +2,7 @@ import { useContext } from "react"
 import Alert from "../components/custom-ui/Alert"
 import Page from "../components/custom-ui/Page"
 import DataContext from "../contexts/DataContext"
-import Button from "../components/custom-ui/Button"
+import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 
 export default function Homepage() {
@@ -21,7 +21,7 @@ export default function Homepage() {
       <div className="grid grid-cols-2 items-center gap-4 py-4">
         {data.schools.map(school => (
           <Link to={`view/${school}`} key={school}>
-            <Button className="w-32">{school}</Button>
+            <Button variant="secondary" className="w-32">{school}</Button>
           </Link>
         ))}
       </div>
