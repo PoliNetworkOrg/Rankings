@@ -13,8 +13,8 @@
     "node": ">=18.16.0"
   },
   "dependencies": {
-    "@tanstack/router": "0.0.1-beta.93",
-    "@tanstack/router-devtools": "0.0.1-beta.93",
+    "@tanstack/router": "0.0.1-beta.99",
+    "@tanstack/router-devtools": "0.0.1-beta.99",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
