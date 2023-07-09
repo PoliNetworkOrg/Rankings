@@ -8,6 +8,11 @@ interface Props {
 export default function Spinner({ loading = true }: Props) {
   const { isDarkMode } = useContext(DarkModeContext)
   return (
-    <PuffLoader color={isDarkMode ? "#ffffff" : "#333333"} loading={loading} />
+    <div className="flex flex-1 items-center justify-center">
+      <PuffLoader
+        color={isDarkMode ? "#ffffff" : "#333333"}
+        loading={loading}
+      />
+    </div>
   )
 }

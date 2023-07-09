@@ -1,4 +1,4 @@
-import Alert from "../components/custom-ui/Alert"
+import Alert from "@/components/custom-ui/Alert"
 import { ALERT_LEVELS } from "../utils/constants"
 
 export default function Test() {

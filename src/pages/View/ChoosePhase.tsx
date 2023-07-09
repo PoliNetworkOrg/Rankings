@@ -2,7 +2,7 @@ import { useContext } from "react"
 import School from "../../utils/types/data/School"
 import DataContext from "../../contexts/DataContext"
 import { Link, Navigate } from "react-router-dom"
-import Button from "../../components/custom-ui/Button"
+import { Button } from "@/components/ui/button"
 import Page from "../../components/custom-ui/Page"
 import ViewHeader from "../../components/Viewer/Header"
 
@@ -23,7 +23,9 @@ export default function ChoosePhase({ school, year, ...props }: Props) {
       <div {...props} className="grid w-full grid-cols-2 gap-4 py-4">
         {phases.map(phase => (
           <Link to={phase.href} key={phase.href}>
-            <Button className="h-full w-full">{phase.name}</Button>
+            <Button variant="secondary" className="h-full w-full">
+              {phase.name}
+            </Button>
           </Link>
         ))}
       </div>
