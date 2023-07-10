@@ -115,7 +115,7 @@ export const viewerRoute = new Route({
         }`}
         fullWidth
       >
-        <ViewHeader ranking={ranking} />
+        <ViewHeader />
         <div className="flex w-full max-sm:flex-col max-sm:gap-4">
           {selectedPhase && (
             <PhaseSelect

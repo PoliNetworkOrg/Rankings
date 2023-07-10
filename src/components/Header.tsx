@@ -19,14 +19,17 @@ export default function Header() {
             href={LINKS.polinetworkMain}
             rel="noreferrer noopener"
             target="_blank"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-black hover:no-underline dark:text-white"
           >
             <img src={logo} className="h-auto w-16" />
             <span className="text-lg font-bold max-sm:hidden">PoliNetwork</span>
           </a>
         </div>
         <div className="flex-1 text-center">
-          <Link to="/">
+          <Link
+            to="/"
+            className="text-black hover:no-underline dark:text-white"
+          >
             <h1 className="text-2xl font-bold max-md:text-xl">Rankings</h1>
           </Link>
         </div>
