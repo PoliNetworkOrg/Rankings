@@ -15,7 +15,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import MobileContext from "@/contexts/MobileContext"
-import { PhaseLink } from "../../utils/types/data/parsed/Index/RankingFile"
+import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile"
 
 type Props = {
   phasesLinks?: PhaseLink[]

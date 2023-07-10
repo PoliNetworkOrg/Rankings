@@ -32,15 +32,14 @@ export default class Data {
     data.indexBySchoolYear = await fetch(Data.indexUrl)
       .then(res => res.json())
       .then(json => JsonParser.parseIndexBySchoolYear(json))
-    if (!data.indexBySchoolYear) return null
 
     data.indexBySchoolYearCourse = await fetch(Data.coursePhasesUrl)
       .then(res => res.json())
       .then(json => JsonParser.parseIndexBySchoolYearCourse(json))
 
-    data.schools = data.indexBySchoolYear.schools.keysArr()
+    data.schools = data.indexBySchoolYear?.schools.keysArr() ?? []
 
-    data.indexBySchoolYear.schools.forEach(years =>
+    data.indexBySchoolYear?.schools.forEach(years =>
       years.forEach(files =>
         files.forEach(file => {
           const url = urlJoin(this._u, file.basePath, file.link)
@@ -84,11 +83,19 @@ export default class Data {
     year: number,
     phase: string
   ): Promise<Ranking | undefined> {
-    const filename = phase.endsWith(".json") ? phase : phase + ".json"
-    const url = urlJoin(Data._u, school, year.toString(), filename)
+    const files = this.getRankingFiles(school, year)
+    if (!files) return
 
+    const lowerPhase = phase.toLowerCase()
+    const fixedPhase = lowerPhase.endsWith(".json")
+      ? lowerPhase
+      : lowerPhase + ".json"
+
+    const file = files.find(f => f.link.toLowerCase() === fixedPhase)
+    if (!file) return
+
+    const url = urlJoin(Data._u, school, year.toString(), file.link)
     const ranking = await this.getRanking(url)
-
     return ranking
   }
 
@@ -132,7 +139,7 @@ export default class Data {
   private convertRankingFileToPhaseLink(file: RankingFile): PhaseLink {
     return {
       name: file.name,
-      href: file.link.replace(".json", "")
+      href: file.link.replace(".json", "").toLowerCase()
     }
   }
 
