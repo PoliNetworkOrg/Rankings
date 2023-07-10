@@ -1,11 +1,7 @@
 import { MdNavigateNext } from "react-icons/md"
-import Ranking from "@/utils/types/data/parsed/Ranking"
 import { Link, useParams } from "@tanstack/router"
 
-type Props = {
-  ranking?: Ranking
-}
-export default function ViewHeader({ ranking }: Props) {
+export default function ViewHeader() {
   const { school, year } = useParams()
 
   if (!school) return <></>
@@ -23,12 +19,6 @@ export default function ViewHeader({ ranking }: Props) {
             <Link to="/view/$school/$year" params={{ school, year }}>
               {year}
             </Link>
-          </>
-        )}
-        {ranking && (
-          <>
-            <Spacer />
-            <p>{ranking.phase}</p>
           </>
         )}
       </div>
