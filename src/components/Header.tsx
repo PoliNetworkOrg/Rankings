@@ -1,12 +1,13 @@
+import { useContext } from "react"
 import {
   MdOutlineLightMode as LightIcon,
   MdOutlineDarkMode as DarkIcon
 } from "react-icons/md"
+import { IconContext } from "react-icons"
 import { LINKS } from "../utils/constants"
 import logo from "../static/logo3000.webp"
-import { useContext } from "react"
 import DarkModeContext from "../contexts/DarkModeContext"
-import { IconContext } from "react-icons"
+import { Link } from "@tanstack/router"
 
 export default function Header() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
@@ -25,7 +26,9 @@ export default function Header() {
           </a>
         </div>
         <div className="flex-1 text-center">
-          <h1 className="text-2xl font-bold max-md:text-xl">Rankings</h1>
+          <Link to="/">
+            <h1 className="text-2xl font-bold max-md:text-xl">Rankings</h1>
+          </Link>
         </div>
         <div className="flex items-center justify-end max-sm:flex-[0.25] sm:flex-1">
           <IconContext.Provider
