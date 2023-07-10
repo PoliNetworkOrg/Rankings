@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@tanstack/router':
-    specifier: 0.0.1-beta.99
-    version: 0.0.1-beta.99(react-dom@18.2.0)(react@18.2.0)
+    specifier: 0.0.1-beta.100
+    version: 0.0.1-beta.100(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/router-devtools':
-    specifier: 0.0.1-beta.99
-    version: 0.0.1-beta.99(react-dom@18.2.0)(react@18.2.0)
+    specifier: 0.0.1-beta.102
+    version: 0.0.1-beta.102(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -543,22 +543,22 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/router-devtools@0.0.1-beta.99(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-I7pyxZoeT5gO4vmbwzGXW9OCirouMUhwus+Q2JGoBue2UibBswoa0WsK3DCNwrj1SP0PHJmeVu5pu0Um45rsxQ==}
+  /@tanstack/router-devtools@0.0.1-beta.102(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-E9uwpGjNBpWnAlirsexzn/kZaMChstGtKIXNtnJr4j4IYAI2ZlsoipTU72d2AO1vku6kVCfvTYVItPSNpTxrdA==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
       '@babel/runtime': 7.22.6
-      '@tanstack/router': 0.0.1-beta.99(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/router': 0.0.1-beta.100(react-dom@18.2.0)(react@18.2.0)
       date-fns: 2.30.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/router@0.0.1-beta.99(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-nCS9OFNS3m5RlhIkNOUmMRIVPOIwaxm+XX9erAsRKHuOOT8shtZMC+fewiTHd6uvW89mEaEAlz/5BdgW19U+CQ==}
+  /@tanstack/router@0.0.1-beta.100(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-lgKxCiHJmmGgEHW+HQZ5+hlXDm3WkcoIK+kndD4lzryWkREQdOM4E+d6OdpJ5Xx5uYbw/redayQn42fSHF4qNw==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
