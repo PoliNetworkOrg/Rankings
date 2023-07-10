@@ -29,7 +29,9 @@ export const chooseYearRoute = new Route({
               params={{ school, year: year.toString() }}
               key={year}
             >
-              <Button className="w-full">{year}</Button>
+              <Button variant="secondary" className="w-full">
+                {year}
+              </Button>
             </Link>
           ))}
         </div>
