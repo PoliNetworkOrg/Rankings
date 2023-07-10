@@ -42,12 +42,30 @@ interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   isGlobalRanking?: boolean
 }
 
-function displayBool({
-  getValue
-}: CellContext<StudentResult, unknown>): string | null {
-  const value = getValue<boolean | undefined>()
-  if (value === undefined) return "-"
-  return value ? "Si" : "No"
+type Cell = CellContext<StudentResult, unknown>
+class CellFns {
+  static displayString({ getValue }: Cell): string {
+    const value = getValue<string | undefined>()
+    return value ?? "-"
+  }
+
+  static displayBool({ getValue }: Cell): string {
+    const value = getValue<boolean | undefined>()
+    if (value === undefined) return "-"
+    return value ? "Si" : "No"
+  }
+
+  static displayScore({ getValue }: Cell): string {
+    const value = getValue<number | undefined>()
+    if (value === undefined) return "-"
+    return value.toFixed(2)
+  }
+
+  static displayHash(cell: Cell): string {
+    const value = CellFns.displayString(cell)
+    const length = 10
+    return value.slice(0, length)
+  }
 }
 
 function makeHas(rows: StudentResult[]): Record<StudentResultKeys, boolean> {
@@ -85,6 +103,7 @@ const headerBorder = (
 }
 
 export default function Table({ rows }: TableProps) {
+  console.log(rows)
   const has = makeHas(rows)
   const columns = getColumns(rows)
   const [columnVisibility, setColumnVisibility] =
@@ -115,22 +134,26 @@ export default function Table({ rows }: TableProps) {
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
+                  const rowSpan = calculateRowSpan(header)
                   return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className={headerBorder(
-                        header,
-                        headerGroup.headers.length
-                      )}
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
+                    rowSpan > 0 && (
+                      <TableHead
+                        key={header.id}
+                        colSpan={header.colSpan}
+                        rowSpan={rowSpan}
+                        className={
+                          "text-center " +
+                          headerBorder(header, headerGroup.headers.length)
+                        }
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    )
                   )
                 })}
               </TableRow>
@@ -145,7 +168,7 @@ export default function Table({ rows }: TableProps) {
                   className="divide-x"
                 >
                   {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="text-center">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -160,7 +183,7 @@ export default function Table({ rows }: TableProps) {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Nessun dato disponibile.
                 </TableCell>
               </TableRow>
             )}
@@ -264,21 +287,25 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
       columns: [
         {
           accessorKey: "positionAbsolute",
-          header: "Merito"
+          header: "Merito",
+          cell: CellFns.displayString
         },
         {
           accessorKey: "positionCourse",
-          header: "Corso"
+          header: "Corso",
+          cell: CellFns.displayString
         }
       ]
     },
     {
-      accessorKey: "result",
       header: "Punteggio",
-      cell: ({ getValue }) => {
-        const value = getValue<number | undefined>()
-        return value ? value.toFixed(2) : "-"
-      }
+      columns: [
+        {
+          accessorKey: "result",
+          header: undefined,
+          cell: CellFns.displayScore
+        }
+      ]
     },
     {
       header: "Immatricolazione",
@@ -286,12 +313,12 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
         {
           accessorKey: "canEnroll",
           header: "Consentita",
-          cell: displayBool
+          cell: CellFns.displayBool
         },
         {
           accessorKey: "canEnrollInto",
           header: "Corso",
-          cell: ({ getValue }) => getValue() ?? "-"
+          cell: CellFns.displayString
         }
       ]
     },
@@ -305,7 +332,7 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
           .map(ofaName => ({
             header: ofaName,
             accessorFn: row => row.ofa?.get(ofaName),
-            cell: displayBool
+            cell: CellFns.displayBool
           })) ?? []
     },
     {
@@ -318,10 +345,7 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
           .map(sectionName => ({
             header: sectionName,
             accessorFn: row => row.sectionsResults?.get(sectionName),
-            cell: ({ getValue }) => {
-              const value = getValue<number | undefined>()
-              return value ? value.toFixed(2) : "-"
-            }
+            cell: CellFns.displayScore
           })) ?? []
     },
     {
@@ -329,7 +353,8 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
       columns: [
         {
           accessorKey: "englishCorrectAnswers",
-          header: "Inglese"
+          header: "Inglese",
+          cell: CellFns.displayString
         }
       ]
     },
@@ -338,14 +363,24 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
       columns: [
         {
           accessorKey: "id",
-          header: "Matricola (hash)",
-          cell: ({ getValue }) => getValue().slice(0, 10)
+          header: "Matricola hash",
+          cell: CellFns.displayHash
         },
         {
           accessorKey: "birthDate",
-          header: "Data di nascita"
+          header: "Data di nascita",
+          cell: CellFns.displayString
         }
       ]
     }
   ]
+}
+
+function calculateRowSpan(header: Header<StudentResult, unknown>): number {
+  if (header.isPlaceholder || !header.column.columnDef.header) return 0
+  if (header.depth === 1 && header.subHeaders.length > 0) {
+    if (!header.subHeaders[0].column.columnDef.header) return 2
+  }
+
+  return 1
 }
