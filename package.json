@@ -19,6 +19,7 @@
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
+    "@tanstack/react-loaders": "0.0.1-beta.96",
     "@tanstack/react-table": "^8.9.3",
     "@tanstack/router": "0.0.1-beta.100",
     "@tanstack/router-devtools": "0.0.1-beta.102",

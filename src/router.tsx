@@ -8,6 +8,8 @@ import { chooseYearRoute } from "./routes/view/chooseYear"
 import { choosePhaseRoute } from "./routes/view/choosePhase"
 import { viewerRoute } from "./routes/view/viewer"
 import { notFoundRoute } from "./routes/notFound"
+import Data from "./utils/data/data"
+import { loaderClient } from "./utils/loaders"
 
 const routeTree = rootRoute.addChildren([
   homepageRoute,
@@ -20,8 +22,17 @@ const routeTree = rootRoute.addChildren([
   notFoundRoute
 ])
 
+export type RouterContext = {
+  loaderClient: typeof loaderClient
+  data: Promise<Data>
+}
+
 export const router = new TRouter({
   routeTree,
+  context: {
+    loaderClient,
+    data: Data.init()
+  },
   history: createHashHistory()
 })
 

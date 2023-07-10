@@ -1,10 +1,8 @@
-import { useCallback, useContext, useEffect, useMemo, useState } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { MdDownload } from "react-icons/md"
-import { useNavigate, useParams } from "@tanstack/router"
+import { ErrorComponent, Navigate, Route, useNavigate } from "@tanstack/router"
 import MobileContext from "@/contexts/MobileContext"
-import DataContext from "@/contexts/DataContext.tsx"
 import School from "@/utils/types/data/School.ts"
-import Ranking from "@/utils/types/data/parsed/Ranking/index.ts"
 import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable.ts"
 import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile.ts"
 import { ABS_ORDER } from "@/utils/constants.ts"
@@ -12,108 +10,103 @@ import Store from "@/utils/data/store.ts"
 import { Button } from "@/components/ui/button"
 import Spinner from "@/components/custom-ui/Spinner.tsx"
 import Page from "@/components/custom-ui/Page.tsx"
+import { rootRoute } from "@/routes/root.tsx"
 import Table from "./Table.tsx"
 import ViewHeader from "./Header.tsx"
 import PhaseSelect from "./PhaseSelect.tsx"
 import { CourseCombobox } from "./CourseCombobox.tsx"
 import LocationsSelect from "./LocationSelect.tsx"
+import { NotFoundError } from "@/utils/errors.ts"
 
-export default function Viewer() {
-  const { school, year, phase } = useParams()
-  const { data } = useContext(DataContext)
-  const [ranking, setRanking] = useState<Ranking | undefined>()
+export const viewerRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: "/view/$school/$year/$phase",
+  parseParams: ({ school, year, phase }) => ({
+    school: school as School,
+    year: Number(year),
+    phase: phase.toLowerCase()
+  }),
+  loader: async ({ context, params }) => {
+    const data = await context.data
+    const variables = { ...params, data }
+    const rankingLoader = context.loaderClient.loaders.ranking
+    await rankingLoader.load({ variables })
 
-  const getRanking = useCallback(async () => {
-    if (!school || !year || !phase) return undefined
-    return await data.loadRanking(school as School, parseInt(year), phase)
-  }, [data, phase, school, year])
+    return () =>
+      rankingLoader.useLoader({
+        variables
+      })
+  },
+  errorComponent: ({ error }) => {
+    if (error instanceof NotFoundError)
+      return <Navigate from={viewerRoute.id} to=".." />
 
-  const navigate = useNavigate()
-  useEffect(() => {
-    getRanking().then(r => {
-      if (r) setRanking(r)
-      else {
-        if (!school) navigate({ to: "/" })
-        else if (school && !year)
-          navigate({ to: "/view/$school", params: { school } })
-        else if (school && year)
-          navigate({ to: "/view/$school/$year", params: { school, year } })
-      }
-    })
-  }, [getRanking, navigate, school, year])
+    return <ErrorComponent error={error} />
+  },
+  component: function Viewer({ useLoader, useParams }) {
+    const { ranking, data } = useLoader()().state.data
+    const { school, year, phase } = useParams()
+    const { isMobile } = useContext(MobileContext)
+    const navigate = useNavigate({ from: viewerRoute.id })
 
-  if (!year || !school || !phase) return <></>
-  if (!ranking) return <Spinner />
+    const store = useMemo(() => ranking && new Store(ranking), [ranking])
 
-  return <Outlet ranking={ranking} />
-}
+    const courses = store?.getCourses()
+    const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER)
 
-type OutletProps = {
-  ranking: Ranking
-}
+    const locations = useMemo(
+      () => courses?.get(selectedCourse)?.locations ?? [],
+      [courses, selectedCourse]
+    )
+    const [selectedLocation, setSelectedLocation] = useState<
+      string | undefined
+    >()
+    useEffect(() => {
+      if (locations[0] && !selectedLocation)
+        setSelectedLocation(locations[0].value)
+    }, [locations, selectedLocation])
 
-function Outlet({ ranking }: OutletProps) {
-  const { school, year, phase } = useParams()
-  const { isMobile } = useContext(MobileContext)
-  const { data } = useContext(DataContext)
-  const navigate = useNavigate()
+    const [phasesLinks, setPhasesLinks] = useState<PhaseLink[]>([])
+    const [selectedPhase, setSelectedPhase] = useState<PhaseLink | undefined>()
+    useEffect(() => {
+      if (!selectedPhase)
+        setSelectedPhase(phasesLinks.find(p => p.href === phase))
+    }, [phase, phasesLinks, selectedPhase])
 
-  const store = useMemo(() => new Store(ranking), [ranking])
+    const handleSwitchPhase = (href: string) => {
+      const phaseLink = phasesLinks?.find(
+        p => p.href.toLowerCase() === href.toLowerCase()
+      )
+      if (!phaseLink) return
 
-  const courses = store.getCourses()
-  const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER)
-
-  const locations = useMemo(
-    () => courses.get(selectedCourse)?.locations ?? [],
-    [courses, selectedCourse]
-  )
-  const [selectedLocation, setSelectedLocation] = useState<string | undefined>()
-  useEffect(() => {
-    if (locations[0] && !selectedLocation)
-      setSelectedLocation(locations[0].value)
-  }, [locations, selectedLocation])
-
-  const [phasesLinks, setPhasesLinks] = useState<PhaseLink[] | undefined>()
-  const currentPhase = useMemo(
-    () => phasesLinks?.find(v => v.href === phase),
-    [phase, phasesLinks]
-  )
-  const handleSwitchPhase = (href: string) => {
-    const validHref = phasesLinks?.find(
-      p => p.href.toLowerCase() === href.toLowerCase()
-    )?.href
-
-    if (validHref && school && year && phase)
+      setSelectedPhase(phaseLink)
       navigate({
         to: "/view/$school/$year/$phase",
-        params: { school, year, phase }
+        params: { school, year, phase: phaseLink.href }
       })
-  }
-
-  const table = useMemo(
-    () => store.getTable(selectedCourse, selectedLocation),
-    [selectedCourse, selectedLocation, store]
-  )
-  const csv = useMemo(() => (table ? Store.tableToCsv(table) : ""), [table])
-
-  useEffect(() => {
-    if (!table || !school || !year) return
-    if (selectedCourse === ABS_ORDER) {
-      const phasesLinks = data.getPhasesLinks(school as School, parseInt(year))
-      setPhasesLinks(phasesLinks)
-    } else {
-      const phasesLinks = data.getCoursePhasesLinks(
-        ranking,
-        table as CourseTable
-      )
-      setPhasesLinks(phasesLinks)
     }
-  }, [data, ranking, school, selectedCourse, table, year])
 
-  return (
-    school &&
-    year &&
-    phase && (
+    const table = useMemo(
+      () => store.getTable(selectedCourse, selectedLocation),
+      [selectedCourse, selectedLocation, store]
+    )
+    const csv = useMemo(() => (table ? Store.tableToCsv(table) : ""), [table])
+
+    useEffect(() => {
+      if (!table || !school || !year) return
+      if (selectedCourse === ABS_ORDER) {
+        const phasesLinks = data.getPhasesLinks(school, year)
+        setPhasesLinks(phasesLinks ?? [])
+      } else {
+        const phasesLinks = data.getCoursePhasesLinks(
+          ranking,
+          table as CourseTable
+        )
+        setPhasesLinks(phasesLinks ?? [])
+      }
+    }, [data, ranking, school, selectedCourse, table, year])
+
+    return (
       <Page
         className={`flex gap-4 px-4 ${
           isMobile
@@ -124,11 +117,13 @@ function Outlet({ ranking }: OutletProps) {
       >
         <ViewHeader ranking={ranking} />
         <div className="flex w-full max-sm:flex-col max-sm:gap-4">
-          <PhaseSelect
-            value={phase}
-            onChange={handleSwitchPhase}
-            phasesLinks={phasesLinks}
-          />
+          {selectedPhase && (
+            <PhaseSelect
+              value={selectedPhase.href}
+              onChange={handleSwitchPhase}
+              phasesLinks={phasesLinks}
+            />
+          )}
         </div>
         <div className="flex w-full gap-4 max-sm:flex-col">
           <div className="flex flex-1 gap-8 max-sm:flex-col max-sm:gap-4">
@@ -159,7 +154,7 @@ function Outlet({ ranking }: OutletProps) {
         </div>
 
         <div className="flex w-full flex-col gap-4 overflow-x-auto">
-          {currentPhase?.name === ranking.phase ? (
+          {selectedPhase?.name === ranking.phase ? (
             <div className="col-start-1 col-end-3 row-start-1 row-end-2 overflow-y-auto scrollbar-thin">
               {table && table.rows.length > 0 ? (
                 <Table school={school as School} rows={table.rows} />
@@ -175,8 +170,8 @@ function Outlet({ ranking }: OutletProps) {
         </div>
       </Page>
     )
-  )
-}
+  }
+})
 
 function downloadCsv(csv: string, filename: string) {
   const blob = new Blob([csv], { type: "text/csv" })

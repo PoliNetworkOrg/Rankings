@@ -1,26 +1,36 @@
-import { useContext } from "react"
-import { useParams, Link, Navigate, Route } from "@tanstack/router"
-import DataContext from "@/contexts/DataContext"
+import { Link, Navigate, Route, ErrorComponent } from "@tanstack/router"
 import { Button } from "@/components/ui/button"
 import Page from "@/components/custom-ui/Page"
-import ViewHeader from "@/components/Viewer/Header"
 import School from "@/utils/types/data/School"
+import { NotFoundError } from "@/utils/errors"
+import ViewHeader from "./viewer/Header"
 import { rootRoute } from "../root"
 
 export const choosePhaseRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "/view/$school/$year",
-  component: function ChoosePhase() {
-    const { data } = useContext(DataContext)
+  parseParams: ({ school, year }) => ({
+    school: school as School,
+    year: Number(year)
+  }),
+  loader: async ({ context, params }) => {
+    const data = await context.data
+    const variables = { ...params, data }
+
+    const { choosePhase } = context.loaderClient.loaders
+
+    await choosePhase.load({ variables })
+    return () => choosePhase.useLoader({ variables })
+  },
+  errorComponent: ({ error }) => {
+    if (error instanceof NotFoundError)
+      return <Navigate from={choosePhaseRoute.id} to=".." />
+
+    return <ErrorComponent error={error} />
+  },
+  component: function ChoosePhase({ useParams, useLoader }) {
+    const { phases } = useLoader()().state.data
     const { school, year } = useParams()
-    if (!school) return <Navigate to="/" />
-
-    const yearInt = year ? parseInt(year) : NaN
-    if (!year || isNaN(yearInt))
-      return <Navigate to="/view/$school" params={{ school }} />
-
-    const phases = data.getPhasesLinks(school as School, yearInt)
-    if (!phases) return <Navigate to="/view/$school" params={{ school }} />
 
     return (
       <Page>

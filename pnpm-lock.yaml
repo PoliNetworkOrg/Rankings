@@ -23,6 +23,9 @@ dependencies:
   '@radix-ui/react-tabs':
     specifier: ^1.0.4
     version: 1.0.4(@types/react-dom@18.2.6)(@types/react@18.2.14)(react-dom@18.2.0)(react@18.2.0)
+  '@tanstack/react-loaders':
+    specifier: 0.0.1-beta.96
+    version: 0.0.1-beta.96(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/react-table':
     specifier: ^8.9.3
     version: 8.9.3(react-dom@18.2.0)(react@18.2.0)
@@ -1350,6 +1353,28 @@ packages:
       '@swc/core-win32-ia32-msvc': 1.3.67
       '@swc/core-win32-x64-msvc': 1.3.67
     dev: true
+
+  /@tanstack/loaders@0.0.1-beta.96:
+    resolution: {integrity: sha512-JST7iLjHeSOhqMxAeNvrecSCL/e1eH+6sVqpoAUqd/Ayk6Z1cIkvNH92cqqPG7WzqmHgLrmOB17cozTR+xOujQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@tanstack/store': 0.0.1-beta.90
+      tiny-invariant: 1.3.1
+    dev: false
+
+  /@tanstack/react-loaders@0.0.1-beta.96(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-dUpBiJH0a2rQHPx26RFsjNKafSzV8k1RiIpiL+FTCz/SrZjTZBa18IJZqiqY83k0yUWLK0HoJ3pOOdxACBl6EQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@tanstack/loaders': 0.0.1-beta.96
+      '@tanstack/react-store': 0.0.1-beta.90(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tiny-invariant: 1.3.1
+    dev: false
 
   /@tanstack/react-store@0.0.1-beta.90(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-JoTVt7h1agu6DhFwB3VKbxzW55oAls+A4gK6JHp1WptSWuAYOoY6ZhBcLhZjb5hEAJOQh/CwbPVrjUU0rSVo6g==}

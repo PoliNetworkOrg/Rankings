@@ -1,6 +1,4 @@
-import { useContext } from "react"
 import { Link, Route } from "@tanstack/router"
-import DataContext from "../../contexts/DataContext"
 import Alert from "@/components/custom-ui/Alert"
 import Page from "@/components/custom-ui/Page"
 import { Button } from "@/components/ui/button"
@@ -9,8 +7,12 @@ import { rootRoute } from "../root"
 export const homepageRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: function Homepage() {
-    const { data } = useContext(DataContext)
+  loader: async ({ context }) => {
+    const { data } = context
+    return await data
+  },
+  component: function Homepage({ useLoader }) {
+    const data = useLoader()
     return (
       <Page className="text-center">
         <hr className="py-4" />
