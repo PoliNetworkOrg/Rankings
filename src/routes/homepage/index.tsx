@@ -21,8 +21,9 @@ export const homepageRoute = new Route({
           Benvenuto nello storico delle graduatorie del Politecnico di Milano!
         </h3>
 
-        <div style={{ padding: 5 }}></div>
-        <p className="text-lg">Inizia scegliendo la scuola di tuo interesse</p>
+        <p className="mt-2 text-lg">
+          Inizia scegliendo la scuola di tuo interesse
+        </p>
 
         <div className="grid grid-cols-2 items-center gap-4 py-4">
           {data.schools.map(school => (
@@ -47,12 +48,11 @@ export const homepageRoute = new Route({
             garantiscono espressamente o implicitamente l'accuratezza o
             l'affidabilità dei contenuti di questo sito.
           </p>
-          <div style={{ padding: 5 }}></div>
-          <i>
+          <p className="mt-2 italic">
             Se vuoi controllare la tua posizione nella graduatoria per
             immatricolarti, consulta il sito del{" "}
             <a href="https://polimi.it">Politecnico di Milano</a>
-          </i>
+          </p>
         </Alert>
       </Page>
     )
