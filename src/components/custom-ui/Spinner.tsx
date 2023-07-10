@@ -1,6 +1,6 @@
 import { useContext } from "react"
-import DarkModeContext from "../../contexts/DarkModeContext"
 import { PuffLoader } from "react-spinners"
+import DarkModeContext from "@/contexts/DarkModeContext"
 
 interface Props {
   loading?: boolean

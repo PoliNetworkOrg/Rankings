@@ -56,16 +56,22 @@ export default class Data {
     return this.cache.get(url)
   }
 
-  private async fetchAndCacheRanking(url: string): Promise<Ranking> {
-    const ranking: Ranking = await fetch(url)
+  private async fetchAndCacheRanking(
+    url: string
+  ): Promise<Ranking | undefined> {
+    const ranking: Ranking | undefined = await fetch(url)
       .then(res => res.json())
       .then(json => JsonParser.parseRanking(json))
+      .catch(err => {
+        console.error(err)
+        return undefined
+      })
 
-    this.cache.set(url, ranking)
+    if (ranking) this.cache.set(url, ranking)
     return ranking
   }
 
-  private async getRanking(url: string): Promise<Ranking> {
+  private async getRanking(url: string): Promise<Ranking | undefined> {
     const cached = this.tryGetRankingFromCache(url)
 
     const ranking = cached ?? (await this.fetchAndCacheRanking(url))
@@ -77,7 +83,7 @@ export default class Data {
     school: School,
     year: number,
     phase: string
-  ): Promise<Ranking> {
+  ): Promise<Ranking | undefined> {
     const filename = phase.endsWith(".json") ? phase : phase + ".json"
     const url = urlJoin(Data._u, school, year.toString(), filename)
 

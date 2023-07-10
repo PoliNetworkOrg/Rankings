@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react"
-import Data from "../utils/data/data"
+import Data from "@/utils/data/data"
 
 export interface IDataContext {
   data: Data
