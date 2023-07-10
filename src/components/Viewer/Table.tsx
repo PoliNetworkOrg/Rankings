@@ -33,8 +33,8 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
-import School from "../../utils/types/data/School"
-import StudentResult from "../../utils/types/data/parsed/Ranking/StudentResult"
+import School from "@/utils/types/data/School"
+import StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult"
 
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   school: School

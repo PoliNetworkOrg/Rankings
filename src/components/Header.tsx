@@ -1,13 +1,13 @@
+import { useContext } from "react"
 import {
   MdOutlineLightMode as LightIcon,
   MdOutlineDarkMode as DarkIcon
 } from "react-icons/md"
-import { LINKS } from "../utils/constants"
-import logo from "../static/logo3000.webp"
-import { useContext } from "react"
-import DarkModeContext from "../contexts/DarkModeContext"
 import { IconContext } from "react-icons"
-import { Link } from "react-router-dom"
+import { LINKS } from "@/utils/constants"
+import logo from "@/static/logo3000.webp"
+import DarkModeContext from "@/contexts/DarkModeContext"
+import { Link } from "@tanstack/router"
 
 export default function Header() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
