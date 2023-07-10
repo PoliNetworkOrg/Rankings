@@ -1,5 +1,5 @@
 import { Route } from "@tanstack/router"
-import Viewer from "@/components/Viewer"
+import Viewer from "./viewer/index.tsx"
 import { rootRoute } from "../root"
 
 export const viewerRoute = new Route({
