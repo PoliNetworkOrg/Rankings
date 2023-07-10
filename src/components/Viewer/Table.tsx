@@ -103,7 +103,6 @@ const headerBorder = (
 }
 
 export default function Table({ rows }: TableProps) {
-  console.log(rows)
   const has = makeHas(rows)
   const columns = getColumns(rows)
   const [columnVisibility, setColumnVisibility] =
@@ -128,7 +127,7 @@ export default function Table({ rows }: TableProps) {
 
   return (
     <div className="w-full">
-      <div className="rounded-md border border-slate-400 dark:border-slate-500 [&_*]:border-slate-400 [&_*]:dark:border-slate-500">
+      <div className="rounded-md border border-slate-300 dark:border-slate-700 [&_*]:border-slate-300 [&_*]:dark:border-slate-700">
         <TableComponent>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
@@ -168,7 +167,10 @@ export default function Table({ rows }: TableProps) {
                   className="divide-x"
                 >
                   {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id} className="text-center">
+                    <TableCell
+                      key={cell.id}
+                      className="whitespace-nowrap text-center"
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

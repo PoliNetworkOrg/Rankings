@@ -32,7 +32,9 @@ export const choosePhaseRoute = new Route({
               params={{ school, year, phase: phase.href }}
               key={phase.href}
             >
-              <Button className="h-full w-full">{phase.name}</Button>
+              <Button variant="secondary" className="h-full w-full">
+                {phase.name}
+              </Button>
             </Link>
           ))}
         </div>
