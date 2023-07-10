@@ -275,7 +275,10 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
     {
       accessorKey: "result",
       header: "Punteggio",
-      cell: ({ getValue }) => getValue<number>().toFixed(2)
+      cell: ({ getValue }) => {
+        const value = getValue<number | undefined>()
+        return value ? value.toFixed(2) : "-"
+      }
     },
     {
       header: "Immatricolazione",
@@ -315,7 +318,10 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
           .map(sectionName => ({
             header: sectionName,
             accessorFn: row => row.sectionsResults?.get(sectionName),
-            cell: ({ getValue }) => getValue<number>().toFixed(2)
+            cell: ({ getValue }) => {
+              const value = getValue<number | undefined>()
+              return value ? value.toFixed(2) : "-"
+            }
           })) ?? []
     },
     {
