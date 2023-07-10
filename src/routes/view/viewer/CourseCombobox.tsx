@@ -43,6 +43,7 @@ export function CourseCombobox({ value, courses, onSelect }: Props) {
                 {courses.valuesArr().map(course => (
                   <CommandItem
                     key={course.value}
+                    value={course.value}
                     onSelect={value => {
                       onSelect(value)
                       setOpen(false)
