@@ -59,8 +59,11 @@ export const viewerRoute = new Route({
       string | undefined
     >()
     useEffect(() => {
-      if (locations[0] && !selectedLocation)
-        setSelectedLocation(locations[0].value)
+      if (locations.length === 0) return
+      const findLocation = locations.find(
+        cil => cil.value.toLowerCase() === selectedLocation?.toLowerCase()
+      )
+      if (!findLocation) setSelectedLocation(locations[0].value)
     }, [locations, selectedLocation])
 
     const [phasesLinks, setPhasesLinks] = useState<PhaseLink[]>([])
@@ -90,7 +93,7 @@ export const viewerRoute = new Route({
     const csv = useMemo(() => (table ? Store.tableToCsv(table) : ""), [table])
 
     useEffect(() => {
-      if (!table || !school || !year) return
+      if (!table) return
       if (selectedCourse === ABS_ORDER) {
         const phasesLinks = data.getPhasesLinks(school, year)
         setPhasesLinks(phasesLinks ?? [])
