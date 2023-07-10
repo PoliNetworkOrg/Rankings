@@ -19,8 +19,8 @@ export const choosePhaseRoute = new Route({
 
     const { choosePhase } = context.loaderClient.loaders
 
-    await choosePhase.load({ variables })
-    return () => choosePhase.useLoader({ variables })
+    const result = await choosePhase.load({ variables })
+    return result
   },
   errorComponent: ({ error }) => {
     if (error instanceof NotFoundError)
@@ -29,7 +29,7 @@ export const choosePhaseRoute = new Route({
     return <ErrorComponent error={error} />
   },
   component: function ChoosePhase({ useParams, useLoader }) {
-    const { phases } = useLoader()().state.data
+    const { phases } = useLoader()
     const { school, year } = useParams()
 
     return (

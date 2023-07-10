@@ -16,10 +16,10 @@ export const chooseYearRoute = new Route({
     const data = await context.data
     const variables = { ...params, data }
 
-    const { chooseYear } = context.loaderClient.loaders
-    await chooseYear.load({ variables })
+    const loader = context.loaderClient.loaders.chooseYear
+    const result = await loader.load({ variables })
 
-    return () => chooseYear.useLoader({ variables })
+    return result
   },
   errorComponent: ({ error }) => {
     if (error instanceof NotFoundError) return <Navigate to="/" />
@@ -27,7 +27,7 @@ export const chooseYearRoute = new Route({
     return <ErrorComponent error={error} />
   },
   component: function ChooseYear({ useLoader, useParams }) {
-    const { years } = useLoader()().state.data
+    const { years } = useLoader()
     const { school } = useParams()
 
     return (
