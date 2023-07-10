@@ -4,8 +4,8 @@ import {
   MdInfoOutline,
   MdWarningAmber
 } from "react-icons/md"
-import { capitalizeWords } from "../../utils/strings"
-import { Level } from "../../utils/types/alert"
+import { capitalizeWords } from "@/utils/strings"
+import { Level } from "@/utils/types/alert"
 
 type Props = React.HtmlHTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode

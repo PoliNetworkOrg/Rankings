@@ -1,5 +1,5 @@
 import { MdNavigateNext } from "react-icons/md"
-import Ranking from "../../utils/types/data/parsed/Ranking"
+import Ranking from "@/utils/types/data/parsed/Ranking"
 import { Link, useParams } from "@tanstack/router"
 
 type Props = {

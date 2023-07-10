@@ -4,9 +4,9 @@ import {
   MdOutlineDarkMode as DarkIcon
 } from "react-icons/md"
 import { IconContext } from "react-icons"
-import { LINKS } from "../utils/constants"
-import logo from "../static/logo3000.webp"
-import DarkModeContext from "../contexts/DarkModeContext"
+import { LINKS } from "@/utils/constants"
+import logo from "@/static/logo3000.webp"
+import DarkModeContext from "@/contexts/DarkModeContext"
 import { Link } from "@tanstack/router"
 
 export default function Header() {
