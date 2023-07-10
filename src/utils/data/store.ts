@@ -1,9 +1,21 @@
+import CustomMap from "../CustomMap"
 import { ABS_ORDER } from "../constants"
 import { capitalizeWords } from "../strings"
 import Ranking from "../types/data/parsed/Ranking"
 import CourseTable from "../types/data/parsed/Ranking/CourseTable"
 import MeritTable from "../types/data/parsed/Ranking/MeritTable"
 import StudentResult from "../types/data/parsed/Ranking/StudentResult"
+
+export type CourseInfo = {
+  label: string
+  value: string
+  locations: CourseInfoLocation[]
+}
+
+export type CourseInfoLocation = {
+  value: string
+  label: string
+}
 
 export default class Store {
   _ranking: Ranking
@@ -16,21 +28,53 @@ export default class Store {
     return this._ranking
   }
 
-  private nameSeparator = " | "
-  public getCourseNames(): string[] {
-    return this._ranking.byCourse.map(course =>
-      course.location
-        ? course.title + this.nameSeparator + course.location
-        : course.title
-    )
+  public getCourses() {
+    const map = new CustomMap<string, CourseInfo>()
+    map.set(ABS_ORDER, {
+      value: ABS_ORDER,
+      label: "Tutti i corsi",
+      locations: []
+    })
+
+    this._ranking.byCourse.forEach(({ title, location }) => {
+      const value = title.toLowerCase()
+      const info = map.get(value) ?? {
+        label: title,
+        value,
+        locations: []
+      }
+      if (location)
+        info.locations.push({
+          value: location.toLowerCase(),
+          label: location
+        })
+
+      info.locations.sort((a, b) => {
+        if (a.value < b.value) return -1
+        if (b.value < a.value) return 1
+        return 0
+      })
+      map.set(value, info)
+    })
+
+    return map
   }
 
-  public getTable(name: string): MeritTable | CourseTable | undefined {
-    if (name === ABS_ORDER) return this._ranking.byMerit
+  public getTable(
+    title: string,
+    location?: string
+  ): MeritTable | CourseTable | undefined {
+    if (title === ABS_ORDER) return this._ranking.byMerit
+
     return this._ranking.byCourse.find(course => {
-      if (!course.location) return course.title === name
-      const split = name.split(this.nameSeparator)
-      return course.title === split[0] && course.location === split[1]
+      if (!course.location)
+        return course.title.toUpperCase() === title.toUpperCase()
+      if (!location) return false
+
+      return (
+        course.title.toUpperCase() === title.toUpperCase() &&
+        course.location.toUpperCase() === location.toUpperCase()
+      )
     })
   }
 

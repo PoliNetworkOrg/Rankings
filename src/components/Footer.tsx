@@ -1,5 +1,5 @@
 import { Link as RouterLink, LinkPropsOptions } from "@tanstack/router"
-import { LINKS } from "../utils/constants"
+import { LINKS } from "@/utils/constants"
 
 function Link(props: LinkPropsOptions & { children: React.ReactNode }) {
   return (

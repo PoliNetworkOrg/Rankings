@@ -1,5 +1,5 @@
 import { Route } from "@tanstack/router"
-import Page from "../../components/ui/Page"
+import Page from "@/components/custom-ui/Page"
 import { rootRoute } from "../root"
 
 export const privacyRoute = new Route({
