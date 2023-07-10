@@ -6,7 +6,7 @@ function Link(props: LinkPropsOptions & { children: React.ReactNode }) {
     <li className="flex flex-1 justify-center">
       <RouterLink
         {...props}
-        className="underline underline-offset-2 transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+        className="text-black underline underline-offset-2 dark:text-white"
       />
     </li>
   )
@@ -25,8 +25,7 @@ function ExternalLink({
         target={target}
         rel={rel}
         className={
-          "underline underline-offset-2 transition-colors hover:text-blue-600 dark:hover:text-blue-400" +
-          className
+          "text-black underline underline-offset-2 dark:text-white" + className
         }
       />
     </li>
