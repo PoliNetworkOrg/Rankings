@@ -12,7 +12,7 @@ export default function Layout() {
     <div className="flex min-h-screen flex-col items-center justify-start bg-white text-black dark:bg-slate-900 dark:text-white">
       <Header />
       {!isLoading && <Outlet />}
-      <TanStackRouterDevtools />
+      {process.env.NODE_ENV === "development" && <TanStackRouterDevtools />}
       <Footer />
     </div>
   )
