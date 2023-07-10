@@ -26,9 +26,11 @@ type Props = {
 export default function PhaseSelect(props: Props) {
   const { width } = useContext(MobileContext)
   const [open, setOpen] = useState(false)
-  return width < 1100
-    ? PhaseCombobox({ ...props, open, setOpen })
-    : PhaseTabs(props)
+  if (!props.phasesLinks) return <></>
+  const minWidth = 200 * props.phasesLinks?.length
+  return width > minWidth
+    ? PhaseTabs(props)
+    : PhaseCombobox({ ...props, open, setOpen })
 }
 
 type ComboboxProps = Props & {
@@ -85,16 +87,18 @@ function PhaseCombobox({
 function PhaseTabs({ value, onChange, phasesLinks }: Props) {
   return (
     phasesLinks && (
-      <div className="flex w-full flex-wrap gap-4">
-        <Tabs value={value} onValueChange={onChange}>
-          <div className="flex items-center space-x-4">
+      <div className="flex flex-1 flex-wrap gap-4 overflow-x-hidden">
+        <Tabs
+          value={value}
+          onValueChange={onChange}
+          className="flex flex-1 overflow-x-hidden"
+        >
+          <div className="flex flex-1 items-center space-x-4 overflow-x-hidden">
             <p className="text-muted-foreground text-sm">Fase</p>
-            <TabsList>
+            <TabsList className="flex overflow-x-hidden">
               {phasesLinks.map(phase => (
                 <TabsTrigger
-                  className={`${
-                    value === phase.href ? "" : "max-w-[200px]"
-                  } block truncate`}
+                  className={`block ${phase.href === value ? "" : "truncate"}`}
                   value={phase.href}
                   key={phase.href}
                 >
