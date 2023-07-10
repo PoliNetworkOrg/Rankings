@@ -5,8 +5,8 @@ import { aboutRoute } from "./routes/about"
 import { privacyRoute } from "./routes/privacy"
 import { testRoute } from "./routes/test"
 import { viewRoute } from "./routes/view"
-import { chooseYearRoute } from "./routes/view/ChooseYear"
-import { choosePhaseRoute } from "./routes/view/ChoosePhase"
+import { chooseYearRoute } from "./routes/view/chooseYear"
+import { choosePhaseRoute } from "./routes/view/choosePhase"
 import { viewerRoute } from "./routes/view/viewer"
 import { notFoundRoute } from "./routes/notFound"
 
@@ -15,9 +15,9 @@ const routeTree = rootRoute.addChildren([
   aboutRoute,
   privacyRoute,
   testRoute,
-  viewRoute.addChildren([
-    chooseYearRoute.addChildren([choosePhaseRoute.addChildren([viewerRoute])])
-  ]),
+  chooseYearRoute,
+  choosePhaseRoute,
+  viewerRoute,
   notFoundRoute
 ])
 

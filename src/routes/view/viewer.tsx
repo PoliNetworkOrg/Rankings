@@ -1,9 +1,9 @@
 import { Route } from "@tanstack/router"
 import Viewer from "../../components/Viewer"
-import { choosePhaseRoute } from "./ChoosePhase"
+import { rootRoute } from "../root"
 
 export const viewerRoute = new Route({
-  getParentRoute: () => choosePhaseRoute,
-  path: "$phase",
+  getParentRoute: () => rootRoute,
+  path: "/view/$school/$year/$phase",
   component: Viewer
 })

@@ -5,11 +5,11 @@ import DataContext from "../../contexts/DataContext"
 import Button from "../../components/ui/Button"
 import Page from "../../components/ui/Page"
 import ViewHeader from "../../components/Viewer/Header"
-import { viewRoute } from "."
+import { rootRoute } from "../root"
 
 export const chooseYearRoute = new Route({
-  getParentRoute: () => viewRoute,
-  path: "$school",
+  getParentRoute: () => rootRoute,
+  path: "/view/$school",
   component: function ChooseYear() {
     const { data } = useContext(DataContext)
     const { school } = useParams()
