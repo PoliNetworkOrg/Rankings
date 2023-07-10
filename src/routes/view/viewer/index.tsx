@@ -30,12 +30,9 @@ export const viewerRoute = new Route({
     const data = await context.data
     const variables = { ...params, data }
     const rankingLoader = context.loaderClient.loaders.ranking
-    await rankingLoader.load({ variables })
+    const result = await rankingLoader.load({ variables })
 
-    return () =>
-      rankingLoader.useLoader({
-        variables
-      })
+    return result
   },
   errorComponent: ({ error }) => {
     if (error instanceof NotFoundError)
@@ -44,7 +41,7 @@ export const viewerRoute = new Route({
     return <ErrorComponent error={error} />
   },
   component: function Viewer({ useLoader, useParams }) {
-    const { ranking, data } = useLoader()().state.data
+    const { ranking, data } = useLoader()
     const { school, year, phase } = useParams()
     const { isMobile } = useContext(MobileContext)
     const navigate = useNavigate({ from: viewerRoute.id })
