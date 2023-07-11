@@ -156,7 +156,7 @@ export const viewerRoute = new Route({
         <div className="flex w-full flex-col gap-4 overflow-x-auto">
           {selectedPhase?.name === ranking.phase ? (
             <div className="col-start-1 col-end-3 row-start-1 row-end-2 overflow-y-auto scrollbar-thin">
-              {table && table.rows.length > 0 ? (
+              {table ? (
                 <Table school={school as School} rows={table.rows} />
               ) : (
                 <p>Nessun dato disponibile</p>
