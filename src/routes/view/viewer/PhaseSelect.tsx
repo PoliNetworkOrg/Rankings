@@ -16,6 +16,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import MobileContext from "@/contexts/MobileContext"
 import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 type Props = {
   phasesLinks?: PhaseLink[]
@@ -63,18 +64,20 @@ function PhaseCombobox({
               <CommandList>
                 <CommandEmpty>No courses found.</CommandEmpty>
                 <CommandGroup>
-                  {phasesLinks.map(phase => (
-                    <CommandItem
-                      key={phase.href}
-                      onSelect={value => {
-                        onChange(value)
-                        setOpen(false)
-                      }}
-                      value={phase.href}
-                    >
-                      {phase.name}
-                    </CommandItem>
-                  ))}
+                  <ScrollArea className={phasesLinks.length > 6 ? "h-72" : ""}>
+                    {phasesLinks.map(phase => (
+                      <CommandItem
+                        key={phase.href}
+                        onSelect={value => {
+                          onChange(value)
+                          setOpen(false)
+                        }}
+                        value={phase.href}
+                      >
+                        {phase.name}
+                      </CommandItem>
+                    ))}
+                  </ScrollArea>
                 </CommandGroup>
               </CommandList>
             </Command>

@@ -12,6 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import CustomMap from "@/utils/CustomMap"
 import { CourseInfo } from "@/utils/data/store"
 import { useState } from "react"
@@ -40,18 +41,22 @@ export function CourseCombobox({ value, courses, onSelect }: Props) {
             <CommandList>
               <CommandEmpty>No courses found.</CommandEmpty>
               <CommandGroup>
-                {courses.valuesArr().map(course => (
-                  <CommandItem
-                    key={course.value}
-                    value={course.value}
-                    onSelect={value => {
-                      onSelect(value)
-                      setOpen(false)
-                    }}
-                  >
-                    {course.label}
-                  </CommandItem>
-                ))}
+                <ScrollArea
+                  className={courses.valuesArr().length > 7 ? "h-72" : ""}
+                >
+                  {courses.valuesArr().map(course => (
+                    <CommandItem
+                      key={course.value}
+                      value={course.value}
+                      onSelect={value => {
+                        onSelect(value)
+                        setOpen(false)
+                      }}
+                    >
+                      {course.label}
+                    </CommandItem>
+                  ))}
+                </ScrollArea>
               </CommandGroup>
             </CommandList>
           </Command>
