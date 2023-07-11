@@ -27,7 +27,7 @@ export default function Header() {
             </span>
           </a>
         </div>
-        <div className="flex-1 text-center">
+        <div className="flex flex-1 items-center justify-center text-center">
           <Link
             to="/"
             className="text-black hover:no-underline dark:text-white"
