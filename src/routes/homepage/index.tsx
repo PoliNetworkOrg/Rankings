@@ -25,10 +25,10 @@ export const homepageRoute = new Route({
           Inizia scegliendo la scuola di tuo interesse
         </p>
 
-        <div className="grid grid-cols-2 items-center gap-4 py-4">
+        <div className="grid grid-cols-2 items-center gap-4 py-4 max-sm:w-full max-sm:grid-cols-1">
           {data.schools.map(school => (
             <Link to="/view/$school" params={{ school: school }} key={school}>
-              <Button variant="secondary" className="w-32">
+              <Button variant="secondary" className="w-32 max-sm:w-full">
                 {school}
               </Button>
             </Link>

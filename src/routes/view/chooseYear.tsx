@@ -33,7 +33,7 @@ export const chooseYearRoute = new Route({
     return (
       <Page>
         <ViewHeader />
-        <div className="grid w-full grid-cols-2 gap-4 py-4">
+        <div className="grid w-full grid-cols-2 gap-4 py-4 max-sm:grid-cols-1">
           {years
             .sort((a, b) => b - a)
             .map(year => (

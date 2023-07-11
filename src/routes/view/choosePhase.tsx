@@ -35,7 +35,7 @@ export const choosePhaseRoute = new Route({
     return (
       <Page>
         <ViewHeader />
-        <div className="grid w-full grid-cols-2 gap-4 py-4">
+        <div className="grid w-full grid-cols-2 gap-4 py-4 max-sm:grid-cols-1">
           {phases.map(phase => (
             <Link
               to="/view/$school/$year/$phase"
