@@ -125,7 +125,7 @@ export const viewerRoute = new Route({
             />
           )}
         </div>
-        <div className="flex w-full gap-4 max-sm:flex-col">
+        <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">
           <div className="flex flex-1 gap-8 max-sm:flex-col max-sm:gap-4">
             <CourseCombobox
               courses={courses}
