@@ -3,44 +3,39 @@ import {
   MdOutlineLightMode as LightIcon,
   MdOutlineDarkMode as DarkIcon
 } from "react-icons/md"
-import { IconContext } from "react-icons"
-import { LINKS } from "@/utils/constants"
 import logo from "@/static/logo3000.webp"
 import DarkModeContext from "@/contexts/DarkModeContext"
 import { Link } from "@tanstack/router"
+import { Button } from "./ui/button"
 
 export default function Header() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
   return (
     <header className="w-full border-b border-slate-800/20 dark:border-slate-300/20">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-2 py-4">
-        <div className="max-sm:flex-[0.25] sm:flex-1">
-          <a
-            href={LINKS.polinetworkMain}
-            rel="noreferrer noopener"
-            target="_blank"
-            className="flex items-center gap-2 text-black hover:no-underline dark:text-white"
-          >
-            <img src={logo} className="h-auto w-16" />
-            <span className="text-lg font-bold max-sm:hidden">PoliNetwork</span>
-          </a>
-        </div>
-        <div className="flex-1 text-center">
+      <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
+        <div className="flex flex-1">
           <Link
             to="/"
-            className="text-black hover:no-underline dark:text-white"
+            className="flex items-center gap-3 rounded-md text-black hover:no-underline dark:text-white"
           >
-            <h1 className="text-2xl font-bold max-md:text-xl">Rankings</h1>
+            <img src={logo} className="h-auto w-10" />
+            <span className="max-[450px]:hidden text-lg font-semibold">
+              PoliNetwork
+            </span>
+            <h1 className="text-md rounded-md bg-slate-900/10 px-2 py-1 font-bold dark:bg-slate-100/10">
+              Rankings
+            </h1>
           </Link>
         </div>
-        <div className="flex items-center justify-end max-sm:flex-[0.25] sm:flex-1">
-          <IconContext.Provider
-            value={{ size: "2rem", className: "react-icons" }}
+        <div className="flex items-center justify-end">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-xs"
+            onClick={toggleDarkMode}
           >
-            <button onClick={toggleDarkMode}>
-              {isDarkMode ? <DarkIcon /> : <LightIcon />}
-            </button>
-          </IconContext.Provider>
+            {isDarkMode ? <DarkIcon /> : <LightIcon />}
+          </Button>
         </div>
       </div>
     </header>

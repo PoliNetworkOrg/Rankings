@@ -108,7 +108,7 @@ export const viewerRoute = new Route({
         className={`flex gap-4 px-4 ${
           isMobile
             ? "flex-col overflow-y-auto overflow-x-hidden"
-            : "max-h-[calc(100vh-97px)] overflow-hidden"
+            : "overflow-hidden"
         }`}
         fullWidth
       >
@@ -122,7 +122,7 @@ export const viewerRoute = new Route({
             />
           )}
         </div>
-        <div className="flex w-full gap-4 max-sm:flex-col">
+        <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">
           <div className="flex flex-1 gap-8 max-sm:flex-col max-sm:gap-4">
             <CourseCombobox
               courses={courses}
@@ -141,7 +141,7 @@ export const viewerRoute = new Route({
 
         <div className="flex w-full flex-col gap-4 overflow-x-auto">
           {selectedPhase?.name === ranking.phase ? (
-            <div className="col-start-1 col-end-3 row-start-1 row-end-2 overflow-y-auto scrollbar-thin">
+            <div className="col-start-1 col-end-3 row-start-1 row-end-2">
               {table ? (
                 <Table
                   school={school as School}

@@ -33,14 +33,20 @@ export const chooseYearRoute = new Route({
     return (
       <Page>
         <ViewHeader />
-        <div className="grid w-full grid-cols-2 gap-4 py-4">
-          {years.map(year => (
-            <Link to="/view/$school/$year" params={{ school, year }} key={year}>
-              <Button variant="secondary" className="w-full">
-                {year}
-              </Button>
-            </Link>
-          ))}
+        <div className="grid w-full grid-cols-2 gap-4 py-4 max-sm:grid-cols-1">
+          {years
+            .sort((a, b) => b - a)
+            .map(year => (
+              <Link
+                to="/view/$school/$year"
+                params={{ school, year }}
+                key={year}
+              >
+                <Button variant="secondary" className="w-full">
+                  {year}
+                </Button>
+              </Link>
+            ))}
         </div>
       </Page>
     )
