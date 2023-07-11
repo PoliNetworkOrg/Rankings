@@ -1,10 +1,15 @@
-import { useState } from "react"
-import { Table as TableType } from "@tanstack/react-table"
+import { useMemo, useState } from "react"
+import {
+  ColumnFiltersState,
+  Row,
+  Table as TableType
+} from "@tanstack/react-table"
 import {
   MdOutlineKeyboardDoubleArrowLeft as DoubleArrowLeft,
   MdKeyboardDoubleArrowRight as DoubleArrowRight,
   MdKeyboardArrowLeft as ArrowLeft,
-  MdKeyboardArrowRight as ArrowRight
+  MdKeyboardArrowRight as ArrowRight,
+  MdDownload
 } from "react-icons/md"
 import {
   CellContext,
@@ -14,6 +19,7 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getFilteredRowModel,
   useReactTable
 } from "@tanstack/react-table"
 
@@ -35,10 +41,16 @@ import {
 } from "@/components/ui/select"
 import School from "@/utils/types/data/School"
 import StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult"
+import { Input } from "@/components/ui/input"
+import MeritTable from "@/utils/types/data/parsed/Ranking/MeritTable"
+import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable"
+import Store from "@/utils/data/store"
+import { sha256 } from "@/utils/strings"
 
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   school: School
-  rows: StudentResult[]
+  csvFilename: string
+  table: MeritTable | CourseTable
   isGlobalRanking?: boolean
 }
 
@@ -102,7 +114,9 @@ const headerBorder = (
   return "border-x"
 }
 
-export default function Table({ rows }: TableProps) {
+export default function Table({ table: pTable, csvFilename }: TableProps) {
+  const { rows } = pTable
+  const csv = useMemo(() => (pTable ? Store.tableToCsv(pTable) : ""), [pTable])
   const has = makeHas(rows)
   const columns = getColumns(rows)
   const [columnVisibility, setColumnVisibility] =
@@ -112,21 +126,60 @@ export default function Table({ rows }: TableProps) {
     pageIndex: 0
   })
 
+  const [idFilter, setIdFilter] = useState<string>("")
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
+    {
+      id: "matricola-hash",
+      value: idFilter
+    }
+  ])
+
+  const handleIdFilterChange = async (v: string) => {
+    setIdFilter(v)
+    const hashed = v === "" ? "" : await sha256(v)
+    setColumnFilters([
+      {
+        id: "matricola-hash",
+        value: hashed
+      }
+    ])
+  }
+
   const table = useReactTable({
     data: rows,
     columns,
     state: {
       columnVisibility,
-      pagination
+      pagination,
+      columnFilters
     },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination
   })
 
   return (
-    <div className="w-full">
+    <div className="flex w-full flex-col gap-4">
+      <div className="flex items-center justify-between gap-4">
+        {has.id && (
+          <Input
+            placeholder="Filtra per matricola..."
+            value={idFilter}
+            onChange={e => handleIdFilterChange(e.target.value)}
+          />
+        )}
+        <Button
+          variant="secondary"
+          className="whitespace-nowrap"
+          onClick={() => downloadCsv(csv, csvFilename)}
+        >
+          <MdDownload size={20} />
+          Download CSV
+        </Button>
+      </div>
       <div className="rounded-md border border-slate-300 dark:border-slate-700 [&_*]:border-slate-300 [&_*]:dark:border-slate-700">
         <TableComponent>
           <TableHeader>
@@ -368,7 +421,20 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
         {
           accessorKey: "id",
           header: "Matricola hash",
-          cell: CellFns.displayHash
+          id: "matricola-hash",
+          cell: CellFns.displayHash,
+          enableColumnFilter: true,
+          enableGlobalFilter: true,
+          filterFn: (
+            row: Row<StudentResult>,
+            _: string,
+            filterValue: string
+          ): boolean => {
+            if (!filterValue) return true
+            return (
+              row.original.id?.slice(0, 10) === filterValue.slice(0, 10) ?? true
+            )
+          }
         },
         {
           accessorKey: "birthDate",
@@ -387,4 +453,18 @@ function calculateRowSpan(header: Header<StudentResult, unknown>): number {
   }
 
   return 1
+}
+
+function downloadCsv(csv: string, filename: string) {
+  const blob = new Blob([csv], { type: "text/csv" })
+  const url = window.URL.createObjectURL(blob)
+
+  const a = document.createElement("a")
+  a.href = url
+  a.download = (filename ?? "data") + ".csv"
+  a.click()
+
+  a.remove()
+
+  window.URL.revokeObjectURL(url)
 }

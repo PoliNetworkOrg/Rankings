@@ -1,5 +1,4 @@
 import { useContext, useEffect, useMemo, useState } from "react"
-import { MdDownload } from "react-icons/md"
 import { ErrorComponent, Navigate, Route, useNavigate } from "@tanstack/router"
 import MobileContext from "@/contexts/MobileContext"
 import School from "@/utils/types/data/School.ts"
@@ -7,7 +6,6 @@ import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable.ts"
 import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile.ts"
 import { ABS_ORDER } from "@/utils/constants.ts"
 import Store from "@/utils/data/store.ts"
-import { Button } from "@/components/ui/button"
 import Spinner from "@/components/custom-ui/Spinner.tsx"
 import Page from "@/components/custom-ui/Page.tsx"
 import { rootRoute } from "@/routes/root.tsx"
@@ -90,7 +88,6 @@ export const viewerRoute = new Route({
       () => store.getTable(selectedCourse, selectedLocation),
       [selectedCourse, selectedLocation, store]
     )
-    const csv = useMemo(() => (table ? Store.tableToCsv(table) : ""), [table])
 
     useEffect(() => {
       if (!table) return
@@ -140,24 +137,17 @@ export const viewerRoute = new Route({
               />
             )}
           </div>
-          <div>
-            <Button
-              variant="secondary"
-              onClick={() =>
-                downloadCsv(csv, `${selectedCourse}_${selectedLocation ?? "0"}`)
-              }
-            >
-              <MdDownload size={20} />
-              Download CSV
-            </Button>
-          </div>
         </div>
 
         <div className="flex w-full flex-col gap-4 overflow-x-auto">
           {selectedPhase?.name === ranking.phase ? (
             <div className="col-start-1 col-end-3 row-start-1 row-end-2">
               {table ? (
-                <Table school={school as School} rows={table.rows} />
+                <Table
+                  school={school as School}
+                  table={table}
+                  csvFilename={`${selectedCourse}_${selectedLocation ?? "0"}`}
+                />
               ) : (
                 <p>Nessun dato disponibile</p>
               )}
@@ -172,17 +162,3 @@ export const viewerRoute = new Route({
     )
   }
 })
-
-function downloadCsv(csv: string, filename: string) {
-  const blob = new Blob([csv], { type: "text/csv" })
-  const url = window.URL.createObjectURL(blob)
-
-  const a = document.createElement("a")
-  a.href = url
-  a.download = (filename ?? "data") + ".csv"
-  a.click()
-
-  a.remove()
-
-  window.URL.revokeObjectURL(url)
-}
