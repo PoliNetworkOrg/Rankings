@@ -30,7 +30,7 @@ export function CourseCombobox({ value, courses, onSelect }: Props) {
       <p className="text-muted-foreground text-sm">Corso</p>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="justify-start">
+          <Button variant="outline" className="h-full justify-start">
             {value ? courses.get(value)?.label : "Seleziona un corso..."}
           </Button>
         </PopoverTrigger>
