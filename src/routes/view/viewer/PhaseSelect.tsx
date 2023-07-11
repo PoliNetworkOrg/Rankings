@@ -48,7 +48,7 @@ function PhaseCombobox({
   return (
     phasesLinks && (
       <div className="flex items-center space-x-4">
-        <p className="text-muted-foreground text-sm">Sede</p>
+        <p className="text-muted-foreground text-sm">Fase</p>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button variant="outline" className="justify-start">
