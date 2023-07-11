@@ -51,7 +51,7 @@ function PhaseCombobox({
         <p className="text-muted-foreground text-sm">Fase</p>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <Button variant="outline" className="justify-start">
+            <Button variant="outline" className="h-full justify-start">
               {value
                 ? phasesLinks.find(l => l.href === value)?.name
                 : "Seleziona una sede..."}
