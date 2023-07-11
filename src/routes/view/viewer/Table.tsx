@@ -182,10 +182,12 @@ export default function Table({ rows }: TableProps) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={table.getHeaderGroups()[1].headers.length}
                   className="h-24 text-center"
                 >
-                  Nessun dato disponibile.
+                  {rows.length > 0
+                    ? "Nessuna riga trovata"
+                    : "Nessun dato disponibile"}
                 </TableCell>
               </TableRow>
             )}
