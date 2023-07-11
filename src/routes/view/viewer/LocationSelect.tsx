@@ -12,6 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import MobileContext from "@/contexts/MobileContext"
 import { useContext, useState } from "react"
@@ -52,17 +53,19 @@ function LocationCombobox({ value, onChange, locations }: Props) {
             <CommandList>
               <CommandEmpty>No courses found.</CommandEmpty>
               <CommandGroup>
-                {locations.map(location => (
-                  <CommandItem
-                    key={location.value}
-                    onSelect={value => {
-                      onChange(value)
-                      setOpen(false)
-                    }}
-                  >
-                    {location.label}
-                  </CommandItem>
-                ))}
+                <ScrollArea className={locations.length > 7 ? "h-72" : ""}>
+                  {locations.map(location => (
+                    <CommandItem
+                      key={location.value}
+                      onSelect={value => {
+                        onChange(value)
+                        setOpen(false)
+                      }}
+                    >
+                      {location.label}
+                    </CommandItem>
+                  ))}
+                </ScrollArea>
               </CommandGroup>
             </CommandList>
           </Command>
