@@ -106,9 +106,7 @@ export const viewerRoute = new Route({
     return (
       <Page
         className={`flex gap-4 px-4 ${
-          isMobile
-            ? "flex-col overflow-y-auto overflow-x-hidden"
-            : "overflow-hidden"
+          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
         }`}
         fullWidth
       >
@@ -139,23 +137,19 @@ export const viewerRoute = new Route({
           </div>
         </div>
 
-        <div className="flex w-full flex-col gap-4 overflow-x-auto">
+        <div className="flex w-full flex-col gap-4">
           {selectedPhase?.name === ranking.phase ? (
-            <div className="col-start-1 col-end-3 row-start-1 row-end-2">
-              {table ? (
-                <Table
-                  school={school as School}
-                  table={table}
-                  csvFilename={`${selectedCourse}_${selectedLocation ?? "0"}`}
-                />
-              ) : (
-                <p>Nessun dato disponibile</p>
-              )}
-            </div>
+            table ? (
+              <Table
+                school={school as School}
+                table={table}
+                csvFilename={`${selectedCourse}_${selectedLocation ?? "0"}`}
+              />
+            ) : (
+              <p>Nessun dato disponibile</p>
+            )
           ) : (
-            <div className="col-start-1 col-end-3">
-              <Spinner />
-            </div>
+            <Spinner />
           )}
         </div>
       </Page>
