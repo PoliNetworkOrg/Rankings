@@ -164,20 +164,22 @@ export default function Table({ table: pTable, csvFilename }: TableProps) {
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="flex items-center justify-between gap-4">
-        {has.id && (
-          <Input
-            placeholder="Filtra per matricola..."
-            value={idFilter}
-            onChange={e => handleIdFilterChange(e.target.value)}
-          />
-        )}
+        <div className="flex flex-1 items-center justify-start gap-4">
+          {has.id && (
+            <Input
+              placeholder="Filtra per matricola..."
+              value={idFilter}
+              onChange={e => handleIdFilterChange(e.target.value)}
+            />
+          )}
+        </div>
         <Button
-          variant="secondary"
+          variant="outline"
           className="whitespace-nowrap"
           onClick={() => downloadCsv(csv, csvFilename)}
         >
           <MdDownload size={20} />
-          Download CSV
+          <span className="max-sm:hidden">Download CSV</span>
         </Button>
       </div>
       <div className="rounded-md border border-slate-300 dark:border-slate-700 [&_*]:border-slate-300 [&_*]:dark:border-slate-700">
