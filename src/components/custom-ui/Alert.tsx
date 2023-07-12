@@ -44,8 +44,10 @@ function GetIcon(level: Level) {
 const getColors = (level: Level) => {
   if (level === "error")
     return "bg-red-200/30 text-red-900 dark:bg-red-500/10 dark:text-red-100"
+  // if (level === "warning")
+  //   return "bg-amber-200/30 text-amber-900 dark:bg-amber-500/10 dark:text-amber-100"
   if (level === "warning")
-    return "bg-amber-200/30 text-amber-900 dark:bg-amber-500/10 dark:text-amber-100"
+    return "border-2 border-amber-600 text-amber-600 dark:border-amber-200 dark:text-amber-200"
   if (level === "info")
     return "bg-sky-200/30 text-sky-900 dark:bg-sky-400/10 dark:text-sky-100"
   if (level === "success")

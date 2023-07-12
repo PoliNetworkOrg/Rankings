@@ -15,38 +15,32 @@ export const homepageRoute = new Route({
     const data = useLoader()
     return (
       <Page className="text-center">
-        <hr className="py-4" />
+        <div className="flex flex-col items-center gap-4 py-4">
+          <h3 className="text-2xl font-bold">
+            Benvenuto nello storico delle graduatorie del Politecnico di Milano!
+          </h3>
 
-        <h3 className="text-xl font-bold">
-          Benvenuto nello storico delle graduatorie del Politecnico di Milano!
-        </h3>
+          <p className="text-xl">
+            Inizia scegliendo la scuola di tuo interesse
+          </p>
 
-        <p className="mt-2 text-lg">
-          Inizia scegliendo la scuola di tuo interesse
-        </p>
-
-        <div className="grid grid-cols-2 items-center gap-4 py-4 max-sm:w-full max-sm:grid-cols-1">
-          {data.schools.map(school => (
-            <Link to="/view/$school" params={{ school: school }} key={school}>
-              <Button variant="secondary" className="w-32 max-sm:w-full">
-                {school}
-              </Button>
-            </Link>
-          ))}
+          <div className="grid w-full grid-cols-2 items-center gap-4 py-4 max-sm:grid-cols-1">
+            {data.schools.map(school => (
+              <Link to="/view/$school" params={{ school: school }} key={school}>
+                <Button variant="secondary" size="card" className="w-full">
+                  <span className="text-lg">{school}</span>
+                </Button>
+              </Link>
+            ))}
+          </div>
         </div>
 
         <div className="flex-1"></div>
 
-        <Alert level={"warning"}>
+        <Alert level="warning" className="max-w-2xl">
           <p>
-            Questo progetto è gestito da{" "}
-            <a href="https://polinetwork.org">PoliNetwork</a> e non è in alcun
-            modo collegato al Politecnico di Milano.
-          </p>
-          <p>
-            Gli autori del Progetto non si assumono alcuna responsabilità, né
-            garantiscono espressamente o implicitamente l'accuratezza o
-            l'affidabilità dei contenuti di questo sito.
+            L'accuratezza o l'affidabilità dei contenuti di questo sito non è
+            garantita{" "}
           </p>
           <p className="mt-2 italic">
             Se vuoi controllare la tua posizione nella graduatoria per
