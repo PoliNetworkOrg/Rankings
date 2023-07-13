@@ -1,11 +1,12 @@
 import {
-  MdCheckCircleOutline,
-  MdErrorOutline,
-  MdInfoOutline,
-  MdWarningAmber
-} from "react-icons/md"
+  LuAlertCircle,
+  LuAlertTriangle,
+  LuCheckCircle2,
+  LuInfo
+} from "react-icons/lu"
 import { capitalizeWords } from "@/utils/strings"
 import { Level } from "@/utils/types/alert"
+import { cn } from "@/utils/ui"
 
 type Props = React.HtmlHTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode
@@ -20,9 +21,11 @@ export default function Alert({
 }: Props) {
   return (
     <div
-      className={`flex w-full rounded-lg ${getColors(
-        level
-      )} gap-4 p-4 text-left ${className}`}
+      className={cn(
+        "flex w-full gap-4 rounded-lg border p-4 text-left",
+        getColors(level),
+        className
+      )}
       {...props}
     >
       <div>{GetIcon(level)}</div>
@@ -35,19 +38,19 @@ export default function Alert({
 }
 
 function GetIcon(level: Level) {
-  if (level === "error") return <MdErrorOutline />
-  if (level === "warning") return <MdWarningAmber />
-  if (level === "info") return <MdInfoOutline />
-  if (level === "success") return <MdCheckCircleOutline />
+  if (level === "error") return <LuAlertCircle />
+  if (level === "warning") return <LuAlertTriangle />
+  if (level === "info") return <LuInfo />
+  if (level === "success") return <LuCheckCircle2 />
 }
 
 const getColors = (level: Level) => {
   if (level === "error")
-    return "bg-red-200/30 text-red-900 dark:bg-red-500/10 dark:text-red-100"
+    return "bg-red-300/5 border-red-600 text-red-600 dark:bg-red-100/5 dark:border-red-300 dark:text-red-300"
   if (level === "warning")
-    return "bg-amber-200/30 text-amber-900 dark:bg-amber-500/10 dark:text-amber-100"
+    return "bg-amber-300/5 border-amber-600 text-amber-600 dark:bg-amber-100/5 dark:border-amber-200 dark:text-amber-200"
   if (level === "info")
-    return "bg-sky-200/30 text-sky-900 dark:bg-sky-400/10 dark:text-sky-100"
+    return "bg-sky-300/5 border-sky-600 text-sky-600 dark:bg-sky-100/5 dark:border-sky-200 dark:text-sky-200"
   if (level === "success")
-    return "bg-green-200/30 text-green-900 dark:bg-green-400/10 dark:text-green-100"
+    return "bg-green-300/5 border-green-600 text-green-600 dark:bg-green-100/5 dark:border-green-200 dark:text-green-200"
 }

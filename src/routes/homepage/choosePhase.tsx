@@ -1,14 +1,13 @@
 import { Link, Navigate, Route, ErrorComponent } from "@tanstack/router"
 import { Button } from "@/components/ui/button"
-import Page from "@/components/custom-ui/Page"
 import School from "@/utils/types/data/School"
 import { NotFoundError } from "@/utils/errors"
-import ViewHeader from "./viewer/Header"
-import { rootRoute } from "../root"
+import { homepageRoute } from "."
+import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 
 export const choosePhaseRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: "/view/$school/$year",
+  getParentRoute: () => homepageRoute,
+  path: "/$school/$year",
   parseParams: ({ school, year }) => ({
     school: school as School,
     year: Number(year)
@@ -24,7 +23,7 @@ export const choosePhaseRoute = new Route({
   },
   errorComponent: ({ error }) => {
     if (error instanceof NotFoundError)
-      return <Navigate from={choosePhaseRoute.id} to=".." />
+      return <Navigate from={choosePhaseRoute.fullPath} to=".." />
 
     return <ErrorComponent error={error} />
   },
@@ -33,22 +32,20 @@ export const choosePhaseRoute = new Route({
     const { school, year } = useParams()
 
     return (
-      <Page>
-        <ViewHeader />
-        <div className="grid w-full grid-cols-2 gap-4 py-4 max-sm:grid-cols-1">
-          {phases.map(phase => (
-            <Link
-              to="/view/$school/$year/$phase"
-              params={{ school, year, phase: phase.href }}
-              key={phase.href}
-            >
-              <Button variant="secondary" className="h-full w-full">
-                {phase.name}
-              </Button>
-            </Link>
-          ))}
-        </div>
-      </Page>
+      <ButtonGrid length={phases.length}>
+        {phases.map(phase => (
+          <Link
+            to="/view/$school/$year/$phase"
+            params={{ school, year, phase: phase.href }}
+            key={phase.href}
+            className="h-full"
+          >
+            <Button size="card" variant="secondary" className="h-full w-full">
+              <span className="text-base">{phase.name}</span>
+            </Button>
+          </Link>
+        ))}
+      </ButtonGrid>
     )
   }
 })
