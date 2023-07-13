@@ -17,3 +17,7 @@ export const ALERT_LEVELS = ["error", "warning", "success", "info"] as const
 export const ABS_ORDER = "absorder" as const
 
 export const SALT = "saltPoliNetwork" as const
+
+export const LOCAL_STORAGE = {
+  darkMode: "pnr_dark_mode"
+}
