@@ -19,10 +19,10 @@ export default function Header() {
             className="flex items-center gap-3 rounded-md text-black hover:no-underline dark:text-white"
           >
             <img src={logo} className="h-auto w-10" />
-            <span className="max-[450px]:hidden text-lg font-semibold">
-              PoliNetwork
-            </span>
-            <h1 className="text-md rounded-md bg-slate-900/10 px-2 py-1 font-bold dark:bg-slate-100/10">
+            <h1 className="text-lg">
+              <span className="mr-2 font-extrabold max-[450px]:hidden">
+                PoliNetwork
+              </span>
               Rankings
             </h1>
           </Link>

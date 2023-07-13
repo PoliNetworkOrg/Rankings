@@ -1,14 +1,13 @@
 import { ErrorComponent, Link, Navigate, Route } from "@tanstack/router"
 import School from "@/utils/types/data/School"
 import { Button } from "@/components/ui/button"
-import Page from "@/components/custom-ui/Page"
 import { NotFoundError } from "@/utils/errors"
-import ViewHeader from "./viewer/Header"
-import { rootRoute } from "../root"
+import { homepageRoute } from "."
+import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 
 export const chooseYearRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: "/view/$school",
+  getParentRoute: () => homepageRoute,
+  path: "$school",
   parseParams: ({ school }) => ({
     school: school as School
   }),
@@ -31,24 +30,22 @@ export const chooseYearRoute = new Route({
     const { school } = useParams()
 
     return (
-      <Page>
-        <ViewHeader />
-        <div className="grid w-full grid-cols-2 gap-4 py-4 max-sm:grid-cols-1">
-          {years
-            .sort((a, b) => b - a)
-            .map(year => (
-              <Link
-                to="/view/$school/$year"
-                params={{ school, year }}
-                key={year}
-              >
-                <Button variant="secondary" className="w-full">
-                  {year}
-                </Button>
-              </Link>
-            ))}
-        </div>
-      </Page>
+      <ButtonGrid length={years.length}>
+        {years
+          .sort((a, b) => b - a)
+          .map(year => (
+            <Link
+              to="/home/$school/$year"
+              params={{ school, year }}
+              key={year}
+              className="h-full"
+            >
+              <Button size="card" variant="secondary" className="h-full w-full">
+                <span className="text-lg">{year}</span>
+              </Button>
+            </Link>
+          ))}
+      </ButtonGrid>
     )
   }
 })
