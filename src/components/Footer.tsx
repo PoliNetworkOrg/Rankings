@@ -16,33 +16,50 @@ function ExternalLink({
   className = "",
   target = "_blank",
   rel = "noreferrer noopener",
+  children,
   ...props
 }: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
-    <li className="flex justify-center">
-      <a
-        {...props}
-        target={target}
-        rel={rel}
-        className={
-          "text-black underline underline-offset-2 dark:text-white" + className
-        }
-      />
-    </li>
+    <a
+      {...props}
+      target={target}
+      rel={rel}
+      className={
+        "text-black underline underline-offset-2 dark:text-inherit" + className
+      }
+    >
+      {children}
+    </a>
   )
 }
 export default function Footer() {
   return (
-    <footer className="flex w-full items-center justify-center border-t border-slate-800/20 dark:border-slate-300/20">
-      <nav className="mx-auto flex max-w-7xl flex-1 items-center justify-between p-4 max-md:flex-col">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <ExternalLink href={LINKS.githubSource}>Source</ExternalLink>
-        <Link to="/privacy">Privacy & Cookies</Link>
-        <ExternalLink href={LINKS.polinetworkMain}>
-          Made by PoliNetwork
-        </ExternalLink>
-      </nav>
+    <footer className="w-full border-t border-slate-800/20 py-4 dark:border-slate-300/20">
+      <div className="mx-auto flex w-full max-w-7xl items-start justify-between gap-8 px-4 max-md:flex-col-reverse max-md:gap-4">
+        <div className="flex-1">
+          <p>
+            Made by{"  "}
+            <ExternalLink href={LINKS.polinetworkMain}>
+              PoliNetwork
+            </ExternalLink>
+          </p>
+
+          <p className="mt-2 flex-1 text-slate-400">
+            L'accuratezza o l'affidabilità dei contenuti di questo sito non è
+            garantita. Consulta il sito ufficiale del{" "}
+            <ExternalLink href="https://polimi.it">
+              Politecnico di Milano
+            </ExternalLink>{" "}
+            per controllare la tua posizione in graduatoria per immatricolarti.
+          </p>
+        </div>
+
+        <nav className="flex flex-1 justify-end gap-8">
+          <Link to="/about">About</Link>
+          <ExternalLink href={LINKS.githubSource}>Source</ExternalLink>
+          <Link to="/privacy">Privacy & Cookies</Link>
+        </nav>
+      </div>
     </footer>
   )
 }
