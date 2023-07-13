@@ -42,19 +42,14 @@ export default class Data {
     data.indexBySchoolYear = await fetch(Data.indexBySchoolYearUrl)
       .then(res => res.json())
       .then(json => JsonParser.parseIndexBySchoolYear(json))
-    if (!data.indexBySchoolYear) return null
 
     data.indexBySchoolYearCourse = await fetch(Data.indexBySchoolYearCourseUrl)
       .then(res => res.json())
       .then(json => JsonParser.parseIndexBySchoolYearCourse(json))
 
-    data.indexByYearSchool = await fetch(Data.indexByYearSchoolUrl)
-      .then(res => res.json())
-      .then(json => JsonParser.parseIndexByYearSchool(json))
+    data.schools = data.indexBySchoolYear?.schools.keysArr() ?? []
 
-    data.schools = data.indexBySchoolYear.schools.keysArr()
-
-    data.indexBySchoolYear.schools.forEach(years =>
+    data.indexBySchoolYear?.schools.forEach(years =>
       years.forEach(files =>
         files.forEach(file => {
           const url = urlJoin(this._u, file.basePath, file.link)
@@ -62,6 +57,10 @@ export default class Data {
         })
       )
     )
+
+    data.indexByYearSchool = await fetch(Data.indexByYearSchoolUrl)
+      .then(res => res.json())
+      .then(json => JsonParser.parseIndexByYearSchool(json))
 
     if (data.indexByYearSchool)
       for (const year of data.indexByYearSchool.years.keys()) {
@@ -76,16 +75,22 @@ export default class Data {
     return this.cache.get(url)
   }
 
-  private async fetchAndCacheRanking(url: string): Promise<Ranking> {
-    const ranking: Ranking = await fetch(url)
+  private async fetchAndCacheRanking(
+    url: string
+  ): Promise<Ranking | undefined> {
+    const ranking: Ranking | undefined = await fetch(url)
       .then(res => res.json())
       .then(json => JsonParser.parseRanking(json))
+      .catch(err => {
+        console.error(err)
+        return undefined
+      })
 
-    this.cache.set(url, ranking)
+    if (ranking) this.cache.set(url, ranking)
     return ranking
   }
 
-  private async getRanking(url: string): Promise<Ranking> {
+  private async getRanking(url: string): Promise<Ranking | undefined> {
     const cached = this.tryGetRankingFromCache(url)
 
     const ranking = cached ?? (await this.fetchAndCacheRanking(url))
@@ -97,12 +102,20 @@ export default class Data {
     school: School,
     year: number,
     phase: string
-  ): Promise<Ranking> {
-    const filename = phase.endsWith(".json") ? phase : phase + ".json"
-    const url = urlJoin(Data._u, school, year.toString(), filename)
+  ): Promise<Ranking | undefined> {
+    const files = this.getRankingFiles(school, year)
+    if (!files) return
 
+    const lowerPhase = phase.toLowerCase()
+    const fixedPhase = lowerPhase.endsWith(".json")
+      ? lowerPhase
+      : lowerPhase + ".json"
+
+    const file = files.find(f => f.link.toLowerCase() === fixedPhase)
+    if (!file) return
+
+    const url = urlJoin(Data._u, school, year.toString(), file.link)
     const ranking = await this.getRanking(url)
-
     return ranking
   }
 
@@ -146,7 +159,7 @@ export default class Data {
   private convertRankingFileToPhaseLink(file: RankingFile): PhaseLink {
     return {
       name: file.name,
-      href: file.link.replace(".json", "")
+      href: file.link.replace(".json", "").toLowerCase()
     }
   }
 

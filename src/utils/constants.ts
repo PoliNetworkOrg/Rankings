@@ -14,4 +14,6 @@ export const SCHOOLS = [
 
 export const ALERT_LEVELS = ["error", "warning", "success", "info"] as const
 
-export const ABS_ORDER = "Tutti i corsi"
+export const ABS_ORDER = "absorder" as const
+
+export const SALT = "saltPoliNetwork" as const

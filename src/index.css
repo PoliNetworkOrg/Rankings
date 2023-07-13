@@ -26,3 +26,8 @@ ul.react-paginate li.disabled a {
   cursor: default;
 }
 
+@layer base {
+  a {
+    @apply text-blue-800 dark:text-blue-300 hover:underline underline-offset-2
+  }
+}
