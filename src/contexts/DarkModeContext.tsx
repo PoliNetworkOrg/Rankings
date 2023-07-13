@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE } from "@/utils/constants"
 import { createContext, useEffect, useState } from "react"
 
 export interface IDarkModeContext {
@@ -12,13 +13,25 @@ const DarkModeContext = createContext<IDarkModeContext>({
   }
 })
 
+function getLocalStorageValue(): boolean | null {
+  const lsValue = localStorage.getItem(LOCAL_STORAGE.darkMode)
+  if (!lsValue || !["false", "true"].includes(lsValue)) return null
+  return Boolean(JSON.parse(lsValue))
+}
+
+function getCssValue(): boolean {
+  localStorage.removeItem(LOCAL_STORAGE.darkMode)
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+}
+
+function getInitialValue(): boolean {
+  const ls = getLocalStorageValue()
+  return ls === null ? getCssValue() : ls
+}
+
 type Props = React.HTMLAttributes<React.ProviderProps<IDarkModeContext>>
 export function DarkModeProvider({ ...p }: Props) {
-  const [isDarkMode, setIsDarkMode] = useState(true)
-
-  useEffect(() => {
-    setIsDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches)
-  }, [])
+  const [isDarkMode, setIsDarkMode] = useState(getInitialValue())
 
   useEffect(() => {
     if (isDarkMode) {
@@ -29,7 +42,11 @@ export function DarkModeProvider({ ...p }: Props) {
   }, [isDarkMode])
 
   const toggleDarkMode = () => {
-    setIsDarkMode(v => !v)
+    setIsDarkMode(value => {
+      const newValue = !value
+      localStorage.setItem(LOCAL_STORAGE.darkMode, JSON.stringify(newValue))
+      return newValue
+    })
   }
 
   return (
