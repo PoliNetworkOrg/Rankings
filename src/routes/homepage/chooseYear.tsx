@@ -30,7 +30,7 @@ export const chooseYearRoute = new Route({
     const { school } = useParams()
 
     return (
-      <ButtonGrid>
+      <ButtonGrid length={years.length}>
         {years
           .sort((a, b) => b - a)
           .map(year => (

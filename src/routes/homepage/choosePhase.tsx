@@ -32,7 +32,7 @@ export const choosePhaseRoute = new Route({
     const { school, year } = useParams()
 
     return (
-      <ButtonGrid>
+      <ButtonGrid length={phases.length}>
         {phases.map(phase => (
           <Link
             to="/view/$school/$year/$phase"

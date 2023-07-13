@@ -19,7 +19,7 @@ export const chooseSchoolRoute = new Route({
           Benvenuto nello storico delle graduatorie del Politecnico di Milano!
         </h3>
         <p className="text-xl">Inizia scegliendo la scuola di tuo interesse</p>
-        <ButtonGrid>
+        <ButtonGrid length={data.schools.length}>
           {data.schools.map(school => (
             <Link
               to="/home/$school"
