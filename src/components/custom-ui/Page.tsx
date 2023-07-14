@@ -1,14 +1,14 @@
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode
-  fullWidth?: boolean
-  paddingTop?: boolean
+  children: React.ReactNode;
+  fullWidth?: boolean;
+  paddingTop?: boolean;
 }
 
 export default function Page({
   children,
   className = "",
   fullWidth = false,
-  paddingTop = true
+  paddingTop = true,
 }: Props) {
   return (
     <div
@@ -20,5 +20,5 @@ export default function Page({
     >
       {children}
     </div>
-  )
+  );
 }

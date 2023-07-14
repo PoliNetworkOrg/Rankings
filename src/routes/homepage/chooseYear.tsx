@@ -1,39 +1,39 @@
-import { ErrorComponent, Link, Navigate, Route } from "@tanstack/router"
-import School from "@/utils/types/data/School"
-import { Button } from "@/components/ui/button"
-import { NotFoundError } from "@/utils/errors"
-import { homepageRoute } from "."
-import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
+import { ErrorComponent, Link, Navigate, Route } from "@tanstack/router";
+import School from "@/utils/types/data/School";
+import { Button } from "@/components/ui/button";
+import { NotFoundError } from "@/utils/errors";
+import { homepageRoute } from ".";
+import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
 
 export const chooseYearRoute = new Route({
   getParentRoute: () => homepageRoute,
   path: "$school",
   parseParams: ({ school }) => ({
-    school: school as School
+    school: school as School,
   }),
   loader: async ({ context, params }) => {
-    const data = await context.data
-    const variables = { ...params, data }
+    const data = await context.data;
+    const variables = { ...params, data };
 
-    const loader = context.loaderClient.loaders.chooseYear
-    const result = await loader.load({ variables })
+    const loader = context.loaderClient.loaders.chooseYear;
+    const result = await loader.load({ variables });
 
-    return result
+    return result;
   },
   errorComponent: ({ error }) => {
-    if (error instanceof NotFoundError) return <Navigate to="/" />
+    if (error instanceof NotFoundError) return <Navigate to="/" />;
 
-    return <ErrorComponent error={error} />
+    return <ErrorComponent error={error} />;
   },
   component: function ChooseYear({ useLoader, useParams }) {
-    const { years } = useLoader()
-    const { school } = useParams()
+    const { years } = useLoader();
+    const { school } = useParams();
 
     return (
       <ButtonGrid length={years.length}>
         {years
           .sort((a, b) => b - a)
-          .map(year => (
+          .map((year) => (
             <Link
               to="/home/$school/$year"
               params={{ school, year }}
@@ -46,6 +46,6 @@ export const chooseYearRoute = new Route({
             </Link>
           ))}
       </ButtonGrid>
-    )
-  }
-})
+    );
+  },
+});

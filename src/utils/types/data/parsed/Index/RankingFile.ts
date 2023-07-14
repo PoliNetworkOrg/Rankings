@@ -1,16 +1,16 @@
-import School from "../../School"
+import School from "../../School";
 
 type RankingFile = {
-  link: string
-  name: string
-  basePath: string
-  school: School
-  year: number
-}
+  link: string;
+  name: string;
+  basePath: string;
+  school: School;
+  year: number;
+};
 
 export type PhaseLink = {
-  name: string
-  href: string
-}
+  name: string;
+  href: string;
+};
 
-export default RankingFile
+export default RankingFile;

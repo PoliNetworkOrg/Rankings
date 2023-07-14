@@ -1,12 +1,12 @@
-import RankingFile from "../../parsed/Index/RankingFile"
-import School from "../../School"
+import RankingFile from "../../parsed/Index/RankingFile";
+import School from "../../School";
 
 type JsonIndexBySchoolYear = {
   schools: {
     [key in School]: {
-      [year: number]: RankingFile[]
-    }
-  }
-}
+      [year: number]: RankingFile[];
+    };
+  };
+};
 
-export default JsonIndexBySchoolYear
+export default JsonIndexBySchoolYear;
