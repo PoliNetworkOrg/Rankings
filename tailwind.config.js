@@ -1,5 +1,8 @@
+/* eslint-disable prettier/prettier */
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+import defaultTheme from "tailwindcss/defaultTheme"
+
+export default {
   darkMode: ["class"],
   content: [
     "./index.html",
@@ -12,9 +15,13 @@ module.exports = {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px"
-      }
+    },
+    screens: {
+      ...defaultTheme.screens,
+      "2xs": "320px",
+      "xs": "375px",
+      "sm": "576px",
+      "2xl": "1400px",
     },
     extend: {
       keyframes: {
@@ -33,5 +40,6 @@ module.exports = {
       }
     }
   },
+  // eslint-disable-next-line no-undef
   plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")]
 }

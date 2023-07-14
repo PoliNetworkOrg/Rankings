@@ -11,7 +11,7 @@ export const ButtonGrid = React.forwardRef<HTMLDivElement, Props>(
       <div
         ref={ref}
         className={cn(
-          "grid w-full flex-1 auto-rows-[7rem] content-start items-start justify-center gap-4",
+          "grid w-full flex-1 auto-rows-[7rem] content-start items-start justify-center gap-4 max-sm:auto-rows-[5rem] max-sm:grid-cols-1",
           cols(length),
           className
         )}
