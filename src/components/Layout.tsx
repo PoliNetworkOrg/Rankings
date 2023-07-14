@@ -5,7 +5,7 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 
 export default function Layout() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-start bg-white text-black dark:bg-slate-900 dark:text-white">
+    <div className="flex min-h-screen flex-col items-center justify-start text-black dark:text-white">
       <Header />
       <Outlet />
       {process.env.NODE_ENV === "development" && <TanStackRouterDevtools />}
