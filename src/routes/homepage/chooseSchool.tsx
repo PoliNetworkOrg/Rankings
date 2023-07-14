@@ -26,7 +26,7 @@ export const chooseSchoolRoute = new Route({
           Inizia scegliendo la Scuola di tuo interesse
         </p>
         <ButtonGrid length={data.schools.length}>
-          {data.schools.map((school) => (
+          {data.schools.sort().map((school) => (
             <Link
               to="/home/$school"
               params={{ school: school }}
