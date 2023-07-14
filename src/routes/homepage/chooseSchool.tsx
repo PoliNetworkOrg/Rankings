@@ -15,10 +15,13 @@ export const chooseSchoolRoute = new Route({
 
     return (
       <>
-        <h3 className="text-2xl font-bold">
-          Benvenuto nello storico delle graduatorie del Politecnico di Milano!
+        <h3 className="w-full text-2xl font-bold">
+          Benvenuto nello storico delle graduatorie del{" "}
+          <span className="whitespace-nowrap">Politecnico di Milano!</span>
         </h3>
-        <p className="text-xl">Inizia scegliendo la scuola di tuo interesse</p>
+        <p className="w-full text-xl">
+          Inizia scegliendo la scuola di tuo interesse
+        </p>
         <ButtonGrid length={data.schools.length}>
           {data.schools.map(school => (
             <Link
