@@ -36,8 +36,14 @@ export function DarkModeProvider({ ...p }: Props) {
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark")
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", "#00172A")
     } else {
       document.documentElement.classList.remove("dark")
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", "#FFFFFF")
     }
   }, [isDarkMode])
 
