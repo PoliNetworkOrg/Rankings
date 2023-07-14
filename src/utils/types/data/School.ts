@@ -1,5 +1,5 @@
-import { SCHOOLS } from "../../constants"
+import { SCHOOLS } from "../../constants";
 
-type School = (typeof SCHOOLS)[number]
+type School = (typeof SCHOOLS)[number];
 
-export default School
+export default School;

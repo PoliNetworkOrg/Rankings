@@ -1,14 +1,14 @@
-import School from "../../School"
-import JsonCourseStats from "./JsonCourseStats"
+import School from "../../School";
+import JsonCourseStats from "./JsonCourseStats";
 
 type JsonStatsByYear = {
-  numStudents: number
+  numStudents: number;
   schools: {
     [key in School]: {
-      numStudents: number
-      list: JsonCourseStats[]
-    }
-  }
-}
+      numStudents: number;
+      list: JsonCourseStats[];
+    };
+  };
+};
 
-export default JsonStatsByYear
+export default JsonStatsByYear;

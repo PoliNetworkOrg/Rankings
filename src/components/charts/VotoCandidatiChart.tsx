@@ -6,17 +6,17 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  Cell
-} from "recharts"
-import Ranking from "../../utils/types/data/parsed/Ranking"
+  Cell,
+} from "recharts";
+import Ranking from "../../utils/types/data/parsed/Ranking";
 
 type Props = {
-  ranking?: Ranking
-}
+  ranking?: Ranking;
+};
 export default function VotoCandidatiChart({ ranking }: Props) {
-  if (!ranking) return <></>
+  if (!ranking) return <></>;
 
-  const chartData = getData(ranking)
+  const chartData = getData(ranking);
 
   return (
     <BarChart
@@ -27,7 +27,7 @@ export default function VotoCandidatiChart({ ranking }: Props) {
         top: 5,
         right: 30,
         left: 20,
-        bottom: 5
+        bottom: 5,
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
@@ -45,16 +45,16 @@ export default function VotoCandidatiChart({ ranking }: Props) {
         ))}
       </Bar>
     </BarChart>
-  )
+  );
 }
 
 function getData(ranking: Ranking) {
-  const stats = ranking.rankingSummary.resultsSummarized
+  const stats = ranking.rankingSummary.resultsSummarized;
 
   const chartData = stats.entriesArr().map(([score, candidates]) => ({
     name: score,
     voto: score,
-    candidati: candidates
-  }))
-  return chartData
+    candidati: candidates,
+  }));
+  return chartData;
 }

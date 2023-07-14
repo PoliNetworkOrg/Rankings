@@ -8,9 +8,9 @@ import { ABS_ORDER } from "@/utils/constants.ts";
 import Store from "@/utils/data/store.ts";
 import Spinner from "@/components/custom-ui/Spinner.tsx";
 import Page from "@/components/custom-ui/Page.tsx";
+import PathBreadcrumb from "@/components/PathBreadcrumb.tsx";
 import { rootRoute } from "@/routes/root.tsx";
 import Table from "./Table.tsx";
-import ViewHeader from "./Header.tsx";
 import PhaseSelect from "./PhaseSelect.tsx";
 import { CourseCombobox } from "./CourseCombobox.tsx";
 import LocationsSelect from "./LocationSelect.tsx";
@@ -40,8 +40,7 @@ export const viewerRoute = new Route({
     return result;
   },
   errorComponent: ({ error }) => {
-    if (error instanceof NotFoundError)
-      return <Navigate from={viewerRoute.id} to=".." />;
+    if (error instanceof NotFoundError) return <Navigate to="/" />;
 
     return <ErrorComponent error={error} />;
   },
@@ -113,6 +112,7 @@ export const viewerRoute = new Route({
         selectedLocation,
       );
       setCourseStats(yearsStats);
+      getStats(); // STATS call
     }, [data, school, selectedCourse, selectedLocation]);
     /******* STATS end ********/
 
@@ -127,41 +127,46 @@ export const viewerRoute = new Route({
           table as CourseTable,
         );
         setPhasesLinks(phasesLinks ?? []);
-        getStats(); // STATS call
       }
-    }, [data, getStats, ranking, school, selectedCourse, table, year]);
+    }, [data, ranking, school, selectedCourse, table, year]);
 
     return (
       <Page
-        className={
-          isMobile ? "gap-4 overflow-y-auto overflow-x-hidden" : "gap-4"
-        }
+        className={`flex gap-4 px-4 ${
+          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+        }`}
         fullWidth
       >
-        <ViewHeader />
-        <div className="flex w-full max-sm:flex-col max-sm:gap-4">
-          {selectedPhase && (
-            <PhaseSelect
-              value={selectedPhase.href}
-              onChange={handleSwitchPhase}
-              phasesLinks={phasesLinks}
-            />
-          )}
-        </div>
-        <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">
-          <div className="flex flex-1 gap-8 max-sm:flex-col max-sm:gap-4">
-            <CourseCombobox
-              courses={courses}
-              value={selectedCourse}
-              onSelect={setSelectedCourse}
-            />
-            {selectedLocation && (
-              <LocationsSelect
-                value={selectedLocation}
-                locations={locations}
-                onChange={setSelectedLocation}
+        <div
+          className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${
+            isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+          }`}
+        >
+          <PathBreadcrumb />
+          <div className="flex w-full max-sm:flex-col max-sm:gap-4">
+            {selectedPhase && (
+              <PhaseSelect
+                value={selectedPhase.href}
+                onChange={handleSwitchPhase}
+                phasesLinks={phasesLinks}
               />
             )}
+          </div>
+          <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">
+            <div className="flex flex-1 gap-8 max-sm:flex-col max-sm:gap-4">
+              <CourseCombobox
+                courses={courses}
+                value={selectedCourse}
+                onSelect={setSelectedCourse}
+              />
+              {selectedLocation && (
+                <LocationsSelect
+                  value={selectedLocation}
+                  locations={locations}
+                  onChange={setSelectedLocation}
+                />
+              )}
+            </div>
           </div>
         </div>
 
