@@ -1,9 +1,9 @@
-import { cn } from "@/utils/ui"
-import * as React from "react"
+import { cn } from "@/utils/ui";
+import * as React from "react";
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
-  length?: number
-}
+  length?: number;
+};
 
 export const ButtonGrid = React.forwardRef<HTMLDivElement, Props>(
   ({ className, length, ...props }: Props, ref) => {
@@ -13,27 +13,27 @@ export const ButtonGrid = React.forwardRef<HTMLDivElement, Props>(
         className={cn(
           "grid w-full flex-1 auto-rows-[7rem] content-start items-start justify-center gap-4 max-sm:auto-rows-[5rem] max-sm:grid-cols-1",
           cols(length),
-          className
+          className,
         )}
         {...props}
       />
-    )
-  }
-)
+    );
+  },
+);
 
 const cols = (layout?: number) => {
   switch (layout) {
     case 0:
-      return ""
+      return "";
     case 1:
-      return "grid-cols-1"
+      return "grid-cols-1";
     case 2:
-      return "grid-cols-2"
+      return "grid-cols-2";
     case 3:
-      return "grid-cols-3"
+      return "grid-cols-3";
     default:
-      return "grid-cols-[repeat(auto-fill,minmax(18rem,1fr))]"
+      return "grid-cols-[repeat(auto-fill,minmax(18rem,1fr))]";
   }
-}
+};
 
-ButtonGrid.displayName = "ButtonGrid"
+ButtonGrid.displayName = "ButtonGrid";

@@ -1,7 +1,7 @@
-import { Route } from "@tanstack/router"
-import Alert from "@/components/custom-ui/Alert"
-import { ALERT_LEVELS } from "@/utils/constants"
-import { rootRoute } from "../root"
+import { Route } from "@tanstack/router";
+import Alert from "@/components/custom-ui/Alert";
+import { ALERT_LEVELS } from "@/utils/constants";
+import { rootRoute } from "../root";
 
 export const testRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -9,7 +9,7 @@ export const testRoute = new Route({
   component: function Test() {
     return (
       <div>
-        {ALERT_LEVELS.map(l => (
+        {ALERT_LEVELS.map((l) => (
           <Alert level={l} key={l} className="mb-4">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -26,6 +26,6 @@ export const testRoute = new Route({
           </Alert>
         ))}
       </div>
-    )
-  }
-})
+    );
+  },
+});

@@ -1,12 +1,12 @@
-import { useContext } from "react"
-import { PuffLoader } from "react-spinners"
-import DarkModeContext from "@/contexts/DarkModeContext"
+import { useContext } from "react";
+import { PuffLoader } from "react-spinners";
+import DarkModeContext from "@/contexts/DarkModeContext";
 
 interface Props {
-  loading?: boolean
+  loading?: boolean;
 }
 export default function Spinner({ loading = true }: Props) {
-  const { isDarkMode } = useContext(DarkModeContext)
+  const { isDarkMode } = useContext(DarkModeContext);
   return (
     <div className="flex flex-1 items-center justify-center">
       <PuffLoader
@@ -14,5 +14,5 @@ export default function Spinner({ loading = true }: Props) {
         loading={loading}
       />
     </div>
-  )
+  );
 }
