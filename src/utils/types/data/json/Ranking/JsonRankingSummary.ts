@@ -19,6 +19,8 @@ export type JsonCourseSummary = {
   howManyOfa?: {
     [ofa: string]: number
   }
+  howManyCanEnroll: number
+  howManyStudents: number
 }
 
 export type JsonResultsSummary = {
