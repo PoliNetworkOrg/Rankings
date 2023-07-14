@@ -1,27 +1,27 @@
-import { createContext, useState } from "react"
+import { createContext, useState } from "react";
 
 export interface IMobileContext {
-  isMobile: boolean
-  width: number
+  isMobile: boolean;
+  width: number;
 }
 
 const MobileContext = createContext<IMobileContext>({
   isMobile: false,
-  width: window.innerWidth
-})
+  width: window.innerWidth,
+});
 
-type Props = React.HTMLAttributes<React.ProviderProps<IMobileContext>>
+type Props = React.HTMLAttributes<React.ProviderProps<IMobileContext>>;
 
 export function MobileProvider({ ...p }: Props) {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
-  const [width, setWidth] = useState(window.innerWidth)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [width, setWidth] = useState(window.innerWidth);
 
   window.addEventListener("resize", () => {
-    setWidth(window.innerWidth)
-    setIsMobile(window.innerWidth < 768)
-  })
+    setWidth(window.innerWidth);
+    setIsMobile(window.innerWidth < 768);
+  });
 
-  return <MobileContext.Provider value={{ isMobile, width }} {...p} />
+  return <MobileContext.Provider value={{ isMobile, width }} {...p} />;
 }
 
-export default MobileContext
+export default MobileContext;

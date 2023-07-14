@@ -1,17 +1,17 @@
-import { Link, Route } from "@tanstack/router"
-import { Button } from "@/components/ui/button"
-import { homepageRoute } from "."
-import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
+import { Link, Route } from "@tanstack/router";
+import { Button } from "@/components/ui/button";
+import { homepageRoute } from ".";
+import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
 
 export const chooseSchoolRoute = new Route({
   getParentRoute: () => homepageRoute,
   path: "/",
   loader: async ({ context }) => {
-    const { data } = context
-    return await data
+    const { data } = context;
+    return await data;
   },
   component: function ChooseSchool({ useLoader }) {
-    const data = useLoader()
+    const data = useLoader();
 
     return (
       <>
@@ -23,7 +23,7 @@ export const chooseSchoolRoute = new Route({
           Inizia scegliendo la scuola di tuo interesse
         </p>
         <ButtonGrid length={data.schools.length}>
-          {data.schools.map(school => (
+          {data.schools.map((school) => (
             <Link
               to="/home/$school"
               params={{ school: school }}
@@ -37,6 +37,6 @@ export const chooseSchoolRoute = new Route({
           ))}
         </ButtonGrid>
       </>
-    )
-  }
-})
+    );
+  },
+});

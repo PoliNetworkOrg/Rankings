@@ -1,40 +1,40 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList
-} from "@/components/ui/command"
+  CommandList,
+} from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
-} from "@/components/ui/popover"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import MobileContext from "@/contexts/MobileContext"
-import { useContext, useState } from "react"
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import MobileContext from "@/contexts/MobileContext";
+import { useContext, useState } from "react";
 
 type Location = {
-  value: string
-  label: string
-}
+  value: string;
+  label: string;
+};
 
 type Props = {
-  value: string
-  locations: Location[]
-  onChange: (value: string) => void
-}
+  value: string;
+  locations: Location[];
+  onChange: (value: string) => void;
+};
 
 export default function LocationsSelect(props: Props) {
-  const { isMobile } = useContext(MobileContext)
-  return isMobile ? LocationCombobox(props) : LocationsTabs(props)
+  const { isMobile } = useContext(MobileContext);
+  return isMobile ? LocationCombobox(props) : LocationsTabs(props);
 }
 
 function LocationCombobox({ value, onChange, locations }: Props) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="flex items-center space-x-4">
@@ -43,7 +43,7 @@ function LocationCombobox({ value, onChange, locations }: Props) {
         <PopoverTrigger asChild>
           <Button variant="outline" className="justify-start">
             {value
-              ? locations.find(l => l.value === value)?.label
+              ? locations.find((l) => l.value === value)?.label
               : "Seleziona una sede..."}
           </Button>
         </PopoverTrigger>
@@ -54,12 +54,12 @@ function LocationCombobox({ value, onChange, locations }: Props) {
               <CommandEmpty>No courses found.</CommandEmpty>
               <CommandGroup>
                 <ScrollArea className={locations.length > 7 ? "h-72" : ""}>
-                  {locations.map(location => (
+                  {locations.map((location) => (
                     <CommandItem
                       key={location.value}
-                      onSelect={value => {
-                        onChange(value)
-                        setOpen(false)
+                      onSelect={(value) => {
+                        onChange(value);
+                        setOpen(false);
                       }}
                     >
                       {location.label}
@@ -72,7 +72,7 @@ function LocationCombobox({ value, onChange, locations }: Props) {
         </PopoverContent>
       </Popover>
     </div>
-  )
+  );
 }
 
 function LocationsTabs({ value, onChange, locations }: Props) {
@@ -82,7 +82,7 @@ function LocationsTabs({ value, onChange, locations }: Props) {
         <div className="flex items-center space-x-4">
           <p className="text-muted-foreground text-sm">Sede</p>
           <TabsList>
-            {locations.map(location => (
+            {locations.map((location) => (
               <TabsTrigger value={location.value} key={location.value}>
                 {location.label}
               </TabsTrigger>
@@ -91,5 +91,5 @@ function LocationsTabs({ value, onChange, locations }: Props) {
         </div>
       </Tabs>
     )
-  )
+  );
 }

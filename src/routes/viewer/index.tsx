@@ -1,20 +1,20 @@
-import { useContext, useEffect, useMemo, useState } from "react"
-import { ErrorComponent, Navigate, Route, useNavigate } from "@tanstack/router"
-import MobileContext from "@/contexts/MobileContext"
-import School from "@/utils/types/data/School.ts"
-import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable.ts"
-import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile.ts"
-import { ABS_ORDER } from "@/utils/constants.ts"
-import Store from "@/utils/data/store.ts"
-import Spinner from "@/components/custom-ui/Spinner.tsx"
-import Page from "@/components/custom-ui/Page.tsx"
-import PathBreadcrumb from "@/components/PathBreadcrumb.tsx"
-import { rootRoute } from "@/routes/root.tsx"
-import Table from "./Table.tsx"
-import PhaseSelect from "./PhaseSelect.tsx"
-import { CourseCombobox } from "./CourseCombobox.tsx"
-import LocationsSelect from "./LocationSelect.tsx"
-import { NotFoundError } from "@/utils/errors.ts"
+import { useContext, useEffect, useMemo, useState } from "react";
+import { ErrorComponent, Navigate, Route, useNavigate } from "@tanstack/router";
+import MobileContext from "@/contexts/MobileContext";
+import School from "@/utils/types/data/School.ts";
+import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable.ts";
+import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile.ts";
+import { ABS_ORDER } from "@/utils/constants.ts";
+import Store from "@/utils/data/store.ts";
+import Spinner from "@/components/custom-ui/Spinner.tsx";
+import Page from "@/components/custom-ui/Page.tsx";
+import PathBreadcrumb from "@/components/PathBreadcrumb.tsx";
+import { rootRoute } from "@/routes/root.tsx";
+import Table from "./Table.tsx";
+import PhaseSelect from "./PhaseSelect.tsx";
+import { CourseCombobox } from "./CourseCombobox.tsx";
+import LocationsSelect from "./LocationSelect.tsx";
+import { NotFoundError } from "@/utils/errors.ts";
 
 export const viewerRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -22,85 +22,85 @@ export const viewerRoute = new Route({
   parseParams: ({ school, year, phase }) => ({
     school: school as School,
     year: Number(year),
-    phase: phase.toLowerCase()
+    phase: phase.toLowerCase(),
   }),
   loader: async ({ context, params }) => {
-    const data = await context.data
-    const variables = { ...params, data }
-    const rankingLoader = context.loaderClient.loaders.ranking
-    const result = await rankingLoader.load({ variables })
+    const data = await context.data;
+    const variables = { ...params, data };
+    const rankingLoader = context.loaderClient.loaders.ranking;
+    const result = await rankingLoader.load({ variables });
 
-    return result
+    return result;
   },
   errorComponent: ({ error }) => {
-    if (error instanceof NotFoundError) return <Navigate to="/" />
+    if (error instanceof NotFoundError) return <Navigate to="/" />;
 
-    return <ErrorComponent error={error} />
+    return <ErrorComponent error={error} />;
   },
   component: function Viewer({ useLoader, useParams }) {
-    const { ranking, data } = useLoader()
-    const { school, year, phase } = useParams()
-    const { isMobile } = useContext(MobileContext)
-    const navigate = useNavigate({ from: viewerRoute.id })
+    const { ranking, data } = useLoader();
+    const { school, year, phase } = useParams();
+    const { isMobile } = useContext(MobileContext);
+    const navigate = useNavigate({ from: viewerRoute.id });
 
-    const store = useMemo(() => ranking && new Store(ranking), [ranking])
+    const store = useMemo(() => ranking && new Store(ranking), [ranking]);
 
-    const courses = store?.getCourses()
-    const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER)
+    const courses = store?.getCourses();
+    const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER);
 
     const locations = useMemo(
       () => courses?.get(selectedCourse)?.locations ?? [],
-      [courses, selectedCourse]
-    )
+      [courses, selectedCourse],
+    );
     const [selectedLocation, setSelectedLocation] = useState<
       string | undefined
-    >()
+    >();
     useEffect(() => {
-      if (locations.length === 0) return
+      if (locations.length === 0) return;
       const findLocation = locations.find(
-        cil => cil.value.toLowerCase() === selectedLocation?.toLowerCase()
-      )
-      if (!findLocation) setSelectedLocation(locations[0].value)
-    }, [locations, selectedLocation])
+        (cil) => cil.value.toLowerCase() === selectedLocation?.toLowerCase(),
+      );
+      if (!findLocation) setSelectedLocation(locations[0].value);
+    }, [locations, selectedLocation]);
 
-    const [phasesLinks, setPhasesLinks] = useState<PhaseLink[]>([])
-    const [selectedPhase, setSelectedPhase] = useState<PhaseLink | undefined>()
+    const [phasesLinks, setPhasesLinks] = useState<PhaseLink[]>([]);
+    const [selectedPhase, setSelectedPhase] = useState<PhaseLink | undefined>();
     useEffect(() => {
       if (!selectedPhase)
-        setSelectedPhase(phasesLinks.find(p => p.href === phase))
-    }, [phase, phasesLinks, selectedPhase])
+        setSelectedPhase(phasesLinks.find((p) => p.href === phase));
+    }, [phase, phasesLinks, selectedPhase]);
 
     const handleSwitchPhase = (href: string) => {
       const phaseLink = phasesLinks?.find(
-        p => p.href.toLowerCase() === href.toLowerCase()
-      )
-      if (!phaseLink) return
+        (p) => p.href.toLowerCase() === href.toLowerCase(),
+      );
+      if (!phaseLink) return;
 
-      setSelectedPhase(phaseLink)
+      setSelectedPhase(phaseLink);
       navigate({
         to: "/view/$school/$year/$phase",
-        params: { school, year, phase: phaseLink.href }
-      })
-    }
+        params: { school, year, phase: phaseLink.href },
+      });
+    };
 
     const table = useMemo(
       () => store.getTable(selectedCourse, selectedLocation),
-      [selectedCourse, selectedLocation, store]
-    )
+      [selectedCourse, selectedLocation, store],
+    );
 
     useEffect(() => {
-      if (!table) return
+      if (!table) return;
       if (selectedCourse === ABS_ORDER) {
-        const phasesLinks = data.getPhasesLinks(school, year)
-        setPhasesLinks(phasesLinks ?? [])
+        const phasesLinks = data.getPhasesLinks(school, year);
+        setPhasesLinks(phasesLinks ?? []);
       } else {
         const phasesLinks = data.getCoursePhasesLinks(
           ranking,
-          table as CourseTable
-        )
-        setPhasesLinks(phasesLinks ?? [])
+          table as CourseTable,
+        );
+        setPhasesLinks(phasesLinks ?? []);
       }
-    }, [data, ranking, school, selectedCourse, table, year])
+    }, [data, ranking, school, selectedCourse, table, year]);
 
     return (
       <Page
@@ -158,6 +158,6 @@ export const viewerRoute = new Route({
           )}
         </div>
       </Page>
-    )
-  }
-})
+    );
+  },
+});

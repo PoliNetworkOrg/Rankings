@@ -1,7 +1,7 @@
-import { Link as RouterLink, LinkPropsOptions } from "@tanstack/router"
-import { LINKS } from "@/utils/constants"
-import { cn } from "@/utils/ui"
-import { HTMLAttributes } from "react"
+import { Link as RouterLink, LinkPropsOptions } from "@tanstack/router";
+import { LINKS } from "@/utils/constants";
+import { cn } from "@/utils/ui";
+import { HTMLAttributes } from "react";
 
 export default function Footer() {
   return (
@@ -36,7 +36,7 @@ export default function Footer() {
         </FooterColumn>
       </div>
     </footer>
-  )
+  );
 }
 
 function FooterColumn({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
@@ -45,7 +45,7 @@ function FooterColumn({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       className={cn("flex flex-col gap-2 max-md:w-full", className)}
       {...props}
     />
-  )
+  );
 }
 
 function Link(props: LinkPropsOptions & { children: React.ReactNode }) {
@@ -56,7 +56,7 @@ function Link(props: LinkPropsOptions & { children: React.ReactNode }) {
         className="text-black underline underline-offset-2 dark:text-white"
       />
     </li>
-  )
+  );
 }
 
 function ExternalLink({
@@ -77,5 +77,5 @@ function ExternalLink({
     >
       {children}
     </a>
-  )
+  );
 }

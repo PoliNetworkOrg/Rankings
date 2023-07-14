@@ -1,7 +1,7 @@
-import { Outlet } from "@tanstack/router"
-import Header from "./Header"
-import Footer from "./Footer"
-import { TanStackRouterDevtools } from "@tanstack/router-devtools"
+import { Outlet } from "@tanstack/router";
+import Header from "./Header";
+import Footer from "./Footer";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 export default function Layout() {
   return (
@@ -11,5 +11,5 @@ export default function Layout() {
       {process.env.NODE_ENV === "development" && <TanStackRouterDevtools />}
       <Footer />
     </div>
-  )
+  );
 }

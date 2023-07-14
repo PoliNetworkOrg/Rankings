@@ -1,8 +1,8 @@
-import StudentResult from "./StudentResult"
+import StudentResult from "./StudentResult";
 
 type MeritTable = {
-  headers: string[]
-  rows: StudentResult[]
-}
+  headers: string[];
+  rows: StudentResult[];
+};
 
-export default MeritTable
+export default MeritTable;
