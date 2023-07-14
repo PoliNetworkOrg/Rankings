@@ -20,6 +20,8 @@ export type CourseSummary = {
   title: string
   averagePartialScores: AveragePartialScoresMap
   howManyOfa: HowManyOfaMap
+  howManyCanEnroll: number
+  howManyStudents: number
 }
 
 // key = section
