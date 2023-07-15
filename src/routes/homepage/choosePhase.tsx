@@ -32,20 +32,23 @@ export const choosePhaseRoute = new Route({
     const { school, year } = useParams();
 
     return (
-      <ButtonGrid length={phases.length}>
-        {phases.map((phase) => (
-          <Link
-            to="/view/$school/$year/$phase"
-            params={{ school, year, phase: phase.href }}
-            key={phase.href}
-            className="h-full"
-          >
-            <Button size="card" variant="secondary" className="h-full w-full">
-              <span className="text-base">{phase.name}</span>
-            </Button>
-          </Link>
-        ))}
-      </ButtonGrid>
+      <>
+        <p className="w-full text-xl">Scegli una graduatoria</p>
+        <ButtonGrid length={phases.length}>
+          {phases.map((phase) => (
+            <Link
+              to="/view/$school/$year/$phase"
+              params={{ school, year, phase: phase.href }}
+              key={phase.href}
+              className="h-full"
+            >
+              <Button size="card" variant="secondary" className="h-full w-full">
+                <span className="text-base">{phase.name}</span>
+              </Button>
+            </Link>
+          ))}
+        </ButtonGrid>
+      </>
     );
   },
 });
