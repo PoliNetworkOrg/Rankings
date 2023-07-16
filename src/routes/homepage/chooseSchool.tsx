@@ -16,14 +16,17 @@ export const chooseSchoolRoute = new Route({
     return (
       <>
         <h3 className="w-full text-2xl font-bold">
-          Benvenuto nello storico delle graduatorie del{" "}
-          <span className="whitespace-nowrap">Politecnico di Milano!</span>
+          👋 Ciao!{" "}
+          <span className="whitespace-nowrap">Questo sito raccoglie</span>{" "}
+          <span className="whitespace-nowrap">lo storico</span>{" "}
+          <span className="whitespace-nowrap">delle graduatorie</span>{" "}
+          <span className="whitespace-nowrap">del Politecnico di Milano.</span>
         </h3>
         <p className="w-full text-xl">
-          Inizia scegliendo la scuola di tuo interesse
+          Inizia scegliendo la Scuola di tuo interesse
         </p>
         <ButtonGrid length={data.schools.length}>
-          {data.schools.map((school) => (
+          {data.schools.sort().map((school) => (
             <Link
               to="/home/$school"
               params={{ school: school }}
