@@ -39,6 +39,7 @@ export const viewerRoute = new Route({
   },
   component: function Viewer({ useLoader, useParams }) {
     const { ranking, data } = useLoader();
+    console.log(ranking)
     const { school, year, phase } = useParams();
     const { isMobile } = useContext(MobileContext);
     const navigate = useNavigate({ from: viewerRoute.id });
