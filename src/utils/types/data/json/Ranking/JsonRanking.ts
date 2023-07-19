@@ -7,11 +7,19 @@ type JsonRanking = {
   byCourse: JsonCourseTable[];
   byMerit: JsonMeritTable;
   school: School;
-  phase: string;
+  rankingOrder: JsonRankingOrder;
   extra: string;
   lastUpdate: string;
   year: number;
   rankingSummary: JsonRankingSummary;
+};
+
+export type JsonRankingOrder = {
+  anticipata: boolean;
+  extraEu: boolean;
+  phase: string;
+  primary: number;
+  secondary: number;
 };
 
 export default JsonRanking;
