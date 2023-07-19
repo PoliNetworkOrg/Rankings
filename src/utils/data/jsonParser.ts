@@ -179,9 +179,11 @@ export default class JsonParser {
   }
 
   public static parseRanking(json: JsonRanking): Ranking {
-    const { byMerit, byCourse, rankingSummary, ...base } = json;
+    const { byMerit, byCourse, rankingSummary, rankingOrder, ...base } = json;
     const ranking: Ranking = {
       ...base,
+      phase: rankingOrder.phase,
+      rankingOrder,
       byMerit: {
         headers: byMerit.headers,
         rows: byMerit.rows.map((row) => this.parseStudentResult(row)),
