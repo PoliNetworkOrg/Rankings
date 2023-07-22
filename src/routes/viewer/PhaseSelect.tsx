@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import {
   Command,
   CommandEmpty,
@@ -19,7 +19,7 @@ import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Props = {
-  phasesLinks?: PhaseLink[];
+  phasesLinks: PhaseLink[];
   value: string;
   onChange: (value: string) => void;
 };
@@ -27,11 +27,14 @@ type Props = {
 export default function PhaseSelect(props: Props) {
   const { width } = useContext(MobileContext);
   const [open, setOpen] = useState(false);
-  if (!props.phasesLinks) return <></>;
-  const minWidth = 200 * props.phasesLinks?.length;
-  return width > minWidth
-    ? PhaseTabs(props)
-    : PhaseCombobox({ ...props, open, setOpen });
+  const isCombobox = useMemo(
+    () => width < Math.max(768, 200 * props.phasesLinks.length),
+    [props.phasesLinks.length, width],
+  );
+
+  return isCombobox
+    ? PhaseCombobox({ ...props, open, setOpen })
+    : PhaseTabs(props);
 }
 
 type ComboboxProps = Props & {
