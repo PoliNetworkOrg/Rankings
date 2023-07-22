@@ -6,7 +6,7 @@ export function capitaliseWords(str: string): string {
 
 function capitaliseWithRules(word: string): string {
   if (DO_NOT_CAPITALISE.includes(word)) return word;
-
+  if (DO_UPPER.includes(word)) return word.toUpperCase();
   return capitalise(word);
 }
 
@@ -15,6 +15,8 @@ function capitalise(word: string): string {
   const restOfWord = word.slice(1).toLowerCase();
   return firstLetter + restOfWord;
 }
+
+const DO_UPPER = ["ue"];
 
 const DO_NOT_CAPITALISE = [
   "e",
