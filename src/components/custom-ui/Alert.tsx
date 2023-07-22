@@ -4,7 +4,7 @@ import {
   LuCheckCircle2,
   LuInfo,
 } from "react-icons/lu";
-import { capitalizeWords } from "@/utils/strings";
+import { capitaliseWords } from "@/utils/strings/capitalisation";
 import { Level } from "@/utils/types/alert";
 import { cn } from "@/utils/ui";
 
@@ -30,7 +30,7 @@ export default function Alert({
     >
       <div>{GetIcon(level)}</div>
       <div>
-        <p className="pb-2 text-lg font-bold">{capitalizeWords(level)}</p>
+        <p className="pb-2 text-lg font-bold">{capitaliseWords(level)}</p>
         <div>{children}</div>
       </div>
     </div>
