@@ -39,7 +39,6 @@ export const viewerRoute = new Route({
   },
   component: function Viewer({ useLoader, useParams }) {
     const { ranking, data } = useLoader();
-    console.log(ranking)
     const { school, year, phase } = useParams();
     const { isMobile } = useContext(MobileContext);
     const navigate = useNavigate({ from: viewerRoute.id });
@@ -61,7 +60,12 @@ export const viewerRoute = new Route({
       const findLocation = locations.find(
         (cil) => cil.value.toLowerCase() === selectedLocation?.toLowerCase(),
       );
-      if (!findLocation) setSelectedLocation(locations[0].value);
+      if (!findLocation) {
+        const sortedByNumStudents = Array.from(locations);
+        sortedByNumStudents.sort((a, b) => b.numStudents - a.numStudents);
+        const { value } = sortedByNumStudents[0];
+        setSelectedLocation(value);
+      }
     }, [locations, selectedLocation]);
 
     const [phasesLinks, setPhasesLinks] = useState<PhaseLink[]>([]);
