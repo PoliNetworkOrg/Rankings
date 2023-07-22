@@ -15,6 +15,7 @@ export type CourseInfo = {
 export type CourseInfoLocation = {
   value: string;
   label: string;
+  numStudents: number;
 };
 
 export default class Store {
@@ -36,6 +37,12 @@ export default class Store {
       locations: [],
     });
 
+    const locationNumStudents =
+      this._ranking.rankingSummary.courseSummarized.map(
+        ({ title, location, howManyStudents }) => {
+          return { title, location, howManyStudents };
+        },
+      );
     this._ranking.byCourse.forEach(({ title, location }) => {
       const value = title.toLowerCase();
       const info = map.get(value) ?? {
@@ -43,11 +50,20 @@ export default class Store {
         value,
         locations: [],
       };
-      if (location)
+      if (location) {
+        const foundSummary = locationNumStudents.find(
+          (lns) =>
+            lns.title.toUpperCase() === title.toUpperCase() &&
+            lns.location.toUpperCase() === location.toUpperCase(),
+        );
+        const ns = foundSummary?.howManyStudents || 0;
+
         info.locations.push({
           value: location.toLowerCase(),
           label: location,
+          numStudents: ns,
         });
+      }
 
       info.locations.sort((a, b) => {
         if (a.value < b.value) return -1;
