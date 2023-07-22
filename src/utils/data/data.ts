@@ -1,4 +1,5 @@
 import urlJoin from "url-join";
+import { capitaliseWords } from "@/utils/strings/capitalisation";
 import { LINKS } from "../constants";
 import { IndexBySchoolYear } from "../types/data/parsed/Index/IndexBySchoolYear";
 import { IndexBySchoolYearCourse } from "../types/data/parsed/Index/IndexBySchoolYearCourse";
@@ -138,7 +139,7 @@ export default class Data {
 
   private convertRankingFileToPhaseLink(file: RankingFile): PhaseLink {
     return {
-      name: file.name,
+      name: capitaliseWords(file.name),
       href: file.link.replace(".json", "").toLowerCase(),
     };
   }
