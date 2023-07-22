@@ -18,8 +18,8 @@ export type JsonRankingOrder = {
   anticipata: boolean;
   extraEu: boolean;
   phase: string;
-  primary: number;
-  secondary: number;
+  primary?: number;
+  secondary?: number;
 };
 
 export default JsonRanking;

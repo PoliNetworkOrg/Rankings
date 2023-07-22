@@ -38,7 +38,7 @@ export const viewerRoute = new Route({
     return <ErrorComponent error={error} />;
   },
   component: function Viewer({ useLoader, useParams }) {
-    const { ranking, data } = useLoader();
+    const { phases, ranking, data } = useLoader();
     const { school, year, phase } = useParams();
     const { isMobile } = useContext(MobileContext);
     const navigate = useNavigate({ from: viewerRoute.id });
@@ -68,7 +68,7 @@ export const viewerRoute = new Route({
       }
     }, [locations, selectedLocation]);
 
-    const [phasesLinks, setPhasesLinks] = useState<PhaseLink[]>([]);
+    const [phasesLinks, setPhasesLinks] = useState<PhaseLink[]>(phases);
     const [selectedPhase, setSelectedPhase] = useState<PhaseLink | undefined>();
     useEffect(() => {
       if (!selectedPhase)
@@ -96,8 +96,7 @@ export const viewerRoute = new Route({
     useEffect(() => {
       if (!table) return;
       if (selectedCourse === ABS_ORDER) {
-        const phasesLinks = data.getPhasesLinks(school, year);
-        setPhasesLinks(phasesLinks ?? []);
+        setPhasesLinks(phases);
       } else {
         const phasesLinks = data.getCoursePhasesLinks(
           ranking,
@@ -105,7 +104,7 @@ export const viewerRoute = new Route({
         );
         setPhasesLinks(phasesLinks ?? []);
       }
-    }, [data, ranking, school, selectedCourse, table, year]);
+    }, [data, phases, ranking, school, selectedCourse, table, year]);
 
     return (
       <Page

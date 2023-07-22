@@ -16,6 +16,6 @@ type Ranking = {
   rankingSummary: RankingSummary;
 };
 
-type RankingOrder = JsonRankingOrder;
+export type RankingOrder = JsonRankingOrder;
 
 export default Ranking;

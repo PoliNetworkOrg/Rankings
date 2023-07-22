@@ -13,9 +13,10 @@ type Props = {
 export const rankingLoader = new Loader({
   fn: async (props: Props) => {
     const { school, year, phase, data } = props;
+    const phases = await data.getPhasesLinks(school, year);
     const ranking = await data.loadRanking(school, year, phase);
 
-    if (!ranking) throw new NotFoundError();
-    return { ranking, data };
+    if (!ranking || !phases) throw new NotFoundError();
+    return { ranking, phases, data };
   },
 });

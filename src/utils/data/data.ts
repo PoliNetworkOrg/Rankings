@@ -136,22 +136,48 @@ export default class Data {
     return phasesFiles;
   }
 
-  private convertRankingFileToPhaseLink(file: RankingFile): PhaseLink {
+  private convertRankingToPhaseLink(
+    file: RankingFile,
+    ranking: Ranking,
+  ): PhaseLink {
+    console.log(ranking.rankingOrder);
+    const order = ranking.rankingOrder;
+    const getName = () => {
+      if (order.extraEu) {
+        let eUE = "Extra-UE";
+        if (order.secondary) eUE += ` - ${order.secondary}° graduatoria`;
+        return eUE;
+      } else {
+        if (order.secondary) return `${order.secondary}° graduatoria`;
+        return order.phase;
+      }
+    };
+
     return {
-      name: file.name,
+      name: getName(),
       href: file.link.replace(".json", "").toLowerCase(),
+      order,
+      groupNum: order.primary,
+      group: order.primary ? `${order.primary}° fase` : undefined,
     };
   }
 
-  public getPhasesLinks(school: School, year: number): PhaseLink[] | undefined {
+  public async getPhasesLinks(
+    school: School,
+    year: number,
+  ): Promise<PhaseLink[] | undefined> {
     const files = this.getRankingFiles(school, year);
     if (!files) return;
 
-    const phasesLinks = files.map((file) =>
-      this.convertRankingFileToPhaseLink(file),
-    );
+    const phases: PhaseLink[] = [];
 
-    return phasesLinks;
+    for (const file of files) {
+      const ranking = await this.loadRanking(school, year, file.link);
+      if (!ranking) continue;
+      const phase = this.convertRankingToPhaseLink(file, ranking);
+      phases.push(phase);
+    }
+    return phases;
   }
 
   public getCoursePhasesLinks(
@@ -162,7 +188,7 @@ export default class Data {
     if (!phasesFiles) return;
 
     const phasesLinks = phasesFiles.map((file) =>
-      this.convertRankingFileToPhaseLink(file),
+      this.convertRankingToPhaseLink(file, ranking),
     );
 
     return phasesLinks;
