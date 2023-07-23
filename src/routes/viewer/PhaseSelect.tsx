@@ -108,7 +108,7 @@ function PhaseTabs({ value, onChange, phasesLinks }: Props) {
                   value={phase.href}
                   key={phase.href}
                 >
-                  {phase.name}
+                  {phase.label}
                 </TabsTrigger>
               ))}
             </TabsList>

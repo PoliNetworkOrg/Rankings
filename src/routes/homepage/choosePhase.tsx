@@ -47,15 +47,21 @@ export const choosePhaseRoute = new Route({
       <>
         <p className="w-full text-xl">Scegli una graduatoria</p>
         <>
-        {groups.size > 0 ? (
-          groups
-            .entriesArr()
-            .map(([group, links]) => (
-              <Group group={group} phases={links} school={school} year={year} />
-            ))
-        ) : (
-          <Buttons school={school} year={year} phases={phases} />
-        )}
+          {groups.size > 0 ? (
+            groups
+              .entriesArr()
+              .map(([group, links]) => (
+                <Group
+                  group={group}
+                  phases={links}
+                  school={school}
+                  year={year}
+                  key={group}
+                />
+              ))
+          ) : (
+            <Buttons school={school} year={year} phases={phases} />
+          )}
         </>
       </>
     );

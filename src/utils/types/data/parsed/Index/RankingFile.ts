@@ -10,6 +10,7 @@ type RankingFile = {
 };
 
 export type PhaseLink = {
+  label: string;
   name: string;
   href: string;
   order: JsonRankingOrder;

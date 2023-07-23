@@ -98,11 +98,9 @@ export const viewerRoute = new Route({
       if (selectedCourse === ABS_ORDER) {
         setPhasesLinks(phases);
       } else {
-        const phasesLinks = data.getCoursePhasesLinks(
-          ranking,
-          table as CourseTable,
-        );
-        setPhasesLinks(phasesLinks ?? []);
+        data
+          .getPhasesLinks(school, year, table as CourseTable)
+          .then((links) => setPhasesLinks(links ?? []));
       }
     }, [data, phases, ranking, school, selectedCourse, table, year]);
 
@@ -147,7 +145,8 @@ export const viewerRoute = new Route({
         </div>
 
         <div className="flex w-full flex-col gap-4">
-          {selectedPhase?.name === ranking.phase ? (
+          {selectedPhase?.order.phase.toLowerCase() ===
+          ranking.rankingOrder.phase.toLowerCase() ? (
             table ? (
               <Table
                 school={school as School}
