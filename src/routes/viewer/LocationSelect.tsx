@@ -1,3 +1,4 @@
+import { Removable } from "@/components/custom-ui/Removable";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -76,20 +77,24 @@ function LocationCombobox({ value, onChange, locations }: Props) {
 }
 
 function LocationsTabs({ value, onChange, locations }: Props) {
-  return (
-    locations.length > 0 && (
-      <Tabs value={value} onValueChange={onChange}>
-        <div className="flex items-center space-x-4">
-          <p className="text-muted-foreground text-sm">Sede</p>
-          <TabsList>
-            {locations.map((location) => (
-              <TabsTrigger value={location.value} key={location.value}>
-                {location.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </div>
-      </Tabs>
-    )
+  if (locations.length === 0) return <></>;
+  return locations.length >= 2 ? (
+    <Tabs value={value} onValueChange={onChange}>
+      <div className="flex items-center space-x-4">
+        <p className="text-muted-foreground text-sm">Sede</p>
+        <TabsList>
+          {locations.map((location) => (
+            <TabsTrigger value={location.value} key={location.value}>
+              {location.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </div>
+    </Tabs>
+  ) : (
+    <div className="flex items-center space-x-4">
+      <p className="text-muted-foreground text-sm">Sede</p>
+      <Removable showRemove={false}>{locations[0].label}</Removable>
+    </div>
   );
 }
