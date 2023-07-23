@@ -57,7 +57,7 @@ function PhaseCombobox({
           <PopoverTrigger asChild>
             <Button variant="outline" className="h-full justify-start">
               {value
-                ? phasesLinks.find((l) => l.href === value)?.name
+                ? phasesLinks.find((l) => l.href === value)?.label
                 : "Seleziona una sede..."}
             </Button>
           </PopoverTrigger>
