@@ -42,6 +42,6 @@ const DesUrbPhaseMap = new CustomMap<string, number>([
   ["anticipata", 1],
   ["anticipato", 1],
   ["standard", 2],
-  ["ripescaggio", 3],
-  ["extra-ue", 4],
+  ["extra-ue", 3],
+  ["ripescaggio", 4],
 ]);
