@@ -52,7 +52,7 @@ function PhaseCombobox({
   return (
     phasesLinks && (
       <div className="flex items-center space-x-4">
-        <p className="text-muted-foreground text-sm">Fase</p>
+        <p className="text-muted-foreground text-sm">Graduatoria</p>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button variant="outline" className="h-full justify-start">
@@ -100,7 +100,7 @@ function PhaseTabs({ value, onChange, phasesLinks }: Props) {
           className="flex flex-1 overflow-x-hidden"
         >
           <div className="flex flex-1 items-center space-x-4 overflow-x-hidden">
-            <p className="text-muted-foreground text-sm">Fase</p>
+            <p className="text-muted-foreground text-sm">Graduatoria</p>
             <TabsList className="flex overflow-x-hidden">
               {phasesLinks.map((phase) => (
                 <TabsTrigger
