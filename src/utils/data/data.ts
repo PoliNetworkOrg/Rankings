@@ -1,4 +1,5 @@
 import urlJoin from "url-join";
+import { capitaliseWords } from "@/utils/strings/capitalisation";
 import { LINKS } from "../constants";
 import { IndexBySchoolYear } from "../types/data/parsed/Index/IndexBySchoolYear";
 import { IndexBySchoolYearCourse } from "../types/data/parsed/Index/IndexBySchoolYearCourse";

@@ -1,6 +1,6 @@
+import { capitaliseWords } from "@/utils/strings/capitalisation";
 import CustomMap from "../CustomMap";
 import { ABS_ORDER } from "../constants";
-import { capitalizeWords } from "../strings";
 import Ranking from "../types/data/parsed/Ranking";
 import CourseTable from "../types/data/parsed/Ranking/CourseTable";
 import MeritTable from "../types/data/parsed/Ranking/MeritTable";
@@ -95,9 +95,10 @@ export default class Store {
   }
 
   protected fixLetterCase(): void {
+    this._ranking.phase = capitaliseWords(this._ranking.phase);
     this._ranking.byCourse.forEach((course) => {
-      course.title = capitalizeWords(course.title ?? "");
-      course.location = capitalizeWords(course.location ?? "");
+      course.title = capitaliseWords(course.title ?? "");
+      course.location = capitaliseWords(course.location ?? "");
     });
   }
 
