@@ -77,7 +77,7 @@ function PhaseCombobox({
                         }}
                         value={phase.href}
                       >
-                        {phase.name}
+                        {phase.label}
                       </CommandItem>
                     ))}
                   </ScrollArea>
