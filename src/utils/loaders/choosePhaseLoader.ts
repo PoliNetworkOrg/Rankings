@@ -11,7 +11,7 @@ type LoaderProps = {
 
 export const choosePhaseLoader = new Loader({
   fn: async ({ school, year, data }: LoaderProps) => {
-    const phases = await data.getPhasesLinks(school, year);
+    const phases = await data.getPhases(school, year);
     if (!phases) throw new NotFoundError();
     return { phases };
   },

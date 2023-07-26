@@ -15,6 +15,7 @@ export const SCHOOLS = [
 export const ALERT_LEVELS = ["error", "warning", "success", "info"] as const;
 
 export const ABS_ORDER = "absorder" as const;
+export const NO_GROUP = "__no_group__";
 
 export const SALT = "saltPoliNetwork" as const;
 

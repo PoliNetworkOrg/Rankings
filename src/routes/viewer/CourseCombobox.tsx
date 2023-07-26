@@ -40,7 +40,7 @@ export function CourseCombobox({ value, courses, onSelect }: Props) {
             <CommandInput placeholder="Cambia corso..." />
             <CommandList>
               <CommandEmpty>No courses found.</CommandEmpty>
-              <CommandGroup>
+              <CommandGroup value={value}>
                 <ScrollArea
                   className={courses.valuesArr().length > 7 ? "h-72" : ""}
                 >
