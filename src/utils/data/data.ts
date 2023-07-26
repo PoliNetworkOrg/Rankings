@@ -1,5 +1,4 @@
 import urlJoin from "url-join";
-import { capitaliseWords } from "@/utils/strings/capitalisation";
 import { LINKS } from "../constants";
 import { IndexBySchoolYear } from "../types/data/parsed/Index/IndexBySchoolYear";
 import { IndexBySchoolYearCourse } from "../types/data/parsed/Index/IndexBySchoolYearCourse";
@@ -9,6 +8,9 @@ import JsonParser from "./jsonParser";
 import RankingFile, { PhaseLink } from "../types/data/parsed/Index/RankingFile";
 import CourseTable from "../types/data/parsed/Ranking/CourseTable";
 import CustomMap from "../CustomMap";
+import { numberToOrdinalString, numberToRoman } from "../strings/numbers";
+import { capitaliseWords } from "../strings/capitalisation";
+import { sortDesUrbPhases, sortIngArcPhases } from "./sortPhases";
 
 export default class Data {
   protected static readonly _u = LINKS.dataBasePath;
@@ -113,59 +115,109 @@ export default class Data {
     return files;
   }
 
-  private getCoursePhasesFiles(
+  private convertRankingToPhaseLink(
+    file: RankingFile,
     ranking: Ranking,
-    course: CourseTable,
-  ): RankingFile[] | undefined {
-    if (!this.indexBySchoolYearCourse) return;
+  ): PhaseLink {
+    const order = ranking.rankingOrder;
+    if (order.phase.toLowerCase() === "extra-ue") {
+      order.phase = "Extra-UE";
+    }
+    if (ranking.school === "Architettura" || ranking.school === "Ingegneria") {
+      if (order.extraEu && !order.secondary) {
+        order.secondary = 1;
+        if (ranking.school === "Ingegneria") {
+          order.primary = 2;
+        }
+      }
 
-    const { title, location } = course;
+      if (!order.secondary && order.primary === 3) {
+        order.phase = "Unica graduatoria";
+      }
+    }
+    const name = order.secondary
+      ? `${numberToRoman(order.secondary || 1)} graduatoria ${
+          order.extraEu ? "(Extra-UE)" : ""
+        }`
+      : order.phase;
 
-    // since we may have modified the title to display it in a nicer way
-    // on the UI, we need to reset it to the json style (uppercase)
-    const upperTitle = title.toUpperCase();
+    const phaseNum = order.primary
+      ? numberToOrdinalString(order.primary, "a")
+      : undefined;
 
-    // see: https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp/pull/82
-    const locationEmpty = !location || location === "";
-    const fixedLocation = locationEmpty ? "0" : location.toUpperCase();
+    const label = order.primary
+      ? `${name} di ${numberToRoman(order.primary)} fase`
+      : name;
 
-    const mainObj = this.indexBySchoolYearCourse.schools
-      .get(ranking.school)
-      ?.get(ranking.year);
-    const phasesFiles = mainObj?.get(upperTitle)?.get(fixedLocation);
-
-    return phasesFiles;
-  }
-
-  private convertRankingFileToPhaseLink(file: RankingFile): PhaseLink {
     return {
-      name: capitaliseWords(file.name),
+      label,
+      name,
       href: file.link.replace(".json", "").toLowerCase(),
+      order,
+      groupNum: order.primary,
+      group: phaseNum ? `${capitaliseWords(phaseNum)} fase` : undefined,
     };
   }
 
-  public getPhasesLinks(school: School, year: number): PhaseLink[] | undefined {
+  private fixCourseLocationTitle(course: CourseTable): CourseTable {
+    // since we may have modified the title to display it in a nicer way
+    // on the UI, we need to reset it to the json style (uppercase)
+    const title = course.title.toUpperCase();
+
+    // see: https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp/pull/82
+    const location = course.location;
+    const locationEmpty = !location || location === "";
+    const fixedLocation = locationEmpty ? "0" : location.toUpperCase();
+
+    const newCourse: CourseTable = {
+      title,
+      location: fixedLocation,
+      sections: course.sections,
+      headers: course.headers,
+      rows: course.rows,
+    };
+
+    return newCourse;
+  }
+
+  private isCourseInRanking(ranking: Ranking, course: CourseTable): boolean {
+    if (ranking.byCourse.length === 0) return false;
+
+    const courses = ranking.byCourse.map((course) =>
+      this.fixCourseLocationTitle(course),
+    );
+    const { title, location } = this.fixCourseLocationTitle(course);
+
+    const found = courses.find(
+      (a) => a.title === title && a.location === location,
+    );
+
+    return !!found;
+  }
+
+  public async getPhasesLinks(
+    school: School,
+    year: number,
+    course?: CourseTable,
+  ): Promise<PhaseLink[] | undefined> {
     const files = this.getRankingFiles(school, year);
     if (!files) return;
 
-    const phasesLinks = files.map((file) =>
-      this.convertRankingFileToPhaseLink(file),
-    );
+    const phases: PhaseLink[] = [];
 
-    return phasesLinks;
-  }
+    for (const file of files) {
+      const ranking = await this.loadRanking(school, year, file.link);
+      if (!ranking) continue;
+      if (course && !this.isCourseInRanking(ranking, course)) continue;
 
-  public getCoursePhasesLinks(
-    ranking: Ranking,
-    course: CourseTable,
-  ): PhaseLink[] | undefined {
-    const phasesFiles = this.getCoursePhasesFiles(ranking, course);
-    if (!phasesFiles) return;
+      const phase = this.convertRankingToPhaseLink(file, ranking);
+      phases.push(phase);
+    }
 
-    const phasesLinks = phasesFiles.map((file) =>
-      this.convertRankingFileToPhaseLink(file),
-    );
+    if (school === "Architettura" || school === "Ingegneria")
+      return phases.sort((a, b) => sortIngArcPhases(a, b));
 
-    return phasesLinks;
+    if (school === "Urbanistica" || school === "Design")
+      return phases.sort((a, b) => sortDesUrbPhases(a, b));
   }
 }
