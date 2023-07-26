@@ -25,12 +25,12 @@ const cols = (layout?: number) => {
   switch (layout) {
     case 0:
       return "";
-    case 1:
-      return "grid-cols-1";
-    case 2:
-      return "grid-cols-2";
-    case 3:
-      return "grid-cols-3";
+    // case 1:
+    //   return "grid-cols-1";
+    // case 2:
+    //   return "grid-cols-2";
+    // case 3:
+    //   return "grid-cols-3";
     default:
       return "grid-cols-[repeat(auto-fill,minmax(18rem,1fr))]";
   }

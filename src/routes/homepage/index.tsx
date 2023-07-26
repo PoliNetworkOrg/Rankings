@@ -10,7 +10,7 @@ export const homepageRoute = new Route({
     return (
       <Page>
         <PathBreadcrumb />
-        <div className="flex w-full flex-1 flex-col items-start gap-4 py-4 md:text-center">
+        <div className="flex w-full flex-1 flex-col items-start gap-4 py-4">
           <Outlet />
         </div>
       </Page>
