@@ -121,7 +121,7 @@ export const viewerRoute = new Route({
 
     return (
       <Page
-        className={`flex gap-4 px-4 ${
+        className={`flex gap-4 px-0 ${
           isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
         }`}
         fullWidth
@@ -160,7 +160,7 @@ export const viewerRoute = new Route({
           </div>
         </div>
 
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 px-4">
           {selectedPhaseLink?.order.phase.toLowerCase() ===
           ranking.rankingOrder.phase.toLowerCase() ? (
             table ? (
