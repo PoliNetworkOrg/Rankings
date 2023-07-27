@@ -1,11 +1,16 @@
 import urlJoin from "url-join";
-import { LINKS } from "../constants";
+import { LINKS, NO_GROUP } from "../constants";
 import { IndexBySchoolYear } from "../types/data/parsed/Index/IndexBySchoolYear";
 import { IndexBySchoolYearCourse } from "../types/data/parsed/Index/IndexBySchoolYearCourse";
 import School from "../types/data/School";
 import Ranking from "../types/data/parsed/Ranking";
 import JsonParser from "./jsonParser";
-import RankingFile, { PhaseLink } from "../types/data/parsed/Index/RankingFile";
+import RankingFile, {
+  PhaseLink,
+  Phases,
+  PhaseGroups,
+  PhaseGroup,
+} from "../types/data/parsed/Index/RankingFile";
 import CourseTable from "../types/data/parsed/Ranking/CourseTable";
 import CustomMap from "../CustomMap";
 import { numberToOrdinalString, numberToRoman } from "../strings/numbers";
@@ -145,17 +150,21 @@ export default class Data {
       ? numberToOrdinalString(order.primary, "a")
       : undefined;
 
-    const label = order.primary
-      ? `${name} di ${numberToRoman(order.primary)} fase`
-      : name;
+    const groupLabel = phaseNum
+      ? `${capitaliseWords(phaseNum)} fase`
+      : NO_GROUP;
+
+    const groupValue = groupLabel.toLowerCase();
 
     return {
-      label,
       name,
       href: file.link.replace(".json", "").toLowerCase(),
       order,
-      groupNum: order.primary,
-      group: phaseNum ? `${capitaliseWords(phaseNum)} fase` : undefined,
+      group: {
+        label: groupLabel === NO_GROUP ? "Generale" : groupLabel,
+        value: groupValue,
+        num: order.primary,
+      },
     };
   }
 
@@ -195,15 +204,42 @@ export default class Data {
     return !!found;
   }
 
-  public async getPhasesLinks(
+  private sortPhaseLinks(school: School, phases: PhaseLink[]): PhaseLink[] {
+    if (school === "Architettura" || school === "Ingegneria")
+      return phases.sort((a, b) => sortIngArcPhases(a, b));
+
+    if (school === "Urbanistica" || school === "Design")
+      return phases.sort((a, b) => sortDesUrbPhases(a, b));
+
+    return phases;
+  }
+
+  private getPhaseGroups(phases: PhaseLink[]): PhaseGroups {
+    const groups: PhaseGroups = new CustomMap();
+
+    if (phases.every((p) => p.group))
+      for (const phase of phases) {
+        const group: PhaseGroup = groups.get(phase.group.value) ?? {
+          label: phase.group.label,
+          value: phase.group.value,
+          phases: [],
+        };
+        group.phases.push(phase);
+        groups.set(phase.group.value, group);
+      }
+
+    return groups;
+  }
+
+  public async getPhases(
     school: School,
     year: number,
     course?: CourseTable,
-  ): Promise<PhaseLink[] | undefined> {
+  ): Promise<Phases | undefined> {
     const files = this.getRankingFiles(school, year);
     if (!files) return;
 
-    const phases: PhaseLink[] = [];
+    const phaseLinks: PhaseLink[] = [];
 
     for (const file of files) {
       const ranking = await this.loadRanking(school, year, file.link);
@@ -211,13 +247,17 @@ export default class Data {
       if (course && !this.isCourseInRanking(ranking, course)) continue;
 
       const phase = this.convertRankingToPhaseLink(file, ranking);
-      phases.push(phase);
+      phaseLinks.push(phase);
     }
 
-    if (school === "Architettura" || school === "Ingegneria")
-      return phases.sort((a, b) => sortIngArcPhases(a, b));
+    const sorted = this.sortPhaseLinks(school, phaseLinks);
+    const groups = this.getPhaseGroups(sorted);
 
-    if (school === "Urbanistica" || school === "Design")
-      return phases.sort((a, b) => sortDesUrbPhases(a, b));
+    const phases: Phases = {
+      groups,
+      all: sorted,
+    };
+
+    return phases;
   }
 }
