@@ -15,4 +15,6 @@ export type SchoolStats = {
   list: CourseStats[];
 };
 
+
+
 export default StatsByYear;

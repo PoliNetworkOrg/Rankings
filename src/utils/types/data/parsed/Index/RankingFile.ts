@@ -16,6 +16,7 @@ export type Phases = {
 };
 
 export type PhaseGroups = CustomMap<string, PhaseGroup>;
+
 export type PhaseGroup = {
   label: string;
   value: string;
@@ -26,11 +27,13 @@ export type PhaseLink = {
   name: string;
   href: string;
   order: JsonRankingOrder;
-  group: {
-    label: string;
-    value: string;
-    num?: number;
-  };
+  group: PhaseLinkGroup;
+};
+
+export type PhaseLinkGroup = {
+  label: string;
+  value: string;
+  num?: number;
 };
 
 export default RankingFile;
