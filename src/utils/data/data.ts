@@ -13,35 +13,45 @@ import RankingFile, {
 } from "../types/data/parsed/Index/RankingFile";
 import CourseTable from "../types/data/parsed/Ranking/CourseTable";
 import CustomMap from "../CustomMap";
+import { CourseSummary } from "../types/data/parsed/Ranking/RankingSummary";
+import { IndexByYearSchool } from "../types/data/parsed/Index/IndexByYearSchool";
+import StatsByYear, { SchoolStats } from "../types/data/parsed/Stats";
 import { numberToOrdinalString, numberToRoman } from "../strings/numbers";
 import { capitaliseWords } from "../strings/capitalisation";
 import { sortDesUrbPhases, sortIngArcPhases } from "./sortPhases";
 
 export default class Data {
   protected static readonly _u = LINKS.dataBasePath;
-  protected static readonly indexUrl: string = urlJoin(
+  protected static readonly indexBySchoolYearUrl: string = urlJoin(
     this._u,
     "bySchoolYear.json",
   );
-  protected static readonly coursePhasesUrl: string = urlJoin(
+  protected static readonly indexBySchoolYearCourseUrl: string = urlJoin(
     this._u,
     "bySchoolYearCourse.json",
   );
+  protected static readonly indexByYearSchoolUrl: string = urlJoin(
+    this._u,
+    "byYearSchool.json",
+  );
+  protected static readonly baseStatsUrl: string = urlJoin(this._u, "stats");
 
   public indexBySchoolYear?: IndexBySchoolYear;
   public indexBySchoolYearCourse?: IndexBySchoolYearCourse;
+  public indexByYearSchool?: IndexByYearSchool;
   public schools: School[] = [];
   public urls: string[] = [];
 
   private cache: CustomMap<string, Ranking> = new CustomMap();
+  private statsByYear: CustomMap<number, StatsByYear> = new CustomMap();
 
   public static async init() {
     const data = new Data();
-    data.indexBySchoolYear = await fetch(Data.indexUrl)
+    data.indexBySchoolYear = await fetch(Data.indexBySchoolYearUrl)
       .then((res) => res.json())
       .then((json) => JsonParser.parseIndexBySchoolYear(json));
 
-    data.indexBySchoolYearCourse = await fetch(Data.coursePhasesUrl)
+    data.indexBySchoolYearCourse = await fetch(Data.indexBySchoolYearCourseUrl)
       .then((res) => res.json())
       .then((json) => JsonParser.parseIndexBySchoolYearCourse(json));
 
@@ -55,6 +65,16 @@ export default class Data {
         }),
       ),
     );
+
+    data.indexByYearSchool = await fetch(Data.indexByYearSchoolUrl)
+      .then((res) => res.json())
+      .then((json) => JsonParser.parseIndexByYearSchool(json));
+
+    if (data.indexByYearSchool)
+      for (const year of data.indexByYearSchool.years.keys()) {
+        const stats = await data.fetchYearStats(year);
+        data.statsByYear.set(year, stats);
+      }
 
     return data;
   }
@@ -259,5 +279,51 @@ export default class Data {
     };
 
     return phases;
+  }
+
+  private getYearStatsUrl(year: number | string): string {
+    return urlJoin(Data.baseStatsUrl, year.toString() + ".json");
+  }
+
+  private async fetchYearStats(year: number | string): Promise<StatsByYear> {
+    const url = this.getYearStatsUrl(year);
+    const stats: StatsByYear = await fetch(url)
+      .then((res) => res.json())
+      .then((json) => JsonParser.parseStatsByYear(json));
+
+    return stats;
+  }
+
+  public getStats(school: School, year: number): SchoolStats | undefined {
+    const stats = this.statsByYear.get(year);
+    return stats?.schools.get(school);
+  }
+
+  public async getCourseStats(
+    school: School,
+    year: number,
+    phaseName: string,
+    course: CourseTable,
+  ): Promise<CourseSummary | undefined> {
+    try {
+      const stats = this.getStats(school, year);
+      const courseStats = stats?.list
+        .find(
+          (s) =>
+            phaseName === s.singleCourseJson.name &&
+            s.singleCourseJson.location === course.location?.toUpperCase(),
+        )
+        ?.stats.courseSummarized.find((cs) => {
+          return (
+            cs.title === course.title.toUpperCase() &&
+            cs.location === course.location?.toUpperCase()
+          );
+        });
+
+      return courseStats;
+    } catch (err) {
+      console.error(err);
+      return undefined;
+    }
   }
 }

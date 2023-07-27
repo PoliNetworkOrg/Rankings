@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { ErrorComponent, Navigate, Route, useNavigate } from "@tanstack/router";
 import MobileContext from "@/contexts/MobileContext";
 import School from "@/utils/types/data/School.ts";
@@ -19,6 +19,13 @@ import PhaseSelect from "./PhaseSelect";
 import { CourseCombobox } from "./CourseCombobox.tsx";
 import LocationsSelect from "./LocationSelect.tsx";
 import { NotFoundError } from "@/utils/errors.ts";
+import MinScorePhases, {
+  MinScorePhasesObj,
+  MinScorePhasesObj_PhasesMap,
+} from "@/components/charts/MinScorePhases.tsx";
+import CustomMap from "@/utils/CustomMap.ts";
+import VotoCandidatiChart from "@/components/charts/VotoCandidatiChart.tsx";
+import Data from "@/utils/data/data.ts";
 
 export const viewerRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -108,6 +115,26 @@ export const viewerRoute = new Route({
       [selectedCourse, selectedLocation, store],
     );
 
+    /******* STATS start ********/
+    const [courseStats, setCourseStats] = useState<
+      MinScorePhasesObj | undefined
+    >();
+
+    const getStats = useCallback(async () => {
+      const years = data.getYears(school);
+      if (!years) return;
+
+      const yearsStats: MinScorePhasesObj = await getMinScorePhasesObj(
+        years,
+        data,
+        school,
+        selectedCourse,
+        selectedLocation,
+      );
+      setCourseStats(yearsStats);
+    }, [data, school, selectedCourse, selectedLocation]);
+    /******* STATS end ********/
+
     useEffect(() => {
       if (!table) return;
       if (selectedCourse === ABS_ORDER) {
@@ -116,8 +143,9 @@ export const viewerRoute = new Route({
         data
           .getPhases(school, year, table as CourseTable)
           .then((links) => setPhases(links ?? _phases));
+        getStats(); // STATS call
       }
-    }, [data, _phases, ranking, school, selectedCourse, table, year]);
+    }, [data, _phases, ranking, school, selectedCourse, table, year, getStats]);
 
     return (
       <Page
@@ -176,7 +204,45 @@ export const viewerRoute = new Route({
             <Spinner />
           )}
         </div>
+
+        <VotoCandidatiChart ranking={ranking} />
+        <div className="h-32"></div>
+        {courseStats && <MinScorePhases stats={courseStats} />}
       </Page>
     );
   },
 });
+
+async function getMinScorePhasesObj(
+  years: number[],
+  data: Data,
+  school: School,
+  selectedCourse: string,
+  selectedLocation?: string,
+) {
+  const yearsStats: MinScorePhasesObj = new CustomMap();
+  for (const year of years) {
+    const phases = await data.getPhases(school, year);
+    if (!phases) continue;
+
+    const phasesMap: MinScorePhasesObj_PhasesMap = new CustomMap();
+    for (const phase of phases.all.values()) {
+      const r = await data.loadRanking(school, year, phase.href);
+      const localCourse =
+        r && Store.getTable(r, selectedCourse, selectedLocation);
+      if (!localCourse) continue;
+
+      const phaseStats = await data.getCourseStats(
+        school,
+        year,
+        phase.order.phase,
+        localCourse as CourseTable,
+      );
+      if (!phaseStats) continue;
+      phasesMap.set(phase.name, phaseStats);
+    }
+
+    yearsStats.set(year, phasesMap);
+  }
+  return yearsStats;
+}

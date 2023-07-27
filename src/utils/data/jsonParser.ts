@@ -8,6 +8,7 @@ import JsonRankingSummary, {
   JsonResultsSummary,
 } from "../types/data/json/Ranking/JsonRankingSummary";
 import JsonStudentResult from "../types/data/json/Ranking/JsonStudentResult";
+import JsonStatsByYear from "../types/data/json/Stats/JsonStatsByYear";
 import {
   IndexBySchoolYear,
   IndexBySchoolYear_SchoolsMap,
@@ -37,6 +38,12 @@ import StudentResult, {
   StudentResult_SectionsResultsMap,
 } from "../types/data/parsed/Ranking/StudentResult";
 import School from "../types/data/School";
+import StatsByYear, {
+  SchoolStats,
+  StatsBySchoolMap,
+} from "../types/data/parsed/Stats";
+import JsonCourseStats from "../types/data/json/Stats/JsonCourseStats";
+import CourseStats from "../types/data/parsed/Stats/CourseStats";
 
 export default class JsonParser {
   public static parseIndexBySchoolYear(
@@ -201,5 +208,33 @@ export default class JsonParser {
     };
 
     return ranking;
+  }
+
+  private static parseCourseStats(json: JsonCourseStats): CourseStats {
+    const courseStats: CourseStats = {
+      stats: this.parseRankingSummary(json.stats),
+      singleCourseJson: json.singleCourseJson,
+    };
+
+    return courseStats;
+  }
+
+  public static parseStatsByYear(json: JsonStatsByYear): StatsByYear {
+    const schoolsMap: StatsBySchoolMap = new CustomMap();
+
+    for (const [school, stats] of Object.entries(json.schools)) {
+      const schoolStats: SchoolStats = {
+        numStudents: stats.numStudents,
+        list: stats.list.map((cs) => this.parseCourseStats(cs)),
+      };
+      schoolsMap.set(school as School, schoolStats);
+    }
+
+    const statsByYear: StatsByYear = {
+      numStudents: json.numStudents,
+      schools: schoolsMap,
+    };
+
+    return statsByYear;
   }
 }

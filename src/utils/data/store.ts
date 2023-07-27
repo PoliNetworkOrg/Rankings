@@ -80,9 +80,17 @@ export default class Store {
     title: string,
     location?: string,
   ): MeritTable | CourseTable | undefined {
-    if (title === ABS_ORDER) return this._ranking.byMerit;
+    return Store.getTable(this._ranking, title, location);
+  }
 
-    return this._ranking.byCourse.find((course) => {
+  public static getTable(
+    ranking: Ranking,
+    title: string,
+    location?: string,
+  ): MeritTable | CourseTable | undefined {
+    if (title === ABS_ORDER) return ranking.byMerit;
+
+    return ranking.byCourse.find((course) => {
       if (!course.location)
         return course.title.toUpperCase() === title.toUpperCase();
       if (!location) return false;
