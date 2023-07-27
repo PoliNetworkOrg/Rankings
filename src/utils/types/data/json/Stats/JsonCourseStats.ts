@@ -1,8 +1,8 @@
-import RankingFile from "../../parsed/Index/RankingFile";
+import { SingleCourseJson } from "../../parsed/Stats/CourseStats";
 import JsonRankingSummary from "../Ranking/JsonRankingSummary";
 
 type JsonCourseStats = {
-  singleCourseJson: RankingFile;
+  singleCourseJson: SingleCourseJson;
   stats: JsonRankingSummary;
 };
 

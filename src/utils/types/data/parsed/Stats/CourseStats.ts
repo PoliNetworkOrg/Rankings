@@ -1,7 +1,7 @@
 import RankingFile from "../Index/RankingFile";
 import RankingSummary from "../Ranking/RankingSummary";
 
-type SingleCourseJson = RankingFile & {
+export type SingleCourseJson = RankingFile & {
   location: string;
 };
 
