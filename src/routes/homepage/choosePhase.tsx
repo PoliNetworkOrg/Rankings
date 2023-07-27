@@ -4,8 +4,11 @@ import School from "@/utils/types/data/School";
 import { NotFoundError } from "@/utils/errors";
 import { homepageRoute } from ".";
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
-import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile";
-import CustomMap from "@/utils/CustomMap";
+import {
+  PhaseGroup,
+  PhaseLink,
+} from "@/utils/types/data/parsed/Index/RankingFile";
+import { NO_GROUP } from "@/utils/constants";
 
 export const choosePhaseRoute = new Route({
   getParentRoute: () => homepageRoute,
@@ -30,38 +33,22 @@ export const choosePhaseRoute = new Route({
     return <ErrorComponent error={error} />;
   },
   component: function ChoosePhase({ useParams, useLoader }) {
-    const { phases } = useLoader();
+    const { groups } = useLoader().phases;
     const { school, year } = useParams();
-    const groups = new CustomMap<string, PhaseLink[]>();
-
-    if (phases.every((p) => p.group))
-      for (const phase of phases) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const name = phase.group!;
-        const group: PhaseLink[] = groups.get(name) || [];
-        group.push(phase);
-        groups.set(name, group);
-      }
 
     return (
       <>
         <p className="w-full text-xl">Scegli una graduatoria</p>
         <>
-          {groups.size > 0 ? (
-            groups
-              .entriesArr()
-              .map(([group, links]) => (
-                <Group
-                  group={group}
-                  phases={links}
-                  school={school}
-                  year={year}
-                  key={group}
-                />
-              ))
-          ) : (
-            <Buttons school={school} year={year} phases={phases} />
-          )}
+          {groups.valuesArr().map((group) => (
+            <Group
+              group={group}
+              phases={group.phases}
+              school={school}
+              year={year}
+              key={group.value}
+            />
+          ))}
         </>
       </>
     );
@@ -69,12 +56,13 @@ export const choosePhaseRoute = new Route({
 });
 
 type GroupProps = ButtonsProps & {
-  group: string;
+  group: PhaseGroup;
 };
+
 function Group({ group, ...props }: GroupProps) {
   return (
     <>
-      <p>{group}</p>
+      {group.value !== NO_GROUP && <p>{group.label}</p>}
       <Buttons {...props} />
     </>
   );
