@@ -4,7 +4,7 @@ import MobileContext from "@/contexts/MobileContext";
 import School from "@/utils/types/data/School.ts";
 import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable.ts";
 import {
-  PhaseGroup,
+  PhaseGroupLabelValueNum,
   PhaseLink,
   Phases,
 } from "@/utils/types/data/parsed/Index/RankingFile.ts";
@@ -77,7 +77,7 @@ export const viewerRoute = new Route({
       PhaseLink | undefined
     >();
     const [selectedPhaseGroup, setSelectedPhaseGroup] = useState<
-      PhaseGroup | undefined
+      PhaseGroupLabelValueNum | undefined
     >();
 
     useEffect(() => {
@@ -94,7 +94,7 @@ export const viewerRoute = new Route({
       setSelectedPhaseGroup(group);
     }, [phase, phases, selectedPhaseLink]);
 
-    const handlePhaseChange = (link: PhaseLink, group: PhaseGroup) => {
+    const handlePhaseChange = (link: PhaseLink, group: PhaseGroupLabelValueNum) => {
       setSelectedPhaseLink(link);
       setSelectedPhaseGroup(group);
       navigate({

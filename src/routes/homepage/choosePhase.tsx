@@ -5,7 +5,7 @@ import { NotFoundError } from "@/utils/errors";
 import { homepageRoute } from ".";
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
 import {
-  PhaseGroup,
+  PhaseGroupLabelValueNum,
   PhaseLink,
 } from "@/utils/types/data/parsed/Index/RankingFile";
 import { NO_GROUP } from "@/utils/constants";
@@ -56,7 +56,7 @@ export const choosePhaseRoute = new Route({
 });
 
 type GroupProps = ButtonsProps & {
-  group: PhaseGroup;
+  group: PhaseGroupLabelValueNum;
 };
 
 function Group({ group, ...props }: GroupProps) {

@@ -7,13 +7,15 @@ type StatsByYear = {
   stats: StatsBySchoolMap;
 };
 
+type SchoolStatsWithCourses = {
+  numStudents: number;
+  list: CourseStats[];
+};
+
 // key = school
 type StatsBySchoolMap = CustomMap<
   School,
-  {
-    numStudents: number;
-    list: CourseStats[];
-  }
+  SchoolStatsWithCourses
 >;
 
 export default StatsByYear;

@@ -17,10 +17,12 @@ import CustomMap from "@/utils/CustomMap";
 import { CourseInfo } from "@/utils/data/store";
 import { useState } from "react";
 
+type onSelectType = (value: string) => void;
+
 type Props = {
   courses: CustomMap<string, CourseInfo>;
   value: string;
-  onSelect: (value: string) => void;
+  onSelect: onSelectType;
 };
 
 export function CourseCombobox({ value, courses, onSelect }: Props) {

@@ -22,10 +22,12 @@ type Location = {
   label: string;
 };
 
+type onChangeType = (value: string) => void;
+
 type Props = {
   value: string;
   locations: Location[];
-  onChange: (value: string) => void;
+  onChange: onChangeType;
 };
 
 export default function LocationsSelect(props: Props) {

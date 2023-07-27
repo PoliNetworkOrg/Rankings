@@ -9,7 +9,7 @@ import RankingFile, {
   PhaseLink,
   Phases,
   PhaseGroups,
-  PhaseGroup,
+  PhaseGroupLabelValueNum,
 } from "../types/data/parsed/Index/RankingFile";
 import CourseTable from "../types/data/parsed/Ranking/CourseTable";
 import CustomMap from "../CustomMap";
@@ -219,7 +219,7 @@ export default class Data {
 
     if (phases.every((p) => p.group))
       for (const phase of phases) {
-        const group: PhaseGroup = groups.get(phase.group.value) ?? {
+        const group: PhaseGroupLabelValueNum = groups.get(phase.group.value) ?? {
           label: phase.group.label,
           value: phase.group.value,
           phases: [],

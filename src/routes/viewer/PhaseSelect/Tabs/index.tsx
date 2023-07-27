@@ -2,9 +2,11 @@ import { PhaseSelectProps } from "..";
 import GroupSelect from "./GroupSelect";
 import RankingSelect from "./RankingSelect";
 
-type Props = PhaseSelectProps & {
+type showGroupsBool = {
   showGroups: boolean;
 };
+
+type Props = PhaseSelectProps & showGroupsBool;
 
 export default function PhaseSelectTabs(props: Props) {
   return (

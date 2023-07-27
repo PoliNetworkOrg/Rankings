@@ -15,22 +15,24 @@ export type Phases = {
   all: PhaseLink[];
 };
 
-export type PhaseGroups = CustomMap<string, PhaseGroup>;
+export type PhaseGroups = CustomMap<string, PhaseGroupLabelValueNum>;
 export type PhaseGroup = {
   label: string;
   value: string;
   phases: PhaseLink[];
 };
 
+type PhaseGroupLabelValueNum = {
+  label: string;
+  value: string;
+  num?: number;
+};
+
 export type PhaseLink = {
   name: string;
   href: string;
   order: JsonRankingOrder;
-  group: {
-    label: string;
-    value: string;
-    num?: number;
-  };
+  group: PhaseGroupLabelValueNum;
 };
 
 export default RankingFile;

@@ -2,11 +2,17 @@ import { PhaseSelectProps } from "..";
 import GroupSelect from "./GroupSelect";
 import RankingSelect from "./RankingSelect";
 
-export type PhaseSelectComboboxProps = PhaseSelectProps & {
-  open: [boolean, boolean];
-  setOpen: (group: boolean, ranking: boolean) => void;
+type setOpenType = (group: boolean, ranking: boolean) => void;
+
+type openType = [boolean, boolean];
+
+type comboboxProps = {
+  open: openType;
+  setOpen: setOpenType;
   showGroups: boolean;
 };
+
+export type PhaseSelectComboboxProps = PhaseSelectProps & comboboxProps;
 
 export default function PhaseSelectCombobox(props: PhaseSelectComboboxProps) {
   return (

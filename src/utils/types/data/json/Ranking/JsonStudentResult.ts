@@ -1,3 +1,11 @@
+type ofa = {
+  [name: string]: boolean;
+};
+
+type sectionResults = {
+  [name: string]: number;
+};
+
 type JsonStudentResult = {
   birthDate?: string;
   canEnroll?: boolean;
@@ -7,12 +15,8 @@ type JsonStudentResult = {
   positionAbsolute?: number;
   positionCourse?: number;
   result?: number;
-  ofa?: {
-    [name: string]: boolean;
-  };
-  sectionsResults?: {
-    [name: string]: number;
-  };
+  ofa?: ofa;
+  sectionsResults?: sectionResults;
 };
 
 export default JsonStudentResult;

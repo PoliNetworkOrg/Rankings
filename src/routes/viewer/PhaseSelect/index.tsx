@@ -1,7 +1,7 @@
 import { useContext, useMemo, useState } from "react";
 import MobileContext from "@/contexts/MobileContext";
 import {
-  PhaseGroup,
+  PhaseGroupLabelValueNum,
   PhaseLink,
   Phases,
 } from "@/utils/types/data/parsed/Index/RankingFile";
@@ -9,11 +9,13 @@ import PhaseSelectCombobox from "./Combobox";
 import PhaseSelectTabs from "./Tabs";
 import { NO_GROUP } from "@/utils/constants";
 
+type onChangeType = (link: PhaseLink, group: PhaseGroupLabelValueNum) => void;
+
 export type PhaseSelectProps = {
   phases: Phases;
-  selectedGroup: PhaseGroup;
+  selectedGroup: PhaseGroupLabelValueNum;
   selectedPhase: PhaseLink;
-  onChange: (link: PhaseLink, group: PhaseGroup) => void;
+  onChange: onChangeType;
 };
 
 export default function PhaseSelect(props: PhaseSelectProps) {
