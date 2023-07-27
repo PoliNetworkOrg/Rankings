@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { NotFoundError } from "@/utils/errors";
 import { homepageRoute } from ".";
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
+import Spinner from "@/components/custom-ui/Spinner";
+import { useState } from "react";
 
 export const chooseYearRoute = new Route({
   getParentRoute: () => homepageRoute,
@@ -26,10 +28,15 @@ export const chooseYearRoute = new Route({
     return <ErrorComponent error={error} />;
   },
   component: function ChooseYear({ useLoader, useParams }) {
+    const [clicked, setClicked] = useState(false);
     const { years } = useLoader();
     const { school } = useParams();
 
-    return (
+    return clicked ? (
+      <div className="w-full">
+        <Spinner />
+      </div>
+    ) : (
       <>
         <p className="w-full text-xl">Scegli un anno di immatricolazione</p>
         <ButtonGrid length={years.length}>
@@ -41,6 +48,7 @@ export const chooseYearRoute = new Route({
                 params={{ school, year }}
                 key={year}
                 className="h-full"
+                onClick={() => setClicked(true)}
               >
                 <Button
                   size="card"

@@ -22,12 +22,11 @@ type DataSingle = {
 };
 
 type Props = {
-  stats?: MinScorePhasesObj;
+  stats: MinScorePhasesObj;
 };
 
 export default function MinScorePhases({ stats }: Props) {
   const { isDarkMode } = useContext(DarkModeContext);
-  if (!stats) return <></>;
   const data = getData(stats);
 
   const phases = data

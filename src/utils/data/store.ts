@@ -1,6 +1,6 @@
+import { capitaliseWords } from "@/utils/strings/capitalisation";
 import CustomMap from "../CustomMap";
 import { ABS_ORDER } from "../constants";
-import { capitalizeWords } from "../strings";
 import Ranking from "../types/data/parsed/Ranking";
 import CourseTable from "../types/data/parsed/Ranking/CourseTable";
 import MeritTable from "../types/data/parsed/Ranking/MeritTable";
@@ -15,6 +15,7 @@ export type CourseInfo = {
 export type CourseInfoLocation = {
   value: string;
   label: string;
+  numStudents: number;
 };
 
 export default class Store {
@@ -36,6 +37,12 @@ export default class Store {
       locations: [],
     });
 
+    const locationNumStudents =
+      this._ranking.rankingSummary.courseSummarized.map(
+        ({ title, location, howManyStudents }) => {
+          return { title, location, howManyStudents };
+        },
+      );
     this._ranking.byCourse.forEach(({ title, location }) => {
       const value = title.toLowerCase();
       const info = map.get(value) ?? {
@@ -43,11 +50,20 @@ export default class Store {
         value,
         locations: [],
       };
-      if (location)
+      if (location) {
+        const foundSummary = locationNumStudents.find(
+          (lns) =>
+            lns.title.toUpperCase() === title.toUpperCase() &&
+            lns.location.toUpperCase() === location.toUpperCase(),
+        );
+        const ns = foundSummary?.howManyStudents || 0;
+
         info.locations.push({
           value: location.toLowerCase(),
           label: location,
+          numStudents: ns,
         });
+      }
 
       info.locations.sort((a, b) => {
         if (a.value < b.value) return -1;
@@ -87,9 +103,10 @@ export default class Store {
   }
 
   protected fixLetterCase(): void {
+    this._ranking.phase = capitaliseWords(this._ranking.phase);
     this._ranking.byCourse.forEach((course) => {
-      course.title = capitalizeWords(course.title ?? "");
-      course.location = capitalizeWords(course.location ?? "");
+      course.title = capitaliseWords(course.title ?? "");
+      course.location = capitaliseWords(course.location ?? "");
     });
   }
 

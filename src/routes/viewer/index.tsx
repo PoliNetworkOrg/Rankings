@@ -3,7 +3,11 @@ import { ErrorComponent, Navigate, Route, useNavigate } from "@tanstack/router";
 import MobileContext from "@/contexts/MobileContext";
 import School from "@/utils/types/data/School.ts";
 import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable.ts";
-import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile.ts";
+import {
+  PhaseGroup,
+  PhaseLink,
+  Phases,
+} from "@/utils/types/data/parsed/Index/RankingFile.ts";
 import { ABS_ORDER } from "@/utils/constants.ts";
 import Store from "@/utils/data/store.ts";
 import Spinner from "@/components/custom-ui/Spinner.tsx";
@@ -11,7 +15,7 @@ import Page from "@/components/custom-ui/Page.tsx";
 import PathBreadcrumb from "@/components/PathBreadcrumb.tsx";
 import { rootRoute } from "@/routes/root.tsx";
 import Table from "./Table.tsx";
-import PhaseSelect from "./PhaseSelect.tsx";
+import PhaseSelect from "./PhaseSelect";
 import { CourseCombobox } from "./CourseCombobox.tsx";
 import LocationsSelect from "./LocationSelect.tsx";
 import { NotFoundError } from "@/utils/errors.ts";
@@ -45,7 +49,7 @@ export const viewerRoute = new Route({
     return <ErrorComponent error={error} />;
   },
   component: function Viewer({ useLoader, useParams }) {
-    const { ranking, data } = useLoader();
+    const { phases: _phases, ranking, data } = useLoader();
     const { school, year, phase } = useParams();
     const { isMobile } = useContext(MobileContext);
     const navigate = useNavigate({ from: viewerRoute.id });
@@ -67,26 +71,42 @@ export const viewerRoute = new Route({
       const findLocation = locations.find(
         (cil) => cil.value.toLowerCase() === selectedLocation?.toLowerCase(),
       );
-      if (!findLocation) setSelectedLocation(locations[0].value);
+      if (!findLocation) {
+        const sortedByNumStudents = Array.from(locations);
+        sortedByNumStudents.sort((a, b) => b.numStudents - a.numStudents);
+        const { value } = sortedByNumStudents[0];
+        setSelectedLocation(value);
+      }
     }, [locations, selectedLocation]);
 
-    const [phasesLinks, setPhasesLinks] = useState<PhaseLink[]>([]);
-    const [selectedPhase, setSelectedPhase] = useState<PhaseLink | undefined>();
+    const [phases, setPhases] = useState<Phases>(_phases);
+    const [selectedPhaseLink, setSelectedPhaseLink] = useState<
+      PhaseLink | undefined
+    >();
+    const [selectedPhaseGroup, setSelectedPhaseGroup] = useState<
+      PhaseGroup | undefined
+    >();
+
     useEffect(() => {
-      if (!selectedPhase)
-        setSelectedPhase(phasesLinks.find((p) => p.href === phase));
-    }, [phase, phasesLinks, selectedPhase]);
+      if (selectedPhaseLink) return;
 
-    const handleSwitchPhase = (href: string) => {
-      const phaseLink = phasesLinks?.find(
-        (p) => p.href.toLowerCase() === href.toLowerCase(),
-      );
-      if (!phaseLink) return;
+      const link = phases.all.find((p) => p.href === phase);
+      if (!link) return;
 
-      setSelectedPhase(phaseLink);
+      setSelectedPhaseLink(link);
+
+      const group = phases.groups.get(link.group.value);
+      if (!group) return;
+
+      setSelectedPhaseGroup(group);
+    }, [phase, phases, selectedPhaseLink]);
+
+    const handlePhaseChange = (link: PhaseLink, group: PhaseGroup) => {
+      setSelectedPhaseLink(link);
+      setSelectedPhaseGroup(group);
       navigate({
         to: "/view/$school/$year/$phase",
-        params: { school, year, phase: phaseLink.href },
+        params: { school, year, phase: link.href },
       });
     };
 
@@ -112,23 +132,20 @@ export const viewerRoute = new Route({
         selectedLocation,
       );
       setCourseStats(yearsStats);
-      getStats(); // STATS call
     }, [data, school, selectedCourse, selectedLocation]);
     /******* STATS end ********/
 
     useEffect(() => {
       if (!table) return;
       if (selectedCourse === ABS_ORDER) {
-        const phasesLinks = data.getPhasesLinks(school, year);
-        setPhasesLinks(phasesLinks ?? []);
+        setPhases(_phases);
       } else {
-        const phasesLinks = data.getCoursePhasesLinks(
-          ranking,
-          table as CourseTable,
-        );
-        setPhasesLinks(phasesLinks ?? []);
+        data
+          .getPhases(school, year, table as CourseTable)
+          .then((links) => setPhases(links ?? _phases));
+        getStats(); // STATS call
       }
-    }, [data, ranking, school, selectedCourse, table, year]);
+    }, [data, _phases, ranking, school, selectedCourse, table, year, getStats]);
 
     return (
       <Page
@@ -144,16 +161,17 @@ export const viewerRoute = new Route({
         >
           <PathBreadcrumb />
           <div className="flex w-full max-sm:flex-col max-sm:gap-4">
-            {selectedPhase && (
+            {selectedPhaseGroup && selectedPhaseLink && (
               <PhaseSelect
-                value={selectedPhase.href}
-                onChange={handleSwitchPhase}
-                phasesLinks={phasesLinks}
+                selectedPhase={selectedPhaseLink}
+                selectedGroup={selectedPhaseGroup}
+                onChange={handlePhaseChange}
+                phases={phases}
               />
             )}
           </div>
           <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">
-            <div className="flex flex-1 gap-8 max-sm:flex-col max-sm:gap-4">
+            <div className="flex flex-1 gap-8 max-md:flex-col max-md:gap-4">
               <CourseCombobox
                 courses={courses}
                 value={selectedCourse}
@@ -171,7 +189,8 @@ export const viewerRoute = new Route({
         </div>
 
         <div className="flex w-full flex-col gap-4">
-          {selectedPhase?.name === ranking.phase ? (
+          {selectedPhaseLink?.order.phase.toLowerCase() ===
+          ranking.rankingOrder.phase.toLowerCase() ? (
             table ? (
               <Table
                 school={school as School}
@@ -203,11 +222,11 @@ async function getMinScorePhasesObj(
 ) {
   const yearsStats: MinScorePhasesObj = new CustomMap();
   for (const year of years) {
-    const phases = data.getPhasesLinks(school, year);
+    const phases = await data.getPhases(school, year);
     if (!phases) continue;
 
     const phasesMap: MinScorePhasesObj_PhasesMap = new CustomMap();
-    for (const phase of phases) {
+    for (const phase of phases.all.values()) {
       const r = await data.loadRanking(school, year, phase.href);
       const localCourse =
         r && Store.getTable(r, selectedCourse, selectedLocation);
@@ -216,7 +235,7 @@ async function getMinScorePhasesObj(
       const phaseStats = await data.getCourseStats(
         school,
         year,
-        phase.name,
+        phase.order.phase,
         localCourse as CourseTable,
       );
       if (!phaseStats) continue;

@@ -4,6 +4,11 @@ import School from "@/utils/types/data/School";
 import { NotFoundError } from "@/utils/errors";
 import { homepageRoute } from ".";
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
+import {
+  PhaseGroup,
+  PhaseLink,
+} from "@/utils/types/data/parsed/Index/RankingFile";
+import { NO_GROUP } from "@/utils/constants";
 
 export const choosePhaseRoute = new Route({
   getParentRoute: () => homepageRoute,
@@ -28,27 +33,62 @@ export const choosePhaseRoute = new Route({
     return <ErrorComponent error={error} />;
   },
   component: function ChoosePhase({ useParams, useLoader }) {
-    const { phases } = useLoader();
+    const { groups } = useLoader().phases;
     const { school, year } = useParams();
 
     return (
       <>
         <p className="w-full text-xl">Scegli una graduatoria</p>
-        <ButtonGrid length={phases.length}>
-          {phases.map((phase) => (
-            <Link
-              to="/view/$school/$year/$phase"
-              params={{ school, year, phase: phase.href }}
-              key={phase.href}
-              className="h-full"
-            >
-              <Button size="card" variant="secondary" className="h-full w-full">
-                <span className="text-base">{phase.name}</span>
-              </Button>
-            </Link>
+        <>
+          {groups.valuesArr().map((group) => (
+            <Group
+              group={group}
+              phases={group.phases}
+              school={school}
+              year={year}
+              key={group.value}
+            />
           ))}
-        </ButtonGrid>
+        </>
       </>
     );
   },
 });
+
+type GroupProps = ButtonsProps & {
+  group: PhaseGroup;
+};
+
+function Group({ group, ...props }: GroupProps) {
+  return (
+    <>
+      {group.value !== NO_GROUP && <p>{group.label}</p>}
+      <Buttons {...props} />
+    </>
+  );
+}
+
+type ButtonsProps = {
+  school: School;
+  year: number;
+  phases: PhaseLink[];
+};
+
+function Buttons({ school, year, phases }: ButtonsProps) {
+  return (
+    <ButtonGrid length={phases.length}>
+      {phases.map((phase) => (
+        <Link
+          to="/view/$school/$year/$phase"
+          params={{ school, year, phase: phase.href }}
+          key={phase.href}
+          className="h-full"
+        >
+          <Button size="card" variant="secondary" className="h-full w-full">
+            <span className="text-base">{phase.name}</span>
+          </Button>
+        </Link>
+      ))}
+    </ButtonGrid>
+  );
+}
