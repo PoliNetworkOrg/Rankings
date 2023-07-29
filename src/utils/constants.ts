@@ -1,9 +1,16 @@
 export const LINKS = {
   polinetworkMain: "https://polinetwork.org",
   githubSource: "https://github.com/PoliNetworkOrg/Rankings",
-  dataBasePath:
-    "https://raw.githubusercontent.com/PoliNetworkOrg/GraduatorieScriptCSharp/main/data/output",
+  dataRepoUrlRaw:
+    "https://raw.githubusercontent.com/PoliNetworkOrg/RankingsDati",
+  dataRepoUrl: "https://github.com/PoliNetworkOrg/RankingsDati",
+  githubPreviewDomain: "polinetworkorg.github.io",
 } as const;
+
+export enum DATA_REF {
+  STABLE = "stable",
+  MAIN = "main",
+}
 
 export const SCHOOLS = [
   "Architettura",
