@@ -24,7 +24,7 @@ export default function DevSettings({ data }: { data?: Data }) {
           }`}
         >
           <div className="flex w-full items-center justify-between">
-            <h3 className="text-xl">Dev Settings</h3>
+            <h3 className="text-2xl font-bold">Dev Settings</h3>
             <Button
               size="icon"
               variant="outline"
@@ -36,29 +36,38 @@ export default function DevSettings({ data }: { data?: Data }) {
 
           <hr className="w-full border-slate-600" />
 
-          <div className="flex items-center gap-4">
-            <p>
-              Sorgente data{" "}
-              <a
-                href={LINKS.dataRepoUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                (repo)
-              </a>
-            </p>
-            <Tabs value={data.ref} onValueChange={handleChangeRef}>
-              <TabsList>
-                <TabsTrigger className="block" value={DATA_REF.MAIN}>
-                  Main
-                </TabsTrigger>
-                <TabsTrigger className="block" value={DATA_REF.STABLE}>
-                  Stable
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
+          <Section title="WebApp Info">
+            <p>Version: {APP_VERSION}</p>
+          </Section>
+
+          <hr className="w-full border-slate-600" />
+
+          <Section title="Settings">
+            <div className="flex items-center gap-4">
+              <p>
+                Sorgente data{" "}
+                <a
+                  href={LINKS.dataRepoUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  (repo)
+                </a>
+              </p>
+              <Tabs value={data.ref} onValueChange={handleChangeRef}>
+                <TabsList>
+                  <TabsTrigger className="block" value={DATA_REF.MAIN}>
+                    Main
+                  </TabsTrigger>
+                  <TabsTrigger className="block" value={DATA_REF.STABLE}>
+                    Stable
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+          </Section>
         </div>
+
         {!open && (
           <Button
             onClick={() => setOpen(true)}
@@ -71,5 +80,18 @@ export default function DevSettings({ data }: { data?: Data }) {
         )}
       </>
     )
+  );
+}
+
+type SectionProps = {
+  title: string;
+  children: React.ReactNode;
+};
+function Section({ title, children }: SectionProps) {
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <h4 className="text-lg font-bold">{title}</h4>
+      {children}
+    </div>
   );
 }
