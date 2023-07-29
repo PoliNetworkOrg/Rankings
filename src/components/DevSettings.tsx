@@ -19,7 +19,7 @@ export default function DevSettings({ data }: { data?: Data }) {
     data && (
       <>
         <div
-          className={`fixed left-0 top-0 flex h-screen w-full flex-col items-start justify-start gap-4 border-slate-600 bg-black/60 p-4 backdrop-blur ${
+          className={`fixed left-0 top-0 flex h-screen w-full flex-col items-start justify-start gap-4 border-slate-600 bg-white/20 p-4 backdrop-blur dark:bg-black/60 ${
             open ? "border-t " : "hidden"
           }`}
         >
