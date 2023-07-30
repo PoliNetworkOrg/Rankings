@@ -16,6 +16,7 @@ import { notFoundRoute } from "./routes/notFound";
 import Data from "./utils/data/data";
 import { loaderClient } from "./utils/loaders";
 import { chooseSchoolRoute } from "./routes/homepage/chooseSchool";
+import { DATA_REF, LINKS } from "./utils/constants";
 
 const indexRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -39,6 +40,7 @@ const routeTree = rootRoute.addChildren([
 
 export type RouterContext = {
   loaderClient: typeof loaderClient;
+  isDev: boolean;
   data: Promise<Data>;
 };
 
@@ -46,7 +48,10 @@ export const router = new TRouter({
   routeTree,
   context: {
     loaderClient,
-    data: Data.init(),
+    isDev:
+      new URL(window.location.href).hostname == LINKS.githubPreviewDomain ||
+      process.env.NODE_ENV == "development",
+    data: Data.init(DATA_REF.STABLE),
   },
   history: createHashHistory(),
 });
