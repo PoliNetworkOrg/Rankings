@@ -2,16 +2,18 @@ import { Link, Route } from "@tanstack/router";
 import { Button } from "@/components/ui/button";
 import { homepageRoute } from ".";
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
+import DevSettings from "@/components/DevSettings";
 
 export const chooseSchoolRoute = new Route({
   getParentRoute: () => homepageRoute,
   path: "/",
   loader: async ({ context }) => {
-    const { data } = context;
-    return await data;
+    const { data, isDev } = context;
+    const awaitedData = await data;
+    return { data: awaitedData, isDev };
   },
   component: function ChooseSchool({ useLoader }) {
-    const data = useLoader();
+    const { data, isDev } = useLoader();
 
     return (
       <>
@@ -39,6 +41,7 @@ export const chooseSchoolRoute = new Route({
             </Link>
           ))}
         </ButtonGrid>
+        {isDev && <DevSettings data={data} />}
       </>
     );
   },
