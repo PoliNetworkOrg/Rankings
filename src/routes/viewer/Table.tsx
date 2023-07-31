@@ -46,10 +46,7 @@ import MeritTable from "@/utils/types/data/parsed/Ranking/MeritTable";
 import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable";
 import Store from "@/utils/data/store";
 import { sha256 } from "@/utils/strings/crypto";
-import {
-  capitaliseWords,
-  convertQuoteToAccent,
-} from "@/utils/strings/capitalisation";
+import { capitaliseWords } from "@/utils/strings/capitalisation";
 
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   school: School;
