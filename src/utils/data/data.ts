@@ -1,5 +1,5 @@
 import urlJoin from "url-join";
-import { LINKS, NO_GROUP } from "../constants";
+import { DATA_REF, LINKS, NO_GROUP } from "../constants";
 import { IndexBySchoolYear } from "../types/data/parsed/Index/IndexBySchoolYear";
 import { IndexBySchoolYearCourse } from "../types/data/parsed/Index/IndexBySchoolYearCourse";
 import School from "../types/data/School";
@@ -18,15 +18,10 @@ import { capitaliseWords } from "../strings/capitalisation";
 import { sortDesUrbPhases, sortIngArcPhases } from "./sortPhases";
 
 export default class Data {
-  protected static readonly _u = LINKS.dataBasePath;
-  protected static readonly indexUrl: string = urlJoin(
-    this._u,
-    "bySchoolYear.json",
-  );
-  protected static readonly coursePhasesUrl: string = urlJoin(
-    this._u,
-    "bySchoolYearCourse.json",
-  );
+  public readonly ref: DATA_REF;
+  protected readonly _outUrl: string;
+  protected readonly _indexUrl: string;
+  protected readonly _coursePhasesUrl: string;
 
   public indexBySchoolYear?: IndexBySchoolYear;
   public indexBySchoolYearCourse?: IndexBySchoolYearCourse;
@@ -35,13 +30,24 @@ export default class Data {
 
   private cache: CustomMap<string, Ranking> = new CustomMap();
 
-  public static async init() {
-    const data = new Data();
-    data.indexBySchoolYear = await fetch(Data.indexUrl)
+  private static buildUrl(ref: DATA_REF): string {
+    return urlJoin(LINKS.dataRepoUrlRaw, ref, "/data/output");
+  }
+
+  private constructor(ref: DATA_REF) {
+    this._outUrl = Data.buildUrl(ref);
+    this._indexUrl = urlJoin(this._outUrl, "bySchoolYear.json");
+    this._coursePhasesUrl = urlJoin(this._outUrl, "bySchoolYearCourse.json");
+    this.ref = ref;
+  }
+
+  public static async init(ref: DATA_REF) {
+    const data = new Data(ref);
+    data.indexBySchoolYear = await fetch(data._indexUrl)
       .then((res) => res.json())
       .then((json) => JsonParser.parseIndexBySchoolYear(json));
 
-    data.indexBySchoolYearCourse = await fetch(Data.coursePhasesUrl)
+    data.indexBySchoolYearCourse = await fetch(data._coursePhasesUrl)
       .then((res) => res.json())
       .then((json) => JsonParser.parseIndexBySchoolYearCourse(json));
 
@@ -50,7 +56,7 @@ export default class Data {
     data.indexBySchoolYear?.schools.forEach((years) =>
       years.forEach((files) =>
         files.forEach((file) => {
-          const url = urlJoin(this._u, file.basePath, file.link);
+          const url = urlJoin(data._outUrl, file.basePath, file.link);
           data.urls.push(url);
         }),
       ),
@@ -102,7 +108,7 @@ export default class Data {
     const file = files.find((f) => f.link.toLowerCase() === fixedPhase);
     if (!file) return;
 
-    const url = urlJoin(Data._u, school, year.toString(), file.link);
+    const url = urlJoin(this._outUrl, school, year.toString(), file.link);
     const ranking = await this.getRanking(url);
     return ranking;
   }
