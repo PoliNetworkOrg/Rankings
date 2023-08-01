@@ -91,8 +91,7 @@ function makeHas(rows: StudentResult[]): Record<StudentResultKeys, boolean> {
     birthDate: checkKey("birthDate"),
     result: checkKey("result"),
     ofa: checkKey("ofa"),
-    canEnroll: checkKey("canEnroll"),
-    canEnrollInto: checkKey("canEnrollInto"),
+    enroll: checkKey("enroll"),
     id: checkKey("id"),
   };
   return has;
@@ -370,12 +369,17 @@ function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
       header: "Immatricolazione",
       columns: [
         {
-          accessorKey: "canEnroll",
+          accessorKey: "enroll.allowed",
           header: "Consentita",
           cell: CellFns.displayBool,
         },
         {
-          accessorKey: "canEnrollInto",
+          accessorKey: "enroll.status",
+          header: "Stato",
+          cell: CellFns.displayString,
+        },
+        {
+          accessorKey: "enroll.course",
           header: "Corso",
           cell: CellFns.displayString,
         },
