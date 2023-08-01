@@ -266,4 +266,23 @@ export default class Data {
 
     return phases;
   }
+
+  public async getAllYearRankings(
+    school: School,
+    year: number,
+  ): Promise<Ranking[]> {
+    const r: Ranking[] = [];
+    const phases = await this.getPhases(school, year);
+
+    if (!phases) return r;
+
+    const hrefs = phases.all.map((pl) => pl.href);
+
+    for (const href of hrefs) {
+      const ranking = await this.loadRanking(school, year, href);
+      if (ranking) r.push(ranking);
+    }
+
+    return r;
+  }
 }
