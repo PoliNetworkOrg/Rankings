@@ -29,7 +29,7 @@ export default class Store {
     return this._ranking;
   }
 
-  public getCourses() {
+  public getCourses(): CustomMap<string, CourseInfo> {
     const map = new CustomMap<string, CourseInfo>();
     map.set(ABS_ORDER, {
       value: ABS_ORDER,
