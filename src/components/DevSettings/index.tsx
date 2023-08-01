@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
-import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
+import { Button } from "../ui/button";
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { DATA_REF, LINKS, SCHOOLS } from "@/utils/constants";
 import Data from "@/utils/data/data";
 import { useRouterContext } from "@tanstack/router";
@@ -8,9 +8,9 @@ import { LuSettings2, LuX } from "react-icons/lu";
 import CustomMap from "@/utils/CustomMap";
 import School from "@/utils/types/data/School";
 import Ranking from "@/utils/types/data/parsed/Ranking";
-import Spinner from "./custom-ui/Spinner";
-import Page from "./custom-ui/Page";
-import { Badge } from "./ui/badge";
+import Spinner from "../custom-ui/Spinner";
+import Page from "../custom-ui/Page";
+import { Badge } from "../ui/badge";
 import {
   Table,
   TableBody,
@@ -18,7 +18,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
+} from "../ui/table";
 
 type LocalData = {
   main?: Data;
