@@ -1,7 +1,20 @@
-export function capitaliseWords(str: string): string {
+export function convertQuoteToAccent(str: string): string {
+  return str
+    .replaceAll(/(A'|a'|À|Á)/g, "à")
+    .replaceAll(/(E'|e'|È|É)/g, "è")
+    .replaceAll(/(I'|i'|Ì)/g, "ì")
+    .replaceAll(/(O'|o'|Ò)/g, "ò")
+    .replaceAll(/(U'|u'|Ù)/g, "ù");
+}
+
+export function capitaliseWords(
+  str: string,
+  doConvertQuoteToAccent = true,
+): string {
   const words = str.toLowerCase().split(/\b/);
   const capitalizedWords = words.map((word) => capitaliseWithRules(word));
-  return capitalizedWords.join("");
+  const joined = capitalizedWords.join("");
+  return doConvertQuoteToAccent ? convertQuoteToAccent(joined) : joined;
 }
 
 function capitaliseWithRules(word: string): string {
