@@ -112,7 +112,14 @@ export default class JsonParser {
   }
 
   private static parseStudentResult(json: JsonStudentResult): StudentResult {
-    const { ofa, sectionsResults, ...rowBase } = json;
+    const {
+      ofa,
+      canEnroll,
+      canEnrollInto,
+      sectionsResults,
+      enrollType,
+      ...rowBase
+    } = json;
     const ofaMap: StudentResult_OfaMap = new CustomMap();
     if (ofa)
       for (const [name, value] of Object.entries(ofa)) {
@@ -128,6 +135,11 @@ export default class JsonParser {
 
     return {
       ...rowBase,
+      enroll: {
+        allowed: enrollType?.canEnroll ?? canEnroll ?? false,
+        course: enrollType?.course ?? canEnrollInto,
+        status: enrollType?.type,
+      },
       ofa: ofaMap.size > 0 ? ofaMap : undefined,
       sectionsResults:
         sectionsResultsMap.size > 0 ? sectionsResultsMap : undefined,

@@ -1,5 +1,12 @@
+export type JsonEnrollType = {
+  canEnroll: boolean;
+  course?: string;
+  type?: string;
+};
+
 type JsonStudentResult = {
   birthDate?: string;
+  enrollType?: JsonEnrollType;
   canEnroll?: boolean;
   canEnrollInto?: string;
   englishCorrectAnswers?: number;
