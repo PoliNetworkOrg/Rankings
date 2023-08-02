@@ -116,8 +116,9 @@ export default class Store {
         row.result ?? null,
         row.positionAbsolute ?? null,
         row.positionCourse ?? null,
-        this.displayBoolean(row.canEnroll),
-        row.canEnrollInto ?? null,
+        this.displayBoolean(row.enroll.allowed),
+        row.enroll.status ?? null,
+        row.enroll.course ?? null,
         row.englishCorrectAnswers ?? null,
       ];
 
@@ -137,8 +138,9 @@ export default class Store {
       "Voto test",
       "Posizione assoluta",
       "Posizione nel corso",
-      "Immatricolazione consentita",
-      "Immatricolazione consentita nel corso",
+      "Immatricolazione (consentita)",
+      "Immatricolazione (stato)",
+      "Immatricolazione (corso)",
       "Risposte corrette inglese",
     ];
 
