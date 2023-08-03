@@ -1,6 +1,10 @@
 export const LINKS = {
   polinetworkMain: "https://polinetwork.org",
-  githubSource: "https://github.com/PoliNetworkOrg/Rankings",
+  githubSource: {
+    web: "https://github.com/PoliNetworkOrg/Rankings",
+    dati: "https://github.com/PoliNetworkOrg/RankingsDati",
+    script: "https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp",
+  },
   dataRepoUrlRaw:
     "https://raw.githubusercontent.com/PoliNetworkOrg/RankingsDati",
   dataRepoUrl: "https://github.com/PoliNetworkOrg/RankingsDati",
