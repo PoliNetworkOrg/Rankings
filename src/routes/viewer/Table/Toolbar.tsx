@@ -18,23 +18,23 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
   const enrollAllowedCol = table.getColumn("enrollAllowed");
 
   return (
-    <div className="flex w-full items-center justify-between gap-4">
-      <div className="flex flex-1 items-center justify-start gap-4">
-        {table.getColumn("matricola-hash") && (
-          <Input
-            className="max-w-[300px]"
-            placeholder="Filter per matricola..."
-            value={
-              (table.getColumn("matricola-hash")?.getFilterValue() as string) ??
-              ""
-            }
-            onChange={(event) =>
-              table
-                .getColumn("matricola-hash")
-                ?.setFilterValue(event.target.value)
-            }
-          />
-        )}
+    <div className="flex w-full flex-wrap items-center justify-start gap-4 max-sm:flex-col max-sm:items-start">
+      {table.getColumn("matricola-hash") && (
+        <Input
+          className="max-w-[300px]"
+          placeholder="Filter per matricola..."
+          value={
+            (table.getColumn("matricola-hash")?.getFilterValue() as string) ??
+            ""
+          }
+          onChange={(event) =>
+            table
+              .getColumn("matricola-hash")
+              ?.setFilterValue(event.target.value)
+          }
+        />
+      )}
+      <div className="flex flex-1 justify-start gap-4 max-xs:flex-wrap">
         {has.enrollAllowed && enrollAllowedCol && (
           <FilterBtn
             column={enrollAllowedCol}
@@ -50,14 +50,16 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
           />
         )}
       </div>
-      <Button
-        variant="outline"
-        className="whitespace-nowrap"
-        onClick={onCsvClick}
-      >
-        <MdDownload size={20} />
-        <span className="max-sm:hidden">Download CSV</span>
-      </Button>
+      <div className="flex justify-end ">
+        <Button
+          variant="outline"
+          className="whitespace-nowrap"
+          onClick={onCsvClick}
+        >
+          <MdDownload size={20} />
+          <span className="max-sm:hidden">Download CSV</span>
+        </Button>
+      </div>
     </div>
   );
 }

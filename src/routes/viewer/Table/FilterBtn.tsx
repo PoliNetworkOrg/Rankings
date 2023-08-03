@@ -46,7 +46,7 @@ export function FilterBtn<TData, TValue>({
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center justify-center border-dashed px-2"
+          className="flex items-center justify-center whitespace-nowrap border-dashed px-2"
         >
           <PlusCircledIcon className="mr-2" />
           {title}
