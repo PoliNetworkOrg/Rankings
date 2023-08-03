@@ -26,11 +26,23 @@ export const aboutRoute = new Route({
             <ul className="flex list-disc flex-col gap-1 py-1 pl-4">
               <li>
                 Lorenzo Corallo, Developer,{" "}
-                <a href="https://t.me/lorenzocorallo">Telegram</a>
+                <a
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href="https://t.me/lorenzocorallo"
+                >
+                  Telegram
+                </a>
               </li>
               <li>
                 Giovanni Malusa, Designer,{" "}
-                <a href="https://t.me/giovannimalausa">Telegram</a>
+                <a
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href="https://t.me/giovannimalausa"
+                >
+                  Telegram
+                </a>
               </li>
             </ul>
           </div>
@@ -38,14 +50,25 @@ export const aboutRoute = new Route({
           <div>
             Sei interessato a contribuire allo sviluppo dei progetti del network
             e/o conoscere di più la nostra realtà?{" "}
-            <a href="https://polinetwork.org/learnmore/contacts/">
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://polinetwork.org/learnmore/contacts/"
+            >
               Contattaci!
             </a>
           </div>
 
           <div className="text-right">
             Sviluppato con amore da{" "}
-            <a href="https://polinetwork.org">PoliNetwork</a> ❤️
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://polinetwork.org"
+            >
+              PoliNetwork
+            </a>{" "}
+            ❤️
           </div>
         </div>
       </Page>
