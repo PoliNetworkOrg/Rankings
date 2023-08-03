@@ -13,39 +13,95 @@ export const sourceRoute = new Route({
           <h2 className="text-center text-lg font-bold">Source</h2>
           <div>
             <p>Il codice è suddiviso in tre repository:</p>
-            <ul className="flex list-disc flex-col gap-1 py-1 pl-4">
-              <li>
-                <a
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  href={LINKS.githubSource.web}
-                >
-                  Rankings
-                </a>
-                : questa web-app
-              </li>
-              <li>
-                <a
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  href={LINKS.githubSource.script}
-                >
-                  GraduatorieScriptCSharp
-                </a>
-                : script che scarica i dati dal Politecnico e li trasforma in
-                json
-              </li>
-              <li>
-                <a
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  href={LINKS.githubSource.dati}
-                >
-                  RankingsDati
-                </a>
-                : contiene i dati originali e l'output dello script
-              </li>
-            </ul>
+            <br />
+            <br />
+            <center>
+              <table className="m-10 border p-10">
+                <tr>
+                  <td className="flex-col gap-8 pl-8 pr-8 font-bold">&nbsp;</td>
+                  <td className="flex-col gap-8 pl-8 pr-8 font-bold">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td className="flex-col gap-8 pl-8 pr-8 font-bold">
+                    {" "}
+                    <center>Nome</center>
+                  </td>
+                  <td className="flex-col gap-8 pl-8 pr-8 font-bold">
+                    <center> Descrizione</center>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="flex-col gap-8 pl-8 pr-8 font-bold">&nbsp;</td>
+                  <td className="flex-col gap-8 pl-8 pr-8 font-bold">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      href={LINKS.githubSource.web}
+                    >
+                      <span className="flex-col gap-8 pl-8 pr-8">
+                        {" "}
+                        <center> Rankings</center>
+                      </span>
+                    </a>
+                  </td>
+                  <td>
+                    <span className="flex-col gap-8 pl-8 pr-8">
+                      <center> Questa web-app</center>
+                    </span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <a
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      href={LINKS.githubSource.script}
+                    >
+                      <span className="flex-col gap-8 pl-8 pr-8">
+                        <center>
+                          &nbsp;&nbsp;&nbsp;GraduatorieScriptCSharp
+                          &nbsp;&nbsp;&nbsp;
+                        </center>
+                      </span>
+                    </a>
+                  </td>
+                  <td>
+                    <span className="flex-col gap-8 pl-8 pr-8">
+                      <center>
+                        &nbsp;&nbsp;&nbsp; Script che scarica i dati dal
+                        Politecnico e li trasforma in json&nbsp;&nbsp;&nbsp;
+                      </center>
+                    </span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <a
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      href={LINKS.githubSource.dati}
+                    >
+                      <span className="flex-col gap-8 pl-8 pr-8">
+                        <center> RankingsDati</center>
+                      </span>
+                    </a>
+                  </td>
+                  <td>
+                    <span className="flex-col gap-8 pl-8 pr-8">
+                      <center>
+                        {" "}
+                        Contiene i dati originali e l'output dello script
+                      </center>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </center>
           </div>
         </div>
       </Page>
