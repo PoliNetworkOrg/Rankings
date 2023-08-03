@@ -30,7 +30,7 @@ export default function Footer() {
         <FooterColumn className="flex-shrink-0">
           <nav className="flex justify-end gap-8 max-md:justify-center">
             <Link to="/about">About</Link>
-            <ExternalLink href={LINKS.githubSource}>Source</ExternalLink>
+            <Link to="/source">Source</Link>
             <Link to="/privacy">Privacy & Cookies</Link>
           </nav>
         </FooterColumn>

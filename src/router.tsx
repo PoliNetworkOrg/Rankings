@@ -17,6 +17,7 @@ import Data from "./utils/data/data";
 import { loaderClient } from "./utils/loaders";
 import { chooseSchoolRoute } from "./routes/homepage/chooseSchool";
 import { DATA_REF, LINKS } from "./utils/constants";
+import { sourceRoute } from "./routes/source";
 
 const indexRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -35,6 +36,7 @@ const routeTree = rootRoute.addChildren([
   privacyRoute,
   testRoute,
   viewerRoute,
+  sourceRoute,
   notFoundRoute,
 ]);
 
