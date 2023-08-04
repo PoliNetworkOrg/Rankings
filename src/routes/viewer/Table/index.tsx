@@ -145,7 +145,7 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody>
+            <TableBody bg="odd">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow

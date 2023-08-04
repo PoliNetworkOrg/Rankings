@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/utils/ui.ts";
+import { ClassValue } from "clsx";
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -24,20 +25,28 @@ const TableHeader = React.forwardRef<
 ));
 TableHeader.displayName = "TableHeader";
 
-const TableBody = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <tbody
-    ref={ref}
-    className={cn(
-      "[&_tr:last-child]:border-0 [&_tr:nth-child(odd):not(:hover)]:bg-slate-100",
-      "dark:[&_tr:nth-child(odd):not(:hover)]:bg-slate-400/5",
-      className,
-    )}
-    {...props}
-  />
-));
+type TableBodyProps = React.HTMLAttributes<HTMLTableSectionElement> & {
+  bg?: "odd" | "even" | "none";
+};
+
+const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
+  ({ bg = "", className, ...props }, ref) => {
+    const bgClass: ClassValue =
+      (bg === "odd" &&
+        "[&_tr:nth-child(odd):not(:hover)]:bg-slate-100 dark:[&_tr:nth-child(odd):not(:hover)]:bg-slate-400/5") ||
+      (bg === "even" &&
+        "[&_tr:nth-child(even):not(:hover)]:bg-slate-100 dark:[&_tr:nth-child(even):not(:hover)]:bg-slate-400/5") ||
+      "";
+
+    return (
+      <tbody
+        ref={ref}
+        className={cn(bgClass, "[&_tr:last-child]:border-0", className)}
+        {...props}
+      />
+    );
+  },
+);
 TableBody.displayName = "TableBody";
 
 const TableFooter = React.forwardRef<
