@@ -24,7 +24,7 @@ const sources: Source[] = [
     desc: "Questa web-app",
   },
   {
-    name: "GraduatorieScriptCSharp",
+    name: "Script",
     link: LINKS.githubSource.script,
     desc: "Script che scarica i dati dal Politecnico e li trasforma in json",
   },
