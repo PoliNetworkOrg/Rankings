@@ -18,10 +18,10 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
   const enrollAllowedCol = table.getColumn("enrollAllowed");
 
   return (
-    <div className="flex w-full flex-wrap items-center justify-start gap-4 max-sm:flex-col max-sm:items-start">
+    <div className="flex w-full flex-wrap items-center justify-start gap-4 max-sm:items-start max-2xs:flex-col">
       {table.getColumn("matricola-hash") && (
         <Input
-          className="max-w-[300px]"
+          className="w-full sm:max-w-[300px]"
           placeholder="Filter per matricola..."
           value={
             (table.getColumn("matricola-hash")?.getFilterValue() as string) ??
@@ -45,7 +45,7 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
         {has.enrollStatus && enrollStatusCol && (
           <FilterBtn
             column={enrollStatusCol}
-            title="Stato immatricolazione"
+            title="Stato"
             options={enrollStatusOpts}
           />
         )}
