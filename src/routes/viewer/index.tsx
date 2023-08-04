@@ -14,7 +14,7 @@ import Spinner from "@/components/custom-ui/Spinner.tsx";
 import Page from "@/components/custom-ui/Page.tsx";
 import PathBreadcrumb from "@/components/PathBreadcrumb.tsx";
 import { rootRoute } from "@/routes/root.tsx";
-import Table from "./Table.tsx";
+import Table from "./Table";
 import PhaseSelect from "./PhaseSelect";
 import { CourseCombobox } from "./CourseCombobox.tsx";
 import LocationsSelect from "./LocationSelect.tsx";
@@ -160,22 +160,20 @@ export const viewerRoute = new Route({
           </div>
         </div>
 
-        <div className="flex w-full flex-col gap-4 px-4">
-          {selectedPhaseLink?.order.phase.toLowerCase() ===
-          ranking.rankingOrder.phase.toLowerCase() ? (
-            table ? (
-              <Table
-                school={school as School}
-                table={table}
-                csvFilename={`${selectedCourse}_${selectedLocation ?? "0"}`}
-              />
-            ) : (
-              <p>Nessun dato disponibile</p>
-            )
+        {selectedPhaseLink?.order.phase.toLowerCase() ===
+        ranking.rankingOrder.phase.toLowerCase() ? (
+          table ? (
+            <Table
+              school={school as School}
+              table={table}
+              csvFilename={`${selectedCourse}_${selectedLocation ?? "0"}`}
+            />
           ) : (
-            <Spinner />
-          )}
-        </div>
+            <p>Nessun dato disponibile</p>
+          )
+        ) : (
+          <Spinner />
+        )}
       </Page>
     );
   },
