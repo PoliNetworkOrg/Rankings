@@ -10,28 +10,34 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { LuDatabase, LuGlobe, LuSettings } from "react-icons/lu";
+import { IconType } from "react-icons";
 
 type Source = {
   name: string;
   link: string;
   desc: string;
+  icon?: IconType;
 };
 
 const sources: Source[] = [
   {
-    name: "Rankings",
+    name: "Web",
     link: LINKS.githubSource.web,
     desc: "Questa web-app",
+    icon: LuGlobe,
   },
   {
     name: "Script",
     link: LINKS.githubSource.script,
     desc: "Script che scarica i dati dal Politecnico e li trasforma in json",
+    icon: LuSettings,
   },
   {
-    name: "RankingsDati",
+    name: "Dati",
     link: LINKS.githubSource.dati,
     desc: "Contiene i dati originali e l'output dello script",
+    icon: LuDatabase,
   },
 ];
 
@@ -49,7 +55,7 @@ export const sourceRoute = new Route({
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Nome</TableHead>
+                    <TableHead>Repo</TableHead>
                     <TableHead>Descrizione</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -61,7 +67,11 @@ export const sourceRoute = new Route({
                           target="_blank"
                           rel="noreferrer noopener"
                           href={source.link}
+                          className="flex items-center text-sm"
                         >
+                          {source.icon && (
+                            <source.icon className="mr-1" size={16} />
+                          )}
                           {source.name}
                         </a>
                       </TableCell>
