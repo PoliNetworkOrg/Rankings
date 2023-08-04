@@ -2,7 +2,6 @@ import CustomMap from "../../../../CustomMap";
 
 type StudentResult = {
   birthDate?: string;
-  enroll: Enroll;
   englishCorrectAnswers?: number;
   id?: string;
   positionAbsolute?: number;
@@ -10,12 +9,9 @@ type StudentResult = {
   result?: number;
   ofa?: StudentResult_OfaMap;
   sectionsResults?: StudentResult_SectionsResultsMap;
-};
-
-export type Enroll = {
-  allowed: boolean;
-  status?: string;
-  course?: string;
+  enrollAllowed: boolean;
+  enrollStatus?: string;
+  enrollCourse?: string;
 };
 
 // key = ofa id

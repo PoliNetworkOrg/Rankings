@@ -135,11 +135,9 @@ export default class JsonParser {
 
     return {
       ...rowBase,
-      enroll: {
-        allowed: enrollType?.canEnroll ?? canEnroll ?? false,
-        course: enrollType?.course ?? canEnrollInto,
-        status: enrollType?.type,
-      },
+      enrollAllowed: enrollType?.canEnroll ?? canEnroll ?? false,
+      enrollCourse: enrollType?.course ?? canEnrollInto,
+      enrollStatus: enrollType?.type?.toLowerCase(),
       ofa: ofaMap.size > 0 ? ofaMap : undefined,
       sectionsResults:
         sectionsResultsMap.size > 0 ? sectionsResultsMap : undefined,

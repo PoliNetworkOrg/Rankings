@@ -116,9 +116,9 @@ export default class Store {
         row.result ?? null,
         row.positionAbsolute ?? null,
         row.positionCourse ?? null,
-        this.displayBoolean(row.enroll.allowed),
-        row.enroll.status ?? null,
-        row.enroll.course ?? null,
+        this.displayBoolean(row.enrollAllowed),
+        row.enrollStatus ?? null,
+        row.enrollCourse ?? null,
         row.englishCorrectAnswers ?? null,
       ];
 
