@@ -33,3 +33,21 @@ export const SALT = "saltPoliNetwork" as const;
 export const LOCAL_STORAGE = {
   darkMode: "pnr_dark_mode",
 };
+
+type Credit = {
+  name: string;
+  role?: string;
+  tgLink?: string;
+};
+export const CREDITS: Credit[] = [
+  {
+    name: "Lorenzo Corallo",
+    role: "Developer",
+    tgLink: "https://t.me/lorenzocorallo",
+  },
+  {
+    name: "Giovanni Malausa",
+    role: "Designer",
+    tgLink: "https://t.me/giovannimalausa",
+  },
+];

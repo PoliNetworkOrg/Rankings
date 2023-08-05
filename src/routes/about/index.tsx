@@ -1,6 +1,8 @@
 import { Route } from "@tanstack/router";
 import Page from "@/components/custom-ui/Page";
 import { rootRoute } from "../root";
+import { CREDITS } from "@/utils/constants";
+import { FaTelegram } from "react-icons/fa";
 
 export const aboutRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -24,26 +26,27 @@ export const aboutRoute = new Route({
           <div>
             <h3>Partecipanti e collaboratori:</h3>
             <ul className="flex list-disc flex-col gap-1 py-1 pl-4">
-              <li>
-                Lorenzo Corallo, Developer,{" "}
-                <a
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  href="https://t.me/lorenzocorallo"
-                >
-                  Telegram
-                </a>
-              </li>
-              <li>
-                Giovanni Malusa, Designer,{" "}
-                <a
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  href="https://t.me/giovannimalausa"
-                >
-                  Telegram
-                </a>
-              </li>
+              {CREDITS.map((credit) => (
+                <li key={credit.name}>
+                  <p className="flex items-center justify-start">
+                    {credit.name}
+                    {credit.role && <span>&nbsp;({credit.role})</span>}
+                    {credit.tgLink && (
+                      <>
+                        &nbsp;
+                        <a
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          href={credit.tgLink}
+                          className="inline-block"
+                        >
+                          <FaTelegram size={16} />
+                        </a>
+                      </>
+                    )}
+                  </p>
+                </li>
+              ))}
             </ul>
           </div>
 
