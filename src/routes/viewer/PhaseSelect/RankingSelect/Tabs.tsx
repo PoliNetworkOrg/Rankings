@@ -1,23 +1,24 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PhaseSelectProps } from "..";
+import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile";
+
+export type RankingTabsProps = {
+  phases: PhaseLink[];
+  selectedPhase: PhaseLink;
+  onChange: (link: PhaseLink) => void;
+};
 
 export default function RankingTabs({
   selectedPhase,
-  selectedGroup,
-  onChange,
   phases,
-}: PhaseSelectProps) {
+  onChange,
+}: RankingTabsProps) {
   function handleChange(value: string): void {
-    const phase = phases.all.find((p) => p.href === value);
+    const phase = phases.find((p) => p.href === value);
     if (!phase) return;
 
-    const group = phases.groups.get(phase.group.value) ?? selectedGroup;
-    onChange(phase, group ?? selectedGroup);
+    onChange(phase);
   }
 
-  const filteredPhases = selectedGroup.phases.filter(
-    (a) => phases.all.findIndex((b) => a.href === b.href) !== -1,
-  );
   return (
     <Tabs
       value={selectedPhase.href}
@@ -25,7 +26,7 @@ export default function RankingTabs({
       className="flex flex-1"
     >
       <TabsList className="flex overflow-x-hidden">
-        {filteredPhases.map((phase) => (
+        {phases.map((phase) => (
           <TabsTrigger
             className={`block ${
               phase.href === selectedPhase.href ? "" : "truncate"

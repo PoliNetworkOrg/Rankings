@@ -13,25 +13,37 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { PhaseSelectComboboxProps } from "..";
+import {
+  PhaseGroup,
+  PhaseGroups,
+} from "@/utils/types/data/parsed/Index/RankingFile";
+import { State } from "@/utils/types/state";
+
+export type GroupComboboxProps = {
+  groups: PhaseGroups;
+  selectedGroup: PhaseGroup;
+  groupOpen: State<boolean>;
+  onChange: (group: PhaseGroup) => void;
+};
 
 export default function GroupCombobox({
   selectedGroup,
   onChange,
-  phases,
-  open,
-  setOpen,
-}: PhaseSelectComboboxProps) {
+  groups,
+  groupOpen,
+}: GroupComboboxProps) {
+  const [open, setOpen] = groupOpen;
+
   function handleChange(value: string): void {
-    setOpen(false, open[1]);
-    const group = phases.groups.get(value);
+    setOpen(false);
+    const group = groups.get(value);
     if (!group) return;
 
-    onChange(group.phases[0], group);
+    onChange(group);
   }
 
   return (
-    <Popover open={open[0]} onOpenChange={(value) => setOpen(value, open[1])}>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="h-full justify-start">
           {selectedGroup.label}
@@ -43,8 +55,8 @@ export default function GroupCombobox({
           <CommandList>
             <CommandEmpty>Nessuna graduatoria trovata</CommandEmpty>
             <CommandGroup>
-              <ScrollArea className={phases.all.length > 6 ? "h-72" : ""}>
-                {phases.groups.valuesArr().map((group) => (
+              <ScrollArea className={groups.size > 6 ? "h-72" : ""}>
+                {groups.valuesArr().map((group) => (
                   <CommandItem
                     key={group.value}
                     onSelect={handleChange}

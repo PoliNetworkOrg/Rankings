@@ -6,39 +6,32 @@ import {
   Phases,
 } from "@/utils/types/data/parsed/Index/RankingFile";
 import { NO_GROUP } from "@/utils/constants";
-import GroupCombobox from "./Combobox/GroupCombobox";
-import GroupTabs from "./Tabs/GroupTabs";
-import RankingCombobox from "./Combobox/RankingCombobox";
-import RankingTabs from "./Tabs/RankingTabs";
-import { Removable } from "@/components/custom-ui/Removable";
+import { State } from "@/utils/types/state";
+import RankingSelect from "./RankingSelect";
+import GroupSelect from "./GroupSelect";
 
-export type PhaseSelectComboboxProps = PhaseSelectProps & {
-  open: [boolean, boolean];
-  setOpen: (group: boolean, ranking: boolean) => void;
+export type GroupSelectProps = {
+  groups: PhaseGroup[];
+  groupOpen: State<boolean>;
+  selectedGroup: PhaseGroup;
+  onChange: (group: PhaseGroup) => void;
 };
 
-export type PhaseSelectProps = {
+type Props = {
   phases: Phases;
   selectedGroup: PhaseGroup;
   selectedPhase: PhaseLink;
   onChange: (link: PhaseLink, group: PhaseGroup) => void;
 };
 
-export default function PhaseSelect(props: PhaseSelectProps) {
+export default function PhaseSelect(props: Props) {
+  const { phases, selectedGroup, selectedPhase, onChange } = props;
   const { width } = useContext(MobileContext);
-  const [open, setOpen] = useState<[boolean, boolean]>([false, false]);
+  const groupOpen = useState<boolean>(false);
+  const rankingOpen = useState<boolean>(false);
 
-  const handleSetOpen = (group: boolean, ranking: boolean) =>
-    setOpen([group, ranking]);
-
-  const comboboxProps = {
-    ...props,
-    open,
-    setOpen: handleSetOpen,
-  };
-
-  const filteredPhases = props.selectedGroup.phases.filter(
-    (a) => props.phases.all.findIndex((b) => a.href === b.href) !== -1,
+  const filteredPhases = selectedGroup.phases.filter(
+    (a) => phases.all.findIndex((b) => a.href === b.href) !== -1,
   );
 
   const isCombobox = useMemo(
@@ -46,37 +39,42 @@ export default function PhaseSelect(props: PhaseSelectProps) {
     [filteredPhases.length, width],
   );
 
-  const groups = props.phases.groups.valuesArr();
-  const showGroups = !(groups.length === 1 && groups[0].value === NO_GROUP);
+  const groups = phases.groups.valuesArr();
+  const showGroups = !(
+    groups.length === 0 ||
+    (groups.length === 1 && groups[0].value === NO_GROUP)
+  );
+
+  function handleOnGroupChange(group: PhaseGroup): void {
+    const firstPhase = group.phases[0];
+    onChange(firstPhase, group);
+  }
+
+  function handleOnRankingChange(link: PhaseLink): void {
+    const group = phases.groups.get(link.group.value);
+    if (!group) return;
+
+    onChange(link, group);
+  }
 
   return (
     <div className="flex w-full flex-wrap gap-4 max-sm:flex-col">
       {showGroups && (
-        <div className="flex items-center space-x-4">
-          <p className="text-muted-foreground text-sm">Fase</p>
-          {groups.length >= 2 ? (
-            isCombobox ? (
-              <GroupCombobox {...comboboxProps} />
-            ) : (
-              <GroupTabs {...props} />
-            )
-          ) : (
-            <Removable showRemove={false}>{groups[0].label}</Removable>
-          )}
-        </div>
+        <GroupSelect
+          isCombobox={isCombobox}
+          groupOpen={groupOpen}
+          onChange={handleOnGroupChange}
+          selectedGroup={selectedGroup}
+          groups={phases.groups}
+        />
       )}
-      <div className="flex items-center space-x-4">
-        <p className="text-muted-foreground text-sm">Graduatoria</p>
-        {filteredPhases.length >= 2 ? (
-          isCombobox ? (
-            <RankingCombobox {...comboboxProps} />
-          ) : (
-            <RankingTabs {...props} />
-          )
-        ) : (
-          <Removable showRemove={false}>{filteredPhases[0].name}</Removable>
-        )}
-      </div>
+      <RankingSelect
+        isCombobox={isCombobox}
+        rankingOpen={rankingOpen}
+        onChange={handleOnRankingChange}
+        selectedPhase={selectedPhase}
+        phases={filteredPhases}
+      />
     </div>
   );
 }

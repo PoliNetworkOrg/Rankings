@@ -1,16 +1,25 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PhaseSelectProps } from "..";
+import {
+  PhaseGroup,
+  PhaseGroups,
+} from "@/utils/types/data/parsed/Index/RankingFile";
 
-export default function GroupSelect({
-  phases,
+export type GroupTabsProps = {
+  groups: PhaseGroups;
+  selectedGroup: PhaseGroup;
+  onChange: (group: PhaseGroup) => void;
+};
+
+export default function GroupTabs({
+  groups,
   selectedGroup,
   onChange,
-}: PhaseSelectProps) {
+}: GroupTabsProps) {
   function handleChange(value: string): void {
-    const group = phases.groups.get(value);
+    const group = groups.get(value);
     if (!group) return;
 
-    onChange(group.phases[0], group);
+    onChange(group);
   }
 
   return (
@@ -21,7 +30,7 @@ export default function GroupSelect({
         className="flex flex-1 overflow-x-hidden"
       >
         <TabsList className="flex overflow-x-hidden">
-          {phases.groups.valuesArr().map((group) => (
+          {groups.valuesArr().map((group) => (
             <TabsTrigger
               className="block"
               value={group.value}

@@ -13,31 +13,32 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { PhaseSelectComboboxProps } from "..";
+import { State } from "@/utils/types/state";
+import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile";
+
+export type RankingComboboxProps = {
+  rankingOpen: State<boolean>;
+  phases: PhaseLink[];
+  selectedPhase: PhaseLink;
+  onChange: (link: PhaseLink) => void;
+};
 
 export default function RankingCombobox({
-  selectedGroup,
+  rankingOpen,
   selectedPhase,
   onChange,
   phases,
-  open,
-  setOpen,
-}: PhaseSelectComboboxProps) {
+}: RankingComboboxProps) {
+  const [open, setOpen] = rankingOpen;
   function handleChange(value: string): void {
-    setOpen(open[0], false);
-    const phase = phases.all.find((p) => p.href === value);
+    setOpen(false);
+    const phase = phases.find((p) => p.href === value);
     if (!phase) return;
-
-    const group = phases.groups.get(phase.group.value) ?? selectedGroup;
-    onChange(phase, group ?? selectedGroup);
+    onChange(phase);
   }
 
-  const filteredPhases = selectedGroup.phases.filter(
-    (a) => phases.all.findIndex((b) => a.href === b.href) !== -1,
-  );
-
   return (
-    <Popover open={open[1]} onOpenChange={(value) => setOpen(open[0], value)}>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="h-full justify-start">
           {selectedPhase.name}
@@ -49,8 +50,8 @@ export default function RankingCombobox({
           <CommandList>
             <CommandEmpty>Nessuna graduatoria trovata</CommandEmpty>
             <CommandGroup>
-              <ScrollArea className={phases.all.length > 6 ? "h-72" : ""}>
-                {filteredPhases.map((phase) => (
+              <ScrollArea className={phases.length > 6 ? "h-72" : ""}>
+                {phases.map((phase) => (
                   <CommandItem
                     key={phase.href}
                     onSelect={handleChange}
