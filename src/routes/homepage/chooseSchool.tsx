@@ -25,7 +25,7 @@ export const chooseSchoolRoute = new Route({
           <span className="whitespace-nowrap">del Politecnico di Milano.</span>
         </h3>
         <p className="w-full text-xl">
-          Inizia scegliendo la Scuola di tuo interesse
+          Inizia scegliendo l'area di studi di tuo interesse
         </p>
         <ButtonGrid length={data.schools.length}>
           {data.schools.sort().map((school) => (
