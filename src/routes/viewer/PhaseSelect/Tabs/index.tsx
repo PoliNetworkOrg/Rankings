@@ -8,7 +8,7 @@ type Props = PhaseSelectProps & {
 
 export default function PhaseSelectTabs(props: Props) {
   return (
-    <div className="flex flex-1 flex-wrap gap-8 overflow-x-hidden">
+    <div className="flex flex-1 flex-wrap gap-4 overflow-x-hidden">
       {props.showGroups && <GroupSelect {...props} />}
       <RankingSelect {...props} />
     </div>

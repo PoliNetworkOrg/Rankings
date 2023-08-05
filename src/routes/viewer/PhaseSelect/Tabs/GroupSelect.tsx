@@ -14,7 +14,7 @@ export default function GroupSelect({
   }
 
   return (
-    <div className="flex flex-wrap gap-4 overflow-x-hidden">
+    <div className="mr-2 flex flex-wrap gap-4 overflow-x-hidden">
       {selectedGroup && (
         <Tabs
           value={selectedGroup.value}
