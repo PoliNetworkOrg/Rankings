@@ -1,7 +1,7 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PhaseSelectProps } from "..";
 
-export default function RankingSelect({
+export default function RankingTabs({
   selectedPhase,
   selectedGroup,
   onChange,
@@ -24,22 +24,19 @@ export default function RankingSelect({
       onValueChange={handleChange}
       className="flex flex-1"
     >
-      <div className="flex flex-1 items-center space-x-4 overflow-x-hidden">
-        <p className="text-muted-foreground text-sm">Graduatoria</p>
-        <TabsList className="flex overflow-x-hidden">
-          {filteredPhases.map((phase) => (
-            <TabsTrigger
-              className={`block ${
-                phase.href === selectedPhase.href ? "" : "truncate"
-              }`}
-              value={phase.href}
-              key={phase.href}
-            >
-              {phase.name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </div>
+      <TabsList className="flex overflow-x-hidden">
+        {filteredPhases.map((phase) => (
+          <TabsTrigger
+            className={`block ${
+              phase.href === selectedPhase.href ? "" : "truncate"
+            }`}
+            value={phase.href}
+            key={phase.href}
+          >
+            {phase.name}
+          </TabsTrigger>
+        ))}
+      </TabsList>
     </Tabs>
   );
 }

@@ -132,16 +132,14 @@ export const viewerRoute = new Route({
           }`}
         >
           <PathBreadcrumb />
-          <div className="flex w-full max-sm:flex-col max-sm:gap-4">
-            {selectedPhaseGroup && selectedPhaseLink && (
-              <PhaseSelect
-                selectedPhase={selectedPhaseLink}
-                selectedGroup={selectedPhaseGroup}
-                onChange={handlePhaseChange}
-                phases={phases}
-              />
-            )}
-          </div>
+          {selectedPhaseGroup && selectedPhaseLink && (
+            <PhaseSelect
+              selectedPhase={selectedPhaseLink}
+              selectedGroup={selectedPhaseGroup}
+              onChange={handlePhaseChange}
+              phases={phases}
+            />
+          )}
           <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">
             <div className="flex flex-1 gap-8 max-md:flex-col max-md:gap-4">
               <CourseCombobox
