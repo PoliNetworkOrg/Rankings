@@ -104,6 +104,9 @@ export function FilterBtn<TData, TValue>({
                       if (isSelected) {
                         selectedValues.delete(option.value);
                       } else {
+                        if (options.length <= 2) {
+                          selectedValues.clear();
+                        }
                         selectedValues.add(option.value);
                       }
                       const filterValues = Array.from(selectedValues);
@@ -114,7 +117,8 @@ export function FilterBtn<TData, TValue>({
                   >
                     <div
                       className={cn(
-                        "border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-sm border",
+                        "border-primary mr-2 flex h-4 w-4 items-center justify-center border",
+                        options.length <= 2 ? "rounded-full" : "rounded-sm",
                         isSelected
                           ? "bg-primary text-primary-foreground"
                           : "opacity-50 [&_svg]:invisible",
