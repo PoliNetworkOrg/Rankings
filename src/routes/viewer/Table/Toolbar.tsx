@@ -19,18 +19,13 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
 
   return (
     <div className="flex w-full flex-wrap items-center justify-start gap-4 max-sm:items-start max-2xs:flex-col">
-      {table.getColumn("matricola-hash") && (
+      {table.getColumn("id") && (
         <Input
           className="w-full sm:max-w-[300px]"
           placeholder="Filter per matricola..."
-          value={
-            (table.getColumn("matricola-hash")?.getFilterValue() as string) ??
-            ""
-          }
+          value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table
-              .getColumn("matricola-hash")
-              ?.setFilterValue(event.target.value)
+            table.getColumn("id")?.setFilterValue(event.target.value)
           }
         />
       )}
