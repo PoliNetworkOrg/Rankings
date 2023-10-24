@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE } from "@/utils/constants";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 export interface IDarkModeContext {
   isDarkMode: boolean;
@@ -29,28 +29,30 @@ function getInitialValue(): boolean {
   return ls === null ? getCssValue() : ls;
 }
 
+function updateDOMWithTheme(isDarkMode: boolean): void {
+  if (isDarkMode) {
+    document.documentElement.classList.add("dark");
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", "#00172A");
+  } else {
+    document.documentElement.classList.remove("dark");
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", "#FFFFFF");
+  }
+}
+
 type Props = React.HTMLAttributes<React.ProviderProps<IDarkModeContext>>;
 export function DarkModeProvider({ ...p }: Props) {
   const [isDarkMode, setIsDarkMode] = useState(getInitialValue());
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", "#00172A");
-    } else {
-      document.documentElement.classList.remove("dark");
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", "#FFFFFF");
-    }
-  }, [isDarkMode]);
+  updateDOMWithTheme(isDarkMode);
 
   const toggleDarkMode = () => {
     setIsDarkMode((value) => {
       const newValue = !value;
       localStorage.setItem(LOCAL_STORAGE.darkMode, JSON.stringify(newValue));
+      updateDOMWithTheme(newValue);
       return newValue;
     });
   };

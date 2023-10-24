@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import Data from "@/utils/data/data";
 import { LuSettings2, LuX } from "react-icons/lu";
@@ -15,17 +15,14 @@ type LocalData = {
 
 export default function DevSettings({ data }: { data?: Data }) {
   const [open, setOpen] = useState(false);
-
   const [{ stable, main }, setLocalData] = useState<LocalData>({});
 
-  useEffect(() => {
-    const mainData = Data.init(DATA_REF.MAIN);
-    const stableData = Data.init(DATA_REF.STABLE);
+  const mainData = Data.init(DATA_REF.MAIN);
+  const stableData = Data.init(DATA_REF.STABLE);
 
-    Promise.all([mainData, stableData]).then(([main, stable]) =>
-      setLocalData({ main, stable }),
-    );
-  }, []);
+  Promise.all([mainData, stableData]).then(([main, stable]) =>
+    setLocalData({ main, stable }),
+  );
 
   return (
     data && (
