@@ -16,7 +16,10 @@ export const rankingLoader = new Loader({
     const phases = await data.getPhases(school, year);
     const ranking = await data.loadRanking(school, year, phase);
 
+    const phaseLink = phases?.all.find((p) => p.href === phase);
+    const phaseGroup = phaseLink && phases?.groups.get(phaseLink.group.value);
+
     if (!ranking || !phases) throw new NotFoundError();
-    return { ranking, phases, data };
+    return { ranking, phases, data, phaseLink, phaseGroup };
   },
 });
