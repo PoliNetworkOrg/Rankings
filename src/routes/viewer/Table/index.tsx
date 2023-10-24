@@ -76,9 +76,9 @@ type ColumnVisibility = {
 export default function Table({ table: _table, csvFilename }: TableProps) {
   const { rows } = _table;
   const has = makeHas(rows);
-  const columns = getColumns(rows);
   const [columnVisibility, setColumnVisibility] =
     useState<ColumnVisibility>(has);
+  const columns = getColumns(rows);
   const [pagination, setPagination] = useState<PaginationState>({
     pageSize: 15,
     pageIndex: 0,
