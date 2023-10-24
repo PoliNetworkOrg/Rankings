@@ -3,7 +3,7 @@ import { capitaliseWords } from "@/utils/strings/capitalisation";
 import StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult";
 import { FilterOption } from "./FilterBtn";
 
-  export const enrollAllowedOpts: FilterOption<boolean>[] = [
+export const enrollAllowedOpts: FilterOption<boolean>[] = [
   {
     originalValue: true,
     value: "si",
@@ -204,7 +204,7 @@ export function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
         {
           accessorKey: "id",
           header: "Matricola hash",
-          id: "matricola-hash",
+          id: "id",
           cell: ({ getValue }) => {
             const value = getValue();
             return Formatter.displayHash(value);
