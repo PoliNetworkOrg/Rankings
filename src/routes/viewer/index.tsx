@@ -1,5 +1,10 @@
 import { useContext, useMemo, useState } from "react";
-import { ErrorComponent, Navigate, Route, useNavigate } from "@tanstack/router";
+import {
+  ErrorComponent,
+  Navigate,
+  Route,
+  useNavigate,
+} from "@tanstack/react-router";
 import MobileContext from "@/contexts/MobileContext";
 import School from "@/utils/types/data/School.ts";
 import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable.ts";
@@ -64,8 +69,8 @@ export const viewerRoute = new Route({
   loader: async ({ context, params }) => {
     const data = await context.data;
     const variables = { ...params, data };
-    const rankingLoader = context.loaderClient.loaders.ranking;
-    const result = await rankingLoader.load({ variables });
+    const { loaderClient } = context;
+    const result = await loaderClient.load({ key: "ranking", variables });
 
     return result;
   },

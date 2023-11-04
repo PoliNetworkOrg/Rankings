@@ -3,7 +3,7 @@ import {
   Route,
   Router as TRouter,
   createHashHistory,
-} from "@tanstack/router";
+} from "@tanstack/react-router";
 import { rootRoute } from "./routes/root";
 import { homepageRoute } from "./routes/homepage";
 import { aboutRoute } from "./routes/about";
@@ -14,10 +14,10 @@ import { choosePhaseRoute } from "./routes/homepage/choosePhase";
 import { viewerRoute } from "./routes/viewer";
 import { notFoundRoute } from "./routes/notFound";
 import Data from "./utils/data/data";
-import { loaderClient } from "./utils/loaders";
 import { chooseSchoolRoute } from "./routes/homepage/chooseSchool";
-import { DATA_REF, LINKS } from "./utils/constants";
+import { DATA_REF } from "./utils/constants";
 import { sourceRoute } from "./routes/source";
+import { loaderClient } from "./utils/loaders";
 
 const indexRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -42,23 +42,20 @@ const routeTree = rootRoute.addChildren([
 
 export type RouterContext = {
   loaderClient: typeof loaderClient;
-  isDev: boolean;
   data: Promise<Data>;
 };
 
+const history = createHashHistory();
 export const router = new TRouter({
   routeTree,
   context: {
     loaderClient,
-    isDev:
-      new URL(window.location.href).hostname == LINKS.githubPreviewDomain ||
-      process.env.NODE_ENV == "development",
     data: Data.init(DATA_REF.STABLE),
   },
-  history: createHashHistory(),
+  history,
 });
 
-declare module "@tanstack/router" {
+declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }

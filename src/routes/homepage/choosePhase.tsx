@@ -1,4 +1,4 @@
-import { Link, Navigate, Route, ErrorComponent } from "@tanstack/router";
+import { Link, Navigate, Route, ErrorComponent } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import School from "@/utils/types/data/School";
 import { NotFoundError } from "@/utils/errors";
@@ -21,14 +21,17 @@ export const choosePhaseRoute = new Route({
     const data = await context.data;
     const variables = { ...params, data };
 
-    const { choosePhase } = context.loaderClient.loaders;
+    const { loaderClient } = context;
 
-    const result = await choosePhase.load({ variables });
+    const result = await loaderClient.load({ key: "choosePhase", variables });
     return result;
   },
-  errorComponent: ({ error }) => {
+  errorComponent: function ErrorChoosePhase({ error, useParams }) {
+    const params = useParams();
     if (error instanceof NotFoundError)
-      return <Navigate from={choosePhaseRoute.fullPath} to=".." />;
+      return (
+        <Navigate params={params} from={choosePhaseRoute.fullPath} to=".." />
+      );
 
     return <ErrorComponent error={error} />;
   },

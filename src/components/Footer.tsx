@@ -1,4 +1,4 @@
-import { Link as RouterLink, LinkPropsOptions } from "@tanstack/router";
+import { Link as RouterLink, LinkPropsOptions } from "@tanstack/react-router";
 import { LINKS } from "@/utils/constants";
 import { cn } from "@/utils/ui";
 import { HTMLAttributes } from "react";

@@ -9,6 +9,7 @@ type Props = {
 };
 
 export const chooseYearLoader = new Loader({
+  key: "chooseYear",
   fn: async ({ school, data }: Props) => {
     const years = data.getYears(school);
     if (!years) throw new NotFoundError();

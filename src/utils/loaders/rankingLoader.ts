@@ -11,6 +11,7 @@ type Props = {
 };
 
 export const rankingLoader = new Loader({
+  key: "ranking",
   fn: async (props: Props) => {
     const { school, year, phase, data } = props;
     const phases = await data.getPhases(school, year);

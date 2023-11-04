@@ -1,4 +1,4 @@
-import { Route } from "@tanstack/router";
+import { Route } from "@tanstack/react-router";
 import Alert from "@/components/custom-ui/Alert";
 import { ALERT_LEVELS } from "@/utils/constants";
 import { rootRoute } from "../root";

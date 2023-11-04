@@ -1,4 +1,4 @@
-import { Link, Route } from "@tanstack/router";
+import { Link, Route } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { homepageRoute } from ".";
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid";

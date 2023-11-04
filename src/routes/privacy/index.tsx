@@ -1,4 +1,4 @@
-import { Route } from "@tanstack/router";
+import { Route } from "@tanstack/react-router";
 import Page from "@/components/custom-ui/Page";
 import { rootRoute } from "../root";
 

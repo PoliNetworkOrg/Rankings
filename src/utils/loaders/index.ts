@@ -4,11 +4,7 @@ import { choosePhaseLoader } from "./choosePhaseLoader";
 import { chooseYearLoader } from "./chooseYearLoader";
 
 export const loaderClient = new LoaderClient({
-  getLoaders: () => ({
-    ranking: rankingLoader,
-    choosePhase: choosePhaseLoader,
-    chooseYear: chooseYearLoader,
-  }),
+  loaders: [rankingLoader, choosePhaseLoader, chooseYearLoader],
 });
 
 declare module "@tanstack/react-loaders" {

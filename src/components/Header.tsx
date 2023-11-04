@@ -5,7 +5,7 @@ import {
 } from "react-icons/md";
 import logo from "@/static/logo3000.webp";
 import DarkModeContext from "@/contexts/DarkModeContext";
-import { Link } from "@tanstack/router";
+import { Link } from "@tanstack/react-router";
 import { Button } from "./ui/button";
 
 export default function Header() {

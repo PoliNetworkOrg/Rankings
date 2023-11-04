@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useRouterContext } from "@tanstack/router";
+import { useRouterContext } from "@tanstack/react-router";
 import { DATA_REF, LINKS } from "@/utils/constants";
 import Data from "@/utils/data/data";
 

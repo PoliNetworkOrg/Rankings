@@ -1,4 +1,4 @@
-import { ErrorComponent, Link, Navigate, Route } from "@tanstack/router";
+import { ErrorComponent, Link, Navigate, Route } from "@tanstack/react-router";
 import School from "@/utils/types/data/School";
 import { Button } from "@/components/ui/button";
 import { NotFoundError } from "@/utils/errors";
@@ -17,8 +17,8 @@ export const chooseYearRoute = new Route({
     const data = await context.data;
     const variables = { ...params, data };
 
-    const loader = context.loaderClient.loaders.chooseYear;
-    const result = await loader.load({ variables });
+    const { loaderClient } = context;
+    const result = await loaderClient.load({ key: "chooseYear", variables });
 
     return result;
   },

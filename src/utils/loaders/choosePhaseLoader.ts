@@ -10,6 +10,7 @@ type LoaderProps = {
 };
 
 export const choosePhaseLoader = new Loader({
+  key: "choosePhase",
   fn: async ({ school, year, data }: LoaderProps) => {
     const phases = await data.getPhases(school, year);
     if (!phases) throw new NotFoundError();
