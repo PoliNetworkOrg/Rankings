@@ -160,6 +160,7 @@ export const viewerRoute = new Route({
       [selectedCourse, selectedLocation, store],
     );
 
+    console.log({ ranking, selectedPhaseLink });
     return (
       <Page
         className={`flex gap-4 px-0 ${
