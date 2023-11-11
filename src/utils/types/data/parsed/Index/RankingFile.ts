@@ -8,6 +8,7 @@ type RankingFile = {
   basePath: string;
   school: School;
   year: number;
+  rankingOrder: JsonRankingOrder;
 };
 
 export type Phases = {
