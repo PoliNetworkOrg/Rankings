@@ -126,25 +126,25 @@ export default class Data {
     return files;
   }
 
-  private convertRankingToPhaseLink(
-    file: RankingFile,
-    ranking: Ranking,
-  ): PhaseLink {
-    const order = ranking.rankingOrder;
+  private convertRankingFileToPhaseLink(file: RankingFile): PhaseLink {
+    const order = file.rankingOrder;
+
     if (order.phase.toLowerCase() === "extra-ue") {
       order.phase = "Extra-UE";
     }
-    if (ranking.school === "Architettura" || ranking.school === "Ingegneria") {
+    if (file.school === "Architettura" || file.school === "Ingegneria") {
       if (order.extraEu && !order.secondary) {
         order.secondary = 1;
-        if (ranking.school === "Ingegneria") {
+        if (file.school === "Ingegneria") {
           order.primary = 2;
         }
       }
 
-      if (!order.secondary && order.primary === 3) {
-        order.phase = "Unica graduatoria";
-      }
+      // After removing ranking from this function, the following change is
+      // causing a bug. Maybe should be investigated why it was useful.
+      // if (!order.secondary && order.primary === 3) {
+      //   order.phase = "Unica graduatoria";
+      // }
     }
     const name = order.secondary
       ? `${numberToRoman(order.secondary || 1)} graduatoria ${
@@ -174,41 +174,41 @@ export default class Data {
     };
   }
 
-  private fixCourseLocationTitle(course: CourseTable): CourseTable {
-    // since we may have modified the title to display it in a nicer way
-    // on the UI, we need to reset it to the json style (uppercase)
-    const title = course.title.toUpperCase();
+  // private fixCourseLocationTitle(course: CourseTable): CourseTable {
+  //   // since we may have modified the title to display it in a nicer way
+  //   // on the UI, we need to reset it to the json style (uppercase)
+  //   const title = course.title.toUpperCase();
+  //
+  //   // see: https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp/pull/82
+  //   const location = course.location;
+  //   const locationEmpty = !location || location === "";
+  //   const fixedLocation = locationEmpty ? "0" : location.toUpperCase();
+  //
+  //   const newCourse: CourseTable = {
+  //     title,
+  //     location: fixedLocation,
+  //     sections: course.sections,
+  //     headers: course.headers,
+  //     rows: course.rows,
+  //   };
+  //
+  //   return newCourse;
+  // }
 
-    // see: https://github.com/PoliNetworkOrg/GraduatorieScriptCSharp/pull/82
-    const location = course.location;
-    const locationEmpty = !location || location === "";
-    const fixedLocation = locationEmpty ? "0" : location.toUpperCase();
-
-    const newCourse: CourseTable = {
-      title,
-      location: fixedLocation,
-      sections: course.sections,
-      headers: course.headers,
-      rows: course.rows,
-    };
-
-    return newCourse;
-  }
-
-  private isCourseInRanking(ranking: Ranking, course: CourseTable): boolean {
-    if (ranking.byCourse.length === 0) return false;
-
-    const courses = ranking.byCourse.map((course) =>
-      this.fixCourseLocationTitle(course),
-    );
-    const { title, location } = this.fixCourseLocationTitle(course);
-
-    const found = courses.find(
-      (a) => a.title === title && a.location === location,
-    );
-
-    return !!found;
-  }
+  // private isCourseInRanking(ranking: Ranking, course: CourseTable): boolean {
+  //   if (ranking.byCourse.length === 0) return false;
+  //
+  //   const courses = ranking.byCourse.map((course) =>
+  //     this.fixCourseLocationTitle(course),
+  //   );
+  //   const { title, location } = this.fixCourseLocationTitle(course);
+  //
+  //   const found = courses.find(
+  //     (a) => a.title === title && a.location === location,
+  //   );
+  //
+  //   return !!found;
+  // }
 
   private sortPhaseLinks(school: School, phases: PhaseLink[]): PhaseLink[] {
     if (school === "Architettura" || school === "Ingegneria")
@@ -248,11 +248,14 @@ export default class Data {
     const phaseLinks: PhaseLink[] = [];
 
     for (const file of files) {
-      const ranking = await this.loadRanking(school, year, file.link);
-      if (!ranking) continue;
-      if (course && !this.isCourseInRanking(ranking, course)) continue;
+      // this is not needed anymore, kept it as a backup for the course code below
+      // const ranking = await this.loadRanking(school, year, file.link);
+      // if (!ranking) continue;
 
-      const phase = this.convertRankingToPhaseLink(file, ranking);
+      if (course) console.log("Should I do something with this?");
+      // if (course && !this.isCourseInRanking(ranking, course)) continue;
+
+      const phase = this.convertRankingFileToPhaseLink(file);
       phaseLinks.push(phase);
     }
 
