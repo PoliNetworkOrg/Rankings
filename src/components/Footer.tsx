@@ -1,4 +1,4 @@
-import { Link as RouterLink, LinkPropsOptions } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { LINKS } from "@/utils/constants";
 import { cn } from "@/utils/ui";
 import { HTMLAttributes } from "react";
@@ -29,9 +29,30 @@ export default function Footer() {
 
         <FooterColumn className="flex-shrink-0">
           <nav className="flex justify-end gap-8 max-md:justify-center">
-            <Link to="/about">About</Link>
-            <Link to="/source">Source</Link>
-            <Link to="/privacy">Privacy & Cookies</Link>
+            <li className="flex justify-center">
+              <Link
+                to="/about"
+                className="text-black underline underline-offset-2 dark:text-white"
+              >
+                About
+              </Link>
+            </li>
+            <li className="flex justify-center">
+              <Link
+                to="/source"
+                className="text-black underline underline-offset-2 dark:text-white"
+              >
+                Source
+              </Link>
+            </li>
+            <li className="flex justify-center">
+              <Link
+                to="/privacy"
+                className="text-black underline underline-offset-2 dark:text-white"
+              >
+                Privacy & Cookies
+              </Link>
+            </li>
           </nav>
         </FooterColumn>
       </div>
@@ -45,17 +66,6 @@ function FooterColumn({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       className={cn("flex flex-col gap-2 max-md:w-full", className)}
       {...props}
     />
-  );
-}
-
-function Link(props: LinkPropsOptions & { children: React.ReactNode }) {
-  return (
-    <li className="flex justify-center">
-      <RouterLink
-        {...props}
-        className="text-black underline underline-offset-2 dark:text-white"
-      />
-    </li>
   );
 }
 

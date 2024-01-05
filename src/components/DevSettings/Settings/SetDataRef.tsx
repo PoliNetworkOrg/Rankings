@@ -1,18 +1,20 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useRouterContext } from "@tanstack/react-router";
 import { DATA_REF, LINKS } from "@/utils/constants";
 import Data from "@/utils/data/data";
+import { RouterContext } from "@/router";
 
 type Props = {
+  routerContext: RouterContext;
   currentRef: DATA_REF;
 };
-export default function SetDataRef({ currentRef }: Props) {
-  const context = useRouterContext();
-
+export default function SetDataRef({
+  currentRef,
+  routerContext: context,
+}: Props) {
   function handleChangeRef(refStr: string): void {
-    context.context.data = Data.init(refStr as DATA_REF);
-    context.load();
+    context.data = Data.init(refStr as DATA_REF);
   }
+
   return (
     <div className="flex items-center gap-4">
       <p>

@@ -7,13 +7,20 @@ import { DATA_REF } from "@/utils/constants";
 import Section from "./Section";
 import DataSummary from "./DataSummary";
 import Settings from "./Settings";
+import { RouterContext } from "@/router";
 
 type LocalData = {
   main?: Data;
   stable?: Data;
 };
 
-export default function DevSettings({ data }: { data?: Data }) {
+export default function DevSettings({
+  data,
+  routerContext,
+}: {
+  data?: Data;
+  routerContext: RouterContext;
+}) {
   const [open, setOpen] = useState(false);
   const [{ stable, main }, setLocalData] = useState<LocalData>({});
 
@@ -53,7 +60,7 @@ export default function DevSettings({ data }: { data?: Data }) {
                 {stable && main && <DataSummary stable={stable} main={main} />}
               </Section>
 
-              <Settings data={data} />
+              <Settings routerContext={routerContext} data={data} />
             </div>
           </Page>
         </div>

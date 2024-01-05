@@ -29,18 +29,21 @@ dependencies:
   '@radix-ui/react-tabs':
     specifier: ^1.0.4
     version: 1.0.4(@types/react-dom@18.2.6)(@types/react@18.2.14)(react-dom@18.2.0)(react@18.2.0)
-  '@tanstack/react-loaders':
-    specifier: 0.0.1-beta.204
-    version: 0.0.1-beta.204(react-dom@18.2.0)(react@18.2.0)
+  '@tanstack/react-query':
+    specifier: ^5.17.1
+    version: 5.17.1(react@18.2.0)
+  '@tanstack/react-query-devtools':
+    specifier: ^5.17.1
+    version: 5.17.1(@tanstack/react-query@5.17.1)(react@18.2.0)
   '@tanstack/react-router':
-    specifier: 0.0.1-beta.204
-    version: 0.0.1-beta.204(react-dom@18.2.0)(react@18.2.0)
+    specifier: 1.1.6
+    version: 1.1.6(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/react-table':
     specifier: ^8.9.3
     version: 8.9.3(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/router-devtools':
-    specifier: 0.0.1-beta.204
-    version: 0.0.1-beta.204(react-dom@18.2.0)(react@18.2.0)
+    specifier: 1.1.6
+    version: 1.1.6(react-dom@18.2.0)(react@18.2.0)
   class-variance-authority:
     specifier: ^0.6.1
     version: 0.6.1
@@ -413,14 +416,6 @@ packages:
       '@floating-ui/dom': 1.4.4
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@gisatcz/cross-package-react-context@0.2.0(react@18.2.0):
-    resolution: {integrity: sha512-E7aR/o1ArpXETO8bQi+Hltj3duHeZiLjR+x1VZrCDs3jplSLGoy+oqCcqNNE1BamTBa0YQTs8Go1Q1dtt3LEUg==}
-    peerDependencies:
-      react: ^16.13.1 || ^17.0.2 || ^18.1.0
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /@humanwhocodes/config-array@0.11.10:
@@ -1425,58 +1420,63 @@ packages:
       '@swc/core-win32-x64-msvc': 1.3.67
     dev: true
 
-  /@tanstack/history@0.0.1-beta.204:
-    resolution: {integrity: sha512-5FC439gOn1p1jEPJTlVcvHmcLuTPh2KEfvpNTRQaiHE/PYq5Mz4367Yuw3F5QOv0wqYZwk/gNmQv3gcUm/qxfQ==}
+  /@tanstack/history@1.1.6:
+    resolution: {integrity: sha512-mP2HFBWXMk1cDcF3WngE+p++nP/Xkf1vubwdxjKYOlZe1KnW1KblOyhAiNeLqKcneiL7Xfsl3Hu/+LpujDp7Cw==}
     engines: {node: '>=12'}
     dev: false
 
-  /@tanstack/loaders@0.0.1-beta.204:
-    resolution: {integrity: sha512-HGrnwcfhJkCzuDIhueZcFYrPcNQCFNmW1RpS2aL+pZmcfCoOM6wGO6VP0n/QanyoiGUi1s/xTyzE5WKI3xnozA==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@tanstack/store': 0.0.1
-      tiny-invariant: 1.3.1
+  /@tanstack/query-core@5.17.1:
+    resolution: {integrity: sha512-kUXozQmU7NBtzX5dM6qfFNZN+YK/9Ct37hnG/ogdgI4mExIx7VH/qRepsPhKfNrJz2w81/JykmM3Uug6sVpUSw==}
     dev: false
 
-  /@tanstack/react-loaders@0.0.1-beta.204(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-E3pn81qjTlx7kI3dj+uLroDTy4sh3QEPr5/1k1WZxQKe2rKqXTKLInqC05s1tvmwasehj7GzC28drHYNyJl4ag==}
-    engines: {node: '>=12'}
+  /@tanstack/query-devtools@5.17.1:
+    resolution: {integrity: sha512-gNdt6PYzYlyjtSAoO8Jt9GIFq5VSLLDV2qq0TCi1t/PGnpAIlIHqNZGYkQTPsy0FyGUTX3pCq4bd7v5z/wzf3A==}
+    dev: false
+
+  /@tanstack/react-query-devtools@5.17.1(@tanstack/react-query@5.17.1)(react@18.2.0):
+    resolution: {integrity: sha512-QWHqdEN2TJpj76r0yzdOJEopmPvdAHOJHAKXaygubRASqCqfcWGkOHGD9pqqHOfTu5eQdV1Csx97EuSjnHMKcA==}
     peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
+      '@tanstack/react-query': ^5.17.1
+      react: ^18.0.0
     dependencies:
-      '@tanstack/loaders': 0.0.1-beta.204
-      '@tanstack/react-store': 0.0.1(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/query-devtools': 5.17.1
+      '@tanstack/react-query': 5.17.1(react@18.2.0)
       react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      tiny-invariant: 1.3.1
     dev: false
 
-  /@tanstack/react-router@0.0.1-beta.204(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-/23ZByhWp0hh6BPmultM37AGk7Bl1okAxN9Vt0HzsX1KzsHsu1dwzS9pARF/hmJ3m+D/iNA5q1VjTWnnQXzKMA==}
+  /@tanstack/react-query@5.17.1(react@18.2.0):
+    resolution: {integrity: sha512-4JYgX0kU+pvwVQi5eRiHGvBK7WnahEl6lmaxd32ZVSKmByAxLgaewoxBR03cdDNse8lUD2zGOe0sx3M/EGRlmA==}
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-core': 5.17.1
+      react: 18.2.0
+    dev: false
+
+  /@tanstack/react-router@1.1.6(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-umbnagJ/3LxXNApjEOn6TLeY6E5JvTUTT7Ja/eTlsZFe2plTxvjB3EthY3K3jggMgZiHkEPbeGXPSe+SL77fTA==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
       '@babel/runtime': 7.23.2
-      '@gisatcz/cross-package-react-context': 0.2.0(react@18.2.0)
-      '@tanstack/react-store': 0.0.1(react-dom@18.2.0)(react@18.2.0)
-      '@tanstack/router-core': 0.0.1-beta.204(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/history': 1.1.6
+      '@tanstack/react-store': 0.2.1(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/store': 0.1.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
     dev: false
 
-  /@tanstack/react-store@0.0.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-UMAHrm1FjehpfnSCi5Uel7fdoYM8fk2ovyHmoTBv4SPS66hLLEEVPQhALrIkJ0OSi1h+p96HapCFNqlavZADIA==}
-    engines: {node: '>=12'}
+  /@tanstack/react-store@0.2.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-tEbMCQjbeVw9KOP/202LfqZMSNAVi6zYkkp1kBom8nFuMx/965Hzes3+6G6b/comCwVxoJU8Gg9IrcF8yRPthw==}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
-      '@tanstack/store': 0.0.1
+      '@tanstack/store': 0.1.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
@@ -1494,40 +1494,22 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/router-core@0.0.1-beta.204(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-8DXSSyY9RdAKmlcEXBb9eU2Ff/9v6hoQhzS93n5atnJc33MPOjLDBHYJQDznkbslWEm7Z9La/l9XkMl4ho6Grg==}
+  /@tanstack/router-devtools@1.1.6(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-G7emORfle3gpYWO9lNz8YpnbYTcXf4KBYUQHECxQz3SGsEq5NFqCKU7eWLuKBXUVmDlHJjcqcJBva5OkwOTgEQ==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
       '@babel/runtime': 7.23.2
-      '@gisatcz/cross-package-react-context': 0.2.0(react@18.2.0)
-      '@tanstack/history': 0.0.1-beta.204
-      '@tanstack/store': 0.0.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      tiny-invariant: 1.3.1
-      tiny-warning: 1.0.3
-    dev: false
-
-  /@tanstack/router-devtools@0.0.1-beta.204(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-7SLymSPIPnPwcvxDESrL/nzx6k4gmmoqzNPPqsazILOdiRy4RQ3jK2VZzrbTlM8N1SokwX+tiHxKUHtA9syuUg==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@babel/runtime': 7.23.2
-      '@tanstack/react-router': 0.0.1-beta.204(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-router': 1.1.6(react-dom@18.2.0)(react@18.2.0)
       date-fns: 2.30.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/store@0.0.1:
-    resolution: {integrity: sha512-Hq5mwC9oPD1HVRIsgxASYtJQAv5x7k42SMXBq2b/fMYrtMf7WMkOArOMs/ExoNED214Ql94Ft4zVWr0u2D6a6w==}
-    engines: {node: '>=12'}
+  /@tanstack/store@0.1.3:
+    resolution: {integrity: sha512-GnolmC8Fr4mvsHE1fGQmR3Nm0eBO3KnZjDU0a+P3TeQNM/dDscFGxtA7p31NplQNW3KwBw4t1RVFmz0VeKLxcw==}
     dev: false
 
   /@tanstack/table-core@8.9.3:
@@ -1782,7 +1764,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.9
-      caniuse-lite: 1.0.30001509
+      caniuse-lite: 1.0.30001574
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -1814,7 +1796,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001509
+      caniuse-lite: 1.0.30001574
       electron-to-chromium: 1.4.445
       node-releases: 2.0.12
       update-browserslist-db: 1.0.11(browserslist@4.21.9)
@@ -1829,8 +1811,8 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  /caniuse-lite@1.0.30001509:
-    resolution: {integrity: sha512-2uDDk+TRiTX5hMcUYT/7CSyzMZxjfGu0vAUjS2g0LSD8UoXOv0LtpH4LxGMemsiPq6LCVIUjNwVM0erkOkGCDA==}
+  /caniuse-lite@1.0.30001574:
+    resolution: {integrity: sha512-BtYEK4r/iHt/txm81KBudCUcTy7t+s9emrIaHqjYurQ10x71zJ5VQ9x1dYPcz/b+pKSp4y/v1xSI67A+LzpNyg==}
     dev: true
 
   /chalk@4.1.2:

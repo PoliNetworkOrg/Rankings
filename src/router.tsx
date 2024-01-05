@@ -1,7 +1,7 @@
 import {
   Navigate,
   Route,
-  Router as TRouter,
+  Router,
   createHashHistory,
 } from "@tanstack/react-router";
 import { rootRoute } from "./routes/root";
@@ -15,9 +15,10 @@ import { viewerRoute } from "./routes/viewer";
 import { notFoundRoute } from "./routes/notFound";
 import Data from "./utils/data/data";
 import { chooseSchoolRoute } from "./routes/homepage/chooseSchool";
-import { DATA_REF } from "./utils/constants";
+import { DATA_REF, LINKS } from "./utils/constants";
 import { sourceRoute } from "./routes/source";
-import { loaderClient } from "./utils/loaders";
+import { QueryClient } from "@tanstack/react-query";
+import { queryClient } from "./query";
 
 const indexRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -41,16 +42,20 @@ const routeTree = rootRoute.addChildren([
 ]);
 
 export type RouterContext = {
-  loaderClient: typeof loaderClient;
+  queryClient: QueryClient;
   data: Promise<Data>;
+  isDev: boolean;
 };
 
 const history = createHashHistory();
-export const router = new TRouter({
+export const router = new Router({
   routeTree,
   context: {
-    loaderClient,
+    queryClient,
     data: Data.init(DATA_REF.STABLE),
+    isDev:
+      new URL(window.location.href).hostname == LINKS.githubPreviewDomain ||
+      process.env.NODE_ENV == "development",
   },
   history,
 });
