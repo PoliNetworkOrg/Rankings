@@ -8,12 +8,13 @@ export const chooseSchoolRoute = new Route({
   getParentRoute: () => homepageRoute,
   path: "/",
   loader: async ({ context }) => {
-    const { data, isDev } = context;
+    const { data, devData, isDev } = context;
     const awaitedData = await data;
-    return { data: awaitedData, isDev };
+    const awaitedDevData = await devData;
+    return { data: awaitedData, devData: awaitedDevData, isDev };
   },
   component: function ChooseSchool({ useLoader }) {
-    const { data, isDev } = useLoader();
+    const { data, devData, isDev } = useLoader();
 
     return (
       <>
@@ -41,7 +42,7 @@ export const chooseSchoolRoute = new Route({
             </Link>
           ))}
         </ButtonGrid>
-        {isDev && <DevSettings data={data} />}
+        {isDev && <DevSettings stableData={data} mainData={devData} />}
       </>
     );
   },

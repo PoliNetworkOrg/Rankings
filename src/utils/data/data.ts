@@ -128,28 +128,10 @@ export default class Data {
 
   private convertRankingFileToPhaseLink(file: RankingFile): PhaseLink {
     const order = file.rankingOrder;
-
-    if (order.phase.toLowerCase() === "extra-ue") {
-      order.phase = "Extra-UE";
-    }
-    if (file.school === "Architettura" || file.school === "Ingegneria") {
-      if (order.extraEu && !order.secondary) {
-        order.secondary = 1;
-        if (file.school === "Ingegneria") {
-          order.primary = 2;
-        }
-      }
-
-      // After removing ranking from this function, the following change is
-      // causing a bug. Maybe should be investigated why it was useful.
-      // if (!order.secondary && order.primary === 3) {
-      //   order.phase = "Unica graduatoria";
-      // }
-    }
     const name = order.secondary
       ? `${numberToRoman(order.secondary || 1)} graduatoria ${
-          order.extraEu ? "(Extra-UE)" : ""
-        }`
+          order.isEnglish ? "(ENG)" : ""
+        } ${order.extraEu ? "(Extra-UE)" : ""}`
       : order.phase;
 
     const phaseNum = order.primary
@@ -210,12 +192,20 @@ export default class Data {
   //   return !!found;
   // }
 
-  private sortPhaseLinks(school: School, phases: PhaseLink[]): PhaseLink[] {
-    if (school === "Architettura" || school === "Ingegneria")
-      return phases.sort((a, b) => sortIngArcPhases(a, b));
+  private sortPhaseLinks(
+    school: School,
+    year: number,
+    phases: PhaseLink[],
+  ): PhaseLink[] {
+    if (year <= 2023) {
+      if (school === "Architettura" || school === "Ingegneria")
+        return phases.sort(sortIngArcPhases);
 
-    if (school === "Urbanistica" || school === "Design")
-      return phases.sort((a, b) => sortDesUrbPhases(a, b));
+      if (school === "Urbanistica" || school === "Design")
+        return phases.sort(sortDesUrbPhases);
+    } else {
+      return phases.sort(sortIngArcPhases);
+    }
 
     return phases;
   }
@@ -259,7 +249,7 @@ export default class Data {
       phaseLinks.push(phase);
     }
 
-    const sorted = this.sortPhaseLinks(school, phaseLinks);
+    const sorted = this.sortPhaseLinks(school, year, phaseLinks);
     const groups = this.getPhaseGroups(sorted);
 
     const phases: Phases = {

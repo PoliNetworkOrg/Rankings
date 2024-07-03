@@ -3,29 +3,22 @@ import { Button } from "../ui/button";
 import Data from "@/utils/data/data";
 import { LuSettings2, LuX } from "react-icons/lu";
 import Page from "../custom-ui/Page";
-import { DATA_REF } from "@/utils/constants";
 import Section from "./Section";
 import DataSummary from "./DataSummary";
 import Settings from "./Settings";
 
-type LocalData = {
-  main?: Data;
-  stable?: Data;
-};
-
-export default function DevSettings({ data }: { data?: Data }) {
+export default function DevSettings({
+  stableData,
+  mainData,
+}: {
+  stableData: Data;
+  mainData: Data;
+}) {
   const [open, setOpen] = useState(false);
-  const [{ stable, main }, setLocalData] = useState<LocalData>({});
-
-  const mainData = Data.init(DATA_REF.MAIN);
-  const stableData = Data.init(DATA_REF.STABLE);
-
-  Promise.all([mainData, stableData]).then(([main, stable]) =>
-    setLocalData({ main, stable }),
-  );
 
   return (
-    data && (
+    stableData &&
+    mainData && (
       <>
         <div
           className={`fixed left-0 top-0 flex h-screen w-full bg-white dark:bg-slate-950 ${
@@ -50,10 +43,12 @@ export default function DevSettings({ data }: { data?: Data }) {
               </Section>
 
               <Section title="Data info">
-                {stable && main && <DataSummary stable={stable} main={main} />}
+                {stableData && mainData && (
+                  <DataSummary stable={stableData} main={mainData} />
+                )}
               </Section>
 
-              <Settings data={data} />
+              <Settings data={stableData} />
             </div>
           </Page>
         </div>
