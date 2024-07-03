@@ -35,20 +35,28 @@ export const choosePhaseRoute = new Route({
   component: function ChoosePhase({ useParams, useLoader }) {
     const { groups } = useLoader().phases;
     const { school, year } = useParams();
+    const groupsArr = groups.valuesArr();
 
     return (
       <>
         <p className="w-full text-xl">Scegli una graduatoria</p>
         <>
-          {groups.valuesArr().map((group) => (
-            <Group
-              group={group}
-              phases={group.phases}
-              school={school}
-              year={year}
-              key={group.value}
-            />
-          ))}
+          {groupsArr
+            .sort((a, b) => {
+              if (a.value === NO_GROUP) return 1;
+              if (b.value === NO_GROUP) return -1;
+              return 0;
+            })
+            .map((group) => (
+              <Group
+                group={group}
+                phases={group.phases}
+                school={school}
+                year={year}
+                key={group.value}
+                showGeneral={groupsArr.length > 1}
+              />
+            ))}
         </>
       </>
     );
@@ -57,12 +65,14 @@ export const choosePhaseRoute = new Route({
 
 type GroupProps = ButtonsProps & {
   group: PhaseGroup;
+  showGeneral: boolean;
 };
 
-function Group({ group, ...props }: GroupProps) {
+function Group({ group, showGeneral, ...props }: GroupProps) {
   return (
     <>
-      {group.value !== NO_GROUP && <p>{group.label}</p>}
+      {(group.value !== NO_GROUP ||
+        (group.value === NO_GROUP && showGeneral)) && <p>{group.label}</p>}
       <Buttons {...props} />
     </>
   );

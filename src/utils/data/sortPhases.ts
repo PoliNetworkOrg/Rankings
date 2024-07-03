@@ -15,6 +15,9 @@ export function sortIngArcPhases(a: PhaseLink, b: PhaseLink): number {
   if (a.order.extraEu) return 1; // put a after b
   if (b.order.extraEu) return -1; // put a before b
 
+  if (a.order.isEnglish) return 1;
+  if (b.order.isEnglish) return -1;
+
   return 0;
 }
 
