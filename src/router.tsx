@@ -44,6 +44,7 @@ export type RouterContext = {
   loaderClient: typeof loaderClient;
   isDev: boolean;
   data: Promise<Data>;
+  devData: Promise<Data>;
 };
 
 export const router = new TRouter({
@@ -54,6 +55,7 @@ export const router = new TRouter({
       new URL(window.location.href).hostname == LINKS.githubPreviewDomain ||
       process.env.NODE_ENV == "development",
     data: Data.init(DATA_REF.STABLE),
+    devData: Data.init(DATA_REF.MAIN),
   },
   history: createHashHistory(),
 });
