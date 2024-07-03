@@ -1,4 +1,4 @@
-import { Link, Navigate, Route, ErrorComponent } from "@tanstack/router";
+import { Link, Navigate, Route, ErrorComponent } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import School from "@/utils/types/data/School";
 import { NotFoundError } from "@/utils/errors";
@@ -9,6 +9,26 @@ import {
   PhaseLink,
 } from "@/utils/types/data/parsed/Index/RankingFile";
 import { NO_GROUP } from "@/utils/constants";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import Data from "@/utils/data/data";
+
+const STALE_TIME = 60_000; // 1 minute
+
+const choosePhaseQueryOptions = (
+  pData: Promise<Data>,
+  school: School,
+  year: number,
+) =>
+  queryOptions({
+    queryKey: ["choosePhase", school, year],
+    queryFn: async () => {
+      const data = await pData;
+      const phases = await data.getPhases(school, year);
+      if (!phases) throw new NotFoundError();
+      return { phases };
+    },
+    staleTime: STALE_TIME,
+  });
 
 export const choosePhaseRoute = new Route({
   getParentRoute: () => homepageRoute,
@@ -17,43 +37,44 @@ export const choosePhaseRoute = new Route({
     school: school as School,
     year: Number(year),
   }),
-  loader: async ({ context, params }) => {
-    const data = await context.data;
-    const variables = { ...params, data };
+  staleTime: STALE_TIME,
+  loader: async ({
+    context: { queryClient, data },
+    params: { school, year },
+  }) =>
+    queryClient.ensureQueryData(choosePhaseQueryOptions(data, school, year)),
 
-    const { choosePhase } = context.loaderClient.loaders;
-
-    const result = await choosePhase.load({ variables });
-    return result;
-  },
-  errorComponent: ({ error }) => {
+  errorComponent: function ErrorChoosePhase({ error }) {
     if (error instanceof NotFoundError)
       return <Navigate from={choosePhaseRoute.fullPath} to=".." />;
 
     return <ErrorComponent error={error} />;
   },
-  component: function ChoosePhase({ useParams, useLoader }) {
-    const { groups } = useLoader().phases;
-    const { school, year } = useParams();
-
-    return (
-      <>
-        <p className="w-full text-xl">Scegli una graduatoria</p>
-        <>
-          {groups.valuesArr().map((group) => (
-            <Group
-              group={group}
-              phases={group.phases}
-              school={school}
-              year={year}
-              key={group.value}
-            />
-          ))}
-        </>
-      </>
-    );
-  },
+  component: ChoosePhase,
 });
+
+function ChoosePhase() {
+  const { school, year } = choosePhaseRoute.useParams();
+  const { data } = choosePhaseRoute.useRouteContext();
+  const { phases } = useSuspenseQuery(
+    choosePhaseQueryOptions(data, school, year),
+  ).data;
+
+  return (
+    <>
+      <p className="w-full text-xl">Scegli una graduatoria</p>
+      {phases.groups.valuesArr().map((group) => (
+        <Group
+          group={group}
+          phases={group.phases}
+          school={school}
+          year={year}
+          key={group.value}
+        />
+      ))}
+    </>
+  );
+}
 
 type GroupProps = ButtonsProps & {
   group: PhaseGroup;
