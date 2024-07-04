@@ -130,8 +130,8 @@ export default class Data {
     const order = file.rankingOrder;
     const name = order.secondary
       ? `${numberToRoman(order.secondary || 1)} graduatoria ${
-          order.isEnglish ? "(ENG)" : ""
-        } ${order.isExtraEu ? "(Extra-UE)" : ""}`
+          order.isExtraEu ? "(Extra-UE)" : ""
+        }`
       : order.phase;
 
     const phaseNum = order.primary
