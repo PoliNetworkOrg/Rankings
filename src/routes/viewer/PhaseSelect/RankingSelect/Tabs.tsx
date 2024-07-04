@@ -1,3 +1,4 @@
+import PhaseFlag from "@/components/custom-ui/PhaseFlag";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile";
 
@@ -34,7 +35,7 @@ export default function RankingTabs({
             value={phase.href}
             key={phase.href}
           >
-            {phase.name}
+            {phase.name} <PhaseFlag phase={phase} />
           </TabsTrigger>
         ))}
       </TabsList>

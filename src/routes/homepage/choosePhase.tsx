@@ -9,6 +9,7 @@ import {
   PhaseLink,
 } from "@/utils/types/data/parsed/Index/RankingFile";
 import { NO_GROUP } from "@/utils/constants";
+import PhaseFlag from "@/components/custom-ui/PhaseFlag";
 
 export const choosePhaseRoute = new Route({
   getParentRoute: () => homepageRoute,
@@ -94,8 +95,17 @@ function Buttons({ school, year, phases }: ButtonsProps) {
           key={phase.href}
           className="h-full"
         >
-          <Button size="card" variant="secondary" className="h-full w-full">
-            <span className="text-base">{phase.name}</span>
+          <Button
+            size="card"
+            variant="secondary"
+            className="relative h-full w-full"
+          >
+            <span className="whitespace text-base">{phase.name}</span>
+            <div className="absolute bottom-0 right-0 flex overflow-hidden rounded-tl-lg">
+              <div className="bg-slate-700 px-3 py-1">
+                <PhaseFlag phase={phase} />
+              </div>
+            </div>
           </Button>
         </Link>
       ))}
