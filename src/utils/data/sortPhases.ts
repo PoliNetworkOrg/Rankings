@@ -12,8 +12,8 @@ export function sortIngArcPhases(a: PhaseLink, b: PhaseLink): number {
   if (a.order.secondary !== b.order.secondary)
     return a.order.secondary - b.order.secondary;
 
-  if (a.order.extraEu) return 1; // put a after b
-  if (b.order.extraEu) return -1; // put a before b
+  if (a.order.isExtraEu) return 1; // put a after b
+  if (b.order.isExtraEu) return -1; // put a before b
 
   if (a.order.isEnglish) return 1;
   if (b.order.isEnglish) return -1;
@@ -25,8 +25,8 @@ export function sortDesUrbPhases(a: PhaseLink, b: PhaseLink): number {
   if (a.order.primary && b.order.primary && a.order.primary !== b.order.primary)
     return a.order.primary - b.order.primary;
 
-  if (a.order.anticipata) return -1;
-  if (b.order.anticipata) return 1;
+  if (a.order.isAnticipata) return -1;
+  if (b.order.isAnticipata) return 1;
 
   const ap = a.order.phase.toLowerCase();
   const bp = b.order.phase.toLowerCase();

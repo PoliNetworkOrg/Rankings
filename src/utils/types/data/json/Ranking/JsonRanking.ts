@@ -15,12 +15,12 @@ type JsonRanking = {
 };
 
 export type JsonRankingOrder = {
-  anticipata: boolean;
-  extraEu: boolean;
-  isEnglish: boolean;
   phase: string;
   primary?: number;
   secondary?: number;
+  isAnticipata: boolean;
+  isExtraEu: boolean;
+  isEnglish: boolean;
 };
 
 export default JsonRanking;
