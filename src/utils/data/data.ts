@@ -131,7 +131,7 @@ export default class Data {
     const name = order.secondary
       ? `${numberToRoman(order.secondary || 1)} graduatoria ${
           order.isEnglish ? "(ENG)" : ""
-        } ${order.extraEu ? "(Extra-UE)" : ""}`
+        } ${order.isExtraEu ? "(Extra-UE)" : ""}`
       : order.phase;
 
     const phaseNum = order.primary
