@@ -31,7 +31,9 @@ export default function PhaseSelect(props: Props) {
   const groupOpen = useState<boolean>(false);
   const rankingOpen = useState<boolean>(false);
 
-  const [selectedLang, setSelectedLang] = useState<Lang>("ITA");
+  const [selectedLang, setSelectedLang] = useState<Lang>(
+    selectedPhase.order.isEnglish ? "ENG" : "ITA",
+  );
 
   const showLangs =
     phases.all.filter((p) => p.order.isEnglish).length > 0 &&
