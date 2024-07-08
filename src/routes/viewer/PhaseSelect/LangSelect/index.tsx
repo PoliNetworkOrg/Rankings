@@ -2,7 +2,7 @@ import { Removable } from "@/components/custom-ui/Removable";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export type Lang = "ITA" | "ENG";
-const langs: { label: JSX.Element; value: Lang }[] = [
+const langs = [
   {
     label: <span>&#x1F1EE;&#x1F1F9;</span>,
     value: "ITA",
@@ -11,7 +11,7 @@ const langs: { label: JSX.Element; value: Lang }[] = [
     label: <span>&#x1F1EC;&#x1F1E7;</span>,
     value: "ENG",
   },
-];
+] as const;
 
 export type LangSelectProps = {
   canChoose: boolean;
@@ -24,6 +24,9 @@ export default function LangSelect({
   selectedLang,
   onChange,
 }: LangSelectProps) {
+  const selectedLangOption = langs.find((l) => l.value === selectedLang);
+  if (!selectedLangOption) return <></>;
+
   return (
     <div className="flex items-center space-x-4">
       <p className="text-muted-foreground text-sm">Lingua</p>
@@ -46,9 +49,7 @@ export default function LangSelect({
           </TabsList>
         </Tabs>
       ) : (
-        <Removable showRemove={false}>
-          {langs.find((l) => l.value === selectedLang).label}
-        </Removable>
+        <Removable showRemove={false}>{selectedLangOption.label}</Removable>
       )}
     </div>
   );
