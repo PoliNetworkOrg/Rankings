@@ -9,6 +9,7 @@ import { NO_GROUP } from "@/utils/constants";
 import { State } from "@/utils/types/state";
 import RankingSelect from "./RankingSelect";
 import GroupSelect from "./GroupSelect";
+import LangSelect, { Lang } from "./LangSelect";
 
 export type GroupSelectProps = {
   groups: PhaseGroup[];
@@ -30,8 +31,22 @@ export default function PhaseSelect(props: Props) {
   const groupOpen = useState<boolean>(false);
   const rankingOpen = useState<boolean>(false);
 
-  const filteredPhases = selectedGroup.phases.filter(
-    (a) => phases.all.findIndex((b) => a.href === b.href) !== -1,
+  const [selectedLang, setSelectedLang] = useState<Lang>(
+    selectedPhase.order.isEnglish ? "ENG" : "ITA",
+  );
+
+  const showLangs =
+    phases.all.filter((p) => p.order.isEnglish).length > 0 &&
+    phases.all.filter((p) => !p.order.isEnglish).length > 0;
+
+  const filteredPhases = useMemo(
+    () =>
+      selectedGroup.phases
+        .filter((a) => phases.all.findIndex((b) => a.href === b.href) !== -1)
+        .filter(
+          (a) => !showLangs || a.order.isEnglish === (selectedLang === "ENG"),
+        ),
+    [phases.all, selectedGroup.phases, selectedLang, showLangs],
   );
 
   const isCombobox = useMemo(
@@ -57,6 +72,21 @@ export default function PhaseSelect(props: Props) {
     onChange(link, group);
   }
 
+  function handleOnLangChange(newLang: Lang): void {
+    setSelectedLang(newLang);
+
+    const filteredUpdated = phases.all.filter(
+      (p) => p.order.isEnglish === (newLang === "ENG"),
+    );
+    if (filteredUpdated.length === 0) return;
+
+    const firstValidPhase = filteredUpdated[0];
+    const group = phases.groups.get(firstValidPhase.group.value);
+    if (!group) return;
+
+    onChange(firstValidPhase, group);
+  }
+
   return (
     <div className="flex w-full flex-wrap gap-4 max-sm:flex-col">
       {showGroups && (
@@ -68,6 +98,11 @@ export default function PhaseSelect(props: Props) {
           groups={phases.groups}
         />
       )}
+      <LangSelect
+        canChoose={showLangs}
+        selectedLang={selectedLang}
+        onChange={handleOnLangChange}
+      />
       <RankingSelect
         isCombobox={isCombobox}
         rankingOpen={rankingOpen}

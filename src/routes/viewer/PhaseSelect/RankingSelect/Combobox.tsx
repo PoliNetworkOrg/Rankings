@@ -15,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { State } from "@/utils/types/state";
 import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile";
-import PhaseFlag from "@/components/custom-ui/PhaseFlag";
 
 export type RankingComboboxProps = {
   rankingOpen: State<boolean>;
@@ -42,7 +41,7 @@ export default function RankingCombobox({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="h-full justify-start">
-          <span className="mr-1">{selectedPhase.name}</span> <PhaseFlag phase={selectedPhase} />
+          {selectedPhase.name}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0" side="bottom" align="start">
@@ -58,8 +57,7 @@ export default function RankingCombobox({
                     onSelect={handleChange}
                     value={phase.href}
                   >
-                    <span className="mr-1">{phase.name}</span>
-                    <PhaseFlag phase={phase} />
+                    {phase.name}
                   </CommandItem>
                 ))}
               </ScrollArea>
