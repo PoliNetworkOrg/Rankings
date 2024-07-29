@@ -31,6 +31,8 @@ const cols = (layout?: number) => {
     //   return "grid-cols-2";
     // case 3:
     //   return "grid-cols-3";
+    case 4:
+      return "grid-cols-2";
     default:
       return "grid-cols-[repeat(auto-fill,minmax(18rem,1fr))]";
   }
