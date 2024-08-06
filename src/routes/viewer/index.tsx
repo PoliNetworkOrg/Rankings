@@ -1,5 +1,4 @@
 import { useContext, useMemo, useState } from "react";
-import { ErrorComponent, Navigate, Route, useNavigate } from "@tanstack/router";
 import MobileContext from "@/contexts/MobileContext";
 import School from "@/utils/types/data/School.ts";
 import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable.ts";
@@ -19,6 +18,12 @@ import PhaseSelect from "./PhaseSelect";
 import { CourseCombobox } from "./CourseCombobox.tsx";
 import LocationsSelect from "./LocationSelect.tsx";
 import { NotFoundError } from "@/utils/errors.ts";
+import {
+  ErrorComponent,
+  Navigate,
+  Route,
+  useNavigate,
+} from "@tanstack/react-router";
 
 function isSelectedLocationValid(
   locations: CourseInfoLocation[],
@@ -56,12 +61,20 @@ function fallbackSelectedLocation(
 export const viewerRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "/view/$school/$year/$phase",
-  parseParams: ({ school, year, phase }) => ({
+  parseParams: ({
+    school,
+    year,
+    phase,
+  }: {
+    school: any;
+    year: any;
+    phase: any;
+  }) => ({
     school: school as School,
     year: Number(year),
     phase: phase.toLowerCase(),
   }),
-  loader: async ({ context, params }) => {
+  loader: async ({ context, params }: { context: any; params: any }) => {
     const data = await context.data;
     const variables = { ...params, data };
     const rankingLoader = context.loaderClient.loaders.ranking;
@@ -69,12 +82,18 @@ export const viewerRoute = new Route({
 
     return result;
   },
-  errorComponent: ({ error }) => {
+  errorComponent: ({ error }: { error: any }) => {
     if (error instanceof NotFoundError) return <Navigate to="/" />;
 
     return <ErrorComponent error={error} />;
   },
-  component: function Viewer({ useLoader, useParams }) {
+  component: function Viewer({
+    useLoader,
+    useParams,
+  }: {
+    useLoader: any;
+    useParams: any;
+  }) {
     const {
       phases: _phases,
       ranking,

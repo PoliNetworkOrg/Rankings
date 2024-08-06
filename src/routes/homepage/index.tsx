@@ -1,7 +1,7 @@
-import { Outlet, Route } from "@tanstack/router";
 import Page from "@/components/custom-ui/Page";
 import { rootRoute } from "../root";
 import PathBreadcrumb from "@/components/PathBreadcrumb";
+ import { Outlet, Route } from "@tanstack/react-router";
 
 export const homepageRoute = new Route({
   getParentRoute: () => rootRoute,
