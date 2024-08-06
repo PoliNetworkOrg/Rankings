@@ -39,8 +39,8 @@ importers:
         specifier: ^8.20.1
         version: 8.20.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@tanstack/router':
-        specifier: 0.0.1-beta.100
-        version: 0.0.1-beta.100(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: 0.0.1-beta.174
+        version: 0.0.1-beta.174
       '@tanstack/router-devtools':
         specifier: 0.0.1-beta.102
         version: 0.0.1-beta.102(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -888,6 +888,10 @@ packages:
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
+
+  '@tanstack/router@0.0.1-beta.174':
+    resolution: {integrity: sha512-n/qREl30a1P7Bww3lTNE1xpgnjuUcPik9ENptg3PJjsZWI/gTn8Q3kPxfK4atZAksuOsyBgp7xjteefbPmULUQ==}
+    engines: {node: '>=12'}
 
   '@tanstack/store@0.0.1-beta.90':
     resolution: {integrity: sha512-L7ub4yiqdsANkGWOmpdY4kEkFge+v/aNeG3rGVQs68FyHr1Q5kaYKsbf+vzWBeYYc4Fo6uLMfh/uCf3C7eGhRw==}
@@ -2639,6 +2643,8 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
+
+  '@tanstack/router@0.0.1-beta.174': {}
 
   '@tanstack/store@0.0.1-beta.90': {}
 
