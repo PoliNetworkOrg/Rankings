@@ -6,6 +6,7 @@ import { FilterBtn } from "./FilterBtn";
 import { enrollStatusOpts, enrollAllowedOpts } from "./columns";
 import { StudentResultKeys } from ".";
 import StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult";
+import { sha256 } from "@/utils/strings/crypto";
 
 type Props = {
   has: Record<StudentResultKeys, boolean>;
@@ -23,10 +24,11 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
         <Input
           className="w-full sm:max-w-[300px]"
           placeholder="Filter per matricola..."
-          value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("id")?.setFilterValue(event.target.value)
-          }
+          onChange={async (event) => {
+            const input = event.target.value;
+            const hash = await sha256(event.target.value);
+            table.getColumn("id")?.setFilterValue(input ? hash : undefined);
+          }}
         />
       )}
       <div className="flex flex-1 justify-start gap-4 max-xs:flex-wrap">
