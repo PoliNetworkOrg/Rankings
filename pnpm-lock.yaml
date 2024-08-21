@@ -33,8 +33,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@18.2.6)(@types/react@18.2.14)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@tanstack/react-loaders':
-        specifier: 0.0.1-beta.96
-        version: 0.0.1-beta.96(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: 0.0.1-beta.204
+        version: 0.0.1-beta.204(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@tanstack/react-table':
         specifier: ^8.20.1
         version: 8.20.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -964,12 +964,19 @@ packages:
       '@swc/helpers':
         optional: true
 
-  '@tanstack/loaders@0.0.1-beta.96':
-    resolution: {integrity: sha512-JST7iLjHeSOhqMxAeNvrecSCL/e1eH+6sVqpoAUqd/Ayk6Z1cIkvNH92cqqPG7WzqmHgLrmOB17cozTR+xOujQ==}
+  '@tanstack/loaders@0.0.1-beta.204':
+    resolution: {integrity: sha512-HGrnwcfhJkCzuDIhueZcFYrPcNQCFNmW1RpS2aL+pZmcfCoOM6wGO6VP0n/QanyoiGUi1s/xTyzE5WKI3xnozA==}
     engines: {node: '>=12'}
 
-  '@tanstack/react-loaders@0.0.1-beta.96':
-    resolution: {integrity: sha512-dUpBiJH0a2rQHPx26RFsjNKafSzV8k1RiIpiL+FTCz/SrZjTZBa18IJZqiqY83k0yUWLK0HoJ3pOOdxACBl6EQ==}
+  '@tanstack/react-loaders@0.0.1-beta.204':
+    resolution: {integrity: sha512-E3pn81qjTlx7kI3dj+uLroDTy4sh3QEPr5/1k1WZxQKe2rKqXTKLInqC05s1tvmwasehj7GzC28drHYNyJl4ag==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+
+  '@tanstack/react-store@0.0.1':
+    resolution: {integrity: sha512-UMAHrm1FjehpfnSCi5Uel7fdoYM8fk2ovyHmoTBv4SPS66hLLEEVPQhALrIkJ0OSi1h+p96HapCFNqlavZADIA==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
@@ -1002,6 +1009,10 @@ packages:
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
+
+  '@tanstack/store@0.0.1':
+    resolution: {integrity: sha512-Hq5mwC9oPD1HVRIsgxASYtJQAv5x7k42SMXBq2b/fMYrtMf7WMkOArOMs/ExoNED214Ql94Ft4zVWr0u2D6a6w==}
+    engines: {node: '>=12'}
 
   '@tanstack/store@0.0.1-beta.90':
     resolution: {integrity: sha512-L7ub4yiqdsANkGWOmpdY4kEkFge+v/aNeG3rGVQs68FyHr1Q5kaYKsbf+vzWBeYYc4Fo6uLMfh/uCf3C7eGhRw==}
@@ -2793,18 +2804,25 @@ snapshots:
       '@swc/core-win32-ia32-msvc': 1.3.67
       '@swc/core-win32-x64-msvc': 1.3.67
 
-  '@tanstack/loaders@0.0.1-beta.96':
+  '@tanstack/loaders@0.0.1-beta.204':
     dependencies:
-      '@tanstack/store': 0.0.1-beta.90
+      '@tanstack/store': 0.0.1
       tiny-invariant: 1.3.1
 
-  '@tanstack/react-loaders@0.0.1-beta.96(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@tanstack/react-loaders@0.0.1-beta.204(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@tanstack/loaders': 0.0.1-beta.96
-      '@tanstack/react-store': 0.0.1-beta.90(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@tanstack/loaders': 0.0.1-beta.204
+      '@tanstack/react-store': 0.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tiny-invariant: 1.3.1
+
+  '@tanstack/react-store@0.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@tanstack/store': 0.0.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      use-sync-external-store: 1.2.0(react@18.2.0)
 
   '@tanstack/react-store@0.0.1-beta.90(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -2835,6 +2853,8 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
+
+  '@tanstack/store@0.0.1': {}
 
   '@tanstack/store@0.0.1-beta.90': {}
 

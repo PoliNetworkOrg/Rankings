@@ -22,7 +22,7 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
-    "@tanstack/react-loaders": "0.0.1-beta.96",
+    "@tanstack/react-loaders": "0.0.1-beta.204",
     "@tanstack/react-table": "^8.20.1",
     "@tanstack/router": "0.0.1-beta.100",
     "@tanstack/router-devtools": "0.0.1-beta.102",
