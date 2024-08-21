@@ -3,6 +3,20 @@ import { Button } from "@/components/ui/button";
 import { homepageRoute } from ".";
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
 import DevSettings from "@/components/DevSettings";
+import School from "@/utils/types/data/School";
+
+function getSchoolEmoji(school: School) {
+  switch (school) {
+    case "Architettura":
+      return (<span className="mr-2 text-lg rotate-[270deg]">&#128208;</span>);
+    case "Design":
+      return (<span className="mr-2 text-lg">&#128396;&#65039;</span>);
+    case "Ingegneria":
+      return (<span className="mr-2 text-lg">&#128736;&#65039;</span>);
+    case "Urbanistica":
+      return (<span className="mr-2 text-lg">&#127969;</span>);
+  }
+}
 
 export const chooseSchoolRoute = new Route({
   getParentRoute: () => homepageRoute,
@@ -37,6 +51,7 @@ export const chooseSchoolRoute = new Route({
               className="h-full"
             >
               <Button size="card" variant="secondary" className="h-full w-full">
+                {getSchoolEmoji(school)}
                 <span className="text-lg">{school}</span>
               </Button>
             </Link>
