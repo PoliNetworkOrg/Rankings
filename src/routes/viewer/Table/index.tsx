@@ -62,7 +62,7 @@ function makeHas(rows: StudentResult[]): Record<StudentResultKeys, boolean> {
     enrollStatus: checkKey("enrollStatus"),
     enrollAllowed: checkKey("enrollAllowed"),
     enrollCourse: checkKey("enrollCourse"),
-    id: checkKey("id"),
+    matricolaHash: checkKey("matricolaHash"),
   };
   return has;
 }
