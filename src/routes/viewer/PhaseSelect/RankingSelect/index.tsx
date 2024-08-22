@@ -11,7 +11,7 @@ export default function RankingSelect(props: RankingSelectProps) {
   const { phases, isCombobox, rankingOpen, selectedPhase, onChange } = props;
   return (
     <div className="flex items-center space-x-4">
-      <p className="text-muted-foreground text-sm">Graduatoria</p>
+      <p className="text-sm">Graduatoria</p>
       {phases.length >= 2 ? (
         isCombobox ? (
           <RankingCombobox

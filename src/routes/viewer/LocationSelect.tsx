@@ -35,7 +35,7 @@ export default function LocationsSelect(props: Props) {
   if (locations.length === 0) return <></>;
   return (
     <div className="flex items-center space-x-4">
-      <p className="text-muted-foreground text-sm">Sede</p>
+      <p className="text-sm">Sede</p>
       {locations.length >= 2 ? (
         isMobile ? (
           LocationCombobox(props)
