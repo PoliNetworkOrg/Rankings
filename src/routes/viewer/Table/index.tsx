@@ -38,6 +38,21 @@ interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
 }
 
 function makeHas(rows: StudentResult[]): Record<StudentResultKeys, boolean> {
+  if (rows.length === 0)
+    return {
+      englishCorrectAnswers: true,
+      sectionsResults: true,
+      positionAbsolute: true,
+      positionCourse: true,
+      birthDate: true,
+      result: true,
+      ofa: true,
+      enrollStatus: true,
+      enrollAllowed: true,
+      enrollCourse: true,
+      id: true,
+    };
+
   function checkKey(key: StudentResultKeys): boolean {
     const isThereAny = rows.some((r) => r[key]);
     if (!isThereAny) return false;
@@ -74,11 +89,10 @@ type ColumnVisibility = {
 };
 
 export default function Table({ table: _table, csvFilename }: TableProps) {
-  const { rows } = _table;
-  const has = makeHas(rows);
+  const has = makeHas(_table.rows);
   const [columnVisibility, setColumnVisibility] =
     useState<ColumnVisibility>(has);
-  const columns = getColumns(rows);
+  const columns = getColumns(_table.rows);
   const [pagination, setPagination] = useState<PaginationState>({
     pageSize: 15,
     pageIndex: 0,
@@ -86,7 +100,7 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
-    data: rows,
+    data: _table.rows,
     columns,
     state: {
       columnVisibility,
@@ -169,12 +183,12 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
               ) : (
                 <TableRow>
                   <TableCell
-                    colSpan={table.getHeaderGroups()[1].headers.length}
+                    colSpan={table.getHeaderGroups()[1]?.headers.length ?? 1}
                     className="h-24 text-center"
                   >
-                    {rows.length > 0
-                      ? "Nessuna riga trovata"
-                      : "Nessun dato disponibile"}
+                    {_table.rows.length > 0
+                      ? "La ricerca ha restituito nessun risultato"
+                      : "La tabella di questo corso non contiene righe"}
                   </TableCell>
                 </TableRow>
               )}
