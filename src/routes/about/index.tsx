@@ -62,16 +62,19 @@ export const aboutRoute = new Route({
             </a>
           </div>
 
-          <div className="text-right">
-            Sviluppato con amore da{" "}
-            <a
-              target="_blank"
-              rel="noreferrer noopener"
-              href="https://polinetwork.org"
-            >
-              PoliNetwork
-            </a>{" "}
+          <div className="flex items-center justify-between">
+            <p className="opacity-60">Versione: {APP_VERSION}</p>
+            <p>
+              Sviluppato con amore da{" "}
+              <a
+                target="_blank"
+                rel="noreferrer noopener"
+                href="https://polinetwork.org"
+              >
+                PoliNetwork
+              </a>{" "}
             ❤️
+          </p>
           </div>
         </div>
       </Page>

@@ -25,7 +25,7 @@ export default function Pagination<TData>({
     <div className="my-2 flex items-center justify-end max-sm:flex-col max-sm:items-start max-sm:gap-2 sm:space-x-6">
       <div className="sm:flex-1">
         <p className="text-sm font-medium">
-          Totale righe: {table.getCoreRowModel().rows.length}
+          Totale righe: {table.getFilteredRowModel().rows.length}
         </p>
       </div>
       <div className="flex items-center space-x-2">

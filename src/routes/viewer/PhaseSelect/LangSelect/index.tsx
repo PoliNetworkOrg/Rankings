@@ -29,7 +29,7 @@ export default function LangSelect({
 
   return (
     <div className="flex items-center space-x-4">
-      <p className="text-muted-foreground text-sm">Lingua</p>
+      <p className="text-sm">Lingua</p>
       {canChoose ? (
         <Tabs
           value={selectedLang}

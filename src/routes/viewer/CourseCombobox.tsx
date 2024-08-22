@@ -38,7 +38,7 @@ export function CourseCombobox({ value, courses: c, onSelect }: Props) {
 
   return (
     <div className="flex items-center space-x-4">
-      <p className="text-muted-foreground text-sm">Corso</p>
+      <p className="text-sm">Corso</p>
       {selectedCourse ? (
         <Removable onRemove={() => handleSelect(absCourse.value)}>
           {selectedCourse.label}
