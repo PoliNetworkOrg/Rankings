@@ -111,7 +111,7 @@ export default class Store {
     if (rows.length === 0) return [];
     return rows.map((row) => {
       const a = [
-        row.id ?? null,
+        row.matricolaHash ?? null,
         row.birthDate ?? null,
         row.result ?? null,
         row.positionAbsolute ?? null,
