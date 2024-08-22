@@ -10,6 +10,7 @@ module.exports = {
   parserOptions: { ecmaVersion: "latest", sourceType: "module" },
   plugins: ["react-refresh", "prettier"],
   rules: {
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
     "react-refresh/only-export-components": "warn",
     "prettier/prettier": "warn",
   },
