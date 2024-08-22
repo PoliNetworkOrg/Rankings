@@ -126,9 +126,7 @@ export function FilterBtn<TData, TValue>({
                     >
                       <CheckIcon className={cn("h-4 w-4")} />
                     </div>
-                    {option.icon && (
-                      <option.icon className="text-muted-foreground mr-2 h-4 w-4" />
-                    )}
+                    {option.icon && <option.icon className="mr-2 h-4 w-4" />}
                     <span>{option.label}</span>
                     {facet && (
                       <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">

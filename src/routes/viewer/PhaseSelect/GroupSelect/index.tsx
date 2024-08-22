@@ -11,7 +11,7 @@ export default function GroupSelect(props: GroupSelectProps) {
   const { groups, isCombobox, selectedGroup, groupOpen, onChange } = props;
   return (
     <div className="flex items-center space-x-4">
-      <p className="text-muted-foreground text-sm">Fase</p>
+      <p className="text-sm">Fase</p>
       {groups.size >= 2 ? (
         isCombobox ? (
           <GroupCombobox
