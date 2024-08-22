@@ -3,7 +3,7 @@ import CustomMap from "../../../../CustomMap";
 type StudentResult = {
   birthDate?: string;
   englishCorrectAnswers?: number;
-  id?: string;
+  matricolaHash?: string;
   positionAbsolute?: number;
   positionCourse?: number;
   result?: number;

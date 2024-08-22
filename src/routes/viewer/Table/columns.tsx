@@ -200,9 +200,9 @@ export function getColumns(rows: StudentResult[]): ColumnDef<StudentResult>[] {
       header: "Dati personali",
       columns: [
         {
-          accessorKey: "id",
+          accessorKey: "matricolaHash",
           header: "Matricola hash",
-          id: "id",
+          id: "matricolaHash",
           cell: ({ getValue }) => {
             const value = getValue();
             return Formatter.displayHash(value);

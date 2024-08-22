@@ -118,6 +118,7 @@ export default class JsonParser {
       canEnrollInto,
       sectionsResults,
       enrollType,
+      id,
       ...rowBase
     } = json;
     const ofaMap: StudentResult_OfaMap = new CustomMap();
@@ -135,6 +136,7 @@ export default class JsonParser {
 
     return {
       ...rowBase,
+      matricolaHash: id,
       enrollAllowed: enrollType?.canEnroll ?? canEnroll ?? false,
       enrollCourse: enrollType?.course ?? canEnrollInto,
       enrollStatus: enrollType?.type?.toLowerCase(),
