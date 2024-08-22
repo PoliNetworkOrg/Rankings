@@ -18,27 +18,29 @@ type Props = {
 };
 
 export function Toolbar({ has, onCsvClick, table }: Props) {
+  const matricolaCol = table.getColumn("matricolaHash");
   const enrollStatusCol = table.getColumn("enrollStatus");
   const enrollAllowedCol = table.getColumn("enrollAllowed");
+
   const [matricolaFilter, setMatricolaFilter] = useState<string>("");
   const [matricolaFilterSubmitted, setMatricolaFilterSubmitted] =
     useState<boolean>(false);
   const { rows: filteredRows } = table.getFilteredRowModel();
 
-  function clearMatricolaTableFilter() {
-    table.getColumn("id")?.setFilterValue(undefined);
+  function filterTableMatricolaCol(value?: string) {
+    matricolaCol?.setFilterValue(value);
   }
 
   function handleClearMatricolaFilter() {
     setMatricolaFilter("");
-    clearMatricolaTableFilter();
+    filterTableMatricolaCol();
     setMatricolaFilterSubmitted(false);
   }
 
   function handleMatricolaFilterChange(
     event: React.ChangeEvent<HTMLInputElement>,
   ) {
-    if (matricolaFilterSubmitted) clearMatricolaTableFilter();
+    if (matricolaFilterSubmitted) filterTableMatricolaCol();
     const input = event.target.value;
     setMatricolaFilter(input);
     setMatricolaFilterSubmitted(false);
@@ -52,14 +54,14 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
     if (matricolaFilter.length === 0) handleClearMatricolaFilter();
     else {
       const hash = await sha256(matricolaFilter);
-      table.getColumn("id")?.setFilterValue(hash);
+      filterTableMatricolaCol(hash);
       setMatricolaFilterSubmitted(true);
     }
   }
 
   return (
     <div className="flex w-full flex-wrap items-start justify-start gap-6 max-2xs:flex-col">
-      {table.getColumn("id") && (
+      {has.matricolaHash && matricolaCol && (
         <div className="grid grid-cols-[auto_220px] grid-rows-[auto_auto] gap-x-4 gap-y-1">
           <p className="self-center text-sm">Matricola</p>
           {filteredRows.length > 0 && matricolaFilterSubmitted ? (
