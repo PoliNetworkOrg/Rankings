@@ -19,6 +19,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import { useState } from "react";
 
 export type FilterOption<T> = {
   originalValue: T;
@@ -38,11 +39,29 @@ export function FilterBtn<TData, TValue>({
   title,
   options,
 }: Props<TData, TValue>) {
+  const [open, setOpen] = useState<boolean>(false);
   const facets = column.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 
+  function handleClearFilter(): void {
+    column?.setFilterValue(undefined);
+    setOpen(false);
+  }
+
+  function handleOptionSelect(
+    option: FilterOption<TValue>,
+    isSelected: boolean,
+  ): void {
+    if (options.length <= 2) selectedValues.clear(); // filter with radio behaviour
+    if (isSelected) selectedValues.delete(option.value); // toggle behaviour
+    else selectedValues.add(option.value);
+
+    const filterValues = Array.from(selectedValues); // get selected filter options
+    column?.setFilterValue(filterValues.length ? filterValues : undefined); // update table
+  }
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -100,20 +119,7 @@ export function FilterBtn<TData, TValue>({
                 return (
                   <CommandItem
                     key={option.value}
-                    onSelect={() => {
-                      if (isSelected) {
-                        selectedValues.delete(option.value);
-                      } else {
-                        if (options.length <= 2) {
-                          selectedValues.clear();
-                        }
-                        selectedValues.add(option.value);
-                      }
-                      const filterValues = Array.from(selectedValues);
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined,
-                      );
-                    }}
+                    onSelect={() => handleOptionSelect(option, isSelected)}
                   >
                     <div
                       className={cn(
@@ -142,7 +148,7 @@ export function FilterBtn<TData, TValue>({
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    onSelect={handleClearFilter}
                     className="justify-center text-center"
                   >
                     Pulisci i filtri
