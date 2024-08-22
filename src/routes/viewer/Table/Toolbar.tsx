@@ -60,7 +60,7 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
   return (
     <div className="flex w-full flex-wrap items-start justify-start gap-6 max-2xs:flex-col">
       {table.getColumn("id") && (
-        <div className="grid grid-cols-[auto_180px] grid-rows-[auto_auto] gap-x-4 gap-y-1">
+        <div className="grid grid-cols-[auto_220px] grid-rows-[auto_auto] gap-x-4 gap-y-1">
           <p className="self-center text-sm">Matricola</p>
           {filteredRows.length > 0 && matricolaFilterSubmitted ? (
             <Removable
