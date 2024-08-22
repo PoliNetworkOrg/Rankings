@@ -19,6 +19,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import { Removable } from "@/components/custom-ui/Removable";
 import { useState } from "react";
 
 export type FilterOption<T> = {
@@ -60,7 +61,7 @@ export function FilterBtn<TData, TValue>({
     column?.setFilterValue(filterValues.length ? filterValues : undefined); // update table
   }
 
-  return (
+  return facets.size >= 2 ? (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
@@ -160,5 +161,16 @@ export function FilterBtn<TData, TValue>({
         </Command>
       </PopoverContent>
     </Popover>
+  ) : (
+    <Removable showRemove={false}>
+      {title}
+      <Separator
+        orientation="vertical"
+        className="mx-2 h-4 bg-slate-400 dark:bg-slate-600"
+      />
+      {facets.size === 1 && Array.from(facets.keys())[0]
+        ? options[0].label
+        : "N/A"}
+    </Removable>
   );
 }
