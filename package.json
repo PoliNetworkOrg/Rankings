@@ -25,7 +25,7 @@
     "@tanstack/react-loaders": "0.0.1-beta.96",
     "@tanstack/react-table": "^8.20.1",
     "@tanstack/router": "0.0.1-beta.100",
-    "@tanstack/router-devtools": "0.0.1-beta.102",
+    "@tanstack/router-devtools": "1.82.1",
     "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
