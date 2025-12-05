@@ -73,8 +73,8 @@ export const aboutRoute = new Route({
               >
                 PoliNetwork
               </a>{" "}
-            ❤️
-          </p>
+              ❤️
+            </p>
           </div>
         </div>
       </Page>

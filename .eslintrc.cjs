@@ -7,7 +7,7 @@ module.exports = {
     "prettier",
   ],
   parser: "@typescript-eslint/parser",
-  parserOptions: { ecmaVersion: "latest", sourceType: "module" },
+  parserOptions: { project: "./tsconfig.json", ecmaVersion: "latest", sourceType: "module" },
   plugins: ["react-refresh", "prettier"],
   rules: {
     "@typescript-eslint/switch-exhaustiveness-check": "error",
