@@ -25,6 +25,7 @@ import { getColumns } from "./columns";
 import Pagination from "./Pagination";
 import { getRowSpan, getHeaderBorder } from "./utils";
 import { NewStudentResult } from "@/utils/types/data/json/new-ranking";
+import { Toolbar } from "./Toolbar";
 
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   school: School;
@@ -33,18 +34,21 @@ interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   isGlobalRanking?: boolean;
 }
 
-function makeHas(rows: NewStudentResult[]): Record<keyof NewStudentResult, boolean> {
-  console.log(rows)
+function makeHas(
+  rows: NewStudentResult[],
+): Record<keyof NewStudentResult, boolean> {
   return {
-    id: rows.some(r => r.id.length > 0),
-    birthDate: rows.some(r => r.birthDate),
-    courses: rows.some(r => r.courses.length > 0),
-    englishResult: rows.some(r => r.englishResult),
-    position: rows.some(r => r.position > 0),
+    id: rows.some((r) => r.id.length > 0),
+    birthDate: rows.some((r) => r.birthDate),
+    courses: rows.some((r) => r.courses.length > 0),
+    englishResult: rows.some((r) => r.englishResult),
+    position: rows.some((r) => r.position > 0),
     canEnroll: true,
-    ofa: rows.some(r => Object.keys(r.ofa).length > 0),
+    ofa: rows.some((r) => Object.keys(r.ofa).length > 0),
     result: true,
-    sectionsResults: rows.some(r => Object.keys(r.sectionsResults).length > 0)
+    sectionsResults: rows.some(
+      (r) => Object.keys(r.sectionsResults).length > 0,
+    ),
   };
 }
 
@@ -82,17 +86,15 @@ export default function Table({ table: _table, csvFilename: _ }: TableProps) {
   });
 
   // const csv = useMemo(() => (_table ? Store.tableToCsv(_table) : ""), [_table]);
-  // function handleCsvDownload(): void {
-  //   downloadCsv(csv, csvFilename);
-  // }
+  function handleCsvDownload(): void {
+    // downloadCsv(csv, csvFilename);
+  }
+  //
 
   return (
     <>
       <div className="w-full max-w-7xl px-4">
-        {/*
-         <Toolbar onCsvClick={handleCsvDownload} has={has} table={table} />
-        */}
-
+        <Toolbar onCsvClick={handleCsvDownload} has={has} table={table} />
       </div>
       <div className="flex w-full flex-col gap-4 px-4">
         <div className="rounded-md border border-slate-300 dark:border-slate-700 [&_*]:border-slate-300 [&_*]:dark:border-slate-700">

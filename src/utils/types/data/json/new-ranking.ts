@@ -34,5 +34,6 @@ export type NewRanking = {
   school: School;
   year: number;
   phase: NewPhase;
+  courses: Record<string, string[]>;
   rows: Array<NewStudentResult>;
 };

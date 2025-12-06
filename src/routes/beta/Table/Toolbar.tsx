@@ -1,26 +1,26 @@
 import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MdDownload } from "react-icons/md";
-import { FilterBtn } from "./FilterBtn";
-import { enrollStatusOpts, enrollAllowedOpts } from "./columns";
-import { StudentResultKeys } from ".";
-import StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult";
+// import { MdDownload } from "react-icons/md";
+// import { FilterBtn } from "./FilterBtn";
+// import { enrollStatusOpts, enrollAllowedOpts } from "./columns";
+// import StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult";
 import { sha256 } from "@/utils/strings/crypto";
 import { useState } from "react";
 import { LuXCircle } from "react-icons/lu";
 import { Removable } from "@/components/custom-ui/Removable";
+import { NewStudentResult } from "@/utils/types/data/json/new-ranking";
 
 type Props = {
-  has: Record<StudentResultKeys, boolean>;
-  table: Table<StudentResult>;
+  has: Record<keyof NewStudentResult, boolean>;
+  table: Table<NewStudentResult>;
   onCsvClick: () => void;
 };
 
-export function Toolbar({ has, onCsvClick, table }: Props) {
-  const matricolaCol = table.getColumn("matricolaHash");
-  const enrollStatusCol = table.getColumn("enrollStatus");
-  const enrollAllowedCol = table.getColumn("enrollAllowed");
+export function Toolbar({ has, onCsvClick: _, table }: Props) {
+  const idCol = table.getColumn("id");
+  // const enrollStatusCol = table.getColumn("enrollStatus");
+  // const enrollAllowedCol = table.getColumn("enrollAllowed");
 
   const [matricolaFilter, setMatricolaFilter] = useState<string>("");
   const [matricolaFilterSubmitted, setMatricolaFilterSubmitted] =
@@ -28,7 +28,7 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
   const { rows: filteredRows } = table.getFilteredRowModel();
 
   function filterTableMatricolaCol(value?: string) {
-    matricolaCol?.setFilterValue(value);
+    idCol?.setFilterValue(value);
   }
 
   function handleClearMatricolaFilter() {
@@ -61,7 +61,7 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
 
   return (
     <div className="flex w-full flex-wrap items-start justify-start gap-6 max-2xs:flex-col">
-      {has.matricolaHash && matricolaCol && (
+      {has.id && idCol && (
         <div className="grid grid-cols-[auto_220px] grid-rows-[auto_auto] gap-x-4 gap-y-1">
           <p className="self-center text-sm">Matricola</p>
           {filteredRows.length > 0 && matricolaFilterSubmitted ? (
@@ -104,32 +104,33 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
           )}
         </div>
       )}
-      <div className="flex flex-1 justify-start gap-6 max-xs:flex-wrap">
-        {has.enrollAllowed && enrollAllowedCol && (
-          <FilterBtn
-            column={enrollAllowedCol}
-            title="Immatricolabile"
-            options={enrollAllowedOpts}
-          />
-        )}
-        {has.enrollStatus && enrollStatusCol && (
-          <FilterBtn
-            column={enrollStatusCol}
-            title="Stato"
-            options={enrollStatusOpts}
-          />
-        )}
-      </div>
-      <div className="flex justify-end">
-        <Button
-          variant="outline"
-          className="whitespace-nowrap"
-          onClick={onCsvClick}
-        >
-          <MdDownload size={20} />
-          <span className="max-sm:hidden">Download CSV</span>
-        </Button>
-      </div>
     </div>
   );
 }
+
+// <div className="flex flex-1 justify-start gap-6 max-xs:flex-wrap">
+//   {has.enrollAllowed && enrollAllowedCol && (
+//     <FilterBtn
+//       column={enrollAllowedCol}
+//       title="Immatricolabile"
+//       options={enrollAllowedOpts}
+//     />
+//   )}
+//   {has.enrollStatus && enrollStatusCol && (
+//     <FilterBtn
+//       column={enrollStatusCol}
+//       title="Stato"
+//       options={enrollStatusOpts}
+//     />
+//   )}
+// </div>
+// <div className="flex justify-end">
+//   <Button
+//     variant="outline"
+//     className="whitespace-nowrap"
+//     onClick={onCsvClick}
+//   >
+//     <MdDownload size={20} />
+//     <span className="max-sm:hidden">Download CSV</span>
+//   </Button>
+// </div>

@@ -1,4 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, Row } from "@tanstack/react-table";
 import { FilterOption } from "./FilterBtn";
 import { NewStudentResult } from "@/utils/types/data/json/new-ranking";
 import { capitaliseWords } from "@/utils/strings/capitalisation";
@@ -215,24 +215,25 @@ export function getColumns(
         {
           accessorKey: "id",
           header: "Matricola",
-          id: "matricola",
+          id: "id",
           cell: ({ getValue }) => {
             const value = getValue();
             return Formatter.displayHash(value);
           },
           enableColumnFilter: true,
           enableGlobalFilter: true,
-          // filterFn: (
-          //   row: Row<StudentResult>,
-          //   id: string,
-          //   filterValue: string,
-          // ): boolean => {
-          //   const value: string | undefined = row.getValue(id);
-          //   if (!filterValue || !value) return true;
-          //   return value.slice(0, 10) === filterValue.slice(0, 10);
-          // },
+          filterFn: (
+            row: Row<NewStudentResult>,
+            id: string,
+            filterValue: string,
+          ): boolean => {
+            const value: string | undefined = row.getValue(id);
+            if (!filterValue || !value) return true;
+            return value.slice(0, 10) === filterValue.slice(0, 10);
+          },
         },
         {
+          id: "birthDate",
           accessorKey: "birthDate",
           header: "Data di nascita",
           cell: ({ getValue }) => {
