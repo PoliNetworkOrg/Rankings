@@ -9,11 +9,11 @@ import { sha256 } from "@/utils/strings/crypto";
 import { useState } from "react";
 import { LuXCircle } from "react-icons/lu";
 import { Removable } from "@/components/custom-ui/Removable";
-import { NewStudentResult } from "@/utils/types/data/json/new-ranking";
+import { StudentTableRow } from "@/utils/types/data/json/new-ranking";
 
 type Props = {
-  has: Record<keyof NewStudentResult, boolean>;
-  table: Table<NewStudentResult>;
+  has: Record<keyof StudentTableRow, boolean>;
+  table: Table<StudentTableRow>;
   onCsvClick: () => void;
 };
 

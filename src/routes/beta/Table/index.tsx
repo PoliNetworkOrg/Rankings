@@ -24,28 +24,28 @@ import School from "@/utils/types/data/School";
 import { getColumns } from "./columns";
 import Pagination from "./Pagination";
 import { getRowSpan, getHeaderBorder } from "./utils";
-import { NewStudentResult } from "@/utils/types/data/json/new-ranking";
+import { StudentTableRow } from "@/utils/types/data/json/new-ranking";
 import { Toolbar } from "./Toolbar";
 
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   school: School;
   csvFilename: string;
-  table: NewStudentResult[];
+  table: StudentTableRow[];
   isGlobalRanking?: boolean;
 }
 
 function makeHas(
-  rows: NewStudentResult[],
-): Record<keyof NewStudentResult, boolean> {
+  rows: StudentTableRow[],
+): Record<keyof StudentTableRow, boolean> {
   return {
     id: rows.some((r) => r.id.length > 0),
     birthDate: rows.some((r) => r.birthDate),
-    courses: rows.some((r) => r.courses.length > 0),
     englishResult: rows.some((r) => r.englishResult),
     position: rows.some((r) => r.position > 0),
     canEnroll: true,
     ofa: rows.some((r) => Object.keys(r.ofa).length > 0),
     result: true,
+    course: rows.some((r) => r.course),
     sectionsResults: rows.some(
       (r) => Object.keys(r.sectionsResults).length > 0,
     ),
@@ -53,7 +53,7 @@ function makeHas(
 }
 
 type ColumnVisibility = {
-  [key in keyof NewStudentResult]?: boolean;
+  [key in keyof StudentTableRow]?: boolean;
 };
 
 export default function Table({ table: _table, csvFilename: _ }: TableProps) {

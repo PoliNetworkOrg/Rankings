@@ -1,6 +1,6 @@
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { FilterOption } from "./FilterBtn";
-import { NewStudentResult } from "@/utils/types/data/json/new-ranking";
+import { StudentTableRow } from "@/utils/types/data/json/new-ranking";
 import { capitaliseWords } from "@/utils/strings/capitalisation";
 
 export const enrollAllowedOpts: FilterOption<boolean>[] = [
@@ -68,8 +68,8 @@ class Formatter {
 }
 
 export function getColumns(
-  rows: NewStudentResult[],
-): ColumnDef<NewStudentResult>[] {
+  rows: StudentTableRow[],
+): ColumnDef<StudentTableRow>[] {
   return [
     {
       header: "Posizione",
@@ -84,18 +84,8 @@ export function getColumns(
         },
         {
           header: "Corso",
-          accessorFn: ({ courses }) => {
-            if (courses.length === 0) return "-";
-            const sortByPos = courses.sort((a, b) => {
-              return a.position - b.position;
-            });
-
-            if (
-              courses.every((a) => a.canEnroll) ||
-              courses.every((a) => !a.canEnroll)
-            )
-              return sortByPos[0].position;
-            return sortByPos.filter((a) => a.canEnroll)[0].position;
+          accessorFn: ({ course }) => {
+            return course?.position;
           },
           cell: ({ getValue }) => {
             const value = getValue();
@@ -157,12 +147,11 @@ export function getColumns(
           id: "canEnrollCourse",
           header: "Corso",
           accessorFn: (row) => {
-            if (!row.canEnroll) return "-";
-            const found = row.courses.find((c) => c.canEnroll);
-            if (!found) return "-";
-            return found.location
-              ? `${found.title} (${found.location})`
-              : found.title;
+            if (!row.course || !row.canEnroll) return "-";
+
+            return row.course.location
+              ? `${row.course.title} (${row.course.location})`
+              : row.course.title;
           },
           cell: ({ getValue }) => {
             const value = getValue();
@@ -223,7 +212,7 @@ export function getColumns(
           enableColumnFilter: true,
           enableGlobalFilter: true,
           filterFn: (
-            row: Row<NewStudentResult>,
+            row: Row<StudentTableRow>,
             id: string,
             filterValue: string,
           ): boolean => {

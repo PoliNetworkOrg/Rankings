@@ -1,8 +1,8 @@
-import { NewStudentResult } from "@/utils/types/data/json/new-ranking";
+import { StudentTableRow } from "@/utils/types/data/json/new-ranking";
 import { Header } from "@tanstack/react-table";
 
 export function getHeaderBorder(
-  header: Header<NewStudentResult, unknown>,
+  header: Header<StudentTableRow, unknown>,
   headersLength: number,
 ): string {
   if (header.isPlaceholder || headersLength == 1) return "";
@@ -11,7 +11,7 @@ export function getHeaderBorder(
   return "border-x";
 }
 
-export function getRowSpan(header: Header<NewStudentResult, unknown>): number {
+export function getRowSpan(header: Header<StudentTableRow, unknown>): number {
   if (header.isPlaceholder || !header.column.columnDef.header) return 0;
   if (header.depth === 1 && header.subHeaders.length > 0) {
     if (!header.subHeaders[0].column.columnDef.header) return 2;

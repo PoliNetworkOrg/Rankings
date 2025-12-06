@@ -29,6 +29,10 @@ export type NewStudentResult = {
   courses: Array<NewStudentResultCourse>;
 };
 
+export type StudentTableRow = Omit<NewStudentResult, "courses"> & {
+  course: NewStudentResultCourse | null;
+};
+
 export type NewRanking = {
   id: string;
   school: School;

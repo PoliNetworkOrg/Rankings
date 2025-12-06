@@ -9,7 +9,8 @@ import { NotFoundError } from "@/utils/errors.ts";
 import axios from "axios";
 import {
   NewRanking,
-  NewStudentResult,
+  NewStudentResultCourse,
+  StudentTableRow,
 } from "@/utils/types/data/json/new-ranking";
 import { ABS_ORDER } from "@/utils/constants";
 import { CourseInfo, CourseInfoLocation } from "@/utils/data/store";
@@ -45,19 +46,51 @@ function TEMP_getCoursesMap(
   return courses;
 }
 
+function TEMP_getBestCourse(
+  courses: NewStudentResultCourse[],
+): NewStudentResultCourse | null {
+  if (courses.length === 0) return null;
+  const sortByPos = courses.sort((a, b) => {
+    return a.position - b.position;
+  });
+
+  if (courses.every((a) => a.canEnroll) || courses.every((a) => !a.canEnroll))
+    return sortByPos[0];
+
+  return sortByPos.filter((a) => a.canEnroll)[0];
+}
+
 function TEMP_filterByCourse(
   ranking: NewRanking,
-  course: string,
-  location?: string,
-): NewStudentResult[] {
-  const filtered = ranking.rows.filter((r) =>
-    r.courses.find((c) =>
-      c.title.toLowerCase() === course.toLowerCase() && location
-        ? c.location.toLowerCase() === location.toLowerCase()
-        : c.location === "",
-    ),
-  );
-  return filtered;
+  courseTitle: string,
+  courseLocation?: string,
+): StudentTableRow[] {
+  if (courseTitle === ABS_ORDER)
+    return ranking.rows.map<StudentTableRow>((r) => {
+      const bestCourse = TEMP_getBestCourse(r.courses);
+      return { ...r, course: bestCourse };
+    });
+
+  return ranking.rows
+    .map<StudentTableRow>((r) => {
+      const course =
+        r.courses.find(
+          (c) =>
+            c.title.toLowerCase() === courseTitle.toLowerCase() &&
+            (courseLocation
+              ? c.location.toLowerCase() === courseLocation.toLowerCase()
+              : c.location === ""),
+        ) ?? null;
+      return { ...r, course };
+    })
+    .filter(
+      (
+        r,
+      ): r is StudentTableRow & {
+        course: NonNullable<StudentTableRow["course"]>;
+      } => r.course !== null,
+    )
+    .sort((a, b) => a.course.position - b.course.position);
 }
 
 function isSelectedLocationValid(
@@ -98,7 +131,7 @@ export const betaRoute = new Route({
   path: "/beta",
   loader: async () => {
     const res = await axios.get(
-      "http://localhost:8120/2024_20064_3a62_html.json",
+      "http://localhost:8120/2024_20102_491d_html.json",
     );
     const ranking: NewRanking = res.data;
     return { ranking };
@@ -183,8 +216,7 @@ export const betaRoute = new Route({
       // updateAvailablePhases();
     }
 
-    const table = useMemo(() => {
-      if (selectedCourse === ABS_ORDER) return ranking.rows;
+    const table: StudentTableRow[] = useMemo(() => {
       return TEMP_filterByCourse(ranking, selectedCourse, selectedLocation);
     }, [ranking, selectedCourse, selectedLocation]);
 
