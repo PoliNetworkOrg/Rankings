@@ -66,7 +66,7 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
 
       totalStableStudents += stableData
         .map((r) => r.rankingSummary.howManyStudents)
-        .reduce((a, b) => a + b);
+        .reduce((a, b) => a + b, 0);
 
       const comparison = getComparison(stableData, mainData);
       const schoolData: SchoolData = {
@@ -112,10 +112,10 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
   function getComparison(stable: Ranking[], main: Ranking[]): RefComparison {
     const mainStudents = main
       .map((r) => r.rankingSummary.howManyStudents)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
     const stableStudents = stable
       .map((r) => r.rankingSummary.howManyStudents)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
 
     const diffStableMain = stableStudents - mainStudents;
     const diffStableMainPercentage = (diffStableMain * 100) / stableStudents;
