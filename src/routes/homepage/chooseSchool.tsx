@@ -8,7 +8,7 @@ import { homepageRoute } from "."
 function getSchoolEmoji(school: School) {
   switch (school) {
     case "Architettura":
-      return <span className="mr-2 rotate-[270deg] text-lg">&#128208;</span>
+      return <span className="mr-2 rotate-270 text-lg">&#128208;</span>
     case "Design":
       return <span className="mr-2 text-lg">&#128396;&#65039;</span>
     case "Ingegneria":

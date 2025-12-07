@@ -169,7 +169,7 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
                   ).fill(0)
                   return (
                     <div
-                      className="h-full basis-[calc(50%-1rem)] rounded-md border border-slate-300 dark:border-slate-700 [&_*]:border-slate-300 [&_*]:dark:border-slate-700"
+                      className="h-full basis-[calc(50%-1rem)] rounded-md border border-slate-300 dark:border-slate-700 **:border-slate-300 **:dark:border-slate-700"
                       key={school}
                     >
                       <Table className="h-full [&_tr:nth-child(odd):not(:hover)]:bg-inherit dark:[&_tr:nth-child(odd):not(:hover)]:bg-inherit">
@@ -198,7 +198,7 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
                               <TableCell colSpan={3}>&nbsp;</TableCell>
                             </TableRow>
                           ))}
-                          <TableRow className="[&_*]:bg-slate-300 [&_*]:dark:bg-slate-800">
+                          <TableRow className="**:bg-slate-300 **:dark:bg-slate-800">
                             <TableCell>Comparison (stable - main)</TableCell>
                             <TableCell>
                               {schoolData.comparison.diffStableMain}
@@ -225,7 +225,7 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
           )}
         </>
       )}
-      {isLoading && <Spinner className="flex-grow-0" />}
+      {isLoading && <Spinner className="grow-0" />}
     </div>
   )
 }

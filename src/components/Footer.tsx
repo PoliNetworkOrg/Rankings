@@ -27,7 +27,7 @@ export default function Footer() {
           </p>
         </FooterColumn>
 
-        <FooterColumn className="flex-shrink-0">
+        <FooterColumn className="shrink-0">
           <nav className="flex justify-end gap-8 max-md:justify-center">
             <Link to="/about">About</Link>
             <Link to="/source">Source</Link>
