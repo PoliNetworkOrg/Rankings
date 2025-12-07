@@ -1,0 +1,98 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": { "ignoreUnknown": false, "includes": ["**", "!**/src/utils/data"] },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "expand": "auto",
+    "useEditorconfig": false,
+    "includes": [
+      "**",
+      "!**/docs/",
+      "!**/.github",
+      "!**/.git",
+      "!**/pnpm-lock.yaml",
+      "!**/aggiorna_graduatorie.py",
+      "!**/logs",
+      "!**/*.log",
+      "!**/npm-debug.log*",
+      "!**/yarn-debug.log*",
+      "!**/yarn-error.log*",
+      "!**/pnpm-debug.log*",
+      "!**/lerna-debug.log*",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/dist-ssr",
+      "!**/*.local",
+      "!**/.vite/",
+      "!.vscode/*",
+      ".vscode/extensions.json",
+      "!**/.idea",
+      "!**/.DS_Store",
+      "!**/*.suo",
+      "!**/*.ntvs*",
+      "!**/*.njsproj",
+      "!**/*.sln"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noVar": "error"
+      },
+      "nursery": {
+        "noFloatingPromises": "error",
+        "noMisusedPromises": "error",
+        "noUnnecessaryConditions": "error",
+        "noImportCycles": "warn",
+        "useSortedClasses": {
+          "options": {
+            "attributes": ["classList"],
+            "functions": ["cn"]
+          }
+        }
+      },
+      "correctness": {
+        "useJsonImportAttributes": "warn",
+        "noPrivateImports": "error"
+      }
+    },
+    "domains": {
+      "project": "recommended",
+      "react": "recommended"
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "es5",
+      "semicolons": "asNeeded",
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "quoteStyle": "double",
+      "attributePosition": "auto",
+      "bracketSpacing": true
+    }
+  },
+  "html": { "formatter": { "selfCloseVoidElements": "always" } },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": { "source": { "organizeImports": "on" } }
+  }
+}
