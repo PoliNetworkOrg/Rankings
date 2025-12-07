@@ -15,7 +15,7 @@ export default function Section({
     <>
       {showHr && <Separator />}
       <div className="flex w-full flex-col items-start gap-2">
-        <h4 className="text-lg font-bold">{title}</h4>
+        <h4 className="font-bold text-lg">{title}</h4>
         {children}
       </div>
     </>

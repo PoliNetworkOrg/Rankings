@@ -48,10 +48,10 @@ export const sourceRoute = new Route({
     return (
       <Page>
         <div className="flex flex-col gap-8 p-8 text-justify">
-          <h2 className="text-center text-lg font-bold">Source</h2>
+          <h2 className="text-center font-bold text-lg">Source</h2>
           <div>
             <p>Il codice è suddiviso in più repository:</p>
-            <div className="my-4 rounded-md border border-slate-300 dark:border-slate-700 **:border-slate-300 **:dark:border-slate-700">
+            <div className="my-4 rounded-md border border-slate-300 **:border-slate-300 dark:border-slate-700 **:dark:border-slate-700">
               <Table>
                 <TableHeader>
                   <TableRow>

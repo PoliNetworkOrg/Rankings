@@ -99,7 +99,7 @@ function Buttons({ school, year, phases }: ButtonsProps) {
             className="relative h-full w-full"
           >
             <span className="whitespace text-base">{phase.name}</span>
-            <div className="absolute bottom-0 right-0 flex overflow-hidden rounded-tl-lg">
+            <div className="absolute right-0 bottom-0 flex overflow-hidden rounded-tl-lg">
               <div className="bg-slate-700 px-3 py-1">
                 <PhaseFlag phase={phase} />
               </div>

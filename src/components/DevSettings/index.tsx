@@ -19,13 +19,13 @@ export default function DevSettings({
   return (
     <>
       <div
-        className={`fixed left-0 top-0 flex h-screen w-full bg-white dark:bg-slate-950 ${
+        className={`fixed top-0 left-0 flex h-screen w-full bg-white dark:bg-slate-950 ${
           open ? "" : "hidden"
         }`}
       >
         <Page className="gap-4" paddingTop={false}>
-          <div className="flex w-full items-center justify-between border-b border-slate-600 py-4">
-            <h3 className="text-2xl font-bold">Dev Settings</h3>
+          <div className="flex w-full items-center justify-between border-slate-600 border-b py-4">
+            <h3 className="font-bold text-2xl">Dev Settings</h3>
             <Button
               size="icon"
               variant="outline"
@@ -35,7 +35,7 @@ export default function DevSettings({
             </Button>
           </div>
 
-          <div className="flex h-full max-h-full w-full flex-col gap-4 overflow-y-scroll pb-12 pr-2 scrollbar-thin">
+          <div className="scrollbar-thin flex h-full max-h-full w-full flex-col gap-4 overflow-y-scroll pr-2 pb-12">
             <Section title="WebApp Info" showHr={false}>
               <p>Version: {APP_VERSION}</p>
             </Section>
@@ -54,7 +54,7 @@ export default function DevSettings({
           onClick={() => setOpen(true)}
           variant="outline"
           size="icon"
-          className="absolute right-0 top-0 m-2"
+          className="absolute top-0 right-0 m-2"
         >
           <LuSettings2 />
         </Button>

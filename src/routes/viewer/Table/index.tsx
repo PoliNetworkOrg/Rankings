@@ -126,7 +126,7 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
         <Toolbar onCsvClick={handleCsvDownload} has={has} table={table} />
       </div>
       <div className="flex w-full flex-col gap-4 px-4">
-        <div className="rounded-md border border-slate-300 dark:border-slate-700 **:border-slate-300 **:dark:border-slate-700">
+        <div className="rounded-md border border-slate-300 **:border-slate-300 dark:border-slate-700 **:dark:border-slate-700">
           <TableComponent>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -140,7 +140,7 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
                           colSpan={header.colSpan}
                           rowSpan={rowSpan}
                           className={
-                            "text-center " +
+                            "text-center" +
                             getHeaderBorder(header, headerGroup.headers.length)
                           }
                         >

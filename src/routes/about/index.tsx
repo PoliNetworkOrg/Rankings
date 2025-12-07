@@ -11,7 +11,7 @@ export const aboutRoute = new Route({
     return (
       <Page>
         <div className="flex flex-col gap-8 p-8 text-justify">
-          <h2 className="text-center text-lg font-bold">About</h2>
+          <h2 className="text-center font-bold text-lg">About</h2>
           <div>
             <p>
               Il seguente progetto mira a conservare lo storico delle

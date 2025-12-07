@@ -1,6 +1,3 @@
-import { Link, useParams } from "@tanstack/react-router"
-import { LuArrowRight, LuHouse } from "react-icons/lu"
-
 export default function PathBreadcrumb() {
   return null
   // const { school, year } = useParams({

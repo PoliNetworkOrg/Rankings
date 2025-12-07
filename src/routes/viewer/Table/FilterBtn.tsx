@@ -124,7 +124,7 @@ export function FilterBtn<TData, TValue>({
                   >
                     <div
                       className={cn(
-                        "border-primary mr-2 flex h-4 w-4 items-center justify-center border",
+                        "mr-2 flex h-4 w-4 items-center justify-center border border-primary",
                         options.length <= 2 ? "rounded-full" : "rounded-sm",
                         isSelected
                           ? "bg-primary text-primary-foreground"

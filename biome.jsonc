@@ -1,7 +1,10 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
-  "files": { "ignoreUnknown": false, "includes": ["**", "!**/src/utils/data"] },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**", "!**/src/utils/data", "!**/routeTree.gen.ts"]
+  },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,

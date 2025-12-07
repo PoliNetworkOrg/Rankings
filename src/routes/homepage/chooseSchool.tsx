@@ -32,7 +32,7 @@ export const chooseSchoolRoute = new Route({
 
     return (
       <>
-        <h3 className="w-full text-2xl font-bold">
+        <h3 className="w-full font-bold text-2xl">
           👋 Ciao!{" "}
           <span className="whitespace-nowrap">Questo sito raccoglie</span>{" "}
           <span className="whitespace-nowrap">lo storico</span>{" "}

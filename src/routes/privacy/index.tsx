@@ -9,7 +9,7 @@ export const privacyRoute = new Route({
     return (
       <Page>
         <div className="flex flex-col gap-8 p-8 text-justify">
-          <h2 className="text-center text-lg font-bold">Privacy</h2>
+          <h2 className="text-center font-bold text-lg">Privacy</h2>
           <div>
             <p>
               La privacy è un valore <b>fondante</b> di{" "}

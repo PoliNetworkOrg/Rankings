@@ -87,7 +87,7 @@ export function Toolbar({ has, onCsvClick: _, table }: Props) {
                     type="button"
                     variant="ghost"
                     size="icon"
-                    className="absolute right-1 top-1/2 h-7 w-7 -translate-y-1/2 text-gray-500 hover:bg-transparent hover:text-gray-900 dark:text-gray-400 dark:hover:bg-transparent dark:hover:text-gray-100"
+                    className="-translate-y-1/2 absolute top-1/2 right-1 h-7 w-7 text-gray-500 hover:bg-transparent hover:text-gray-900 dark:text-gray-400 dark:hover:bg-transparent dark:hover:text-gray-100"
                     onClick={handleClearMatricolaFilter}
                   >
                     <LuXCircle className="h-5 w-5" />
@@ -96,7 +96,7 @@ export function Toolbar({ has, onCsvClick: _, table }: Props) {
                 )}
               </form>
               {matricolaFilterSubmitted && (
-                <p className="col-start-2 text-sm text-red-600 dark:text-red-400">
+                <p className="col-start-2 text-red-600 text-sm dark:text-red-400">
                   Matricola non trovata, ricontrolla.
                 </p>
               )}

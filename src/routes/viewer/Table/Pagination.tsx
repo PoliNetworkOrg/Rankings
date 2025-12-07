@@ -24,12 +24,12 @@ export default function Pagination<TData>({
   return (
     <div className="my-2 flex items-center justify-end max-sm:flex-col max-sm:items-start max-sm:gap-2 sm:space-x-6">
       <div className="sm:flex-1">
-        <p className="text-sm font-medium">
+        <p className="font-medium text-sm">
           Totale righe: {table.getFilteredRowModel().rows.length}
         </p>
       </div>
       <div className="flex items-center space-x-2">
-        <p className="text-sm font-medium">Righe per pagina</p>
+        <p className="font-medium text-sm">Righe per pagina</p>
         <Select
           value={`${table.getState().pagination.pageSize}`}
           onValueChange={(value) => {
@@ -49,7 +49,7 @@ export default function Pagination<TData>({
         </Select>
       </div>
       <div className="flex max-sm:w-full max-sm:justify-between">
-        <div className="mr-2 flex items-center text-sm font-medium">
+        <div className="mr-2 flex items-center font-medium text-sm">
           <p>
             Pagina {table.getState().pagination.pageIndex + 1} di{" "}
             {table.getPageCount()}

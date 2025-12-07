@@ -169,7 +169,7 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
                   ).fill(0)
                   return (
                     <div
-                      className="h-full basis-[calc(50%-1rem)] rounded-md border border-slate-300 dark:border-slate-700 **:border-slate-300 **:dark:border-slate-700"
+                      className="h-full basis-[calc(50%-1rem)] rounded-md border border-slate-300 **:border-slate-300 dark:border-slate-700 **:dark:border-slate-700"
                       key={school}
                     >
                       <Table className="h-full [&_tr:nth-child(odd):not(:hover)]:bg-inherit dark:[&_tr:nth-child(odd):not(:hover)]:bg-inherit">

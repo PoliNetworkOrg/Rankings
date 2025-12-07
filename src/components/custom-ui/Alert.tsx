@@ -30,7 +30,7 @@ export default function Alert({
     >
       <div>{GetIcon(level)}</div>
       <div>
-        <p className="pb-2 text-lg font-bold">{capitaliseWords(level)}</p>
+        <p className="pb-2 font-bold text-lg">{capitaliseWords(level)}</p>
         <div>{children}</div>
       </div>
     </div>
