@@ -3,7 +3,7 @@ import CustomMap from "@/utils/CustomMap"
 import { SCHOOLS } from "@/utils/constants"
 import type Data from "@/utils/data/data"
 import type Ranking from "@/utils/types/data/parsed/Ranking"
-import type School from "@/utils/types/data/school"
+import type { School } from "@/utils/types/data/school"
 import Spinner from "../custom-ui/Spinner"
 import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
@@ -66,7 +66,7 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
 
       totalStableStudents += stableData
         .map((r) => r.rankingSummary.howManyStudents)
-        .reduce((a, b) => a + b)
+        .reduce((a, b) => a + b, 0)
 
       const comparison = getComparison(stableData, mainData)
       const schoolData: SchoolData = {
@@ -112,10 +112,10 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
   function getComparison(stable: Ranking[], main: Ranking[]): RefComparison {
     const mainStudents = main
       .map((r) => r.rankingSummary.howManyStudents)
-      .reduce((a, b) => a + b)
+      .reduce((a, b) => a + b, 0)
     const stableStudents = stable
       .map((r) => r.rankingSummary.howManyStudents)
-      .reduce((a, b) => a + b)
+      .reduce((a, b) => a + b, 0)
 
     const diffStableMain = stableStudents - mainStudents
     const diffStableMainPercentage = (diffStableMain * 100) / stableStudents
