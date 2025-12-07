@@ -1,5 +1,5 @@
 import type RankingFile from "../../parsed/Index/RankingFile"
-import type School from "../../School"
+import type { School } from "../../school"
 
 type JsonIndexBySchoolYear = {
   schools: {

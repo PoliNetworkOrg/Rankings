@@ -1,4 +1,4 @@
-import type School from "../../School"
+import type { School } from "../../school"
 import type JsonCourseTable from "./JsonCourseTable"
 import type JsonMeritTable from "./JsonMeritTable"
 import type JsonRankingSummary from "./JsonRankingSummary"

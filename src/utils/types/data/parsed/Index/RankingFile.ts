@@ -1,6 +1,7 @@
 import type CustomMap from "@/utils/CustomMap"
+import type { NewPhase } from "../../json/new-ranking"
 import type { JsonRankingOrder } from "../../json/Ranking/JsonRanking"
-import type School from "../../School"
+import type { School } from "../../school"
 
 type RankingFile = {
   link: string
@@ -21,14 +22,12 @@ export type PhaseGroups = CustomMap<string, PhaseGroup>
 export type PhaseGroup = {
   label: string
   value: string
-  phases: PhaseLink[]
+  phases: NewPhase[]
 }
 
 export type PhaseLink = {
   name: string
-  href: string
-  order: JsonRankingOrder
-  group: PhaseLinkGroup
+  language: "IT" | "EN"
 }
 
 export type PhaseLinkGroup = {

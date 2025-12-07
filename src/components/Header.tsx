@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/router"
+import { Link } from "@tanstack/react-router"
 import { useContext } from "react"
 import {
   MdOutlineDarkMode as DarkIcon,
@@ -11,7 +11,7 @@ import { Button } from "./ui/button"
 export default function Header() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
   return (
-    <header className="w-full border-b border-slate-800/20 dark:border-slate-300/20">
+    <header className="w-full border-slate-800/20 border-b dark:border-slate-300/20">
       <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
         <div className="flex flex-1">
           <Link

@@ -40,7 +40,8 @@
       "!**/*.suo",
       "!**/*.ntvs*",
       "!**/*.njsproj",
-      "!**/*.sln"
+      "!**/*.sln",
+      "**/routeTree.gen.ts"
     ]
   },
   "linter": {
@@ -56,6 +57,7 @@
         "noUnnecessaryConditions": "error",
         "noImportCycles": "warn",
         "useSortedClasses": {
+          "level": "warn",
           "options": {
             "attributes": ["classList"],
             "functions": ["cn"]

@@ -1,5 +1,5 @@
 import type CustomMap from "../../../../CustomMap"
-import type School from "../../School"
+import type { School } from "../../school"
 import type CourseStats from "./CourseStats"
 
 type StatsByYear = {
