@@ -73,7 +73,10 @@ function ExternalLink({
       {...props}
       target={target}
       rel={rel}
-      className={`text-black underline underline-offset-2 dark:text-inherit${className}`}
+      className={cn(
+        `text-black underline underline-offset-2 dark:text-inherit`,
+        className
+      )}
     >
       {children}
     </a>
