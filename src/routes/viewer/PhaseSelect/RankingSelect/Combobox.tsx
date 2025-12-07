@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -5,23 +6,22 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { State } from "@/utils/types/state";
-import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile";
+} from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import type { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile"
+import type { State } from "@/utils/types/state"
 
 export type RankingComboboxProps = {
-  rankingOpen: State<boolean>;
-  phases: PhaseLink[];
-  selectedPhase: PhaseLink;
-  onChange: (link: PhaseLink) => void;
-};
+  rankingOpen: State<boolean>
+  phases: PhaseLink[]
+  selectedPhase: PhaseLink
+  onChange: (link: PhaseLink) => void
+}
 
 export default function RankingCombobox({
   rankingOpen,
@@ -29,12 +29,12 @@ export default function RankingCombobox({
   onChange,
   phases,
 }: RankingComboboxProps) {
-  const [open, setOpen] = rankingOpen;
+  const [open, setOpen] = rankingOpen
   function handleChange(value: string): void {
-    setOpen(false);
-    const phase = phases.find((p) => p.href === value);
-    if (!phase) return;
-    onChange(phase);
+    setOpen(false)
+    const phase = phases.find((p) => p.href === value)
+    if (!phase) return
+    onChange(phase)
   }
 
   return (
@@ -66,5 +66,5 @@ export default function RankingCombobox({
         </Command>
       </PopoverContent>
     </Popover>
-  );
+  )
 }

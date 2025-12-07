@@ -1,14 +1,14 @@
-import { Removable } from "@/components/custom-ui/Removable";
-import RankingCombobox, { RankingComboboxProps } from "./Combobox";
-import RankingTabs, { RankingTabsProps } from "./Tabs";
+import { Removable } from "@/components/custom-ui/Removable"
+import RankingCombobox, { type RankingComboboxProps } from "./Combobox"
+import RankingTabs, { type RankingTabsProps } from "./Tabs"
 
-type ChildProps = RankingTabsProps & RankingComboboxProps;
+type ChildProps = RankingTabsProps & RankingComboboxProps
 export type RankingSelectProps = ChildProps & {
-  isCombobox: boolean;
-};
+  isCombobox: boolean
+}
 
 export default function RankingSelect(props: RankingSelectProps) {
-  const { phases, isCombobox, rankingOpen, selectedPhase, onChange } = props;
+  const { phases, isCombobox, rankingOpen, selectedPhase, onChange } = props
   return (
     <div className="flex items-center space-x-4">
       <p className="text-sm">Graduatoria</p>
@@ -31,5 +31,5 @@ export default function RankingSelect(props: RankingSelectProps) {
         <Removable showRemove={false}>{selectedPhase.name}</Removable>
       )}
     </div>
-  );
+  )
 }

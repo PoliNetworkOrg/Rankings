@@ -1,9 +1,9 @@
-import RankingFile from "../Index/RankingFile";
-import RankingSummary from "../Ranking/RankingSummary";
+import type RankingFile from "../Index/RankingFile"
+import type RankingSummary from "../Ranking/RankingSummary"
 
 type CourseStats = {
-  singleCourseJson: RankingFile;
-  stats: RankingSummary;
-};
+  singleCourseJson: RankingFile
+  stats: RankingSummary
+}
 
-export default CourseStats;
+export default CourseStats

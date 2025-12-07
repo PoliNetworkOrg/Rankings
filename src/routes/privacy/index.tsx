@@ -1,6 +1,6 @@
-import { Route } from "@tanstack/router";
-import Page from "@/components/custom-ui/Page";
-import { rootRoute } from "../root";
+import { Route } from "@tanstack/router"
+import Page from "@/components/custom-ui/Page"
+import { rootRoute } from "../root"
 
 export const privacyRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -39,6 +39,6 @@ export const privacyRoute = new Route({
           </div>
         </div>
       </Page>
-    );
+    )
   },
-});
+})

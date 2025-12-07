@@ -1,7 +1,7 @@
-import { LoaderClient } from "@tanstack/react-loaders";
-import { rankingLoader } from "./rankingLoader";
-import { choosePhaseLoader } from "./choosePhaseLoader";
-import { chooseYearLoader } from "./chooseYearLoader";
+import { LoaderClient } from "@tanstack/react-loaders"
+import { choosePhaseLoader } from "./choosePhaseLoader"
+import { chooseYearLoader } from "./chooseYearLoader"
+import { rankingLoader } from "./rankingLoader"
 
 export const loaderClient = new LoaderClient({
   getLoaders: () => ({
@@ -9,10 +9,10 @@ export const loaderClient = new LoaderClient({
     choosePhase: choosePhaseLoader,
     chooseYear: chooseYearLoader,
   }),
-});
+})
 
 declare module "@tanstack/react-loaders" {
   interface Register {
-    loaderClient: typeof loaderClient;
+    loaderClient: typeof loaderClient
   }
 }

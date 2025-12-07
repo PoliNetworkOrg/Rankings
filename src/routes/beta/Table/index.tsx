@@ -1,41 +1,39 @@
-import { useState } from "react";
 import {
-  ColumnFiltersState,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-} from "@tanstack/react-table";
-import {
-  PaginationState,
+  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
+  getPaginationRowModel,
+  type PaginationState,
   useReactTable,
-} from "@tanstack/react-table";
+} from "@tanstack/react-table"
+import { useState } from "react"
 import {
-  Table as TableComponent,
   TableBody,
   TableCell,
+  Table as TableComponent,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import School from "@/utils/types/data/School";
-import { getColumns } from "./columns";
-import Pagination from "./Pagination";
-import { getRowSpan, getHeaderBorder } from "./utils";
-import { StudentTableRow } from "@/utils/types/data/json/new-ranking";
-import { Toolbar } from "./Toolbar";
+} from "@/components/ui/table"
+import type { StudentTableRow } from "@/utils/types/data/json/new-ranking"
+import type School from "@/utils/types/data/School"
+import { getColumns } from "./columns"
+import Pagination from "./Pagination"
+import { Toolbar } from "./Toolbar"
+import { getHeaderBorder, getRowSpan } from "./utils"
 
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
-  school: School;
-  csvFilename: string;
-  table: StudentTableRow[];
-  isGlobalRanking?: boolean;
+  school: School
+  csvFilename: string
+  table: StudentTableRow[]
+  isGlobalRanking?: boolean
 }
 
 function makeHas(
-  rows: StudentTableRow[],
+  rows: StudentTableRow[]
 ): Record<keyof StudentTableRow, boolean> {
   return {
     id: rows.some((r) => r.id.length > 0),
@@ -47,26 +45,26 @@ function makeHas(
     result: true,
     course: rows.some((r) => r.course),
     sectionsResults: rows.some(
-      (r) => Object.keys(r.sectionsResults).length > 0,
+      (r) => Object.keys(r.sectionsResults).length > 0
     ),
-  };
+  }
 }
 
 type ColumnVisibility = {
-  [key in keyof StudentTableRow]?: boolean;
-};
+  [key in keyof StudentTableRow]?: boolean
+}
 
 export default function Table({ table: _table, csvFilename: _ }: TableProps) {
-  const has = makeHas(_table);
+  const has = makeHas(_table)
   const [columnVisibility, setColumnVisibility] =
-    useState<ColumnVisibility>(has);
-  const columns = getColumns(_table);
+    useState<ColumnVisibility>(has)
+  const columns = getColumns(_table)
   const [pagination, setPagination] = useState<PaginationState>({
     pageSize: 15,
     pageIndex: 0,
-  });
+  })
 
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const table = useReactTable({
     data: _table,
     columns,
@@ -83,7 +81,7 @@ export default function Table({ table: _table, csvFilename: _ }: TableProps) {
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  });
+  })
 
   // const csv = useMemo(() => (_table ? Store.tableToCsv(_table) : ""), [_table]);
   function handleCsvDownload(): void {
@@ -103,7 +101,7 @@ export default function Table({ table: _table, csvFilename: _ }: TableProps) {
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
-                    const rowSpan = getRowSpan(header);
+                    const rowSpan = getRowSpan(header)
                     return (
                       rowSpan > 0 && (
                         <TableHead
@@ -118,12 +116,12 @@ export default function Table({ table: _table, csvFilename: _ }: TableProps) {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
-                    );
+                    )
                   })}
                 </TableRow>
               ))}
@@ -143,7 +141,7 @@ export default function Table({ table: _table, csvFilename: _ }: TableProps) {
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext(),
+                          cell.getContext()
                         )}
                       </TableCell>
                     ))}
@@ -167,5 +165,5 @@ export default function Table({ table: _table, csvFilename: _ }: TableProps) {
         <Pagination table={table} />
       </div>
     </>
-  );
+  )
 }

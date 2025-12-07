@@ -1,5 +1,6 @@
-import { Removable } from "@/components/custom-ui/Removable";
-import { Button } from "@/components/ui/button";
+import { useContext, useState } from "react"
+import { Removable } from "@/components/custom-ui/Removable"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -7,32 +8,31 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import MobileContext from "@/contexts/MobileContext";
-import { useContext, useState } from "react";
+} from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import MobileContext from "@/contexts/MobileContext"
 
 type Location = {
-  value: string;
-  label: string;
-};
+  value: string
+  label: string
+}
 
 type Props = {
-  value: string;
-  locations: Location[];
-  onChange: (value: string) => void;
-};
+  value: string
+  locations: Location[]
+  onChange: (value: string) => void
+}
 
 export default function LocationsSelect(props: Props) {
-  const { isMobile } = useContext(MobileContext);
-  const { locations } = props;
-  if (locations.length === 0) return <></>;
+  const { isMobile } = useContext(MobileContext)
+  const { locations } = props
+  if (locations.length === 0) return null
   return (
     <div className="flex items-center space-x-4">
       <p className="text-sm">Sede</p>
@@ -46,11 +46,11 @@ export default function LocationsSelect(props: Props) {
         <Removable showRemove={false}>{locations[0].label}</Removable>
       )}
     </div>
-  );
+  )
 }
 
 function LocationCombobox({ value, onChange, locations }: Props) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -72,8 +72,8 @@ function LocationCombobox({ value, onChange, locations }: Props) {
                   <CommandItem
                     key={location.value}
                     onSelect={(value) => {
-                      onChange(value);
-                      setOpen(false);
+                      onChange(value)
+                      setOpen(false)
                     }}
                   >
                     {location.label}
@@ -85,7 +85,7 @@ function LocationCombobox({ value, onChange, locations }: Props) {
         </Command>
       </PopoverContent>
     </Popover>
-  );
+  )
 }
 
 function LocationsTabs({ value, onChange, locations }: Props) {
@@ -99,5 +99,5 @@ function LocationsTabs({ value, onChange, locations }: Props) {
         ))}
       </TabsList>
     </Tabs>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { Column } from "@tanstack/react-table";
-
-import { cn } from "@/utils/ui";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons"
+import type { Column } from "@tanstack/react-table"
+import { useState } from "react"
+import { Removable } from "@/components/custom-ui/Removable"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -12,53 +12,53 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
-import { Removable } from "@/components/custom-ui/Removable";
-import { useState } from "react";
+} from "@/components/ui/popover"
+import { Separator } from "@/components/ui/separator"
+import { cn } from "@/utils/ui"
 
 export type FilterOption<T> = {
-  originalValue: T;
-  label: string;
-  value: string;
-  icon?: React.ComponentType<{ className?: string }>;
-};
+  originalValue: T
+  label: string
+  value: string
+  icon?: React.ComponentType<{ className?: string }>
+}
 
 type Props<TData, TValue> = {
-  column: Column<TData, TValue>;
-  title: string;
-  options: FilterOption<TValue>[];
-};
+  column: Column<TData, TValue>
+  title: string
+  options: FilterOption<TValue>[]
+}
 
 export function FilterBtn<TData, TValue>({
   column,
   title,
   options,
 }: Props<TData, TValue>) {
-  const [open, setOpen] = useState<boolean>(false);
-  const facets = column.getFacetedUniqueValues();
-  const selectedValues = new Set(column?.getFilterValue() as string[]);
+  const [open, setOpen] = useState<boolean>(false)
+  const facets = column.getFacetedUniqueValues()
+  const selectedValues = new Set(column?.getFilterValue() as string[])
 
   function handleClearFilter(): void {
-    column?.setFilterValue(undefined);
-    setOpen(false);
+    column?.setFilterValue(undefined)
+    setOpen(false)
   }
 
   function handleOptionSelect(
     option: FilterOption<TValue>,
-    isSelected: boolean,
+    isSelected: boolean
   ): void {
-    if (options.length <= 2) selectedValues.clear(); // filter with radio behaviour
-    if (isSelected) selectedValues.delete(option.value); // toggle behaviour
-    else selectedValues.add(option.value);
+    if (options.length <= 2) selectedValues.clear() // filter with radio behaviour
+    if (isSelected)
+      selectedValues.delete(option.value) // toggle behaviour
+    else selectedValues.add(option.value)
 
-    const filterValues = Array.from(selectedValues); // get selected filter options
-    column?.setFilterValue(filterValues.length ? filterValues : undefined); // update table
+    const filterValues = Array.from(selectedValues) // get selected filter options
+    column?.setFilterValue(filterValues.length ? filterValues : undefined) // update table
   }
 
   return facets.size >= 2 ? (
@@ -114,8 +114,8 @@ export function FilterBtn<TData, TValue>({
             <CommandEmpty>Nessun filtro trovato</CommandEmpty>
             <CommandGroup>
               {options.map((option) => {
-                const facet = facets.get(option.originalValue);
-                const isSelected = selectedValues.has(option.value);
+                const facet = facets.get(option.originalValue)
+                const isSelected = selectedValues.has(option.value)
 
                 return (
                   <CommandItem
@@ -128,7 +128,7 @@ export function FilterBtn<TData, TValue>({
                         options.length <= 2 ? "rounded-full" : "rounded-sm",
                         isSelected
                           ? "bg-primary text-primary-foreground"
-                          : "opacity-50 [&_svg]:invisible",
+                          : "opacity-50 [&_svg]:invisible"
                       )}
                     >
                       <CheckIcon className={cn("h-4 w-4")} />
@@ -141,7 +141,7 @@ export function FilterBtn<TData, TValue>({
                       </span>
                     )}
                   </CommandItem>
-                );
+                )
               })}
             </CommandGroup>
             {selectedValues.size > 0 && (
@@ -172,5 +172,5 @@ export function FilterBtn<TData, TValue>({
         ? options[0].label
         : "N/A"}
     </Removable>
-  );
+  )
 }

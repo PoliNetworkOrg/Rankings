@@ -1,9 +1,8 @@
-import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
-
-import { cn } from "@/utils/ui.ts";
-import { IoCloseCircle } from "react-icons/io5";
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react"
+import { IoCloseCircle } from "react-icons/io5"
+import { cn } from "@/utils/ui.ts"
 
 const removableVariants = cva(
   "inline-flex items-center justify-center rounded-md text-sm font-medium disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-slate-800",
@@ -23,15 +22,15 @@ const removableVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
-);
+  }
+)
 
 export interface RemovableProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof removableVariants> {
-  asChild?: boolean;
-  onRemove?: () => void;
-  showRemove?: boolean;
+  asChild?: boolean
+  onRemove?: () => void
+  showRemove?: boolean
 }
 
 const Removable = React.forwardRef<HTMLDivElement, RemovableProps>(
@@ -46,9 +45,9 @@ const Removable = React.forwardRef<HTMLDivElement, RemovableProps>(
       onRemove,
       ...props
     },
-    ref,
+    ref
   ) => {
-    const Comp = asChild ? Slot : "div";
+    const Comp = asChild ? Slot : "div"
     return (
       <Comp
         className={cn(removableVariants({ variant, size, className }))}
@@ -57,14 +56,14 @@ const Removable = React.forwardRef<HTMLDivElement, RemovableProps>(
       >
         {children}
         {showRemove && (
-          <button onClick={onRemove} className="ml-2">
+          <button type="button" onClick={onRemove} className="ml-2">
             <IoCloseCircle size={26} />
           </button>
         )}
       </Comp>
-    );
-  },
-);
-Removable.displayName = "Removable";
+    )
+  }
+)
+Removable.displayName = "Removable"
 
-export { Removable, removableVariants };
+export { Removable, removableVariants }

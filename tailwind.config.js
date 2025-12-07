@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /** @type {import('tailwindcss').Config} */
-import defaultTheme from "tailwindcss/defaultTheme";
+import defaultTheme from "tailwindcss/defaultTheme"
 
 export default {
   darkMode: ["class"],
@@ -19,8 +19,8 @@ export default {
     screens: {
       ...defaultTheme.screens,
       "2xs": "320px",
-      "xs": "375px",
-      "sm": "576px",
+      xs: "375px",
+      sm: "576px",
       "2xl": "1400px",
     },
     extend: {
@@ -45,4 +45,4 @@ export default {
   },
   // eslint-disable-next-line no-undef
   plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
-};
+}

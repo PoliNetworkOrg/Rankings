@@ -1,7 +1,6 @@
-import * as React from "react";
-
-import { cn } from "@/utils/ui.ts";
-import { ClassValue } from "clsx";
+import type { ClassValue } from "clsx"
+import * as React from "react"
+import { cn } from "@/utils/ui.ts"
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -14,20 +13,20 @@ const Table = React.forwardRef<
       {...props}
     />
   </div>
-));
-Table.displayName = "Table";
+))
+Table.displayName = "Table"
 
 const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
   <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
-));
-TableHeader.displayName = "TableHeader";
+))
+TableHeader.displayName = "TableHeader"
 
 type TableBodyProps = React.HTMLAttributes<HTMLTableSectionElement> & {
-  bg?: "odd" | "even" | "none";
-};
+  bg?: "odd" | "even" | "none"
+}
 
 const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
   ({ bg = "", className, ...props }, ref) => {
@@ -36,7 +35,7 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
         "[&_tr:nth-child(odd):not(:hover)]:bg-slate-100 dark:[&_tr:nth-child(odd):not(:hover)]:bg-slate-400/5") ||
       (bg === "even" &&
         "[&_tr:nth-child(even):not(:hover)]:bg-slate-100 dark:[&_tr:nth-child(even):not(:hover)]:bg-slate-400/5") ||
-      "";
+      ""
 
     return (
       <tbody
@@ -44,10 +43,10 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
         className={cn(bgClass, "[&_tr:last-child]:border-0", className)}
         {...props}
       />
-    );
-  },
-);
-TableBody.displayName = "TableBody";
+    )
+  }
+)
+TableBody.displayName = "TableBody"
 
 const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
@@ -57,12 +56,12 @@ const TableFooter = React.forwardRef<
     ref={ref}
     className={cn(
       "bg-slate-900 font-medium text-slate-50 dark:bg-slate-50 dark:text-slate-900",
-      className,
+      className
     )}
     {...props}
   />
-));
-TableFooter.displayName = "TableFooter";
+))
+TableFooter.displayName = "TableFooter"
 
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
@@ -72,12 +71,12 @@ const TableRow = React.forwardRef<
     ref={ref}
     className={cn(
       "border-b transition-colors data-[state=selected]:bg-slate-100 hover:bg-[#E3EBF2] dark:data-[state=selected]:bg-slate-800 dark:hover:bg-slate-600/30",
-      className,
+      className
     )}
     {...props}
   />
-));
-TableRow.displayName = "TableRow";
+))
+TableRow.displayName = "TableRow"
 
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
@@ -87,12 +86,12 @@ const TableHead = React.forwardRef<
     ref={ref}
     className={cn(
       "h-10 px-2 text-left align-middle font-medium text-slate-500 dark:text-slate-400 [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
-      className,
+      className
     )}
     {...props}
   />
-));
-TableHead.displayName = "TableHead";
+))
+TableHead.displayName = "TableHead"
 
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
@@ -102,12 +101,12 @@ const TableCell = React.forwardRef<
     ref={ref}
     className={cn(
       "p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
-      className,
+      className
     )}
     {...props}
   />
-));
-TableCell.displayName = "TableCell";
+))
+TableCell.displayName = "TableCell"
 
 const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
@@ -118,8 +117,8 @@ const TableCaption = React.forwardRef<
     className={cn("mt-4 text-sm text-slate-500 dark:text-slate-400", className)}
     {...props}
   />
-));
-TableCaption.displayName = "TableCaption";
+))
+TableCaption.displayName = "TableCaption"
 
 export {
   Table,
@@ -130,4 +129,4 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-};
+}

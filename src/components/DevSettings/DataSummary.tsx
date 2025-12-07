@@ -1,9 +1,12 @@
-import CustomMap from "@/utils/CustomMap";
-import School from "@/utils/types/data/School";
-import Ranking from "@/utils/types/data/parsed/Ranking";
-import { SCHOOLS } from "@/utils/constants";
-import Spinner from "../custom-ui/Spinner";
-import { Badge } from "../ui/badge";
+import { useState } from "react"
+import CustomMap from "@/utils/CustomMap"
+import { SCHOOLS } from "@/utils/constants"
+import type Data from "@/utils/data/data"
+import type Ranking from "@/utils/types/data/parsed/Ranking"
+import type School from "@/utils/types/data/School"
+import Spinner from "../custom-ui/Spinner"
+import { Badge } from "../ui/badge"
+import { Button } from "../ui/button"
 import {
   Table,
   TableBody,
@@ -11,119 +14,116 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
-import Data from "@/utils/data/data";
-import { useState } from "react";
-import { Button } from "../ui/button";
+} from "../ui/table"
 
 type DataSummaryProps = {
-  main: Data;
-  stable: Data;
-};
+  main: Data
+  stable: Data
+}
 
 type SchoolData = {
-  main: Ranking[];
-  stable: Ranking[];
-  comparison: RefComparison;
-};
+  main: Ranking[]
+  stable: Ranking[]
+  comparison: RefComparison
+}
 
-type SchoolRankingsMap = CustomMap<School, SchoolData>;
+type SchoolRankingsMap = CustomMap<School, SchoolData>
 type YearData = {
-  comparison: RefComparison;
-  schools: SchoolRankingsMap;
-};
-type YearSchoolsRankingsMap = CustomMap<number, YearData>;
+  comparison: RefComparison
+  schools: SchoolRankingsMap
+}
+type YearSchoolsRankingsMap = CustomMap<number, YearData>
 
 type RefComparison = {
-  diffStableMain: number;
-  diffStableMainPercentage: number;
-};
+  diffStableMain: number
+  diffStableMainPercentage: number
+}
 
 export default function DataSummary({ main, stable }: DataSummaryProps) {
-  const [currYear, setCurrYear] = useState<number>(new Date().getFullYear());
-  const MAX_YEARS = 2;
+  const [currYear, setCurrYear] = useState<number>(new Date().getFullYear())
+  const MAX_YEARS = 2
   const [yearsRankings, setYearsRankings] = useState<
     YearSchoolsRankingsMap | undefined
-  >();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [canLoadMore, setCanLoadMore] = useState<boolean>(true);
+  >()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isClicked, setIsClicked] = useState<boolean>(false)
+  const [canLoadMore, setCanLoadMore] = useState<boolean>(true)
   const [yearsMaxRows, setYearsMaxRows] = useState<CustomMap<number, number>>(
-    new CustomMap(),
-  );
+    new CustomMap()
+  )
 
   async function getYearData(year: number): Promise<YearData> {
-    const schoolMap: SchoolRankingsMap = new CustomMap();
-    let maxRows = 0;
-    let totalStableStudents = 0;
+    const schoolMap: SchoolRankingsMap = new CustomMap()
+    let maxRows = 0
+    let totalStableStudents = 0
     const mainComparison: RefComparison = {
       diffStableMain: 0,
       diffStableMainPercentage: 0,
-    };
+    }
     for (const school of SCHOOLS) {
-      const mainData = await main.getAllYearRankings(school, year);
-      const stableData = await stable.getAllYearRankings(school, year);
+      const mainData = await main.getAllYearRankings(school, year)
+      const stableData = await stable.getAllYearRankings(school, year)
 
       totalStableStudents += stableData
         .map((r) => r.rankingSummary.howManyStudents)
-        .reduce((a, b) => a + b);
+        .reduce((a, b) => a + b)
 
-      const comparison = getComparison(stableData, mainData);
+      const comparison = getComparison(stableData, mainData)
       const schoolData: SchoolData = {
         main: mainData,
         stable: stableData,
         comparison,
-      };
+      }
 
-      mainComparison.diffStableMain += comparison.diffStableMain;
+      mainComparison.diffStableMain += comparison.diffStableMain
 
-      const innerMax = Math.max(mainData.length, stableData.length);
-      maxRows = Math.max(maxRows, innerMax);
-      schoolMap.set(school, schoolData);
+      const innerMax = Math.max(mainData.length, stableData.length)
+      maxRows = Math.max(maxRows, innerMax)
+      schoolMap.set(school, schoolData)
     }
 
-    yearsMaxRows.set(year, maxRows);
-    setYearsMaxRows(yearsMaxRows);
+    yearsMaxRows.set(year, maxRows)
+    setYearsMaxRows(yearsMaxRows)
     mainComparison.diffStableMainPercentage =
-      (mainComparison.diffStableMain * 100) / totalStableStudents;
+      (mainComparison.diffStableMain * 100) / totalStableStudents
 
     return {
       schools: schoolMap,
       comparison: mainComparison,
-    };
+    }
   }
 
   async function load(): Promise<void> {
-    setIsLoading(true);
-    const map: YearSchoolsRankingsMap = yearsRankings ?? new CustomMap();
-    let y = currYear;
+    setIsLoading(true)
+    const map: YearSchoolsRankingsMap = yearsRankings ?? new CustomMap()
+    let y = currYear
     for (let i = MAX_YEARS; i > 0; i--) {
-      if (y <= 2021) setCanLoadMore(false);
-      const yearData = await getYearData(y);
-      map.set(y, yearData);
-      y--;
+      if (y <= 2021) setCanLoadMore(false)
+      const yearData = await getYearData(y)
+      map.set(y, yearData)
+      y--
     }
-    setCurrYear(y);
-    setYearsRankings(map);
-    setIsLoading(false);
-    setIsClicked(true);
+    setCurrYear(y)
+    setYearsRankings(map)
+    setIsLoading(false)
+    setIsClicked(true)
   }
 
   function getComparison(stable: Ranking[], main: Ranking[]): RefComparison {
     const mainStudents = main
       .map((r) => r.rankingSummary.howManyStudents)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b)
     const stableStudents = stable
       .map((r) => r.rankingSummary.howManyStudents)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b)
 
-    const diffStableMain = stableStudents - mainStudents;
-    const diffStableMainPercentage = (diffStableMain * 100) / stableStudents;
+    const diffStableMain = stableStudents - mainStudents
+    const diffStableMainPercentage = (diffStableMain * 100) / stableStudents
 
     return {
       diffStableMain,
       diffStableMainPercentage,
-    };
+    }
   }
 
   return (
@@ -136,7 +136,7 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
       {yearsRankings && (
         <>
           {yearsRankings?.entriesArr().map(([year, yearData]) => (
-            <div className="w-full dark:border-slate-600">
+            <div key={year} className="w-full dark:border-slate-600">
               <div className="flex items-center gap-4">
                 <Badge>{year}</Badge>
                 <p>Global Comparison (stable - main)</p>
@@ -150,25 +150,28 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
                   const dataByPhase = schoolData.stable
                     .map((sr) => {
                       const mr = schoolData.main.find(
-                        (rr) => rr.phase === sr.phase,
-                      );
-                      if (!mr) return [];
+                        (rr) => rr.phase === sr.phase
+                      )
+                      if (!mr) return []
 
                       return [
                         sr.phase,
                         sr.rankingSummary.howManyStudents.toString(),
                         mr.rankingSummary.howManyStudents.toString(),
-                      ];
+                      ]
                     })
-                    .filter((arr) => arr.length === 3);
+                    .filter((arr) => arr.length === 3)
 
                   const voidRowsNum =
-                    (yearsMaxRows.get(year) ?? 0) - dataByPhase.length;
+                    (yearsMaxRows.get(year) ?? 0) - dataByPhase.length
                   const voidRows: number[] = new Array(
-                    Math.max(voidRowsNum, 0),
-                  ).fill(0);
+                    Math.max(voidRowsNum, 0)
+                  ).fill(0)
                   return (
-                    <div className="h-full basis-[calc(50%-1rem)] rounded-md border border-slate-300 dark:border-slate-700 [&_*]:border-slate-300 [&_*]:dark:border-slate-700">
+                    <div
+                      className="h-full basis-[calc(50%-1rem)] rounded-md border border-slate-300 dark:border-slate-700 [&_*]:border-slate-300 [&_*]:dark:border-slate-700"
+                      key={school}
+                    >
                       <Table className="h-full [&_tr:nth-child(odd):not(:hover)]:bg-inherit dark:[&_tr:nth-child(odd):not(:hover)]:bg-inherit">
                         <TableHeader>
                           <TableRow>
@@ -185,10 +188,13 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
                                 <TableCell className="w-1/5">{d[1]}</TableCell>
                                 <TableCell className="w-1/5">{d[2]}</TableCell>
                               </TableRow>
-                            );
+                            )
                           })}
                           {voidRows.map((_, i) => (
-                            <TableRow key={`void-${year}-${school}-${i}`}>
+                            <TableRow
+                              // biome-ignore lint/suspicious/noArrayIndexKey: TODO we need it for now
+                              key={`void-${year}-${school}-${i}`}
+                            >
                               <TableCell colSpan={3}>&nbsp;</TableCell>
                             </TableRow>
                           ))}
@@ -199,7 +205,7 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
                             </TableCell>
                             <TableCell>
                               {schoolData.comparison.diffStableMainPercentage.toFixed(
-                                2,
+                                2
                               )}
                               %
                             </TableCell>
@@ -207,7 +213,7 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
                         </TableBody>
                       </Table>
                     </div>
-                  );
+                  )
                 })}
               </div>
             </div>
@@ -221,5 +227,5 @@ export default function DataSummary({ main, stable }: DataSummaryProps) {
       )}
       {isLoading && <Spinner className="flex-grow-0" />}
     </div>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-import ContextProvider from "./contexts/ContextProvider";
-import { IconContext } from "react-icons";
-import { RouterProvider } from "@tanstack/router";
-import { router } from "./router";
+import { RouterProvider } from "@tanstack/router"
+import { IconContext } from "react-icons"
+import ContextProvider from "./contexts/ContextProvider"
+import { router } from "./router"
 
 export default function App() {
   return (
@@ -12,5 +12,5 @@ export default function App() {
         <RouterProvider router={router} />
       </IconContext.Provider>
     </ContextProvider>
-  );
+  )
 }

@@ -1,30 +1,30 @@
 type JsonRankingSummary = {
-  courseSummarized: JsonCourseSummary[];
-  howManyCanEnroll: number;
-  howManyStudents: number;
-  resultsSummarized: JsonResultsSummary;
-};
+  courseSummarized: JsonCourseSummary[]
+  howManyCanEnroll: number
+  howManyStudents: number
+  resultsSummarized: JsonResultsSummary
+}
 
 export type JsonCourseSummary = {
-  averageBirthYear: number;
-  averageEnglishCorrectAnswers: number;
-  averageOfWhoPassed: number;
-  averageScoresOfAllStudents: number;
-  minScoreToEnroll: number;
-  location: string;
-  title: string;
+  averageBirthYear: number
+  averageEnglishCorrectAnswers: number
+  averageOfWhoPassed: number
+  averageScoresOfAllStudents: number
+  minScoreToEnroll: number
+  location: string
+  title: string
   averagePartialScores?: {
-    [section: string]: number;
-  };
+    [section: string]: number
+  }
   howManyOfa?: {
-    [ofa: string]: number;
-  };
-  howManyCanEnroll: number;
-  howManyStudents: number;
-};
+    [ofa: string]: number
+  }
+  howManyCanEnroll: number
+  howManyStudents: number
+}
 
 export type JsonResultsSummary = {
-  [score: number]: number;
-};
+  [score: number]: number
+}
 
-export default JsonRankingSummary;
+export default JsonRankingSummary

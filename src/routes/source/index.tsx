@@ -1,7 +1,7 @@
-import { Route } from "@tanstack/router";
-import Page from "@/components/custom-ui/Page";
-import { rootRoute } from "../root";
-import { LINKS } from "@/utils/constants";
+import { Route } from "@tanstack/router"
+import type { IconType } from "react-icons"
+import { LuDatabase, LuGlobe, LuSettings } from "react-icons/lu"
+import Page from "@/components/custom-ui/Page"
 import {
   Table,
   TableBody,
@@ -9,16 +9,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { LuDatabase, LuGlobe, LuSettings } from "react-icons/lu";
-import { IconType } from "react-icons";
+} from "@/components/ui/table"
+import { LINKS } from "@/utils/constants"
+import { rootRoute } from "../root"
 
 type Source = {
-  name: string;
-  link: string;
-  desc: string;
-  icon?: IconType;
-};
+  name: string
+  link: string
+  desc: string
+  icon?: IconType
+}
 
 const sources: Source[] = [
   {
@@ -39,7 +39,7 @@ const sources: Source[] = [
     desc: "Contiene i dati originali e l'output dello script",
     icon: LuDatabase,
   },
-];
+]
 
 export const sourceRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -61,7 +61,7 @@ export const sourceRoute = new Route({
                 </TableHeader>
                 <TableBody>
                   {sources.map((source) => (
-                    <TableRow>
+                    <TableRow key={source.name}>
                       <TableCell className="pr-4">
                         <a
                           target="_blank"
@@ -84,6 +84,6 @@ export const sourceRoute = new Route({
           </div>
         </div>
       </Page>
-    );
+    )
   },
-});
+})

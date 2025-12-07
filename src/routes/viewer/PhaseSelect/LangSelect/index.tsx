@@ -1,7 +1,7 @@
-import { Removable } from "@/components/custom-ui/Removable";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Removable } from "@/components/custom-ui/Removable"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-export type Lang = "ITA" | "ENG";
+export type Lang = "ITA" | "ENG"
 const langs = [
   {
     label: <span>&#x1F1EE;&#x1F1F9;</span>,
@@ -11,21 +11,21 @@ const langs = [
     label: <span>&#x1F1EC;&#x1F1E7;</span>,
     value: "ENG",
   },
-] as const;
+] as const
 
 export type LangSelectProps = {
-  canChoose: boolean;
-  selectedLang: Lang;
-  onChange: (newLang: Lang) => void;
-};
+  canChoose: boolean
+  selectedLang: Lang
+  onChange: (newLang: Lang) => void
+}
 
 export default function LangSelect({
   canChoose,
   selectedLang,
   onChange,
 }: LangSelectProps) {
-  const selectedLangOption = langs.find((l) => l.value === selectedLang);
-  if (!selectedLangOption) return <></>;
+  const selectedLangOption = langs.find((l) => l.value === selectedLang)
+  if (!selectedLangOption) return null
 
   return (
     <div className="flex items-center space-x-4">
@@ -52,5 +52,5 @@ export default function LangSelect({
         <Removable showRemove={false}>{selectedLangOption.label}</Removable>
       )}
     </div>
-  );
+  )
 }

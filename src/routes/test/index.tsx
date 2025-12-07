@@ -1,7 +1,7 @@
-import { Route } from "@tanstack/router";
-import Alert from "@/components/custom-ui/Alert";
-import { ALERT_LEVELS } from "@/utils/constants";
-import { rootRoute } from "../root";
+import { Route } from "@tanstack/router"
+import Alert from "@/components/custom-ui/Alert"
+import { ALERT_LEVELS } from "@/utils/constants"
+import { rootRoute } from "../root"
 
 export const testRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -26,6 +26,6 @@ export const testRoute = new Route({
           </Alert>
         ))}
       </div>
-    );
+    )
   },
-});
+})

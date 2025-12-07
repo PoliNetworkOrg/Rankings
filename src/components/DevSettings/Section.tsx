@@ -1,10 +1,10 @@
-import Separator from "./Separator";
+import Separator from "./Separator"
 
 type SectionProps = {
-  title: string;
-  children: React.ReactNode;
-  showHr?: boolean;
-};
+  title: string
+  children: React.ReactNode
+  showHr?: boolean
+}
 
 export default function Section({
   title,
@@ -19,5 +19,5 @@ export default function Section({
         {children}
       </div>
     </>
-  );
+  )
 }

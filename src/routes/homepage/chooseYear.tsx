@@ -1,11 +1,11 @@
-import { ErrorComponent, Link, Navigate, Route } from "@tanstack/router";
-import School from "@/utils/types/data/School";
-import { Button } from "@/components/ui/button";
-import { NotFoundError } from "@/utils/errors";
-import { homepageRoute } from ".";
-import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
-import Spinner from "@/components/custom-ui/Spinner";
-import { useState } from "react";
+import { ErrorComponent, Link, Navigate, Route } from "@tanstack/router"
+import { useState } from "react"
+import Spinner from "@/components/custom-ui/Spinner"
+import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
+import { Button } from "@/components/ui/button"
+import { NotFoundError } from "@/utils/errors"
+import type School from "@/utils/types/data/School"
+import { homepageRoute } from "."
 
 export const chooseYearRoute = new Route({
   getParentRoute: () => homepageRoute,
@@ -14,23 +14,23 @@ export const chooseYearRoute = new Route({
     school: school as School,
   }),
   loader: async ({ context, params }) => {
-    const data = await context.data;
-    const variables = { ...params, data };
+    const data = await context.data
+    const variables = { ...params, data }
 
-    const loader = context.loaderClient.loaders.chooseYear;
-    const result = await loader.load({ variables });
+    const loader = context.loaderClient.loaders.chooseYear
+    const result = await loader.load({ variables })
 
-    return result;
+    return result
   },
   errorComponent: ({ error }) => {
-    if (error instanceof NotFoundError) return <Navigate to="/" />;
+    if (error instanceof NotFoundError) return <Navigate to="/" />
 
-    return <ErrorComponent error={error} />;
+    return <ErrorComponent error={error} />
   },
   component: function ChooseYear({ useLoader, useParams }) {
-    const [clicked, setClicked] = useState(false);
-    const { years } = useLoader();
-    const { school } = useParams();
+    const [clicked, setClicked] = useState(false)
+    const { years } = useLoader()
+    const { school } = useParams()
 
     return clicked ? (
       <div className="w-full">
@@ -61,6 +61,6 @@ export const chooseYearRoute = new Route({
             ))}
         </ButtonGrid>
       </>
-    );
+    )
   },
-});
+})

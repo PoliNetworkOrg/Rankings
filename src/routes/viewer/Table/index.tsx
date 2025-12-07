@@ -1,40 +1,38 @@
-import { useMemo, useState } from "react";
 import {
-  ColumnFiltersState,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-} from "@tanstack/react-table";
-import {
-  PaginationState,
+  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
+  getPaginationRowModel,
+  type PaginationState,
   useReactTable,
-} from "@tanstack/react-table";
+} from "@tanstack/react-table"
+import { useMemo, useState } from "react"
 import {
-  Table as TableComponent,
   TableBody,
   TableCell,
+  Table as TableComponent,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import School from "@/utils/types/data/School";
-import StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult";
-import MeritTable from "@/utils/types/data/parsed/Ranking/MeritTable";
-import CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable";
-import { getColumns } from "./columns";
-import Pagination from "./Pagination";
-import { getRowSpan, getHeaderBorder, downloadCsv } from "./utils";
-import { Toolbar } from "./Toolbar";
-import Store from "@/utils/data/store";
+} from "@/components/ui/table"
+import Store from "@/utils/data/store"
+import type CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable"
+import type MeritTable from "@/utils/types/data/parsed/Ranking/MeritTable"
+import type StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult"
+import type School from "@/utils/types/data/School"
+import { getColumns } from "./columns"
+import Pagination from "./Pagination"
+import { Toolbar } from "./Toolbar"
+import { downloadCsv, getHeaderBorder, getRowSpan } from "./utils"
 
 interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
-  school: School;
-  csvFilename: string;
-  table: MeritTable | CourseTable;
-  isGlobalRanking?: boolean;
+  school: School
+  csvFilename: string
+  table: MeritTable | CourseTable
+  isGlobalRanking?: boolean
 }
 
 function makeHas(rows: StudentResult[]): Record<StudentResultKeys, boolean> {
@@ -51,19 +49,19 @@ function makeHas(rows: StudentResult[]): Record<StudentResultKeys, boolean> {
       enrollAllowed: true,
       enrollCourse: true,
       matricolaHash: true,
-    };
+    }
 
   function checkKey(key: StudentResultKeys): boolean {
-    const isThereAny = rows.some((r) => r[key]);
-    if (!isThereAny) return false;
+    const isThereAny = rows.some((r) => r[key])
+    if (!isThereAny) return false
 
     const areAllEmpty = rows.every((r) => {
-      const v = r[key];
-      if (!v) return true;
-      return [" ", "-", ""].includes(v.toString());
-    });
+      const v = r[key]
+      if (!v) return true
+      return [" ", "-", ""].includes(v.toString())
+    })
 
-    return !areAllEmpty;
+    return !areAllEmpty
   }
 
   const has: Record<StudentResultKeys, boolean> = {
@@ -78,27 +76,27 @@ function makeHas(rows: StudentResult[]): Record<StudentResultKeys, boolean> {
     enrollAllowed: checkKey("enrollAllowed"),
     enrollCourse: checkKey("enrollCourse"),
     matricolaHash: checkKey("matricolaHash"),
-  };
-  return has;
+  }
+  return has
 }
 
-export type StudentResultKeys = keyof StudentResult;
+export type StudentResultKeys = keyof StudentResult
 
 type ColumnVisibility = {
-  [key in StudentResultKeys]?: boolean;
-};
+  [key in StudentResultKeys]?: boolean
+}
 
 export default function Table({ table: _table, csvFilename }: TableProps) {
-  const has = makeHas(_table.rows);
+  const has = makeHas(_table.rows)
   const [columnVisibility, setColumnVisibility] =
-    useState<ColumnVisibility>(has);
-  const columns = getColumns(_table.rows);
+    useState<ColumnVisibility>(has)
+  const columns = getColumns(_table.rows)
   const [pagination, setPagination] = useState<PaginationState>({
     pageSize: 15,
     pageIndex: 0,
-  });
+  })
 
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const table = useReactTable({
     data: _table.rows,
     columns,
@@ -115,11 +113,11 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
     getPaginationRowModel: getPaginationRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  });
+  })
 
-  const csv = useMemo(() => (_table ? Store.tableToCsv(_table) : ""), [_table]);
+  const csv = useMemo(() => (_table ? Store.tableToCsv(_table) : ""), [_table])
   function handleCsvDownload(): void {
-    downloadCsv(csv, csvFilename);
+    downloadCsv(csv, csvFilename)
   }
 
   return (
@@ -134,7 +132,7 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
-                    const rowSpan = getRowSpan(header);
+                    const rowSpan = getRowSpan(header)
                     return (
                       rowSpan > 0 && (
                         <TableHead
@@ -149,12 +147,12 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
-                    );
+                    )
                   })}
                 </TableRow>
               ))}
@@ -174,7 +172,7 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext(),
+                          cell.getContext()
                         )}
                       </TableCell>
                     ))}
@@ -198,5 +196,5 @@ export default function Table({ table: _table, csvFilename }: TableProps) {
         <Pagination table={table} />
       </div>
     </>
-  );
+  )
 }

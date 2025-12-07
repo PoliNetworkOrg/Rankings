@@ -1,21 +1,21 @@
-import { Table as TableType } from "@tanstack/react-table";
+import type { Table as TableType } from "@tanstack/react-table"
 import {
-  MdOutlineKeyboardDoubleArrowLeft as DoubleArrowLeft,
-  MdKeyboardDoubleArrowRight as DoubleArrowRight,
   MdKeyboardArrowLeft as ArrowLeft,
   MdKeyboardArrowRight as ArrowRight,
-} from "react-icons/md";
+  MdOutlineKeyboardDoubleArrowLeft as DoubleArrowLeft,
+  MdKeyboardDoubleArrowRight as DoubleArrowRight,
+} from "react-icons/md"
+import { Button } from "@/components/ui/button"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/select"
 
 interface DataTablePaginationProps<TData> {
-  table: TableType<TData>;
+  table: TableType<TData>
 }
 
 export default function Pagination<TData>({
@@ -33,7 +33,7 @@ export default function Pagination<TData>({
         <Select
           value={`${table.getState().pagination.pageSize}`}
           onValueChange={(value) => {
-            table.setPageSize(Number(value));
+            table.setPageSize(Number(value))
           }}
         >
           <SelectTrigger className="h-8 w-[70px]">
@@ -95,5 +95,5 @@ export default function Pagination<TData>({
         </div>
       </div>
     </div>
-  );
+  )
 }

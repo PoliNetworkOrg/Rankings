@@ -1,8 +1,8 @@
-import { Route } from "@tanstack/router";
-import Page from "@/components/custom-ui/Page";
-import { rootRoute } from "../root";
-import { CREDITS } from "@/utils/constants";
-import { FaTelegram } from "react-icons/fa";
+import { Route } from "@tanstack/router"
+import { FaTelegram } from "react-icons/fa"
+import Page from "@/components/custom-ui/Page"
+import { CREDITS } from "@/utils/constants"
+import { rootRoute } from "../root"
 
 export const aboutRoute = new Route({
   getParentRoute: () => rootRoute,
@@ -78,6 +78,6 @@ export const aboutRoute = new Route({
           </div>
         </div>
       </Page>
-    );
+    )
   },
-});
+})

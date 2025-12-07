@@ -1,7 +1,7 @@
-import { ColumnDef, Row } from "@tanstack/react-table";
-import { FilterOption } from "./FilterBtn";
-import { StudentTableRow } from "@/utils/types/data/json/new-ranking";
-import { capitaliseWords } from "@/utils/strings/capitalisation";
+import type { ColumnDef, Row } from "@tanstack/react-table"
+import { capitaliseWords } from "@/utils/strings/capitalisation"
+import type { StudentTableRow } from "@/utils/types/data/json/new-ranking"
+import type { FilterOption } from "./FilterBtn"
 
 export const enrollAllowedOpts: FilterOption<boolean>[] = [
   {
@@ -14,7 +14,7 @@ export const enrollAllowedOpts: FilterOption<boolean>[] = [
     value: "no",
     label: "No",
   },
-];
+]
 
 export const enrollStatusOpts: FilterOption<string>[] = [
   {
@@ -27,48 +27,49 @@ export const enrollStatusOpts: FilterOption<string>[] = [
     value: "prenotato",
     label: "Prenotato",
   },
-];
+]
 
+// biome-ignore lint/complexity/noStaticOnlyClass: TODO I want it this way for now
 class Formatter {
   static displayString(value?: string): string {
-    if (value === undefined) return "-";
-    return value;
+    if (value === undefined) return "-"
+    return value
   }
 
   static displayBool(value?: boolean): string {
-    if (value === undefined) return "-";
-    return value ? "Si" : "No";
+    if (value === undefined) return "-"
+    return value ? "Si" : "No"
   }
 
   static displayScore(value?: number): string {
-    if (value === undefined) return "-";
-    return value.toFixed(2);
+    if (value === undefined) return "-"
+    return value.toFixed(2)
   }
 
   static displayHash(value?: string): string {
-    if (value === undefined) return "-";
-    return value.slice(0, 10);
+    if (value === undefined) return "-"
+    return value.slice(0, 10)
   }
 
   static displayOption<T>(value: string, options: FilterOption<T>[]) {
-    if (value === "-") return "-";
+    if (value === "-") return "-"
 
     const option = options.find(
-      (opt) => opt.value.toLowerCase() === value.toLowerCase(),
-    );
-    if (!option) return "-";
+      (opt) => opt.value.toLowerCase() === value.toLowerCase()
+    )
+    if (!option) return "-"
 
     return (
       <div className="flex items-center justify-center">
         {option.icon && <option.icon className="mr-2 h-4 w-4" />}
         <span>{option.label}</span>
       </div>
-    );
+    )
   }
 }
 
 export function getColumns(
-  rows: StudentTableRow[],
+  rows: StudentTableRow[]
 ): ColumnDef<StudentTableRow>[] {
   return [
     {
@@ -78,18 +79,18 @@ export function getColumns(
           accessorKey: "position",
           header: "Merito",
           cell: ({ getValue }) => {
-            const value = getValue();
-            return Formatter.displayString(value);
+            const value = getValue()
+            return Formatter.displayString(value)
           },
         },
         {
           header: "Corso",
           accessorFn: ({ course }) => {
-            return course?.position;
+            return course?.position
           },
           cell: ({ getValue }) => {
-            const value = getValue();
-            return Formatter.displayString(value);
+            const value = getValue()
+            return Formatter.displayString(value)
           },
         },
       ],
@@ -101,8 +102,8 @@ export function getColumns(
           accessorKey: "result",
           header: undefined,
           cell: ({ getValue }) => {
-            const value = getValue();
-            return Formatter.displayScore(value);
+            const value = getValue()
+            return Formatter.displayScore(value)
           },
         },
       ],
@@ -115,16 +116,16 @@ export function getColumns(
           header: "Consentita",
           id: "canEnroll",
           cell: ({ getValue }) => {
-            const value = getValue();
-            const str = Formatter.displayBool(value);
-            return Formatter.displayOption(str, enrollAllowedOpts);
+            const value = getValue()
+            const str = Formatter.displayBool(value)
+            return Formatter.displayOption(str, enrollAllowedOpts)
           },
           filterFn: (row, id, filter) => {
-            const boolVal: boolean | undefined = row.getValue(id);
-            if (!filter) return true;
-            if (boolVal === undefined) return false;
-            const value = Formatter.displayBool(boolVal).toLowerCase();
-            return filter.includes(value.toLowerCase());
+            const boolVal: boolean | undefined = row.getValue(id)
+            if (!filter) return true
+            if (boolVal === undefined) return false
+            const value = Formatter.displayBool(boolVal).toLowerCase()
+            return filter.includes(value.toLowerCase())
           },
         },
         // {
@@ -147,16 +148,16 @@ export function getColumns(
           id: "canEnrollCourse",
           header: "Corso",
           accessorFn: (row) => {
-            if (!row.course || !row.canEnroll) return "-";
+            if (!row.course || !row.canEnroll) return "-"
 
             return row.course.location
               ? `${row.course.title} (${row.course.location})`
-              : row.course.title;
+              : row.course.title
           },
           cell: ({ getValue }) => {
-            const value = getValue();
-            const str = Formatter.displayString(value);
-            return capitaliseWords(str);
+            const value = getValue()
+            const str = Formatter.displayString(value)
+            return capitaliseWords(str)
           },
         },
       ],
@@ -168,8 +169,8 @@ export function getColumns(
         header: k,
         accessorFn: (row) => row.ofa[k],
         cell: ({ getValue }) => {
-          const value = getValue();
-          return Formatter.displayBool(value);
+          const value = getValue()
+          return Formatter.displayBool(value)
         },
       })),
     },
@@ -180,8 +181,8 @@ export function getColumns(
         header: k,
         accessorFn: (row) => row.sectionsResults[k],
         cell: ({ getValue }) => {
-          const value = getValue();
-          return Formatter.displayScore(value);
+          const value = getValue()
+          return Formatter.displayScore(value)
         },
       })),
     },
@@ -192,8 +193,8 @@ export function getColumns(
           accessorKey: "englishResult",
           header: "Inglese",
           cell: ({ getValue }) => {
-            const value = getValue();
-            return Formatter.displayString(value);
+            const value = getValue()
+            return Formatter.displayString(value)
           },
         },
       ],
@@ -206,19 +207,19 @@ export function getColumns(
           header: "Matricola",
           id: "id",
           cell: ({ getValue }) => {
-            const value = getValue();
-            return Formatter.displayHash(value);
+            const value = getValue()
+            return Formatter.displayHash(value)
           },
           enableColumnFilter: true,
           enableGlobalFilter: true,
           filterFn: (
             row: Row<StudentTableRow>,
             id: string,
-            filterValue: string,
+            filterValue: string
           ): boolean => {
-            const value: string | undefined = row.getValue(id);
-            if (!filterValue || !value) return true;
-            return value.slice(0, 10) === filterValue.slice(0, 10);
+            const value: string | undefined = row.getValue(id)
+            if (!filterValue || !value) return true
+            return value.slice(0, 10) === filterValue.slice(0, 10)
           },
         },
         {
@@ -226,11 +227,11 @@ export function getColumns(
           accessorKey: "birthDate",
           header: "Data di nascita",
           cell: ({ getValue }) => {
-            const value = getValue();
-            return Formatter.displayString(value);
+            const value = getValue()
+            return Formatter.displayString(value)
           },
         },
       ],
     },
-  ];
+  ]
 }

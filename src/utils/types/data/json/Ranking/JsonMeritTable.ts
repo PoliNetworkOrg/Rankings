@@ -1,8 +1,8 @@
-import JsonStudentResult from "./JsonStudentResult";
+import type JsonStudentResult from "./JsonStudentResult"
 
 type JsonMeritTable = {
-  headers: string[];
-  rows: JsonStudentResult[];
-};
+  headers: string[]
+  rows: JsonStudentResult[]
+}
 
-export default JsonMeritTable;
+export default JsonMeritTable

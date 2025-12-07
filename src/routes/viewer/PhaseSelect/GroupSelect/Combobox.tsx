@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -5,26 +6,25 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
+} from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import type {
   PhaseGroup,
   PhaseGroups,
-} from "@/utils/types/data/parsed/Index/RankingFile";
-import { State } from "@/utils/types/state";
+} from "@/utils/types/data/parsed/Index/RankingFile"
+import type { State } from "@/utils/types/state"
 
 export type GroupComboboxProps = {
-  groups: PhaseGroups;
-  selectedGroup: PhaseGroup;
-  groupOpen: State<boolean>;
-  onChange: (group: PhaseGroup) => void;
-};
+  groups: PhaseGroups
+  selectedGroup: PhaseGroup
+  groupOpen: State<boolean>
+  onChange: (group: PhaseGroup) => void
+}
 
 export default function GroupCombobox({
   selectedGroup,
@@ -32,14 +32,14 @@ export default function GroupCombobox({
   groups,
   groupOpen,
 }: GroupComboboxProps) {
-  const [open, setOpen] = groupOpen;
+  const [open, setOpen] = groupOpen
 
   function handleChange(value: string): void {
-    setOpen(false);
-    const group = groups.get(value);
-    if (!group) return;
+    setOpen(false)
+    const group = groups.get(value)
+    if (!group) return
 
-    onChange(group);
+    onChange(group)
   }
 
   return (
@@ -71,5 +71,5 @@ export default function GroupCombobox({
         </Command>
       </PopoverContent>
     </Popover>
-  );
+  )
 }

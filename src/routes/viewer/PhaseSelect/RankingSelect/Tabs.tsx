@@ -1,11 +1,11 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import type { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile"
 
 export type RankingTabsProps = {
-  phases: PhaseLink[];
-  selectedPhase: PhaseLink;
-  onChange: (link: PhaseLink) => void;
-};
+  phases: PhaseLink[]
+  selectedPhase: PhaseLink
+  onChange: (link: PhaseLink) => void
+}
 
 export default function RankingTabs({
   selectedPhase,
@@ -13,10 +13,10 @@ export default function RankingTabs({
   onChange,
 }: RankingTabsProps) {
   function handleChange(value: string): void {
-    const phase = phases.find((p) => p.href === value);
-    if (!phase) return;
+    const phase = phases.find((p) => p.href === value)
+    if (!phase) return
 
-    onChange(phase);
+    onChange(phase)
   }
 
   return (
@@ -39,5 +39,5 @@ export default function RankingTabs({
         ))}
       </TabsList>
     </Tabs>
-  );
+  )
 }

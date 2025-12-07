@@ -1,75 +1,75 @@
-import { useContext, useMemo, useState } from "react";
-import { ErrorComponent, Navigate, Route } from "@tanstack/router";
-import MobileContext from "@/contexts/MobileContext";
-import Page from "@/components/custom-ui/Page.tsx";
-import PathBreadcrumb from "@/components/PathBreadcrumb.tsx";
-import { rootRoute } from "@/routes/root.tsx";
-import Table from "./Table";
-import { NotFoundError } from "@/utils/errors.ts";
-import axios from "axios";
-import {
+import { ErrorComponent, Navigate, Route } from "@tanstack/router"
+import axios from "axios"
+import { useContext, useMemo, useState } from "react"
+import Page from "@/components/custom-ui/Page.tsx"
+import PathBreadcrumb from "@/components/PathBreadcrumb.tsx"
+import MobileContext from "@/contexts/MobileContext"
+import { rootRoute } from "@/routes/root.tsx"
+import CustomMap from "@/utils/CustomMap"
+import { ABS_ORDER } from "@/utils/constants"
+import type { CourseInfo, CourseInfoLocation } from "@/utils/data/store"
+import { NotFoundError } from "@/utils/errors.ts"
+import { capitaliseWords } from "@/utils/strings/capitalisation"
+import type {
   NewRanking,
   NewStudentResultCourse,
   StudentTableRow,
-} from "@/utils/types/data/json/new-ranking";
-import { ABS_ORDER } from "@/utils/constants";
-import { CourseInfo, CourseInfoLocation } from "@/utils/data/store";
-import { CourseCombobox } from "../viewer/CourseCombobox";
-import LocationsSelect from "../viewer/LocationSelect";
-import CustomMap from "@/utils/CustomMap";
-import { capitaliseWords } from "@/utils/strings/capitalisation";
+} from "@/utils/types/data/json/new-ranking"
+import { CourseCombobox } from "../viewer/CourseCombobox"
+import LocationsSelect from "../viewer/LocationSelect"
+import Table from "./Table"
 
 function TEMP_getCoursesMap(
-  ranking: NewRanking,
+  ranking: NewRanking
 ): CustomMap<string, CourseInfo> {
-  const courses: CustomMap<string, CourseInfo> = new CustomMap();
+  const courses: CustomMap<string, CourseInfo> = new CustomMap()
   courses.set(ABS_ORDER, {
     value: ABS_ORDER,
     label: "Tutti i corsi",
     locations: [],
-  });
+  })
   Object.entries(ranking.courses).forEach(([t, l]) => {
-    const lowerTitle = t.toLowerCase();
-    const title = capitaliseWords(t);
+    const lowerTitle = t.toLowerCase()
+    const title = capitaliseWords(t)
 
     const locations = l.map((cl) => ({
       value: cl.toLowerCase(),
       label: capitaliseWords(cl),
       numStudents: 0,
-    }));
+    }))
     courses.set(lowerTitle, {
       locations,
       label: title,
       value: lowerTitle,
-    });
-  });
-  return courses;
+    })
+  })
+  return courses
 }
 
 function TEMP_getBestCourse(
-  courses: NewStudentResultCourse[],
+  courses: NewStudentResultCourse[]
 ): NewStudentResultCourse | null {
-  if (courses.length === 0) return null;
+  if (courses.length === 0) return null
   const sortByPos = courses.sort((a, b) => {
-    return a.position - b.position;
-  });
+    return a.position - b.position
+  })
 
   if (courses.every((a) => a.canEnroll) || courses.every((a) => !a.canEnroll))
-    return sortByPos[0];
+    return sortByPos[0]
 
-  return sortByPos.filter((a) => a.canEnroll)[0];
+  return sortByPos.filter((a) => a.canEnroll)[0]
 }
 
 function TEMP_filterByCourse(
   ranking: NewRanking,
   courseTitle: string,
-  courseLocation?: string,
+  courseLocation?: string
 ): StudentTableRow[] {
   if (courseTitle === ABS_ORDER)
     return ranking.rows.map<StudentTableRow>((r) => {
-      const bestCourse = TEMP_getBestCourse(r.courses);
-      return { ...r, course: bestCourse };
-    });
+      const bestCourse = TEMP_getBestCourse(r.courses)
+      return { ...r, course: bestCourse }
+    })
 
   return ranking.rows
     .map<StudentTableRow>((r) => {
@@ -79,51 +79,51 @@ function TEMP_filterByCourse(
             c.title.toLowerCase() === courseTitle.toLowerCase() &&
             (courseLocation
               ? c.location.toLowerCase() === courseLocation.toLowerCase()
-              : c.location === ""),
-        ) ?? null;
-      return { ...r, course };
+              : c.location === "")
+        ) ?? null
+      return { ...r, course }
     })
     .filter(
       (
-        r,
+        r
       ): r is StudentTableRow & {
-        course: NonNullable<StudentTableRow["course"]>;
-      } => r.course !== null,
+        course: NonNullable<StudentTableRow["course"]>
+      } => r.course !== null
     )
-    .sort((a, b) => a.course.position - b.course.position);
+    .sort((a, b) => a.course.position - b.course.position)
 }
 
 function isSelectedLocationValid(
   locations: CourseInfoLocation[],
-  selectedLocation: string,
+  selectedLocation: string
 ): boolean {
-  if (locations.length === 0) return false;
+  if (locations.length === 0) return false
   const foundLocation = locations.find(
-    (cil) => cil.value.toLowerCase() === selectedLocation?.toLowerCase(),
-  );
+    (cil) => cil.value.toLowerCase() === selectedLocation?.toLowerCase()
+  )
 
-  return !!foundLocation;
+  return !!foundLocation
 }
 
 function getLocationsByNumStudents(
-  locations: CourseInfoLocation[],
+  locations: CourseInfoLocation[]
 ): CourseInfoLocation[] {
-  const sortedByNumStudents = Array.from(locations);
-  sortedByNumStudents.sort((a, b) => b.numStudents - a.numStudents);
-  return sortedByNumStudents;
+  const sortedByNumStudents = Array.from(locations)
+  sortedByNumStudents.sort((a, b) => b.numStudents - a.numStudents)
+  return sortedByNumStudents
 }
 
 function fallbackSelectedLocation(
   locations: CourseInfoLocation[],
-  selectedLocation?: string,
+  selectedLocation?: string
 ): CourseInfoLocation | undefined {
   if (selectedLocation) {
-    const valid = isSelectedLocationValid(locations, selectedLocation);
-    if (valid) return undefined;
+    const valid = isSelectedLocationValid(locations, selectedLocation)
+    if (valid) return undefined
   }
 
-  const sortedLocations = getLocationsByNumStudents(locations);
-  return sortedLocations[0];
+  const sortedLocations = getLocationsByNumStudents(locations)
+  return sortedLocations[0]
 }
 
 export const betaRoute = new Route({
@@ -131,33 +131,33 @@ export const betaRoute = new Route({
   path: "/beta",
   loader: async () => {
     const res = await axios.get(
-      "http://localhost:8120/2024_20102_491d_html.json",
-    );
-    const ranking: NewRanking = res.data;
-    return { ranking };
+      "http://localhost:8120/2024_20102_491d_html.json"
+    )
+    const ranking: NewRanking = res.data
+    return { ranking }
   },
   errorComponent: ({ error }) => {
-    if (error instanceof NotFoundError) return <Navigate to="/" />;
+    if (error instanceof NotFoundError) return <Navigate to="/" />
 
-    return <ErrorComponent error={error} />;
+    return <ErrorComponent error={error} />
   },
   component: function Viewer({ useLoader }) {
-    const { ranking } = useLoader();
-    const { isMobile } = useContext(MobileContext);
+    const { ranking } = useLoader()
+    const { isMobile } = useContext(MobileContext)
 
     // const courses = store?.getCourses();
-    const courses = TEMP_getCoursesMap(ranking);
+    const courses = TEMP_getCoursesMap(ranking)
 
-    const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER);
+    const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER)
     // const isAbsOrder = useMemo(
     //   () => selectedCourse === ABS_ORDER,
     //   [selectedCourse],
     // );
     //
-    const [locations, setLocations] = useState<CourseInfoLocation[]>([]);
+    const [locations, setLocations] = useState<CourseInfoLocation[]>([])
     const [selectedLocation, setSelectedLocation] = useState<
       string | undefined
-    >();
+    >()
     //
     // const [phases, setPhases] = useState<Phases>(_phases);
     // const [selectedPhaseLink, setSelectedPhaseLink] = useState<
@@ -193,42 +193,44 @@ export const betaRoute = new Route({
     // }
     //
     function handleCourseChange(value: string): void {
-      setSelectedCourse(value);
-      const courseLocations = courses.get(value)?.locations;
+      setSelectedCourse(value)
+      const courseLocations = courses.get(value)?.locations
       if (courseLocations) {
-        setLocations(courseLocations);
+        setLocations(courseLocations)
 
         const fallback = fallbackSelectedLocation(
           courseLocations,
-          selectedLocation,
-        );
-        if (fallback) setSelectedLocation(fallback.value);
+          selectedLocation
+        )
+        if (fallback) setSelectedLocation(fallback.value)
 
         // updateAvailablePhases();
       }
     }
 
     function handleLocationChange(value: string): void {
-      setSelectedLocation(value);
-      const fallback = fallbackSelectedLocation(locations, value);
-      if (fallback) setSelectedLocation(fallback.value);
+      setSelectedLocation(value)
+      const fallback = fallbackSelectedLocation(locations, value)
+      if (fallback) setSelectedLocation(fallback.value)
 
       // updateAvailablePhases();
     }
 
     const table: StudentTableRow[] = useMemo(() => {
-      return TEMP_filterByCourse(ranking, selectedCourse, selectedLocation);
-    }, [ranking, selectedCourse, selectedLocation]);
+      return TEMP_filterByCourse(ranking, selectedCourse, selectedLocation)
+    }, [ranking, selectedCourse, selectedLocation])
 
     return (
       <Page
-        className={`flex gap-4 px-0 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-          }`}
+        className={`flex gap-4 px-0 ${
+          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+        }`}
         fullWidth
       >
         <div
-          className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-            }`}
+          className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${
+            isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+          }`}
         >
           <PathBreadcrumb />
           <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">
@@ -256,6 +258,6 @@ export const betaRoute = new Route({
           csvFilename={`beta`}
         />
       </Page>
-    );
+    )
   },
-});
+})

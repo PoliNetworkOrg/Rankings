@@ -1,5 +1,6 @@
-import { Removable } from "@/components/custom-ui/Removable";
-import { Button } from "@/components/ui/button";
+import { useState } from "react"
+import { Removable } from "@/components/custom-ui/Removable"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -7,34 +8,33 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import CustomMap from "@/utils/CustomMap";
-import { CourseInfo } from "@/utils/data/store";
-import { useState } from "react";
+} from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import type CustomMap from "@/utils/CustomMap"
+import type { CourseInfo } from "@/utils/data/store"
 
 type Props = {
-  courses: CustomMap<string, CourseInfo>;
-  value: string;
-  onSelect: (value: string) => void;
-};
+  courses: CustomMap<string, CourseInfo>
+  value: string
+  onSelect: (value: string) => void
+}
 
 export function CourseCombobox({ value, courses: c, onSelect }: Props) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   function handleSelect(value: string) {
-    onSelect(value);
-    setOpen(false);
+    onSelect(value)
+    setOpen(false)
   }
 
-  const arr = c.valuesArr();
-  const absCourse = arr[0];
-  const courses = arr.slice(1);
-  const selectedCourse = courses.find((a) => a.value === value);
+  const arr = c.valuesArr()
+  const absCourse = arr[0]
+  const courses = arr.slice(1)
+  const selectedCourse = courses.find((a) => a.value === value)
 
   return (
     <div className="flex items-center space-x-4">
@@ -74,5 +74,5 @@ export function CourseCombobox({ value, courses: c, onSelect }: Props) {
         </Popover>
       )}
     </div>
-  );
+  )
 }

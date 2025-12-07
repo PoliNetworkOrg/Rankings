@@ -1,61 +1,61 @@
-import { Table } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { MdDownload } from "react-icons/md";
-import { FilterBtn } from "./FilterBtn";
-import { enrollStatusOpts, enrollAllowedOpts } from "./columns";
-import { StudentResultKeys } from ".";
-import StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult";
-import { sha256 } from "@/utils/strings/crypto";
-import { useState } from "react";
-import { LuXCircle } from "react-icons/lu";
-import { Removable } from "@/components/custom-ui/Removable";
+import type { Table } from "@tanstack/react-table"
+import { useState } from "react"
+import { LuXCircle } from "react-icons/lu"
+import { MdDownload } from "react-icons/md"
+import { Removable } from "@/components/custom-ui/Removable"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { sha256 } from "@/utils/strings/crypto"
+import type StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult"
+import type { StudentResultKeys } from "."
+import { enrollAllowedOpts, enrollStatusOpts } from "./columns"
+import { FilterBtn } from "./FilterBtn"
 
 type Props = {
-  has: Record<StudentResultKeys, boolean>;
-  table: Table<StudentResult>;
-  onCsvClick: () => void;
-};
+  has: Record<StudentResultKeys, boolean>
+  table: Table<StudentResult>
+  onCsvClick: () => void
+}
 
 export function Toolbar({ has, onCsvClick, table }: Props) {
-  const matricolaCol = table.getColumn("matricolaHash");
-  const enrollStatusCol = table.getColumn("enrollStatus");
-  const enrollAllowedCol = table.getColumn("enrollAllowed");
+  const matricolaCol = table.getColumn("matricolaHash")
+  const enrollStatusCol = table.getColumn("enrollStatus")
+  const enrollAllowedCol = table.getColumn("enrollAllowed")
 
-  const [matricolaFilter, setMatricolaFilter] = useState<string>("");
+  const [matricolaFilter, setMatricolaFilter] = useState<string>("")
   const [matricolaFilterSubmitted, setMatricolaFilterSubmitted] =
-    useState<boolean>(false);
-  const { rows: filteredRows } = table.getFilteredRowModel();
+    useState<boolean>(false)
+  const { rows: filteredRows } = table.getFilteredRowModel()
 
   function filterTableMatricolaCol(value?: string) {
-    matricolaCol?.setFilterValue(value);
+    matricolaCol?.setFilterValue(value)
   }
 
   function handleClearMatricolaFilter() {
-    setMatricolaFilter("");
-    filterTableMatricolaCol();
-    setMatricolaFilterSubmitted(false);
+    setMatricolaFilter("")
+    filterTableMatricolaCol()
+    setMatricolaFilterSubmitted(false)
   }
 
   function handleMatricolaFilterChange(
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) {
-    if (matricolaFilterSubmitted) filterTableMatricolaCol();
-    const input = event.target.value;
-    setMatricolaFilter(input);
-    setMatricolaFilterSubmitted(false);
+    if (matricolaFilterSubmitted) filterTableMatricolaCol()
+    const input = event.target.value
+    setMatricolaFilter(input)
+    setMatricolaFilterSubmitted(false)
   }
 
   async function handleMatricolaFilterSubmit(
-    e: React.FormEvent<HTMLFormElement>,
+    e: React.FormEvent<HTMLFormElement>
   ) {
-    e.preventDefault();
+    e.preventDefault()
 
-    if (matricolaFilter.length === 0) handleClearMatricolaFilter();
+    if (matricolaFilter.length === 0) handleClearMatricolaFilter()
     else {
-      const hash = await sha256(matricolaFilter);
-      filterTableMatricolaCol(hash);
-      setMatricolaFilterSubmitted(true);
+      const hash = await sha256(matricolaFilter)
+      filterTableMatricolaCol(hash)
+      setMatricolaFilterSubmitted(true)
     }
   }
 
@@ -131,5 +131,5 @@ export function Toolbar({ has, onCsvClick, table }: Props) {
         </Button>
       </div>
     </div>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import { Link, useParams } from "@tanstack/router";
-import { LuHome, LuArrowRight } from "react-icons/lu";
+import { Link, useParams } from "@tanstack/router"
+import { LuArrowRight, LuHome } from "react-icons/lu"
 
 export default function PathBreadcrumb() {
-  const { school, year } = useParams();
+  const { school, year } = useParams()
 
-  if (!school) return <></>;
+  if (!school) return null
   return (
     <div className="flex h-8 w-full items-center gap-2 text-lg">
       <Link to="/home">
@@ -27,5 +27,5 @@ export default function PathBreadcrumb() {
         </>
       )}
     </div>
-  );
+  )
 }

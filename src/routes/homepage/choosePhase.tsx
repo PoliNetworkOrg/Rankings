@@ -1,15 +1,15 @@
-import { Link, Navigate, Route, ErrorComponent } from "@tanstack/router";
-import { Button } from "@/components/ui/button";
-import School from "@/utils/types/data/School";
-import { NotFoundError } from "@/utils/errors";
-import { homepageRoute } from ".";
-import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
-import {
+import { ErrorComponent, Link, Navigate, Route } from "@tanstack/router"
+import PhaseFlag from "@/components/custom-ui/PhaseFlag"
+import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
+import { Button } from "@/components/ui/button"
+import { NO_GROUP } from "@/utils/constants"
+import { NotFoundError } from "@/utils/errors"
+import type {
   PhaseGroup,
   PhaseLink,
-} from "@/utils/types/data/parsed/Index/RankingFile";
-import { NO_GROUP } from "@/utils/constants";
-import PhaseFlag from "@/components/custom-ui/PhaseFlag";
+} from "@/utils/types/data/parsed/Index/RankingFile"
+import type School from "@/utils/types/data/School"
+import { homepageRoute } from "."
 
 export const choosePhaseRoute = new Route({
   getParentRoute: () => homepageRoute,
@@ -19,55 +19,53 @@ export const choosePhaseRoute = new Route({
     year: Number(year),
   }),
   loader: async ({ context, params }) => {
-    const data = await context.data;
-    const variables = { ...params, data };
+    const data = await context.data
+    const variables = { ...params, data }
 
-    const { choosePhase } = context.loaderClient.loaders;
+    const { choosePhase } = context.loaderClient.loaders
 
-    const result = await choosePhase.load({ variables });
-    return result;
+    const result = await choosePhase.load({ variables })
+    return result
   },
   errorComponent: ({ error }) => {
     if (error instanceof NotFoundError)
-      return <Navigate from={choosePhaseRoute.fullPath} to=".." />;
+      return <Navigate from={choosePhaseRoute.fullPath} to=".." />
 
-    return <ErrorComponent error={error} />;
+    return <ErrorComponent error={error} />
   },
   component: function ChoosePhase({ useParams, useLoader }) {
-    const { groups } = useLoader().phases;
-    const { school, year } = useParams();
-    const groupsArr = groups.valuesArr();
+    const { groups } = useLoader().phases
+    const { school, year } = useParams()
+    const groupsArr = groups.valuesArr()
 
     return (
       <>
         <p className="w-full text-xl">Scegli una graduatoria</p>
-        <>
-          {groupsArr
-            .sort((a, b) => {
-              if (a.value === NO_GROUP) return 1;
-              if (b.value === NO_GROUP) return -1;
-              return 0;
-            })
-            .map((group) => (
-              <Group
-                group={group}
-                phases={group.phases}
-                school={school}
-                year={year}
-                key={group.value}
-                showGeneral={groupsArr.length > 1}
-              />
-            ))}
-        </>
+        {groupsArr
+          .sort((a, b) => {
+            if (a.value === NO_GROUP) return 1
+            if (b.value === NO_GROUP) return -1
+            return 0
+          })
+          .map((group) => (
+            <Group
+              group={group}
+              phases={group.phases}
+              school={school}
+              year={year}
+              key={group.value}
+              showGeneral={groupsArr.length > 1}
+            />
+          ))}
       </>
-    );
+    )
   },
-});
+})
 
 type GroupProps = ButtonsProps & {
-  group: PhaseGroup;
-  showGeneral: boolean;
-};
+  group: PhaseGroup
+  showGeneral: boolean
+}
 
 function Group({ group, showGeneral, ...props }: GroupProps) {
   return (
@@ -76,14 +74,14 @@ function Group({ group, showGeneral, ...props }: GroupProps) {
         (group.value === NO_GROUP && showGeneral)) && <p>{group.label}</p>}
       <Buttons {...props} />
     </>
-  );
+  )
 }
 
 type ButtonsProps = {
-  school: School;
-  year: number;
-  phases: PhaseLink[];
-};
+  school: School
+  year: number
+  phases: PhaseLink[]
+}
 
 function Buttons({ school, year, phases }: ButtonsProps) {
   return (
@@ -110,5 +108,5 @@ function Buttons({ school, year, phases }: ButtonsProps) {
         </Link>
       ))}
     </ButtonGrid>
-  );
+  )
 }

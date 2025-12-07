@@ -1,20 +1,20 @@
-import { Link, Route } from "@tanstack/router";
-import { Button } from "@/components/ui/button";
-import { homepageRoute } from ".";
-import { ButtonGrid } from "@/components/Homepage/ButtonGrid";
-import DevSettings from "@/components/DevSettings";
-import School from "@/utils/types/data/School";
+import { Link, Route } from "@tanstack/router"
+import DevSettings from "@/components/DevSettings"
+import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
+import { Button } from "@/components/ui/button"
+import type School from "@/utils/types/data/School"
+import { homepageRoute } from "."
 
 function getSchoolEmoji(school: School) {
   switch (school) {
     case "Architettura":
-      return <span className="mr-2 rotate-[270deg] text-lg">&#128208;</span>;
+      return <span className="mr-2 rotate-[270deg] text-lg">&#128208;</span>
     case "Design":
-      return <span className="mr-2 text-lg">&#128396;&#65039;</span>;
+      return <span className="mr-2 text-lg">&#128396;&#65039;</span>
     case "Ingegneria":
-      return <span className="mr-2 text-lg">&#128736;&#65039;</span>;
+      return <span className="mr-2 text-lg">&#128736;&#65039;</span>
     case "Urbanistica":
-      return <span className="mr-2 text-lg">&#127969;</span>;
+      return <span className="mr-2 text-lg">&#127969;</span>
   }
 }
 
@@ -22,13 +22,13 @@ export const chooseSchoolRoute = new Route({
   getParentRoute: () => homepageRoute,
   path: "/",
   loader: async ({ context }) => {
-    const { data, devData, isDev } = context;
-    const awaitedData = await data;
-    const awaitedDevData = await devData;
-    return { data: awaitedData, devData: awaitedDevData, isDev };
+    const { data, devData, isDev } = context
+    const awaitedData = await data
+    const awaitedDevData = await devData
+    return { data: awaitedData, devData: awaitedDevData, isDev }
   },
   component: function ChooseSchool({ useLoader }) {
-    const { data, devData, isDev } = useLoader();
+    const { data, devData, isDev } = useLoader()
 
     return (
       <>
@@ -59,6 +59,6 @@ export const chooseSchoolRoute = new Route({
         </ButtonGrid>
         {isDev && <DevSettings stableData={data} mainData={devData} />}
       </>
-    );
+    )
   },
-});
+})

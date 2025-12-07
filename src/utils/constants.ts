@@ -9,7 +9,7 @@ export const LINKS = {
     "https://raw.githubusercontent.com/PoliNetworkOrg/RankingsDati",
   dataRepoUrl: "https://github.com/PoliNetworkOrg/RankingsDati",
   githubPreviewDomain: "polinetworkorg.github.io",
-} as const;
+} as const
 
 export enum DATA_REF {
   STABLE = "stable",
@@ -21,24 +21,24 @@ export const SCHOOLS = [
   "Ingegneria",
   "Design",
   "Urbanistica",
-] as const;
+] as const
 
-export const ALERT_LEVELS = ["error", "warning", "success", "info"] as const;
+export const ALERT_LEVELS = ["error", "warning", "success", "info"] as const
 
-export const ABS_ORDER = "absorder" as const;
-export const NO_GROUP = "__no_group__";
+export const ABS_ORDER = "absorder" as const
+export const NO_GROUP = "__no_group__"
 
-export const SALT = "saltPoliNetwork" as const;
+export const SALT = "saltPoliNetwork" as const
 
 export const LOCAL_STORAGE = {
   darkMode: "pnr_dark_mode",
-};
+}
 
 type Credit = {
-  name: string;
-  role?: string;
-  tgLink?: string;
-};
+  name: string
+  role?: string
+  tgLink?: string
+}
 export const CREDITS: Credit[] = [
   {
     name: "Lorenzo Corallo",
@@ -50,4 +50,4 @@ export const CREDITS: Credit[] = [
     role: "Designer",
     tgLink: "https://t.me/giovannimalausa",
   },
-];
+]
