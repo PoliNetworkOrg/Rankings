@@ -9,8 +9,6 @@ import { queryClient } from "@/app/__root"
 import Page from "@/components/custom-ui/Page.tsx"
 import PathBreadcrumb from "@/components/PathBreadcrumb.tsx"
 import MobileContext from "@/contexts/MobileContext"
-import { CourseCombobox } from "@/routes/viewer/CourseCombobox"
-import LocationsSelect from "@/routes/viewer/LocationSelect"
 import CustomMap from "@/utils/CustomMap"
 import { ABS_ORDER } from "@/utils/constants"
 import type { CourseInfo, CourseInfoLocation } from "@/utils/data/store"
@@ -22,6 +20,8 @@ import type {
   StudentTableRow,
 } from "@/utils/types/data/json/new-ranking"
 import { isSchool } from "@/utils/types/data/school"
+import { CourseCombobox } from "./-CourseCombobox"
+import LocationsSelect from "./-LocationSelect"
 import Table from "./-Table"
 
 function TEMP_getCoursesMap(
@@ -166,10 +166,10 @@ export const Route = createFileRoute("/$school/$year/$id/")({
 
     return <ErrorComponent error={error} />
   },
-  component: Viewer,
+  component: RouteComponent,
 })
 
-function Viewer() {
+function RouteComponent() {
   const params = Route.useParams()
   const { data: ranking } = useSuspenseQuery(rankingOptions(params.id))
 
@@ -253,15 +253,13 @@ function Viewer() {
 
   return (
     <Page
-      className={`flex gap-4 px-0 ${
-        isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-      }`}
+      className={`flex gap-4 px-0 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+        }`}
       fullWidth
     >
       <div
-        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${
-          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-        }`}
+        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+          }`}
       >
         <PathBreadcrumb />
         <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">

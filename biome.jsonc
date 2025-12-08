@@ -6,7 +6,6 @@
     "includes": [
       "**",
       "!**/src/components/ui",
-      "!**/src/routes",
       "!**/src/utils/data",
       "!**/routeTree.gen.ts"
     ]
