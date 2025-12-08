@@ -1,8 +1,8 @@
 import {
-  LuAlertCircle,
-  LuAlertTriangle,
-  LuCheckCircle2,
+  LuCircleAlert,
+  LuCircleCheck,
   LuInfo,
+  LuTriangleAlert,
 } from "react-icons/lu"
 import { capitaliseWords } from "@/utils/strings/capitalisation"
 import type { Level } from "@/utils/types/alert"
@@ -40,13 +40,13 @@ export default function Alert({
 function GetIcon(level: Level) {
   switch (level) {
     case "error":
-      return <LuAlertCircle />
+      return <LuCircleAlert />
     case "warning":
-      return <LuAlertTriangle />
+      return <LuTriangleAlert />
     case "info":
       return <LuInfo />
     case "success":
-      return <LuCheckCircle2 />
+      return <LuCircleCheck />
   }
 }
 

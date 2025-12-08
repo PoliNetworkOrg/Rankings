@@ -2,7 +2,7 @@ import { Link, Route } from "@tanstack/router"
 import DevSettings from "@/components/DevSettings"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 import { Button } from "@/components/ui/button"
-import type School from "@/utils/types/data/School"
+import type { School } from "@/utils/types/data/school"
 import { homepageRoute } from "."
 
 function getSchoolEmoji(school: School) {

@@ -1,6 +1,6 @@
 import type { Table } from "@tanstack/react-table"
 import { useState } from "react"
-import { LuXCircle } from "react-icons/lu"
+import { LuCircleX } from "react-icons/lu"
 import { Removable } from "@/components/custom-ui/Removable"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -90,7 +90,7 @@ export function Toolbar({ has, onCsvClick: _, table }: Props) {
                     className="-translate-y-1/2 absolute top-1/2 right-1 h-7 w-7 text-gray-500 hover:bg-transparent hover:text-gray-900 dark:text-gray-400 dark:hover:bg-transparent dark:hover:text-gray-100"
                     onClick={handleClearMatricolaFilter}
                   >
-                    <LuXCircle className="h-5 w-5" />
+                    <LuCircleX className="h-5 w-5" />
                     <span className="sr-only">Clear</span>
                   </Button>
                 )}

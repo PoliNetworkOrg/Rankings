@@ -22,7 +22,7 @@ export type PhaseGroups = CustomMap<string, PhaseGroup>
 export type PhaseGroup = {
   label: string
   value: string
-  phases: NewPhase[]
+  phases: (NewPhase & { id: string })[]
 }
 
 export type PhaseLink = {

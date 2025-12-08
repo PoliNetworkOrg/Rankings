@@ -1,19 +1,12 @@
 import { useState } from "react"
 import { LuSettings2, LuX } from "react-icons/lu"
-import type Data from "@/utils/data/data"
 import Page from "../custom-ui/Page"
 import { Button } from "../ui/button"
 import DataSummary from "./DataSummary"
 import Section from "./Section"
 import Settings from "./Settings"
 
-export default function DevSettings({
-  stableData,
-  mainData,
-}: {
-  stableData: Data
-  mainData: Data
-}) {
+export default function DevSettings() {
   const [open, setOpen] = useState(false)
 
   return (
@@ -41,10 +34,14 @@ export default function DevSettings({
             </Section>
 
             <Section title="Data info">
-              <DataSummary stable={stableData} main={mainData} />
+              <DataSummary
+              // stable={stableData} main={mainData}
+              />
             </Section>
 
-            <Settings data={stableData} />
+            <Settings
+            // data={stableData}
+            />
           </div>
         </Page>
       </div>

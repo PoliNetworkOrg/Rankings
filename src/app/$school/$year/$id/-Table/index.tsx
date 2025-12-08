@@ -19,7 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import type { StudentTableRow } from "@/utils/types/data/json/new-ranking"
-import type School from "@/utils/types/data/School"
+import type { School } from "@/utils/types/data/school"
 import { getColumns } from "./columns"
 import Pagination from "./Pagination"
 import { Toolbar } from "./Toolbar"
@@ -108,10 +108,7 @@ export default function Table({ table: _table, csvFilename: _ }: TableProps) {
                           key={header.id}
                           colSpan={header.colSpan}
                           rowSpan={rowSpan}
-                          className={
-                            "text-center" +
-                            getHeaderBorder(header, headerGroup.headers.length)
-                          }
+                          className={`text-center ${getHeaderBorder(header, headerGroup.headers.length)}`}
                         >
                           {header.isPlaceholder
                             ? null

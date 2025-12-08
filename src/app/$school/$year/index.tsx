@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link, redirect } from "@tanstack/react-router"
+import Page from "@/components/custom-ui/Page"
 import PhaseFlag from "@/components/custom-ui/PhaseFlag"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 import { Button } from "@/components/ui/button"
@@ -11,7 +12,7 @@ import type { BySchoolYearIndex } from "@/utils/types/data/json/new-ranking"
 import type { PhaseGroup } from "@/utils/types/data/parsed/Index/RankingFile"
 import { isSchool } from "@/utils/types/data/school"
 
-export const Route = createFileRoute("/$school/$year")({
+export const Route = createFileRoute("/$school/$year/")({
   component: RouteComponent,
   params: {
     parse: ({ school, year }) => {
@@ -36,17 +37,18 @@ function RouteComponent() {
   const yearData = data[school]?.[year] ?? []
 
   const groupsMap = yearData.reduce<CustomMap<number, PhaseGroup>>(
-    (acc, { phase }) => {
+    (acc, { id, phase }) => {
+      const phaseWithId = { ...phase, id }
       const phaseIdx = phase.primary
       const g = acc.get(phaseIdx)
       if (g) {
-        g.phases.push(phase)
+        g.phases.push(phaseWithId)
       } else {
         const value = phaseIdx
           ? `${numberToOrdinalString(phaseIdx, "a")} fase`
           : NO_GROUP
         const label = capitaliseWords(value)
-        acc.set(phaseIdx, { label, value, phases: [phase] })
+        acc.set(phaseIdx, { label, value, phases: [phaseWithId] })
       }
       return acc
     },
@@ -56,7 +58,7 @@ function RouteComponent() {
   const groupsArr = groupsMap.valuesArr()
 
   return (
-    <>
+    <Page>
       <p className="w-full text-xl">Scegli una graduatoria</p>
       {groupsArr
         .sort((a, b) => {
@@ -71,7 +73,7 @@ function RouteComponent() {
             showGeneral={groupsArr.length > 1}
           />
         ))}
-    </>
+    </Page>
   )
 }
 
@@ -82,15 +84,20 @@ type GroupProps = {
 
 function Group({ group, showGeneral }: GroupProps) {
   const { phases } = group
+  const { school, year } = Route.useParams()
 
   return (
     <>
       {(group.value !== NO_GROUP ||
         (group.value === NO_GROUP && showGeneral)) && <p>{group.label}</p>}
       <ButtonGrid length={phases.length}>
-        {phases.map((phase, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: defined in static JSON
-          <Link to="/" key={i} className="h-full">
+        {phases.map((phase) => (
+          <Link
+            to="/$school/$year/$id"
+            params={{ school, year, id: phase.id }}
+            key={phase.id}
+            className="h-full"
+          >
             <Button
               size="card"
               variant="secondary"

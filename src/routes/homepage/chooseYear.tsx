@@ -4,7 +4,7 @@ import Spinner from "@/components/custom-ui/Spinner"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 import { Button } from "@/components/ui/button"
 import { NotFoundError } from "@/utils/errors"
-import type School from "@/utils/types/data/School"
+import type { School } from "@/utils/types/data/school"
 import { homepageRoute } from "."
 
 export const chooseYearRoute = new Route({

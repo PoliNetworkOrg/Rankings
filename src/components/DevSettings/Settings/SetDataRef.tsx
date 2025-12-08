@@ -1,17 +1,23 @@
-import { useRouterContext } from "@tanstack/router"
+import { useState } from "react"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DATA_REF, LINKS } from "@/utils/constants"
-import Data from "@/utils/data/data"
+
+// import { getRouterContext } from "@tanstack/react-router"
+// import Data from "@/utils/data/data"
 
 type Props = {
   currentRef: DATA_REF
 }
-export default function SetDataRef({ currentRef }: Props) {
-  const context = useRouterContext()
 
+export default function SetDataRef({ currentRef }: Props) {
+  const [TEMP_ref, setRef] = useState<DATA_REF>(currentRef)
+  // const context = getRouterContext()
+  //
   async function handleChangeRef(refStr: string): Promise<void> {
-    context.context.data = Data.init(refStr as DATA_REF)
-    await context.load()
+    if (refStr === DATA_REF.STABLE || refStr === DATA_REF.MAIN) setRef(refStr)
+    else throw new Error("How did we get here?")
+    // context.context.data = Data.init(refStr as DATA_REF)
+    // await context.load()
   }
   return (
     <div className="flex items-center gap-4">
@@ -21,7 +27,7 @@ export default function SetDataRef({ currentRef }: Props) {
           (repo)
         </a>
       </p>
-      <Tabs value={currentRef} onValueChange={handleChangeRef}>
+      <Tabs value={TEMP_ref} onValueChange={handleChangeRef}>
         <TabsList>
           <TabsTrigger className="block" value={DATA_REF.STABLE}>
             Stable

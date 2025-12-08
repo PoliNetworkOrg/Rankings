@@ -8,7 +8,7 @@ import type {
   PhaseGroup,
   PhaseLink,
 } from "@/utils/types/data/parsed/Index/RankingFile"
-import type School from "@/utils/types/data/School"
+import type { School } from "@/utils/types/data/school"
 import { homepageRoute } from "."
 
 export const choosePhaseRoute = new Route({

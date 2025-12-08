@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
+import Page from "@/components/custom-ui/Page"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 import { Button } from "@/components/ui/button"
 import type { BySchoolYearIndex } from "@/utils/types/data/json/new-ranking"
@@ -36,7 +37,7 @@ function RouteComponent() {
   if (!data) return null
   const schools = Object.keys(data) as (keyof typeof data)[]
   return (
-    <>
+    <Page>
       <h3 className="w-full font-bold text-2xl">
         👋 Ciao!{" "}
         <span className="whitespace-nowrap">Questo sito raccoglie</span>{" "}
@@ -63,6 +64,6 @@ function RouteComponent() {
         ))}
       </ButtonGrid>
       {/* {isDev && <DevSettings stableData={data} mainData={devData} />} */}
-    </>
+    </Page>
   )
 }

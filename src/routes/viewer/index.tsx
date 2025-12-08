@@ -14,7 +14,7 @@ import type {
   Phases,
 } from "@/utils/types/data/parsed/Index/RankingFile.ts"
 import type CourseTable from "@/utils/types/data/parsed/Ranking/CourseTable.ts"
-import type School from "@/utils/types/data/School.ts"
+import type { School } from "@/utils/types/data/school"
 import { CourseCombobox } from "./CourseCombobox.tsx"
 import LocationsSelect from "./LocationSelect.tsx"
 import PhaseSelect from "./PhaseSelect"
@@ -162,15 +162,13 @@ export const viewerRoute = new Route({
 
     return (
       <Page
-        className={`flex gap-4 px-0 ${
-          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-        }`}
+        className={`flex gap-4 px-0 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+          }`}
         fullWidth
       >
         <div
-          className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${
-            isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-          }`}
+          className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+            }`}
         >
           <PathBreadcrumb />
           {selectedPhaseGroup && selectedPhaseLink && (
@@ -200,7 +198,7 @@ export const viewerRoute = new Route({
         </div>
 
         {selectedPhaseLink?.order.phase.toLowerCase() ===
-        ranking.rankingOrder.phase.toLowerCase() ? (
+          ranking.rankingOrder.phase.toLowerCase() ? (
           table ? (
             <Table
               school={school as School}

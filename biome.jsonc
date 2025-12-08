@@ -3,7 +3,13 @@
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!**/src/utils/data", "!**/routeTree.gen.ts"]
+    "includes": [
+      "**",
+      "!**/src/components/ui",
+      "!**/src/routes",
+      "!**/src/utils/data",
+      "!**/routeTree.gen.ts"
+    ]
   },
   "formatter": {
     "enabled": true,

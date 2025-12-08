@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link, redirect } from "@tanstack/react-router"
 import { useState } from "react"
+import Page from "@/components/custom-ui/Page"
 import Spinner from "@/components/custom-ui/Spinner"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 import { Button } from "@/components/ui/button"
@@ -38,7 +39,7 @@ function RouteComponent() {
       <Spinner />
     </div>
   ) : (
-    <>
+    <Page>
       <p className="w-full text-xl">Scegli un anno di immatricolazione</p>
       <ButtonGrid length={years.length}>
         {years
@@ -57,6 +58,6 @@ function RouteComponent() {
             </Link>
           ))}
       </ButtonGrid>
-    </>
+    </Page>
   )
 }
