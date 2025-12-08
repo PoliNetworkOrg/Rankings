@@ -46,6 +46,11 @@ export const CREDITS: Credit[] = [
     tgLink: "https://t.me/lorenzocorallo",
   },
   {
+    name: "Tommaso Morganti",
+    role: "Developer",
+    tgLink: "https://t.me/toto04_1",
+  },
+  {
     name: "Giovanni Malausa",
     role: "Designer",
     tgLink: "https://t.me/giovannimalausa",
