@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import type { PhaseLink } from "@/utils/types/data/parsed/Index/RankingFile"
+import type { PhaseLink } from "@/utils/types/data/phase"
 
 export type RankingTabsProps = {
   phases: PhaseLink[]

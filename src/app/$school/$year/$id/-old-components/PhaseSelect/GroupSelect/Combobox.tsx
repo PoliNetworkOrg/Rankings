@@ -13,10 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import type {
-  PhaseGroup,
-  PhaseGroups,
-} from "@/utils/types/data/parsed/Index/RankingFile"
+import type { PhaseGroup, PhaseGroups } from "@/utils/types/data/phase"
 import type { State } from "@/utils/types/state"
 
 export type GroupComboboxProps = {

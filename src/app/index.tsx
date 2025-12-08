@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router"
 import Page from "@/components/custom-ui/Page"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 import { Button } from "@/components/ui/button"
-import type { BySchoolYearIndex } from "@/utils/types/data/json/new-ranking"
+import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
 import type { School } from "@/utils/types/data/school"
 
 function getSchoolEmoji(school: School) {
@@ -38,32 +38,34 @@ function RouteComponent() {
   const schools = Object.keys(data) as (keyof typeof data)[]
   return (
     <Page>
-      <h3 className="w-full font-bold text-2xl">
-        👋 Ciao!{" "}
-        <span className="whitespace-nowrap">Questo sito raccoglie</span>{" "}
-        <span className="whitespace-nowrap">lo storico</span>{" "}
-        <span className="whitespace-nowrap">delle graduatorie</span>{" "}
-        <span className="whitespace-nowrap">del Politecnico di Milano.</span>
-      </h3>
-      <p className="w-full text-xl">
-        Inizia scegliendo l'area di studi di tuo interesse
-      </p>
-      <ButtonGrid length={schools.length}>
-        {schools.map((school) => (
-          <Link
-            to="/$school"
-            params={{ school }}
-            key={school}
-            className="h-full"
-          >
-            <Button size="card" variant="secondary" className="h-full w-full">
-              {getSchoolEmoji(school)}
-              <span className="text-lg">{school}</span>
-            </Button>
-          </Link>
-        ))}
-      </ButtonGrid>
-      {/* {isDev && <DevSettings stableData={data} mainData={devData} />} */}
+      <div className="flex w-full flex-1 flex-col items-start gap-4 py-4">
+        <h3 className="w-full font-bold text-2xl">
+          👋 Ciao!{" "}
+          <span className="whitespace-nowrap">Questo sito raccoglie</span>{" "}
+          <span className="whitespace-nowrap">lo storico</span>{" "}
+          <span className="whitespace-nowrap">delle graduatorie</span>{" "}
+          <span className="whitespace-nowrap">del Politecnico di Milano.</span>
+        </h3>
+        <p className="w-full text-xl">
+          Inizia scegliendo l'area di studi di tuo interesse
+        </p>
+        <ButtonGrid length={schools.length}>
+          {schools.map((school) => (
+            <Link
+              to="/$school"
+              params={{ school }}
+              key={school}
+              className="h-full"
+            >
+              <Button size="card" variant="secondary" className="h-full w-full">
+                {getSchoolEmoji(school)}
+                <span className="text-lg">{school}</span>
+              </Button>
+            </Link>
+          ))}
+        </ButtonGrid>
+        {/* {isDev && <DevSettings stableData={data} mainData={devData} />} */}
+      </div>
     </Page>
   )
 }

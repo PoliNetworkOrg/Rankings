@@ -1,13 +1,5 @@
-import type { School } from "../school"
-
-export type NewPhase = {
-  raw: string
-  stripped: string
-  primary: number
-  secondary: number
-  language: "IT" | "EN"
-  isExtraEu: boolean
-}
+import type { Phase } from "./phase"
+import type { School } from "./school"
 
 export type NewStudentResultCourse = {
   title: string
@@ -37,7 +29,7 @@ export type NewRanking = {
   id: string
   school: School
   year: number
-  phase: NewPhase
+  phase: Phase
   courses: Record<string, string[]>
   rows: Array<NewStudentResult>
 }
@@ -46,7 +38,7 @@ export type IndexEntry = {
   id: string
   school: School
   year: number
-  phase: NewPhase
+  phase: Phase
 }
 
 export type BySchoolYearIndex = Record<School, Record<number, IndexEntry[]>>

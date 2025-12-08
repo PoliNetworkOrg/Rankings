@@ -1,5 +1,5 @@
 import type { Header } from "@tanstack/react-table"
-import type { StudentTableRow } from "@/utils/types/data/json/new-ranking"
+import type { StudentTableRow } from "@/utils/types/data/ranking"
 
 export function getHeaderBorder(
   header: Header<StudentTableRow, unknown>,

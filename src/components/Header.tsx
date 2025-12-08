@@ -4,8 +4,8 @@ import {
   MdOutlineDarkMode as DarkIcon,
   MdOutlineLightMode as LightIcon,
 } from "react-icons/md"
+import logo from "@/assets/logo3000.webp"
 import DarkModeContext from "@/contexts/DarkModeContext"
-import logo from "@/static/logo3000.webp"
 import { Button } from "./ui/button"
 
 export default function Header() {

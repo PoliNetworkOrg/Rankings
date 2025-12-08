@@ -18,7 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import type { StudentTableRow } from "@/utils/types/data/json/new-ranking"
+import type { StudentTableRow } from "@/utils/types/data/ranking"
 import type { School } from "@/utils/types/data/school"
 import { getColumns } from "./columns"
 import Pagination from "./Pagination"

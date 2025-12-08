@@ -1,11 +1,7 @@
 import { useContext, useMemo, useState } from "react"
 import MobileContext from "@/contexts/MobileContext"
 import { NO_GROUP } from "@/utils/constants"
-import type {
-  PhaseGroup,
-  PhaseLink,
-  Phases,
-} from "@/utils/types/data/parsed/Index/RankingFile"
+import type { PhaseGroup } from "@/utils/types/data/phase"
 import type { State } from "@/utils/types/state"
 import GroupSelect from "./GroupSelect"
 import LangSelect, { type Lang } from "./LangSelect"

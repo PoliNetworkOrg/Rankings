@@ -3,15 +3,12 @@ import { createFileRoute, Link, redirect } from "@tanstack/react-router"
 import Page from "@/components/custom-ui/Page"
 import PhaseFlag from "@/components/custom-ui/PhaseFlag"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
-import { Button } from "@/components/ui/button"
-import CustomMap from "@/utils/CustomMap"
-import { NO_GROUP } from "@/utils/constants"
-import { capitaliseWords } from "@/utils/strings/capitalisation"
-import { numberToOrdinalString } from "@/utils/strings/numbers"
-import type { BySchoolYearIndex } from "@/utils/types/data/json/new-ranking"
-import type { PhaseGroup } from "@/utils/types/data/parsed/Index/RankingFile"
-import { isSchool } from "@/utils/types/data/school"
 import PathBreadcrumb from "@/components/PathBreadcrumb"
+import { Button } from "@/components/ui/button"
+import { getPhaseGroups, phaseGroupLabel, phaseLinkLabel } from "@/utils/phase"
+import type { PhaseLink } from "@/utils/types/data/phase"
+import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
+import { isSchool } from "@/utils/types/data/school"
 
 export const Route = createFileRoute("/$school/$year/")({
   component: RouteComponent,
@@ -37,61 +34,35 @@ function RouteComponent() {
   if (!data) return null
   const yearData = data[school]?.[year] ?? []
 
-  const groupsMap = yearData.reduce<CustomMap<number, PhaseGroup>>(
-    (acc, { id, phase }) => {
-      const phaseWithId = { ...phase, id }
-      const phaseIdx = phase.primary
-      const g = acc.get(phaseIdx)
-      if (g) {
-        g.phases.push(phaseWithId)
-      } else {
-        const value = phaseIdx
-          ? `${numberToOrdinalString(phaseIdx, "a")} fase`
-          : NO_GROUP
-        const label = capitaliseWords(value)
-        acc.set(phaseIdx, { label, value, phases: [phaseWithId] })
-      }
-      return acc
-    },
-    new CustomMap()
-  )
-
-  const groupsArr = groupsMap.valuesArr()
+  const groups = getPhaseGroups(yearData).entriesArr()
 
   return (
     <Page>
       <PathBreadcrumb />
       <p className="w-full text-xl">Scegli una graduatoria</p>
-      {groupsArr
-        .sort((a, b) => {
-          if (a.value === NO_GROUP) return 1
-          if (b.value === NO_GROUP) return -1
-          return 0
-        })
-        .map((group) => (
-          <Group
-            key={group.value}
-            group={group}
-            showGeneral={groupsArr.length > 1}
-          />
-        ))}
+      {groups.map(([n, phases]) => (
+        <Group
+          key={`phasegroup-${n}`}
+          primary={n}
+          phases={phases}
+          showGeneral={groups.length > 1}
+        />
+      ))}
     </Page>
   )
 }
 
 type GroupProps = {
-  group: PhaseGroup
+  primary: number
+  phases: PhaseLink[]
   showGeneral: boolean
 }
 
-function Group({ group, showGeneral }: GroupProps) {
-  const { phases } = group
+function Group({ primary, phases, showGeneral }: GroupProps) {
   const { school, year } = Route.useParams()
-
   return (
     <>
-      {(group.value !== NO_GROUP ||
-        (group.value === NO_GROUP && showGeneral)) && <p>{group.label}</p>}
+      {(showGeneral || primary !== 0) && <p>{phaseGroupLabel(primary)}</p>}
       <ButtonGrid length={phases.length}>
         {phases.map((phase) => (
           <Link
@@ -106,9 +77,7 @@ function Group({ group, showGeneral }: GroupProps) {
               className="relative h-full w-full"
             >
               <span className="whitespace text-base">
-                {capitaliseWords(numberToOrdinalString(phase.secondary, "a"))}{" "}
-                Graduatoria
-                {phase.isExtraEu ? " (Extra-UE)" : ""}
+                {phaseLinkLabel(phase)}
               </span>
               <div className="absolute right-0 bottom-0 flex overflow-hidden rounded-tl-lg">
                 <div className="bg-slate-700 px-3 py-1">

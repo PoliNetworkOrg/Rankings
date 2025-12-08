@@ -4,10 +4,10 @@ import { useState } from "react"
 import Page from "@/components/custom-ui/Page"
 import Spinner from "@/components/custom-ui/Spinner"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
-import { Button } from "@/components/ui/button"
-import type { BySchoolYearIndex } from "@/utils/types/data/json/new-ranking"
-import { isSchool } from "@/utils/types/data/school"
 import PathBreadcrumb from "@/components/PathBreadcrumb"
+import { Button } from "@/components/ui/button"
+import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
+import { isSchool } from "@/utils/types/data/school"
 
 export const Route = createFileRoute("/$school/")({
   component: RouteComponent,

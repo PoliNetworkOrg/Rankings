@@ -1,8 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import type {
-  PhaseGroup,
-  PhaseGroups,
-} from "@/utils/types/data/parsed/Index/RankingFile"
+import type { PhaseGroup, PhaseGroups } from "@/utils/types/data/phase"
 
 export type GroupTabsProps = {
   groups: PhaseGroups

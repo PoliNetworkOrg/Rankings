@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 // import { enrollStatusOpts, enrollAllowedOpts } from "./columns";
 // import StudentResult from "@/utils/types/data/parsed/Ranking/StudentResult";
 import { sha256 } from "@/utils/strings/crypto"
-import type { StudentTableRow } from "@/utils/types/data/json/new-ranking"
+import type { StudentTableRow } from "@/utils/types/data/ranking"
 
 type Props = {
   has: Record<keyof StudentTableRow, boolean>

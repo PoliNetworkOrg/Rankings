@@ -1,6 +1,6 @@
 import type { ColumnDef, Row } from "@tanstack/react-table"
 import { capitaliseWords } from "@/utils/strings/capitalisation"
-import type { StudentTableRow } from "@/utils/types/data/json/new-ranking"
+import type { StudentTableRow } from "@/utils/types/data/ranking"
 import type { FilterOption } from "./FilterBtn"
 
 export const enrollAllowedOpts: FilterOption<boolean>[] = [
