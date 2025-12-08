@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './app/__root'
 import { Route as TestRouteImport } from './app/test'
 import { Route as SourceRouteImport } from './app/source'
+import { Route as PrivacyRouteImport } from './app/privacy'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as SchoolIndexRouteImport } from './app/$school/index'
 import { Route as SchoolYearIndexRouteImport } from './app/$school/$year/index'
@@ -24,6 +25,11 @@ const TestRoute = TestRouteImport.update({
 const SourceRoute = SourceRouteImport.update({
   id: '/source',
   path: '/source',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,6 +55,7 @@ const SchoolYearIdIndexRoute = SchoolYearIdIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/privacy': typeof PrivacyRoute
   '/source': typeof SourceRoute
   '/test': typeof TestRoute
   '/$school': typeof SchoolIndexRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/privacy': typeof PrivacyRoute
   '/source': typeof SourceRoute
   '/test': typeof TestRoute
   '/$school': typeof SchoolIndexRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/privacy': typeof PrivacyRoute
   '/source': typeof SourceRoute
   '/test': typeof TestRoute
   '/$school/': typeof SchoolIndexRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/privacy'
     | '/source'
     | '/test'
     | '/$school'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/privacy'
     | '/source'
     | '/test'
     | '/$school'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/privacy'
     | '/source'
     | '/test'
     | '/$school/'
@@ -101,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PrivacyRoute: typeof PrivacyRoute
   SourceRoute: typeof SourceRoute
   TestRoute: typeof TestRoute
   SchoolIndexRoute: typeof SchoolIndexRoute
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/source'
       fullPath: '/source'
       preLoaderRoute: typeof SourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -157,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PrivacyRoute: PrivacyRoute,
   SourceRoute: SourceRoute,
   TestRoute: TestRoute,
   SchoolIndexRoute: SchoolIndexRoute,
