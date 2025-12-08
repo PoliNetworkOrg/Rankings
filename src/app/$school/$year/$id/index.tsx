@@ -248,15 +248,13 @@ function RouteComponent() {
 
   return (
     <Page
-      className={`flex gap-4 px-0 ${
-        isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-      }`}
+      className={`flex items-center gap-4 px-0 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+        }`}
       fullWidth
     >
       <div
-        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${
-          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-        }`}
+        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+          }`}
       >
         <PathBreadcrumb />
         <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">

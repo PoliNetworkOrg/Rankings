@@ -204,7 +204,7 @@ export function getColumns(
       columns: [
         {
           accessorKey: "id",
-          header: "Matricola",
+          header: "Matricola (Hash)",
           id: "id",
           cell: ({ getValue }) => {
             const value = getValue()

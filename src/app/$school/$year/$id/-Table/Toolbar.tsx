@@ -78,7 +78,7 @@ export function Toolbar({ has, onCsvClick: _, table }: Props) {
                 onSubmit={handleMatricolaFilterSubmit}
               >
                 <Input
-                  placeholder="Inserisci la matricola..."
+                  placeholder="AX1234"
                   value={matricolaFilter}
                   onChange={handleMatricolaFilterChange}
                 />
