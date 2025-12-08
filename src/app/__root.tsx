@@ -3,7 +3,6 @@ import { createRootRoute, Outlet } from "@tanstack/react-router"
 import { StrictMode } from "react"
 import { IconContext } from "react-icons"
 import Layout from "@/components/Layout"
-import PathBreadcrumb from "@/components/PathBreadcrumb"
 import ContextProvider from "@/contexts/ContextProvider"
 
 export const queryClient = new QueryClient()
@@ -20,10 +19,7 @@ function RootComponent() {
         >
           <QueryClientProvider client={queryClient}>
             <Layout>
-              <PathBreadcrumb />
-              <div className="flex w-full flex-1 flex-col items-start gap-4 py-4">
-                <Outlet />
-              </div>
+              <Outlet />
             </Layout>
           </QueryClientProvider>
         </IconContext.Provider>

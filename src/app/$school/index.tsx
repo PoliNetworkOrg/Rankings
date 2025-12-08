@@ -7,6 +7,7 @@ import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 import { Button } from "@/components/ui/button"
 import type { BySchoolYearIndex } from "@/utils/types/data/json/new-ranking"
 import { isSchool } from "@/utils/types/data/school"
+import PathBreadcrumb from "@/components/PathBreadcrumb"
 
 export const Route = createFileRoute("/$school/")({
   component: RouteComponent,
@@ -40,6 +41,7 @@ function RouteComponent() {
     </div>
   ) : (
     <Page>
+      <PathBreadcrumb />
       <p className="w-full text-xl">Scegli un anno di immatricolazione</p>
       <ButtonGrid length={years.length}>
         {years

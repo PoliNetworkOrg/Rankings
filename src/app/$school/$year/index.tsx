@@ -11,6 +11,7 @@ import { numberToOrdinalString } from "@/utils/strings/numbers"
 import type { BySchoolYearIndex } from "@/utils/types/data/json/new-ranking"
 import type { PhaseGroup } from "@/utils/types/data/parsed/Index/RankingFile"
 import { isSchool } from "@/utils/types/data/school"
+import PathBreadcrumb from "@/components/PathBreadcrumb"
 
 export const Route = createFileRoute("/$school/$year/")({
   component: RouteComponent,
@@ -59,6 +60,7 @@ function RouteComponent() {
 
   return (
     <Page>
+      <PathBreadcrumb />
       <p className="w-full text-xl">Scegli una graduatoria</p>
       {groupsArr
         .sort((a, b) => {
