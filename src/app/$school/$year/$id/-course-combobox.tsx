@@ -15,55 +15,53 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import type CustomMap from "@/utils/CustomMap"
-import type { CourseInfo } from "@/utils/data/store"
+import { capitaliseWords } from "@/utils/strings/capitalisation"
 
 type Props = {
-  courses: CustomMap<string, CourseInfo>
-  value: string
-  onSelect: (value: string) => void
+  options: string[]
+  value: string | null
+  onChange: (value: string | null) => void
 }
 
-export function CourseCombobox({ value, courses: c, onSelect }: Props) {
+const courseLabel = (value: string) => capitaliseWords(value)
+
+export function CourseCombobox({ value, options, onChange }: Props) {
   const [open, setOpen] = useState(false)
-  function handleSelect(value: string) {
-    onSelect(value)
+  function handleSelect(value: string | null) {
+    onChange(value)
     setOpen(false)
   }
 
-  const arr = c.valuesArr()
-  const absCourse = arr[0]
-  const courses = arr.slice(1)
-  const selectedCourse = courses.find((a) => a.value === value)
+  const selected = value ? options.find((a) => a === value) : undefined
 
   return (
     <div className="flex items-center space-x-4">
       <p className="text-sm">Corso</p>
-      {selectedCourse ? (
-        <Removable onRemove={() => handleSelect(absCourse.value)}>
-          {selectedCourse.label}
+      {selected ? (
+        <Removable onRemove={() => handleSelect(null)}>
+          {courseLabel(selected)}
         </Removable>
       ) : (
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <Button variant="outline" className="h-full justify-start">
+            <Button variant="outline" className="h-9 justify-start">
               Nessun corso selezionato
             </Button>
           </PopoverTrigger>
           <PopoverContent className="p-0" side="bottom" align="start">
             <Command>
-              <CommandInput placeholder="Cambia corso..." />
+              <CommandInput placeholder="Cerca un corso..." />
               <CommandList>
                 <CommandEmpty>Nessun corso trovato</CommandEmpty>
                 <CommandGroup>
-                  <ScrollArea className={courses.length > 7 ? "h-72" : ""}>
-                    {courses.map((course) => (
+                  <ScrollArea className={options.length > 7 ? "h-72" : ""}>
+                    {options.map((course) => (
                       <CommandItem
-                        key={course.value}
-                        value={course.value}
+                        key={course}
+                        value={course}
                         onSelect={handleSelect}
                       >
-                        {course.label}
+                        {courseLabel(course)}
                       </CommandItem>
                     ))}
                   </ScrollArea>

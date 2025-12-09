@@ -4,15 +4,22 @@ import {
   ErrorComponent,
   redirect,
 } from "@tanstack/react-router"
-import { useContext } from "react"
+import { useContext, useMemo, useState } from "react"
 import { queryClient } from "@/app/__root"
 import Page from "@/components/custom-ui/Page.tsx"
 import PathBreadcrumb from "@/components/PathBreadcrumb.tsx"
 import MobileContext from "@/contexts/MobileContext"
 import { NotFoundError } from "@/utils/errors.ts"
-import type { NewRanking, StudentTableRow } from "@/utils/types/data/ranking"
+import type {
+  NewRanking,
+  NewStudentResultCourse,
+  StudentTableRow,
+} from "@/utils/types/data/ranking"
 import { isSchool } from "@/utils/types/data/school"
+import { CourseCombobox } from "./-course-combobox"
+import LocationsSelect from "./-location-select"
 import Table from "./-Table"
+import CustomMap from "@/utils/CustomMap"
 
 // function TEMP_getCoursesMap(
 //   ranking: NewRanking
@@ -41,85 +48,76 @@ import Table from "./-Table"
 //   return courses
 // }
 
-// function TEMP_getBestCourse(
-//   courses: NewStudentResultCourse[]
-// ): NewStudentResultCourse | null {
-//   if (courses.length === 0) return null
-//   const sortByPos = courses.sort((a, b) => {
-//     return a.position - b.position
-//   })
-//
-//   if (courses.every((a) => a.canEnroll) || courses.every((a) => !a.canEnroll))
-//     return sortByPos[0]
-//
-//   return sortByPos.filter((a) => a.canEnroll)[0]
-// }
+function getBestCourse(
+  courses: NewStudentResultCourse[]
+): NewStudentResultCourse | null {
+  if (courses.length === 0) return null
+  const sortByPos = courses.sort((a, b) => {
+    return a.position - b.position
+  })
 
-// function TEMP_filterByCourse(
-//   ranking: NewRanking,
-//   courseTitle: string,
-//   courseLocation?: string
-// ): StudentTableRow[] {
-//   if (courseTitle === ABS_ORDER)
-//     return ranking.rows.map<StudentTableRow>((r) => {
-//       const bestCourse = TEMP_getBestCourse(r.courses)
-//       return { ...r, course: bestCourse }
-//     })
-//
-//   return ranking.rows
-//     .map<StudentTableRow>((r) => {
-//       const course =
-//         r.courses.find(
-//           (c) =>
-//             c.title.toLowerCase() === courseTitle.toLowerCase() &&
-//             (courseLocation
-//               ? c.location.toLowerCase() === courseLocation.toLowerCase()
-//               : c.location === "")
-//         ) ?? null
-//       return { ...r, course }
-//     })
-//     .filter(
-//       (
-//         r
-//       ): r is StudentTableRow & {
-//         course: NonNullable<StudentTableRow["course"]>
-//       } => r.course !== null
-//     )
-//     .sort((a, b) => a.course.position - b.course.position)
-// }
+  if (courses.every((a) => a.canEnroll) || courses.every((a) => !a.canEnroll))
+    return sortByPos[0]
 
-// function isSelectedLocationValid(
-//   locations: CourseInfoLocation[],
-//   selectedLocation: string
-// ): boolean {
-//   if (locations.length === 0) return false
-//   const foundLocation = locations.find(
-//     (cil) => cil.value.toLowerCase() === selectedLocation?.toLowerCase()
-//   )
-//
-//   return !!foundLocation
-// }
-//
-// function getLocationsByNumStudents(
-//   locations: CourseInfoLocation[]
-// ): CourseInfoLocation[] {
-//   const sortedByNumStudents = Array.from(locations)
-//   sortedByNumStudents.sort((a, b) => b.numStudents - a.numStudents)
-//   return sortedByNumStudents
-// }
-//
-// function fallbackSelectedLocation(
-//   locations: CourseInfoLocation[],
-//   selectedLocation?: string
-// ): CourseInfoLocation | undefined {
-//   if (selectedLocation) {
-//     const valid = isSelectedLocationValid(locations, selectedLocation)
-//     if (valid) return undefined
-//   }
-//
-//   const sortedLocations = getLocationsByNumStudents(locations)
-//   return sortedLocations[0]
-// }
+  return sortByPos.filter((a) => a.canEnroll)[0]
+}
+
+function filterByCourse(
+  ranking: NewRanking,
+  courseTitle: string | null,
+  courseLocation: string | null
+): StudentTableRow[] {
+  if (!courseTitle)
+    return ranking.rows.map<StudentTableRow>((r) => {
+      const bestCourse = getBestCourse(r.courses)
+      return { ...r, course: bestCourse }
+    })
+
+  return ranking.rows
+    .map<StudentTableRow>((r) => {
+      const course =
+        r.courses.find(
+          (c) =>
+            c.title.toLowerCase() === courseTitle.toLowerCase() &&
+            (courseLocation
+              ? c.location.toLowerCase() === courseLocation.toLowerCase()
+              : c.location === "")
+        ) ?? null
+      return { ...r, course }
+    })
+    .filter(
+      (
+        r
+      ): r is StudentTableRow & {
+        course: NonNullable<StudentTableRow["course"]>
+      } => r.course !== null
+    )
+    .sort((a, b) => a.course.position - b.course.position)
+}
+
+function isSelectedLocationValid(
+  locations: string[],
+  selectedLocation: string
+): boolean {
+  if (locations.length === 0) return false
+  const foundLocation = locations.find(
+    (cil) => cil.toLowerCase() === selectedLocation.toLowerCase()
+  )
+
+  return !!foundLocation
+}
+
+function fallbackSelectedLocation(
+  locations: string[],
+  selectedLocation: string | null
+): string | null {
+  if (selectedLocation) {
+    const valid = isSelectedLocationValid(locations, selectedLocation)
+    if (valid) return null
+  }
+
+  return locations[0]
+}
 
 function rankingOptions(id: string) {
   return queryOptions({
@@ -133,6 +131,20 @@ function rankingOptions(id: string) {
     },
     staleTime: 5 * 1000,
   })
+}
+
+function getCoursesMap(
+  courses: NewRanking["courses"]
+): CustomMap<string, string[]> {
+  const map: CustomMap<string, string[]> = new CustomMap()
+  for (const [course, locations] of Object.entries(courses)) {
+    map.set(
+      course.toLowerCase(),
+      locations.map((l) => l.toLowerCase())
+    )
+  }
+
+  return map
 }
 
 export const Route = createFileRoute("/$school/$year/$id/")({
@@ -168,17 +180,17 @@ function RouteComponent() {
   //   )
   const { isMobile } = useContext(MobileContext)
 
-  // const [selectedCourse, setSelectedCourse] = useState<string>(ABS_ORDER)
   // const isAbsOrder = useMemo(
   //   () => selectedCourse === ABS_ORDER,
   //   [selectedCourse],
   // );
   //
-  // const [locations, setLocations] = useState<CourseInfoLocation[]>([])
-  // const [selectedLocation, setSelectedLocation] = useState<string | undefined>()
 
-  // const courses = store?.getCourses();
-  // const courses = TEMP_getCoursesMap(ranking)
+  const courses = getCoursesMap(ranking.courses)
+  const [selectedCourse, setSelectedCourse] = useState<string | null>(null)
+
+  const courseLocations = selectedCourse ? courses.get(selectedCourse) : null
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
   //
   // const [phases, setPhases] = useState<Phases>(_phases);
   // const [selectedPhaseLink, setSelectedPhaseLink] = useState<
@@ -213,38 +225,38 @@ function RouteComponent() {
   //   setPhases(phases);
   // }
   //
-  // function handleCourseChange(value: string): void {
-  //   setSelectedCourse(value)
-  //   const courseLocations = courses.get(value)?.locations
-  //   if (courseLocations) {
-  //     setLocations(courseLocations)
-  //
-  //     const fallback = fallbackSelectedLocation(
-  //       courseLocations,
-  //       selectedLocation
-  //     )
-  //     if (fallback) setSelectedLocation(fallback.value)
-  //
-  //     // updateAvailablePhases();
-  //   }
-  // }
-  //
-  // function handleLocationChange(value: string): void {
-  //   setSelectedLocation(value)
-  //   const fallback = fallbackSelectedLocation(locations, value)
-  //   if (fallback) setSelectedLocation(fallback.value)
-  //
-  //   // updateAvailablePhases();
-  // }
+  function handleCourseChange(value: string | null): void {
+    setSelectedCourse(value)
+    if (!value) return
 
-  // const table: StudentTableRow[] = useMemo(() => {
-  //   return TEMP_filterByCourse(ranking, selectedCourse, selectedLocation)
-  // }, [ranking, selectedCourse, selectedLocation])
+    const courseLocations = courses.get(value)
+    if (courseLocations) {
+      const fallback = fallbackSelectedLocation(
+        courseLocations,
+        selectedLocation
+      )
+      if (fallback) setSelectedLocation(fallback)
+      // updateAvailablePhases()
+    }
+  }
   //
-  const table: StudentTableRow[] = ranking.rows.map((r) => ({
-    ...r,
-    course: null,
-  }))
+  function handleLocationChange(value: string): void {
+    if (!courseLocations) return
+    setSelectedLocation(value)
+    const fallback = fallbackSelectedLocation(courseLocations, value)
+    if (fallback) setSelectedLocation(fallback)
+
+    // updateAvailablePhases();
+  }
+
+  const table: StudentTableRow[] = useMemo(() => {
+    return filterByCourse(ranking, selectedCourse, selectedLocation)
+  }, [ranking, selectedCourse, selectedLocation])
+
+  // const table: StudentTableRow[] = ranking.rows.map((r) => ({
+  //   ...r,
+  //   course: null,
+  // }))
 
   return (
     <Page
@@ -259,20 +271,18 @@ function RouteComponent() {
         <PathBreadcrumb />
         <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">
           <div className="flex flex-1 gap-8 max-md:flex-col max-md:gap-4">
-            {/*
             <CourseCombobox
-              courses={courses}
+              options={courses.keysArr()}
               value={selectedCourse}
-              onSelect={handleCourseChange}
+              onChange={handleCourseChange}
             />
-            {selectedLocation && (
+            {courseLocations && selectedLocation && (
               <LocationsSelect
                 value={selectedLocation}
-                locations={locations}
+                locations={courseLocations}
                 onChange={handleLocationChange}
               />
             )}
-            */}
           </div>
         </div>
       </div>

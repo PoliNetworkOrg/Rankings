@@ -17,15 +17,11 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import MobileContext from "@/contexts/MobileContext"
-
-type Location = {
-  value: string
-  label: string
-}
+import { capitaliseWords } from "@/utils/strings/capitalisation"
 
 type Props = {
   value: string
-  locations: Location[]
+  locations: string[]
   onChange: (value: string) => void
 }
 
@@ -43,7 +39,9 @@ export default function LocationsSelect(props: Props) {
           LocationsTabs(props)
         )
       ) : (
-        <Removable showRemove={false}>{locations[0].label}</Removable>
+        <Removable showRemove={false}>
+          {capitaliseWords(locations[0])}
+        </Removable>
       )}
     </div>
   )
@@ -51,14 +49,15 @@ export default function LocationsSelect(props: Props) {
 
 function LocationCombobox({ value, onChange, locations }: Props) {
   const [open, setOpen] = useState(false)
+  const selected = locations.find(
+    (l) => l.toLowerCase() === value.toLowerCase()
+  )
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="justify-start">
-          {value
-            ? locations.find((l) => l.value === value)?.label
-            : "Seleziona una sede..."}
+          {selected ? capitaliseWords(selected) : "Seleziona una sede..."}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0" side="bottom" align="start">
@@ -70,13 +69,13 @@ function LocationCombobox({ value, onChange, locations }: Props) {
               <ScrollArea className={locations.length > 7 ? "h-72" : ""}>
                 {locations.map((location) => (
                   <CommandItem
-                    key={location.value}
+                    key={location}
                     onSelect={(value) => {
                       onChange(value)
                       setOpen(false)
                     }}
                   >
-                    {location.label}
+                    {capitaliseWords(location)}
                   </CommandItem>
                 ))}
               </ScrollArea>
@@ -93,8 +92,8 @@ function LocationsTabs({ value, onChange, locations }: Props) {
     <Tabs value={value} onValueChange={onChange}>
       <TabsList>
         {locations.map((location) => (
-          <TabsTrigger value={location.value} key={location.value}>
-            {location.label}
+          <TabsTrigger value={location} key={location}>
+            {capitaliseWords(location)}
           </TabsTrigger>
         ))}
       </TabsList>
