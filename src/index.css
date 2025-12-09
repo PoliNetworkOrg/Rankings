@@ -60,11 +60,13 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
-}
 
-@layer base {
   a {
     @apply text-blue-800 underline-offset-2 hover:underline dark:text-blue-300;
+  }
+
+  button {
+    @apply cursor-pointer;
   }
 }
 

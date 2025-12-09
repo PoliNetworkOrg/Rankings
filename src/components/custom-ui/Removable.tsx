@@ -56,11 +56,7 @@ const Removable = React.forwardRef<HTMLDivElement, RemovableProps>(
       >
         {children}
         {showRemove && (
-          <button
-            type="button"
-            onClick={onRemove}
-            className="ml-2 cursor-pointer"
-          >
+          <button type="button" onClick={onRemove} className="ml-2">
             <IoCloseCircle size={26} />
           </button>
         )}
