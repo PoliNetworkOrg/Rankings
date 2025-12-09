@@ -13,10 +13,10 @@ import { Route as TestRouteImport } from './app/test'
 import { Route as SourceRouteImport } from './app/source'
 import { Route as PrivacyRouteImport } from './app/privacy'
 import { Route as AboutRouteImport } from './app/about'
-import { Route as IndexRouteImport } from './app/index'
-import { Route as SchoolIndexRouteImport } from './app/$school/index'
-import { Route as SchoolYearIndexRouteImport } from './app/$school/$year/index'
-import { Route as SchoolYearIdIndexRouteImport } from './app/$school/$year/$id/index'
+import { Route as HomeIndexRouteImport } from './app/_home/index'
+import { Route as HomeSchoolIndexRouteImport } from './app/_home/$school/index'
+import { Route as HomeSchoolYearIndexRouteImport } from './app/_home/$school/$year/index'
+import { Route as HomeSchoolYearIdIndexRouteImport } from './app/_home/$school/$year/$id/index'
 
 const TestRoute = TestRouteImport.update({
   id: '/test',
@@ -38,100 +38,100 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const HomeIndexRoute = HomeIndexRouteImport.update({
+  id: '/_home/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SchoolIndexRoute = SchoolIndexRouteImport.update({
-  id: '/$school/',
+const HomeSchoolIndexRoute = HomeSchoolIndexRouteImport.update({
+  id: '/_home/$school/',
   path: '/$school/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SchoolYearIndexRoute = SchoolYearIndexRouteImport.update({
-  id: '/$school/$year/',
+const HomeSchoolYearIndexRoute = HomeSchoolYearIndexRouteImport.update({
+  id: '/_home/$school/$year/',
   path: '/$school/$year/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SchoolYearIdIndexRoute = SchoolYearIdIndexRouteImport.update({
-  id: '/$school/$year/$id/',
+const HomeSchoolYearIdIndexRoute = HomeSchoolYearIdIndexRouteImport.update({
+  id: '/_home/$school/$year/$id/',
   path: '/$school/$year/$id/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/privacy': typeof PrivacyRoute
   '/source': typeof SourceRoute
   '/test': typeof TestRoute
-  '/$school': typeof SchoolIndexRoute
-  '/$school/$year': typeof SchoolYearIndexRoute
-  '/$school/$year/$id': typeof SchoolYearIdIndexRoute
+  '/': typeof HomeIndexRoute
+  '/$school': typeof HomeSchoolIndexRoute
+  '/$school/$year': typeof HomeSchoolYearIndexRoute
+  '/$school/$year/$id': typeof HomeSchoolYearIdIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/privacy': typeof PrivacyRoute
   '/source': typeof SourceRoute
   '/test': typeof TestRoute
-  '/$school': typeof SchoolIndexRoute
-  '/$school/$year': typeof SchoolYearIndexRoute
-  '/$school/$year/$id': typeof SchoolYearIdIndexRoute
+  '/': typeof HomeIndexRoute
+  '/$school': typeof HomeSchoolIndexRoute
+  '/$school/$year': typeof HomeSchoolYearIndexRoute
+  '/$school/$year/$id': typeof HomeSchoolYearIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/privacy': typeof PrivacyRoute
   '/source': typeof SourceRoute
   '/test': typeof TestRoute
-  '/$school/': typeof SchoolIndexRoute
-  '/$school/$year/': typeof SchoolYearIndexRoute
-  '/$school/$year/$id/': typeof SchoolYearIdIndexRoute
+  '/_home/': typeof HomeIndexRoute
+  '/_home/$school/': typeof HomeSchoolIndexRoute
+  '/_home/$school/$year/': typeof HomeSchoolYearIndexRoute
+  '/_home/$school/$year/$id/': typeof HomeSchoolYearIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/about'
     | '/privacy'
     | '/source'
     | '/test'
+    | '/'
     | '/$school'
     | '/$school/$year'
     | '/$school/$year/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/about'
     | '/privacy'
     | '/source'
     | '/test'
+    | '/'
     | '/$school'
     | '/$school/$year'
     | '/$school/$year/$id'
   id:
     | '__root__'
-    | '/'
     | '/about'
     | '/privacy'
     | '/source'
     | '/test'
-    | '/$school/'
-    | '/$school/$year/'
-    | '/$school/$year/$id/'
+    | '/_home/'
+    | '/_home/$school/'
+    | '/_home/$school/$year/'
+    | '/_home/$school/$year/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   PrivacyRoute: typeof PrivacyRoute
   SourceRoute: typeof SourceRoute
   TestRoute: typeof TestRoute
-  SchoolIndexRoute: typeof SchoolIndexRoute
-  SchoolYearIndexRoute: typeof SchoolYearIndexRoute
-  SchoolYearIdIndexRoute: typeof SchoolYearIdIndexRoute
+  HomeIndexRoute: typeof HomeIndexRoute
+  HomeSchoolIndexRoute: typeof HomeSchoolIndexRoute
+  HomeSchoolYearIndexRoute: typeof HomeSchoolYearIndexRoute
+  HomeSchoolYearIdIndexRoute: typeof HomeSchoolYearIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,46 +164,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_home/': {
+      id: '/_home/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof HomeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/$school/': {
-      id: '/$school/'
+    '/_home/$school/': {
+      id: '/_home/$school/'
       path: '/$school'
       fullPath: '/$school'
-      preLoaderRoute: typeof SchoolIndexRouteImport
+      preLoaderRoute: typeof HomeSchoolIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/$school/$year/': {
-      id: '/$school/$year/'
+    '/_home/$school/$year/': {
+      id: '/_home/$school/$year/'
       path: '/$school/$year'
       fullPath: '/$school/$year'
-      preLoaderRoute: typeof SchoolYearIndexRouteImport
+      preLoaderRoute: typeof HomeSchoolYearIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/$school/$year/$id/': {
-      id: '/$school/$year/$id/'
+    '/_home/$school/$year/$id/': {
+      id: '/_home/$school/$year/$id/'
       path: '/$school/$year/$id'
       fullPath: '/$school/$year/$id'
-      preLoaderRoute: typeof SchoolYearIdIndexRouteImport
+      preLoaderRoute: typeof HomeSchoolYearIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   PrivacyRoute: PrivacyRoute,
   SourceRoute: SourceRoute,
   TestRoute: TestRoute,
-  SchoolIndexRoute: SchoolIndexRoute,
-  SchoolYearIndexRoute: SchoolYearIndexRoute,
-  SchoolYearIdIndexRoute: SchoolYearIdIndexRoute,
+  HomeIndexRoute: HomeIndexRoute,
+  HomeSchoolIndexRoute: HomeSchoolIndexRoute,
+  HomeSchoolYearIndexRoute: HomeSchoolYearIndexRoute,
+  HomeSchoolYearIdIndexRoute: HomeSchoolYearIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

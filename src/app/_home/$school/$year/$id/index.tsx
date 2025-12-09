@@ -147,7 +147,7 @@ function getCoursesMap(
   return map
 }
 
-export const Route = createFileRoute("/$school/$year/$id/")({
+export const Route = createFileRoute("/_home/$school/$year/$id/")({
   // loader: async () => {
   //   const res = await axios.get(
   //     "http://localhost:8120/2024_20102_491d_html.json"

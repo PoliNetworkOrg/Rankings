@@ -10,7 +10,7 @@ import type { PhaseLink } from "@/utils/types/data/phase"
 import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
 import { isSchool } from "@/utils/types/data/school"
 
-export const Route = createFileRoute("/$school/$year/")({
+export const Route = createFileRoute("/_home/$school/$year/")({
   component: RouteComponent,
   params: {
     parse: ({ school, year }) => {

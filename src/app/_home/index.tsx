@@ -19,7 +19,7 @@ function getSchoolEmoji(school: School) {
   }
 }
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_home/")({
   component: RouteComponent,
 })
 
