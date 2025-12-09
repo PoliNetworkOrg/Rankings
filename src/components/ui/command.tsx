@@ -1,9 +1,11 @@
-import type { DialogProps } from "@radix-ui/react-dialog"
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
-import { Command as CommandPrimitive } from "cmdk"
+"use client"
+
 import * as React from "react"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { type DialogProps } from "@radix-ui/react-dialog"
+import { Command as CommandPrimitive } from "cmdk"
 import { cn } from "@/utils/ui.ts"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -20,13 +22,11 @@ const Command = React.forwardRef<
 ))
 Command.displayName = CommandPrimitive.displayName
 
-type CommandDialogProps = DialogProps
-
-const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
+const CommandDialog = ({ children, ...props }: DialogProps) => {
   return (
     <Dialog {...props}>
       <DialogContent className="overflow-hidden p-0">
-        <Command className="[&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group-heading]]:text-slate-500 dark:**:[[cmdk-group-heading]]:text-slate-400 **:[[cmdk-group]]:px-2 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3">
+        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-slate-500 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5 dark:[&_[cmdk-group-heading]]:text-slate-400">
           {children}
         </Command>
       </DialogContent>
@@ -86,7 +86,7 @@ const CommandGroup = React.forwardRef<
   <CommandPrimitive.Group
     ref={ref}
     className={cn(
-      "overflow-hidden p-1 text-slate-950 dark:text-slate-50 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group-heading]]:text-slate-500 **:[[cmdk-group-heading]]:text-xs dark:**:[[cmdk-group-heading]]:text-slate-400",
+      "overflow-hidden p-1 text-slate-950 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-slate-500 dark:text-slate-50 dark:[&_[cmdk-group-heading]]:text-slate-400",
       className
     )}
     {...props}
@@ -114,7 +114,7 @@ const CommandItem = React.forwardRef<
   <CommandPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-slate-100 aria-selected:text-slate-900 data-disabled:pointer-events-none data-disabled:opacity-50 dark:aria-selected:bg-slate-800 dark:aria-selected:text-slate-50",
+      "relative flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled=true]:pointer-events-none data-[selected=true]:bg-slate-100 data-[selected=true]:text-slate-900 data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:data-[selected=true]:bg-slate-800 dark:data-[selected=true]:text-slate-50",
       className
     )}
     {...props}
@@ -130,7 +130,7 @@ const CommandShortcut = ({
   return (
     <span
       className={cn(
-        "ml-auto text-slate-500 text-xs tracking-widest dark:text-slate-400",
+        "ml-auto text-xs tracking-widest text-slate-500 dark:text-slate-400",
         className
       )}
       {...props}
