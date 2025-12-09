@@ -29,7 +29,7 @@ function capitalise(word: string): string {
   return firstLetter + restOfWord
 }
 
-const DO_UPPER = ["ue"]
+const DO_UPPER = ["ue", "eu"]
 
 const DO_NOT_CAPITALISE = [
   "e",
