@@ -27,7 +27,7 @@ const removableVariants = cva(
 
 export interface RemovableProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof removableVariants> {
+  VariantProps<typeof removableVariants> {
   asChild?: boolean
   onRemove?: () => void
   showRemove?: boolean
@@ -56,7 +56,11 @@ const Removable = React.forwardRef<HTMLDivElement, RemovableProps>(
       >
         {children}
         {showRemove && (
-          <button type="button" onClick={onRemove} className="ml-2">
+          <button
+            type="button"
+            onClick={onRemove}
+            className="ml-2 cursor-pointer"
+          >
             <IoCloseCircle size={26} />
           </button>
         )}
