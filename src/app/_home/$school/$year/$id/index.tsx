@@ -9,6 +9,7 @@ import { queryClient } from "@/app/__root"
 import Page from "@/components/custom-ui/Page.tsx"
 import PathBreadcrumb from "@/components/PathBreadcrumb.tsx"
 import MobileContext from "@/contexts/MobileContext"
+import CustomMap from "@/utils/CustomMap"
 import { NotFoundError } from "@/utils/errors.ts"
 import type {
   NewRanking,
@@ -19,7 +20,6 @@ import { isSchool } from "@/utils/types/data/school"
 import { CourseCombobox } from "./-course-combobox"
 import LocationsSelect from "./-location-select"
 import Table from "./-Table"
-import CustomMap from "@/utils/CustomMap"
 
 // function TEMP_getCoursesMap(
 //   ranking: NewRanking
@@ -260,13 +260,15 @@ function RouteComponent() {
 
   return (
     <Page
-      className={`flex items-center gap-4 px-0 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-        }`}
+      className={`flex items-center gap-4 px-0 ${
+        isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+      }`}
       fullWidth
     >
       <div
-        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-          }`}
+        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${
+          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+        }`}
       >
         <PathBreadcrumb />
         <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">

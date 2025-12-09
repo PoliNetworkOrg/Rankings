@@ -27,7 +27,7 @@ const removableVariants = cva(
 
 export interface RemovableProps
   extends React.HTMLAttributes<HTMLDivElement>,
-  VariantProps<typeof removableVariants> {
+    VariantProps<typeof removableVariants> {
   asChild?: boolean
   onRemove?: () => void
   showRemove?: boolean
