@@ -13,7 +13,7 @@ export type NewStudentResult = {
   position: number
   canEnroll: boolean
   result: number
-  sectionsResults: Record<string, number>
+  sectionsResults: Record<string, number> | null
   ofa: Record<string, boolean>
 
   birthDate?: string

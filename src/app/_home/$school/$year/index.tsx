@@ -9,6 +9,7 @@ import { getPhaseGroups, phaseGroupLabel, phaseLinkLabel } from "@/utils/phase"
 import type { PhaseLink } from "@/utils/types/data/phase"
 import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
 import { isSchool } from "@/utils/types/data/school"
+import { getDataUrl } from "@/utils/data"
 
 export const Route = createFileRoute("/_home/$school/$year/")({
   component: RouteComponent,
@@ -25,9 +26,7 @@ function RouteComponent() {
   const { data } = useQuery({
     queryKey: ["index"],
     queryFn: async () => {
-      const res = await fetch(
-        "http://localhost:6767/output/indexes/bySchoolYear.json"
-      )
+      const res = await fetch(getDataUrl("/output/indexes/bySchoolYear.json"))
       return res.json() as Promise<BySchoolYearIndex>
     },
   })
