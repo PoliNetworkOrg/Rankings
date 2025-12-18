@@ -8,8 +8,7 @@ function getProdRef(ref: "main"): string {
 
 export function getDataUrl(path: string): string {
   const base =
-    import.meta.env.NODE_ENV === "production" ||
-      import.meta.env.VITE_USE_PROD_DATA
+    import.meta.env.PROD || import.meta.env.VITE_USE_PROD_DATA
       ? getProdRef("main")
       : LOCAL_HTTP_SERVER
 
