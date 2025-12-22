@@ -1,11 +1,13 @@
-import { useSuspenseQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import {
   createFileRoute,
   ErrorComponent,
   redirect,
 } from "@tanstack/react-router"
 import { useContext, useMemo, useState } from "react"
+import Alert from "@/components/custom-ui/Alert"
 import Page from "@/components/custom-ui/Page.tsx"
+import Spinner from "@/components/custom-ui/Spinner"
 import PathBreadcrumb from "@/components/PathBreadcrumb.tsx"
 import MobileContext from "@/contexts/MobileContext"
 import { useQueries } from "@/hooks/use-queries"
@@ -158,8 +160,23 @@ export const Route = createFileRoute("/_home/$school/$year/$id/")({
 function RouteComponent() {
   const params = Route.useParams()
   const queries = useQueries()
-  const { data: ranking } = useSuspenseQuery(queries.ranking(params.id))
+  const {
+    data: ranking,
+    isPending,
+    error,
+  } = useQuery(queries.ranking(params.id))
 
+  if (isPending) return <Spinner />
+  if (error)
+    return (
+      <Page>
+        <Alert level="error">Error: {error.message}</Alert>
+      </Page>
+    )
+  return <Component ranking={ranking} />
+}
+
+function Component({ ranking }: { ranking: NewRanking }) {
   //   const res = await axios.get(
   //     "http://localhost:8120/2024_20102_491d_html.json"
   //   )

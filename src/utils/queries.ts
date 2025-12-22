@@ -50,5 +50,7 @@ export const queryFactory = (opts: QueryFactoryOpts) => ({
         if (res.status === 404) throw new NotFoundError()
         return res.json() as Promise<NewRanking>
       },
+      retry: 2,
+      retryDelay: 300,
     }),
 })
