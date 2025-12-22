@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { LuCheck, LuPencil, LuRefreshCw } from "react-icons/lu"
 import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
@@ -11,14 +11,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { SettingsContext } from "@/contexts/SettingsContext"
 import { useQueries } from "@/hooks/use-queries"
+import { useSettingsStore } from "@/stores/settings-store"
 import { DATA_SOURCE } from "@/utils/constants"
 import type { DataSource } from "@/utils/queries"
 
 export function SetDataSource() {
-  const { localPort, ref, dataSource, setDataSource } =
-    useContext(SettingsContext)
+  const { localPort, ref, dataSource, setDataSource } = useSettingsStore()
 
   return (
     <div className="flex w-full items-center gap-10">
@@ -58,7 +57,8 @@ export function SetDataSource() {
 function ChangeRef({ initialRef }: { initialRef: string }) {
   const [ref, setRef] = useState<string>(initialRef)
   const [open, setOpen] = useState<boolean>(false)
-  const { setRef: updateRef } = useContext(SettingsContext)
+
+  const { setRef: updateRef } = useSettingsStore()
 
   function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -94,7 +94,7 @@ function ChangePort({ initialPort }: { initialPort: number }) {
   const [port, setPort] = useState<number>(initialPort)
   const [open, setOpen] = useState<boolean>(false)
   const error = port < 1000 || port > 65535 || Number.isNaN(port)
-  const { changeLocalPort } = useContext(SettingsContext)
+  const { changeLocalPort } = useSettingsStore()
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.valueAsNumber

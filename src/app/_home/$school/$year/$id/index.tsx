@@ -5,14 +5,17 @@ import {
   redirect,
 } from "@tanstack/react-router"
 import { useContext, useMemo, useState } from "react"
+import { queryClient } from "@/app/__root"
 import Alert from "@/components/custom-ui/Alert"
 import Page from "@/components/custom-ui/Page.tsx"
 import Spinner from "@/components/custom-ui/Spinner"
 import PathBreadcrumb from "@/components/PathBreadcrumb.tsx"
 import MobileContext from "@/contexts/MobileContext"
 import { useQueries } from "@/hooks/use-queries"
+import { useSettingsStore } from "@/stores/settings-store"
 import CustomMap from "@/utils/CustomMap"
 import { NotFoundError } from "@/utils/errors.ts"
+import { getActiveQueries } from "@/utils/queries"
 import type {
   NewRanking,
   NewStudentResultCourse,
@@ -148,6 +151,11 @@ export const Route = createFileRoute("/_home/$school/$year/$id/")({
       if (isSchool(school)) return { school, year: parseInt(year, 10), id }
       else throw redirect({ to: "/" })
     },
+  },
+  loader: ({ params }) => {
+    const state = useSettingsStore.getState()
+    const queries = getActiveQueries(state)
+    queryClient.prefetchQuery(queries.ranking(params.id))
   },
   errorComponent: ({ error }) => {
     if (error instanceof NotFoundError) return <p>Ranking not found</p>

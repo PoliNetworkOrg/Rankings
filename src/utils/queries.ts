@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query"
 import urlJoin from "url-join"
+import type { SettingsState } from "@/stores/settings-store"
 import { type DATA_SOURCE, LINKS } from "./constants"
 import { NotFoundError } from "./errors"
 import type { BySchoolYearIndex, NewRanking } from "./types/data/ranking"
@@ -39,6 +40,7 @@ export const queryFactory = (opts: QueryFactoryOpts) => ({
     },
     retry: 2,
     retryDelay: 300,
+    staleTime: 120_000,
   }),
 
   ranking: (id: string) =>
@@ -52,5 +54,16 @@ export const queryFactory = (opts: QueryFactoryOpts) => ({
       },
       retry: 2,
       retryDelay: 300,
+      staleTime: 600_000,
     }),
 })
+
+export const getActiveQueries = (
+  settings: Pick<SettingsState, "dataSource" | "ref" | "localPort">
+) => {
+  const { dataSource, ref, localPort } = settings
+
+  return dataSource === "github"
+    ? queryFactory({ source: dataSource, ref })
+    : queryFactory({ source: "local", port: localPort })
+}
