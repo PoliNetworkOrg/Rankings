@@ -5,11 +5,10 @@ import PhaseFlag from "@/components/custom-ui/PhaseFlag"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 import PathBreadcrumb from "@/components/PathBreadcrumb"
 import { Button } from "@/components/ui/button"
+import { useQueries } from "@/hooks/use-queries"
 import { getPhaseGroups, phaseGroupLabel, phaseLinkLabel } from "@/utils/phase"
 import type { PhaseLink } from "@/utils/types/data/phase"
-import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
 import { isSchool } from "@/utils/types/data/school"
-import { getDataUrl } from "@/utils/data"
 
 export const Route = createFileRoute("/_home/$school/$year/")({
   component: RouteComponent,
@@ -23,14 +22,9 @@ export const Route = createFileRoute("/_home/$school/$year/")({
 
 function RouteComponent() {
   const { school, year } = Route.useParams()
-  const { data } = useQuery({
-    queryKey: ["index"],
-    queryFn: async () => {
-      const res = await fetch(getDataUrl("/output/indexes/bySchoolYear.json"))
-      return res.json() as Promise<BySchoolYearIndex>
-    },
-  })
-  if (!data) return null
+  const queries = useQueries()
+  const { data, isPending } = useQuery(queries.index)
+  if (!data || isPending) return null
   const yearData = data[school]?.[year] ?? []
 
   const groups = getPhaseGroups(yearData).entriesArr()

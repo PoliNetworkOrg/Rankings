@@ -2,7 +2,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { createRootRoute, Outlet } from "@tanstack/react-router"
 import { StrictMode } from "react"
 import { IconContext } from "react-icons"
+import DevSettings from "@/components/DevSettings"
 import Layout from "@/components/Layout"
+import { Toaster } from "@/components/ui/sonner"
 import ContextProvider from "@/contexts/ContextProvider"
 
 export const queryClient = new QueryClient()
@@ -20,7 +22,10 @@ function RootComponent() {
           <QueryClientProvider client={queryClient}>
             <Layout>
               <Outlet />
+
+              {import.meta.env.DEV && <DevSettings />}
             </Layout>
+            <Toaster richColors position="bottom-center" />
           </QueryClientProvider>
         </IconContext.Provider>
       </ContextProvider>

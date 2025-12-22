@@ -16,6 +16,8 @@ export enum DATA_REF {
   MAIN = "main",
 }
 
+export const DATA_SOURCE = { github: "github", local: "local" } as const
+
 export const SCHOOLS = [
   "Architettura",
   "Ingegneria",

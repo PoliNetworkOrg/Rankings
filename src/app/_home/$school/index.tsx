@@ -6,9 +6,8 @@ import Spinner from "@/components/custom-ui/Spinner"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
 import PathBreadcrumb from "@/components/PathBreadcrumb"
 import { Button } from "@/components/ui/button"
-import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
+import { useQueries } from "@/hooks/use-queries"
 import { isSchool } from "@/utils/types/data/school"
-import { getDataUrl } from "@/utils/data"
 
 export const Route = createFileRoute("/_home/$school/")({
   component: RouteComponent,
@@ -23,15 +22,10 @@ export const Route = createFileRoute("/_home/$school/")({
 function RouteComponent() {
   const [clicked, setClicked] = useState(false)
   const { school } = Route.useParams()
-  const { data } = useQuery({
-    queryKey: ["index"],
-    queryFn: async () => {
-      const res = await fetch(getDataUrl("/output/indexes/bySchoolYear.json"))
-      return res.json() as Promise<BySchoolYearIndex>
-    },
-  })
+  const queries = useQueries()
+  const { data, isPending } = useQuery(queries.index)
 
-  if (!data) return null
+  if (!data || isPending) return null
   const years = Object.keys(data[school] ?? {}).map(Number)
 
   return clicked ? (

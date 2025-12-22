@@ -1,14 +1,14 @@
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query"
+import { useSuspenseQuery } from "@tanstack/react-query"
 import {
   createFileRoute,
   ErrorComponent,
   redirect,
 } from "@tanstack/react-router"
 import { useContext, useMemo, useState } from "react"
-import { queryClient } from "@/app/__root"
 import Page from "@/components/custom-ui/Page.tsx"
 import PathBreadcrumb from "@/components/PathBreadcrumb.tsx"
 import MobileContext from "@/contexts/MobileContext"
+import { useQueries } from "@/hooks/use-queries"
 import CustomMap from "@/utils/CustomMap"
 import { NotFoundError } from "@/utils/errors.ts"
 import type {
@@ -20,7 +20,6 @@ import { isSchool } from "@/utils/types/data/school"
 import { CourseCombobox } from "./-course-combobox"
 import LocationsSelect from "./-location-select"
 import Table from "./-Table"
-import { getDataUrl } from "@/utils/data"
 
 // function TEMP_getCoursesMap(
 //   ranking: NewRanking
@@ -120,18 +119,6 @@ function fallbackSelectedLocation(
   return locations[0]
 }
 
-function rankingOptions(id: string) {
-  return queryOptions({
-    queryKey: ["ranking", id],
-    queryFn: async () => {
-      const res = await fetch(getDataUrl(`/output/rankings/${id}.json`))
-      if (res.status === 404) throw new NotFoundError()
-      return res.json() as Promise<NewRanking>
-    },
-    staleTime: 5 * 1000,
-  })
-}
-
 function getCoursesMap(
   courses: NewRanking["courses"]
 ): CustomMap<string, string[]> {
@@ -160,8 +147,6 @@ export const Route = createFileRoute("/_home/$school/$year/$id/")({
       else throw redirect({ to: "/" })
     },
   },
-  loader: ({ params }) =>
-    queryClient.ensureQueryData(rankingOptions(params.id)),
   errorComponent: ({ error }) => {
     if (error instanceof NotFoundError) return <p>Ranking not found</p>
 
@@ -172,7 +157,8 @@ export const Route = createFileRoute("/_home/$school/$year/$id/")({
 
 function RouteComponent() {
   const params = Route.useParams()
-  const { data: ranking } = useSuspenseQuery(rankingOptions(params.id))
+  const queries = useQueries()
+  const { data: ranking } = useSuspenseQuery(queries.ranking(params.id))
 
   //   const res = await axios.get(
   //     "http://localhost:8120/2024_20102_491d_html.json"
@@ -259,13 +245,15 @@ function RouteComponent() {
 
   return (
     <Page
-      className={`flex items-center gap-4 px-0 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-        }`}
+      className={`flex items-center gap-4 px-0 ${
+        isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+      }`}
       fullWidth
     >
       <div
-        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-          }`}
+        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${
+          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+        }`}
       >
         <PathBreadcrumb />
         <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">

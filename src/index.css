@@ -93,3 +93,15 @@ ul.react-paginate li.disable,
 ul.react-paginate li.disabled a {
   cursor: default;
 }
+
+@layer utilities {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}

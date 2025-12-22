@@ -179,13 +179,13 @@ export function getColumns(
       id: "sectionsResults",
       columns: rows[0].sectionsResults
         ? Object.keys(rows[0].sectionsResults).map((k) => ({
-          header: k,
-          accessorFn: (row) => row.sectionsResults?.[k],
-          cell: ({ getValue }) => {
-            const value = getValue()
-            return Formatter.displayScore(value)
-          },
-        }))
+            header: k,
+            accessorFn: (row) => row.sectionsResults?.[k],
+            cell: ({ getValue }) => {
+              const value = getValue()
+              return Formatter.displayScore(value)
+            },
+          }))
         : [],
     },
     {

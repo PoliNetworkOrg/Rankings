@@ -1,41 +1,25 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
+import Alert from "@/components/custom-ui/Alert"
 import Page from "@/components/custom-ui/Page"
+import Spinner from "@/components/custom-ui/Spinner"
 import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
+import { SchoolEmoji } from "@/components/school-emoji"
 import { Button } from "@/components/ui/button"
-import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
-import type { School } from "@/utils/types/data/school"
-import { getDataUrl } from "@/utils/data"
-
-function getSchoolEmoji(school: School) {
-  switch (school) {
-    case "Architettura":
-      return <span className="mr-2 rotate-270 text-lg">&#128208;</span>
-    case "Design":
-      return <span className="mr-2 text-lg">&#128396;&#65039;</span>
-    case "Ingegneria":
-      return <span className="mr-2 text-lg">&#128736;&#65039;</span>
-    case "Urbanistica":
-      return <span className="mr-2 text-lg">&#127969;</span>
-  }
-}
+import { useQueries } from "@/hooks/use-queries"
 
 export const Route = createFileRoute("/_home/")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { data, error } = useQuery({
-    queryKey: ["index"],
-    queryFn: async () => {
-      const res = await fetch(getDataUrl("/output/indexes/bySchoolYear.json"))
-      return res.json() as Promise<BySchoolYearIndex>
-    },
-  })
+  const queries = useQueries()
+  const { data, isPending, error } = useQuery(queries.index)
 
-  if (error) return <p>Error: {error.message}</p>
-  if (!data) return null
-  const schools = Object.keys(data) as (keyof typeof data)[]
+  const schools = data
+    ? (Object.keys(data) as (keyof typeof data)[])
+    : undefined
+
   return (
     <Page>
       <div className="flex w-full flex-1 flex-col items-start gap-4 py-4">
@@ -49,22 +33,29 @@ function RouteComponent() {
         <p className="w-full text-xl">
           Inizia scegliendo l'area di studi di tuo interesse
         </p>
-        <ButtonGrid length={schools.length}>
-          {schools.map((school) => (
-            <Link
-              to="/$school"
-              params={{ school }}
-              key={school}
-              className="h-full"
-            >
-              <Button size="card" variant="secondary" className="h-full w-full">
-                {getSchoolEmoji(school)}
-                <span className="text-lg">{school}</span>
-              </Button>
-            </Link>
-          ))}
-        </ButtonGrid>
-        {/* {isDev && <DevSettings stableData={data} mainData={devData} />} */}
+        {schools && (
+          <ButtonGrid length={schools.length}>
+            {schools.map((school) => (
+              <Link
+                to="/$school"
+                params={{ school }}
+                key={school}
+                className="h-full"
+              >
+                <Button
+                  size="card"
+                  variant="secondary"
+                  className="h-full w-full"
+                >
+                  <SchoolEmoji school={school} />
+                  <span className="text-lg">{school}</span>
+                </Button>
+              </Link>
+            ))}
+          </ButtonGrid>
+        )}
+        {isPending && <Spinner />}
+        {error instanceof Error && <Alert level="error">{error.message}</Alert>}
       </div>
     </Page>
   )
