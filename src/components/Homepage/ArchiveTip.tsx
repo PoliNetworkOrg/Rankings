@@ -1,4 +1,5 @@
 import { useMemo } from "react"
+import { AiOutlineBulb } from "react-icons/ai"
 import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
 
 type Props = {
@@ -33,8 +34,12 @@ export function ArchiveTip({ data }: Props) {
       <div className="-top-12 -right-12 absolute h-32 w-32 rounded-full bg-indigo-200/30 blur-2xl dark:bg-indigo-500/10" />
       <div className="-bottom-8 -left-8 absolute h-24 w-24 rounded-full bg-purple-200/30 blur-2xl dark:bg-purple-500/10" />
 
-      <div className="relative flex items-start gap-4">
+      <div className="relative flex items-center gap-2">
         {/* Stats line with pill badges */}
+        <AiOutlineBulb
+          size={18}
+          className="text-yellow-600 dark:text-yellow-200"
+        />
         <p className="text-slate-700 text-sm leading-relaxed dark:text-slate-300">
           L'archivio contiene{" "}
           <span className="inline-flex items-center rounded-full bg-indigo-100 px-2 py-0.5 font-semibold text-indigo-700 text-xs dark:bg-indigo-900/50 dark:text-indigo-300">
