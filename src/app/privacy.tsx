@@ -7,7 +7,7 @@ export const Route = createFileRoute("/privacy")({
 
 function RouteComponent() {
   return (
-    <Page>
+    <Page className="items-center">
       <div className="flex flex-col gap-8 p-8 text-justify">
         <h2 className="text-center font-bold text-lg">Privacy</h2>
         <div>
