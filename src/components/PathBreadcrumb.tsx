@@ -1,12 +1,19 @@
+import { useSuspenseQuery } from "@tanstack/react-query"
 import { Link, useParams } from "@tanstack/react-router"
+import { Suspense } from "react"
 import { LuArrowRight, LuHouse } from "react-icons/lu"
+import { useQueries } from "@/hooks/use-queries"
+import { numberToRoman } from "@/utils/strings/numbers"
+import { cn } from "@/utils/ui"
+import PhaseFlag from "./custom-ui/PhaseFlag"
+import { Badge } from "./ui/badge"
 
 export default function PathBreadcrumb() {
   const params = useParams({
     shouldThrow: false,
     strict: false,
-    select({ school, year }) {
-      return { school, year }
+    select({ school, year, id }) {
+      return { school, year, id }
     },
   })
 
@@ -30,6 +37,59 @@ export default function PathBreadcrumb() {
           </Link>
         </>
       )}
+      {params.id && (
+        <Suspense fallback={null}>
+          <RankingInfo id={params.id} />
+        </Suspense>
+      )}
     </div>
+  )
+}
+
+function RankingInfo({ id }: { id: string }) {
+  const q = useQueries()
+  const ranking = useSuspenseQuery(q.ranking(id))
+
+  if (ranking.error) return null
+
+  return (
+    <>
+      <LuArrowRight size={18} />
+      <Badge
+        variant="outline"
+        className={cn(
+          "gap-1 px-1",
+          ranking.data.phase.language === "IT"
+            ? "border-green-500 dark:border-green-700"
+            : "border-blue-300 dark:border-blue-700"
+        )}
+      >
+        <Badge
+          variant="secondary"
+          className={cn(
+            "pointer-events-none gap-2",
+            ranking.data.phase.language === "IT"
+              ? "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300"
+              : "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300"
+          )}
+        >
+          <PhaseFlag phase={ranking.data.phase} />
+          {ranking.data.phase.primary === 0
+            ? "Fase Generale"
+            : `${numberToRoman(ranking.data.phase.primary)} Fase`}
+        </Badge>
+        <Badge variant="secondary">
+          {numberToRoman(ranking.data.phase.secondary)} Grad.
+        </Badge>
+        {ranking.data.phase.isExtraEu && (
+          <Badge
+            className="dark:border-amber-500 dark:text-amber-500"
+            variant="outline"
+          >
+            Extra-UE
+          </Badge>
+        )}
+      </Badge>
+    </>
   )
 }
