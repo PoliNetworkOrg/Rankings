@@ -150,8 +150,6 @@ function LanguageColumn({
   school: School
   year: number
 }) {
-  // const hasMultiplePhases = groups.length > 1
-
   return (
     <div className="overflow-hidden rounded-xl border-2 border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800/50">
       {/* Column header */}

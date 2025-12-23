@@ -27,62 +27,53 @@ function RouteComponent() {
     .map(Number)
     .sort((a, b) => b - a)
 
-  const currentYear = new Date().getFullYear()
-
   return (
     <Page>
       <PathBreadcrumb />
-      <div className="w-full space-y-4">
-        <div className="space-y-1">
-          <h2 className="font-semibold text-slate-900 text-xl dark:text-slate-100">
-            Anno di immatricolazione
-          </h2>
-          <p className="text-slate-600 text-sm dark:text-slate-400">
-            Seleziona l'anno accademico di cui vuoi consultare le graduatorie
-          </p>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {years.map((year, index) => {
-            const isRecent = year >= currentYear - 1
-            const isFirst = index === 0
-
-            return (
-              <Link
-                key={year}
-                to="/$school/$year"
-                params={{ school, year }}
-                className="group"
-              >
-                <Badge
-                  variant={isFirst ? "default" : "secondary"}
-                  size="medium"
-                  className={cn(
-                    "cursor-pointer transition-all",
-                    "hover:scale-105",
-                    isFirst &&
-                      "ring-2 ring-slate-900/20 dark:ring-slate-100/20",
-                    isRecent && !isFirst && "border-green-500/30"
-                  )}
-                >
-                  {year}
-                  {isRecent && (
-                    <span className="ml-1.5 h-1.5 w-1.5 rounded-full bg-green-500" />
-                  )}
-                </Badge>
-              </Link>
-            )
-          })}
-        </div>
-
-        {years.length > 0 && (
-          <p className="text-slate-500 text-xs dark:text-slate-500">
-            {years.length}{" "}
-            {years.length === 1 ? "anno disponibile" : "anni disponibili"} dal{" "}
-            {years[years.length - 1]} al {years[0]}
-          </p>
-        )}
+      <div className="space-y-1">
+        <h2 className="font-semibold text-slate-900 text-xl dark:text-slate-100">
+          Anno di immatricolazione
+        </h2>
+        <p className="text-slate-600 text-sm dark:text-slate-400">
+          Seleziona l'anno accademico di cui vuoi consultare le graduatorie
+        </p>
       </div>
+
+      <div className="flex max-sm:grid grid-cols-2 flex-wrap gap-3 w-full">
+        {years.map((year, index) => {
+          const isFirst = index === 0
+
+          return (
+            <Link
+              key={year}
+              to="/$school/$year"
+              params={{ school, year }}
+              className="group"
+            >
+              <Badge
+                size="large"
+                variant="secondary"
+                className={cn(
+                  "cursor-pointer border transition-all hover:bg-slate-200 dark:hover:bg-slate-700/80 justify-center w-full",
+                  isFirst
+                    ? "border-amber-700/30 shadow-[0px_2px_10px_#ffae1082,inset_0px_-4px_20px_#ffb52575] dark:border-amber-200/90 dark:shadow-[0px_3px_8px_rgba(186,130,21,0.32),inset_0px_-4px_20px_rgba(186,130,21,0.43)]"
+                    : ""
+                )}
+              >
+                {year}
+              </Badge>
+            </Link>
+          )
+        })}
+      </div>
+
+      {years.length > 0 && (
+        <p className="text-slate-500 text-xs dark:text-slate-500">
+          {years.length}{" "}
+          {years.length === 1 ? "anno disponibile" : "anni disponibili"} dal{" "}
+          {years[years.length - 1]} al {years[0]}
+        </p>
+      )}
     </Page>
   )
 }

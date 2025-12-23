@@ -39,7 +39,7 @@ function RouteComponent() {
             Seleziona graduatoria
           </h2>
           <p className="text-slate-600 text-sm dark:text-slate-400">
-            Filtra e scegli la graduatoria da consultare per{" "}
+            Scegli la graduatoria da consultare per{" "}
             <span className="font-medium">{school}</span> {year}
           </p>
         </div>
