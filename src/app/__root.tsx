@@ -6,6 +6,7 @@ import DevSettings from "@/components/DevSettings"
 import Layout from "@/components/Layout"
 import { Toaster } from "@/components/ui/sonner"
 import ContextProvider from "@/contexts/ContextProvider"
+import { TooltipProvider } from "@/components/ui/tooltip"
 
 export const queryClient = new QueryClient()
 export const Route = createRootRoute({
@@ -19,14 +20,16 @@ function RootComponent() {
         <IconContext.Provider
           value={{ style: { verticalAlign: "middle", fontSize: "26px" } }}
         >
-          <QueryClientProvider client={queryClient}>
-            <Layout>
-              <Outlet />
+          <TooltipProvider>
+            <QueryClientProvider client={queryClient}>
+              <Layout>
+                <Outlet />
 
-              {import.meta.env.DEV && <DevSettings />}
-            </Layout>
-            <Toaster richColors position="bottom-center" />
-          </QueryClientProvider>
+                {import.meta.env.DEV && <DevSettings />}
+              </Layout>
+              <Toaster richColors position="bottom-center" />
+            </QueryClientProvider>
+          </TooltipProvider>
         </IconContext.Provider>
       </ContextProvider>
     </StrictMode>

@@ -5,6 +5,7 @@ import { numberToRoman } from "@/utils/strings/numbers"
 import type { PhaseLink } from "@/utils/types/data/phase"
 import type { School } from "@/utils/types/data/school"
 import { cn } from "@/utils/ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
 type Props = {
   phases: PhaseLink[]
@@ -108,18 +109,10 @@ export function RankingSelector({ phases, school, year }: Props) {
     })).filter((c) => c.groups.length > 0)
   }, [phases])
 
-  const gridCols = columnsData.length
-
   return (
     <div className="w-full space-y-6">
       {/* Columns grid */}
-      <div
-        className={cn(
-          "grid items-start gap-4",
-          gridCols === 1 && "max-w-md grid-cols-1",
-          gridCols === 2 && "grid-cols-1 sm:grid-cols-2"
-        )}
-      >
+      <div className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2">
         {columnsData.map(({ config, groups }) => (
           <LanguageColumn
             key={config.lang}
@@ -132,9 +125,30 @@ export function RankingSelector({ phases, school, year }: Props) {
       </div>
 
       {/* Summary */}
-      <p className="text-slate-400 text-xs">
-        {phases.length} graduatorie disponibili
-      </p>
+      <div className="flex gap-1 text-xs text-slate-400">
+        <p className="text-slate-400">
+          {phases.length} graduatorie disponibili in totale.{" "}
+        </p>
+        <Tooltip delayDuration={100}>
+          <TooltipTrigger className="underline">
+            Perché non trovo una graduatoria?
+          </TooltipTrigger>
+          <TooltipContent
+            side="bottom"
+            className="bg-slate-300 dark:bg-slate-800 dark:text-slate-300"
+          >
+            <p className="max-w-120">
+              Il Politecnico ha cambiato negli anni le modalità di pubblicazione
+              delle graduatorie, oltre a eliminare molto rapidamente i file
+              grezzi dai server pubblici, rendendo malfunzionante il nostro
+              script di scraping e parsing. <br /> Durante i processi (lenti) di
+              riscrittura/manutenzione dello script, alcune di queste
+              graduatorie sono andate perse o mai individuate perché già
+              eliminate.
+            </p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
     </div>
   )
 }
@@ -230,7 +244,7 @@ function PhaseRankings({
         </div>
       )}
 
-      {/* Extra-EU rankings row with dashed border and label */}
+      {/* Extra-UE rankings row with dashed border and label */}
       {extraEuPhases.length > 0 && (
         <div className="relative mt-3 rounded-lg border border-amber-300 border-dashed bg-amber-50/30 p-1.5 pt-2.5 dark:border-amber-700 dark:bg-amber-950/20">
           {/* Label */}

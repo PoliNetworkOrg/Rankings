@@ -38,10 +38,9 @@ const SCHOOL_CONFIG: Record<School, SchoolConfig> = {
 
 type Props = {
   school: School
-  yearCount?: number
 }
 
-export function SchoolCard({ school, yearCount }: Props) {
+export function SchoolCard({ school }: Props) {
   const config = SCHOOL_CONFIG[school]
 
   return (
@@ -59,11 +58,6 @@ export function SchoolCard({ school, yearCount }: Props) {
           <span className="text-4xl" role="img" aria-label={school}>
             {config.icon}
           </span>
-          {yearCount !== undefined && (
-            <span className="rounded-full bg-slate-900/10 px-2 py-0.5 font-medium text-slate-600 text-xs dark:bg-slate-100/10 dark:text-slate-400">
-              {yearCount} {yearCount === 1 ? "anno" : "anni"}
-            </span>
-          )}
         </div>
         <div className="mt-3">
           <h3 className="font-semibold text-lg text-slate-900 dark:text-slate-100">

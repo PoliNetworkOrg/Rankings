@@ -86,7 +86,7 @@ function RankingInfo({ id }: { id: string }) {
             className="dark:border-amber-500 dark:text-amber-500"
             variant="outline"
           >
-            Extra-EU
+            Extra-UE
           </Badge>
         )}
       </Badge>

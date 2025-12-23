@@ -35,11 +35,7 @@ function RouteComponent() {
         {schools && data && (
           <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
             {schools.map((school) => (
-              <SchoolCard
-                key={school}
-                school={school}
-                yearCount={Object.keys(data[school] ?? {}).length}
-              />
+              <SchoolCard key={school} school={school} />
             ))}
           </div>
         )}
