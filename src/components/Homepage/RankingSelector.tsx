@@ -116,7 +116,7 @@ export function RankingSelector({ phases, school, year }: Props) {
       <div
         className={cn(
           "grid items-start gap-4",
-          gridCols === 1 && "mx-auto max-w-md grid-cols-1",
+          gridCols === 1 && "max-w-md grid-cols-1",
           gridCols === 2 && "grid-cols-1 sm:grid-cols-2"
         )}
       >

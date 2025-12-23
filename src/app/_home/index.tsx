@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import Alert from "@/components/custom-ui/Alert"
 import Page from "@/components/custom-ui/Page"
 import Spinner from "@/components/custom-ui/Spinner"
+import { ArchiveTip } from "@/components/Homepage/ArchiveTip"
 import { SchoolCard } from "@/components/Homepage/SchoolCard"
 import { useQueries } from "@/hooks/use-queries"
 
@@ -49,6 +50,11 @@ function RouteComponent() {
           </div>
         )}
         {error instanceof Error && <Alert level="error">{error.message}</Alert>}
+
+        <div className="flex-1"></div>
+        <div className="flex w-full justify-center">
+          {data && <ArchiveTip data={data} />}
+        </div>
       </div>
     </Page>
   )
