@@ -1,4 +1,5 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
+import { toast } from "sonner"
 import { LOCAL_STORAGE } from "@/utils/constants"
 
 export interface IDarkModeContext {
@@ -52,10 +53,20 @@ export function DarkModeProvider({ ...p }: Props) {
     setIsDarkMode((value) => {
       const newValue = !value
       localStorage.setItem(LOCAL_STORAGE.darkMode, JSON.stringify(newValue))
+
       updateDOMWithTheme(newValue)
       return newValue
     })
   }
+
+  useEffect(() => {
+    if (!isDarkMode)
+      toast.warning("Light mode is experimental, expect issues", {
+        id: "light-mode-warn",
+        duration: 10000,
+      })
+    else toast.dismiss("light-mode-warn")
+  }, [isDarkMode])
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }} {...p} />
