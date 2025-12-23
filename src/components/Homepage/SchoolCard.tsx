@@ -18,7 +18,7 @@ const SCHOOL_CONFIG: Record<School, SchoolConfig> = {
   },
   Design: {
     icon: "🎨",
-    description: "Design del prodotto e comunicazione",
+    description: "Interni, prodotto industriale, comunicazione e moda",
     gradient: "from-pink-500/10 to-purple-500/10",
     hoverGradient: "hover:from-pink-500/20 hover:to-purple-500/20",
   },
