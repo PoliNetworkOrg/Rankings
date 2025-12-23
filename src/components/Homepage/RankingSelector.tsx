@@ -20,7 +20,6 @@ type LanguageConfig = {
   title: string
   flag: string
   headerStyles: string
-  itemStyles: string
   separatorStyles: string
 }
 
@@ -31,8 +30,6 @@ const LANGUAGES: LanguageConfig[] = [
     flag: "🇮🇹",
     headerStyles:
       "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300",
-    itemStyles:
-      "bg-white hover:bg-green-50 dark:bg-slate-800 dark:hover:bg-green-900/20",
     separatorStyles:
       "bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400",
   },
@@ -42,8 +39,6 @@ const LANGUAGES: LanguageConfig[] = [
     flag: "🇬🇧",
     headerStyles:
       "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300",
-    itemStyles:
-      "bg-white hover:bg-blue-50 dark:bg-slate-800 dark:hover:bg-blue-900/20",
     separatorStyles:
       "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400",
   },
@@ -165,7 +160,7 @@ function LanguageColumn({
   year: number
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border-2 border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800/50">
+    <div className="overflow-hidden rounded-xl border-2 border-slate-200 bg-transparent dark:border-slate-700">
       {/* Column header */}
       <div
         className={cn(
@@ -192,12 +187,7 @@ function LanguageColumn({
             </div>
 
             {/* Rankings rows - normal first, then extra-EU */}
-            <PhaseRankings
-              group={group}
-              config={config}
-              school={school}
-              year={year}
-            />
+            <PhaseRankings group={group} school={school} year={year} />
           </div>
         ))}
       </div>
@@ -207,12 +197,10 @@ function LanguageColumn({
 
 function PhaseRankings({
   group,
-  config,
   school,
   year,
 }: {
   group: PhaseGroup
-  config: LanguageConfig
   school: School
   year: number
 }) {
@@ -234,8 +222,7 @@ function PhaseRankings({
               to="/$school/$year/$id"
               params={{ school, year, id: phase.id }}
               className={cn(
-                "rounded-lg border border-slate-200 px-3 py-2.5 text-center font-medium text-slate-900 transition-colors dark:border-slate-600 dark:text-slate-100",
-                config.itemStyles
+                "rounded-lg border border-slate-300 px-3 py-1.5 text-center font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:no-underline dark:border-transparent dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700/80"
               )}
             >
               {getRankingLabel(phase)}
@@ -246,9 +233,9 @@ function PhaseRankings({
 
       {/* Extra-UE rankings row with dashed border and label */}
       {extraEuPhases.length > 0 && (
-        <div className="relative mt-3 rounded-lg border border-amber-300 border-dashed bg-amber-50/30 p-1.5 pt-2.5 dark:border-amber-700 dark:bg-amber-950/20">
+        <div className="relative mt-3 rounded-lg border border-amber-500 border-dashed bg-amber-50/30 p-1.5 pt-2.5 dark:border-amber-700 dark:bg-amber-950/20">
           {/* Label */}
-          <span className="-translate-y-1/2 absolute top-0 left-2.5 bg-white px-1.5 font-medium text-amber-600 text-xs dark:bg-slate-800 dark:text-amber-500">
+          <span className="-translate-y-1/2 absolute top-0 left-2.5 rounded-lg bg-amber-300/20 px-1.5 font-medium text-amber-600 text-xs dark:bg-slate-800 dark:text-amber-500">
             Extra-UE
           </span>
           {/* Buttons */}
@@ -259,8 +246,7 @@ function PhaseRankings({
                 to="/$school/$year/$id"
                 params={{ school, year, id: phase.id }}
                 className={cn(
-                  "rounded-lg border border-slate-200 px-3 py-1.5 text-center font-medium text-slate-700 transition-colors dark:border-slate-600 dark:text-slate-300",
-                  config.itemStyles
+                  "rounded-lg border border-slate-300 px-3 py-1.5 text-center font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:no-underline dark:border-transparent dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700/80"
                 )}
               >
                 {getRankingLabel(phase)}
@@ -277,5 +263,5 @@ function getRankingLabel(phase: PhaseLink) {
   if (phase.secondary === 0) {
     return "Generica"
   }
-  return `${numberToRoman(phase.secondary)}`
+  return numberToRoman(phase.secondary)
 }

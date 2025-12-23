@@ -44,7 +44,11 @@ export function SchoolCard({ school }: Props) {
   const config = SCHOOL_CONFIG[school]
 
   return (
-    <Link to="/$school" params={{ school }} className="group block h-full">
+    <Link
+      to="/$school"
+      params={{ school }}
+      className="group block h-full hover:no-underline"
+    >
       <div
         className={cn(
           "relative flex h-full min-h-[140px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-gradient-to-br p-5 transition-all duration-300",

@@ -32,7 +32,7 @@ function RouteComponent() {
           </p>
         </div>
 
-        {schools && data && (
+        {schools && (
           <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
             {schools.map((school) => (
               <SchoolCard key={school} school={school} />
