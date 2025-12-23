@@ -39,7 +39,7 @@ function RouteComponent() {
         </p>
       </div>
 
-      <div className="flex max-sm:grid grid-cols-2 flex-wrap gap-3 w-full">
+      <div className="flex w-full grid-cols-2 flex-wrap gap-3 max-sm:grid">
         {years.map((year, index) => {
           const isFirst = index === 0
 
@@ -54,7 +54,7 @@ function RouteComponent() {
                 size="large"
                 variant="secondary"
                 className={cn(
-                  "cursor-pointer border transition-all hover:bg-slate-200 dark:hover:bg-slate-700/80 justify-center w-full",
+                  "w-full cursor-pointer justify-center border transition-all hover:bg-slate-200 dark:hover:bg-slate-700/80",
                   isFirst
                     ? "border-amber-700/30 shadow-[0px_2px_10px_#ffae1082,inset_0px_-4px_20px_#ffb52575] dark:border-amber-200/90 dark:shadow-[0px_3px_8px_rgba(186,130,21,0.32),inset_0px_-4px_20px_rgba(186,130,21,0.43)]"
                     : ""
