@@ -47,7 +47,7 @@ export const Route = createFileRoute("/source")({
 
 function RouteComponent() {
   return (
-    <Page>
+    <Page className="items-center">
       <div className="flex flex-col gap-8 p-8 text-justify">
         <h2 className="text-center font-bold text-lg">Source</h2>
         <div>
