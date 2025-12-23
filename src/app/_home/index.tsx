@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
-import { createFileRoute, Link } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import Alert from "@/components/custom-ui/Alert"
 import Page from "@/components/custom-ui/Page"
 import Spinner from "@/components/custom-ui/Spinner"
-import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
-import { SchoolEmoji } from "@/components/school-emoji"
-import { Button } from "@/components/ui/button"
+import { SchoolCard } from "@/components/Homepage/SchoolCard"
 import { useQueries } from "@/hooks/use-queries"
 
 export const Route = createFileRoute("/_home/")({
@@ -22,39 +20,34 @@ function RouteComponent() {
 
   return (
     <Page>
-      <div className="flex w-full flex-1 flex-col items-start gap-4 py-4">
-        <h3 className="w-full font-bold text-2xl">
-          👋 Ciao!{" "}
-          <span className="whitespace-nowrap">Questo sito raccoglie</span>{" "}
-          <span className="whitespace-nowrap">lo storico</span>{" "}
-          <span className="whitespace-nowrap">delle graduatorie</span>{" "}
-          <span className="whitespace-nowrap">del Politecnico di Milano.</span>
-        </h3>
-        <p className="w-full text-xl">
-          Inizia scegliendo l'area di studi di tuo interesse
-        </p>
-        {schools && (
-          <ButtonGrid length={schools.length}>
+      <div className="flex w-full flex-1 flex-col items-start gap-6 py-4">
+        <div className="space-y-2">
+          <h1 className="font-bold text-2xl text-slate-900 tracking-tight sm:text-3xl dark:text-slate-100">
+            Storico Graduatorie PoliMi
+          </h1>
+          <p className="text-slate-600 dark:text-slate-400">
+            Consulta le graduatorie storiche del Politecnico di Milano.
+            Seleziona un'area di studi per iniziare.
+          </p>
+        </div>
+
+        {schools && data && (
+          <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
             {schools.map((school) => (
-              <Link
-                to="/$school"
-                params={{ school }}
+              <SchoolCard
                 key={school}
-                className="h-full"
-              >
-                <Button
-                  size="card"
-                  variant="secondary"
-                  className="h-full w-full"
-                >
-                  <SchoolEmoji school={school} />
-                  <span className="text-lg">{school}</span>
-                </Button>
-              </Link>
+                school={school}
+                yearCount={Object.keys(data[school] ?? {}).length}
+              />
             ))}
-          </ButtonGrid>
+          </div>
         )}
-        {isPending && <Spinner />}
+
+        {isPending && (
+          <div className="flex w-full justify-center py-12">
+            <Spinner />
+          </div>
+        )}
         {error instanceof Error && <Alert level="error">{error.message}</Alert>}
       </div>
     </Page>
