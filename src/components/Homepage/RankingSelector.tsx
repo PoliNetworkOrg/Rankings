@@ -125,7 +125,7 @@ export function RankingSelector({ phases, school, year }: Props) {
       </div>
 
       {/* Summary */}
-      <div className="flex gap-1 text-xs text-slate-400">
+      <div className="flex gap-1 text-slate-400 text-xs">
         <p className="text-slate-400">
           {phases.length} graduatorie disponibili in totale.{" "}
         </p>

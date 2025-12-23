@@ -5,8 +5,8 @@ import { IconContext } from "react-icons"
 import DevSettings from "@/components/DevSettings"
 import Layout from "@/components/Layout"
 import { Toaster } from "@/components/ui/sonner"
-import ContextProvider from "@/contexts/ContextProvider"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import ContextProvider from "@/contexts/ContextProvider"
 
 export const queryClient = new QueryClient()
 export const Route = createRootRoute({
