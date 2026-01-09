@@ -178,7 +178,7 @@ function RouteComponent() {
   if (error)
     return (
       <Page>
-        <Alert level="error">Error: {error.message}</Alert>
+        <Alert level="error">{error.message}</Alert>
       </Page>
     )
   return <Component ranking={ranking} />

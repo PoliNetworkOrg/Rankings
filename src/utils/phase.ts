@@ -26,4 +26,4 @@ export const phaseGroupLabel = (primary: number) =>
 export const phaseLinkLabel = (p: PhaseLink) =>
   p.secondary === 0
     ? p.stripped
-    : `${numberToRoman(p.secondary)} Graduatoria ${p.isExtraEu ? "(Extra-EU)" : ""}`.trimEnd()
+    : `${numberToRoman(p.secondary)} Graduatoria ${p.isExtraEu ? "(Extra-UE)" : ""}`.trimEnd()

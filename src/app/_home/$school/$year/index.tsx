@@ -1,12 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
-import { createFileRoute, Link, redirect } from "@tanstack/react-router"
+import { createFileRoute, redirect } from "@tanstack/react-router"
 import Page from "@/components/custom-ui/Page"
-import PhaseFlag from "@/components/custom-ui/PhaseFlag"
-import { ButtonGrid } from "@/components/Homepage/ButtonGrid"
+import { RankingSelector } from "@/components/Homepage/RankingSelector"
 import PathBreadcrumb from "@/components/PathBreadcrumb"
-import { Button } from "@/components/ui/button"
 import { useQueries } from "@/hooks/use-queries"
-import { getPhaseGroups, phaseGroupLabel, phaseLinkLabel } from "@/utils/phase"
 import type { PhaseLink } from "@/utils/types/data/phase"
 import { isSchool } from "@/utils/types/data/school"
 
@@ -24,63 +21,31 @@ function RouteComponent() {
   const { school, year } = Route.useParams()
   const queries = useQueries()
   const { data, isPending } = useQuery(queries.index)
-  if (!data || isPending) return null
-  const yearData = data[school]?.[year] ?? []
 
-  const groups = getPhaseGroups(yearData).entriesArr()
+  if (!data || isPending) return null
+
+  const yearData = data[school]?.[year] ?? []
+  const phases: PhaseLink[] = yearData.map((entry) => ({
+    ...entry.phase,
+    id: entry.id,
+  }))
 
   return (
     <Page>
       <PathBreadcrumb />
-      <p className="w-full text-xl">Scegli una graduatoria</p>
-      {groups.map(([n, phases]) => (
-        <Group
-          key={`phasegroup-${n}`}
-          primary={n}
-          phases={phases}
-          showGeneral={groups.length > 1}
-        />
-      ))}
+      <div className="w-full space-y-4">
+        <div className="space-y-1">
+          <h2 className="font-semibold text-slate-900 text-xl dark:text-slate-100">
+            Seleziona graduatoria
+          </h2>
+          <p className="text-slate-600 text-sm dark:text-slate-400">
+            Scegli la graduatoria da consultare per{" "}
+            <span className="font-medium">{school}</span> {year}
+          </p>
+        </div>
+
+        <RankingSelector phases={phases} school={school} year={year} />
+      </div>
     </Page>
-  )
-}
-
-type GroupProps = {
-  primary: number
-  phases: PhaseLink[]
-  showGeneral: boolean
-}
-
-function Group({ primary, phases, showGeneral }: GroupProps) {
-  const { school, year } = Route.useParams()
-  return (
-    <>
-      {(showGeneral || primary !== 0) && <p>{phaseGroupLabel(primary)}</p>}
-      <ButtonGrid length={phases.length}>
-        {phases.map((phase) => (
-          <Link
-            to="/$school/$year/$id"
-            params={{ school, year, id: phase.id }}
-            key={phase.id}
-            className="h-full"
-          >
-            <Button
-              size="card"
-              variant="secondary"
-              className="relative h-full w-full"
-            >
-              <span className="whitespace text-base">
-                {phaseLinkLabel(phase)}
-              </span>
-              <div className="absolute right-0 bottom-0 flex overflow-hidden rounded-tl-lg">
-                <div className="bg-slate-700 px-3 py-1">
-                  <PhaseFlag phase={phase} />
-                </div>
-              </div>
-            </Button>
-          </Link>
-        ))}
-      </ButtonGrid>
-    </>
   )
 }

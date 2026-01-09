@@ -5,6 +5,7 @@ import { IconContext } from "react-icons"
 import DevSettings from "@/components/DevSettings"
 import Layout from "@/components/Layout"
 import { Toaster } from "@/components/ui/sonner"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import ContextProvider from "@/contexts/ContextProvider"
 
 export const queryClient = new QueryClient()
@@ -19,14 +20,16 @@ function RootComponent() {
         <IconContext.Provider
           value={{ style: { verticalAlign: "middle", fontSize: "26px" } }}
         >
-          <QueryClientProvider client={queryClient}>
-            <Layout>
-              <Outlet />
+          <TooltipProvider>
+            <QueryClientProvider client={queryClient}>
+              <Layout>
+                <Outlet />
 
-              {import.meta.env.DEV && <DevSettings />}
-            </Layout>
-            <Toaster richColors position="bottom-center" />
-          </QueryClientProvider>
+                {import.meta.env.DEV && <DevSettings />}
+              </Layout>
+              <Toaster richColors position="bottom-center" />
+            </QueryClientProvider>
+          </TooltipProvider>
         </IconContext.Provider>
       </ContextProvider>
     </StrictMode>
