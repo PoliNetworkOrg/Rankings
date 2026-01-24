@@ -3,11 +3,57 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
 import { cn } from "@/utils/ui.ts"
 
-const TooltipProvider = TooltipPrimitive.Provider
-
-const Tooltip = TooltipPrimitive.Root
+const TooltipProvider = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Provider>
+>(({
+  delayDuration = 0,
+  ...props
+}, _ref) => {
+  return (
+    <TooltipPrimitive.Provider
+      data-slot="tooltip-provider"
+      delayDuration={delayDuration}
+      {...props}
+    />
+  );
+})
 
 const TooltipTrigger = TooltipPrimitive.Trigger
+
+const Tooltip = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root> & {
+    useTouch?: boolean;
+    useTap?: boolean;
+  }
+>(({ useTouch = false, useTap = false, children, ...props }, _ref) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleTouch = (event: React.TouchEvent | React.MouseEvent) => {
+    event.persist();
+    setOpen(true);
+  };
+
+  return (
+    <TooltipPrimitive.Root
+      open={open}
+      onOpenChange={setOpen}
+      {...props}
+    >
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child) && useTouch) {
+          return React.cloneElement(child as React.ReactElement<any>, {
+            onTouchStart: handleTouch,
+            onMouseDown: handleTouch,
+          });
+        }
+        return child;
+      })}
+    </TooltipPrimitive.Root>
+  );
+});
+Tooltip.displayName = TooltipPrimitive.Root.displayName;
 
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,

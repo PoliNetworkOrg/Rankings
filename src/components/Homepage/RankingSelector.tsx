@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router"
-import { useMemo } from "react"
+import { useContext, useMemo } from "react"
 import { phaseGroupLabel } from "@/utils/phase"
 import { numberToRoman } from "@/utils/strings/numbers"
 import type { PhaseLink } from "@/utils/types/data/phase"
 import type { School } from "@/utils/types/data/school"
 import { cn } from "@/utils/ui"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import { Button } from "../ui/button"
+import MobileContext from "@/contexts/MobileContext"
 
 type Props = {
   phases: PhaseLink[]
@@ -97,6 +99,7 @@ function groupPhases(phases: PhaseLink[], lang: Language): PhaseGroup[] {
 }
 
 export function RankingSelector({ phases, school, year }: Props) {
+  const { isMobile } = useContext(MobileContext)
   const columnsData = useMemo(() => {
     return LANGUAGES.map((config) => ({
       config,
@@ -120,19 +123,19 @@ export function RankingSelector({ phases, school, year }: Props) {
       </div>
 
       {/* Summary */}
-      <div className="flex gap-1 text-slate-400 text-xs">
+      <div className="flex gap-4 text-slate-400 text-xs max-sm:flex-col sm:gap-1">
         <p className="text-slate-400">
           {phases.length} graduatorie disponibili in totale.{" "}
         </p>
-        <Tooltip delayDuration={100}>
-          <TooltipTrigger className="underline">
+        <Tooltip delayDuration={100} useTouch={true}>
+          <TooltipTrigger className="select-none rounded-xl border-dashed underline max-sm:border max-sm:py-3 dark:border-slate-600">
             Perché non trovo una graduatoria?
           </TooltipTrigger>
           <TooltipContent
-            side="bottom"
-            className="bg-slate-300 dark:bg-slate-800 dark:text-slate-300"
+            side={isMobile ? "top" : "bottom"}
+            className="select-none bg-slate-300 dark:bg-slate-800 dark:text-slate-300"
           >
-            <p className="max-w-120">
+            <p className="max-w-[80vw] sm:max-w-120">
               Il Politecnico ha cambiato negli anni le modalità di pubblicazione
               delle graduatorie, oltre a eliminare molto rapidamente i file
               grezzi dai server pubblici, rendendo malfunzionante il nostro
