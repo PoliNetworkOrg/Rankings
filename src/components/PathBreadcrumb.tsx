@@ -21,22 +21,24 @@ export default function PathBreadcrumb() {
   const { school, year } = params
 
   return (
-    <div className="flex h-8 w-full items-center gap-2 text-lg">
-      <Link to="/">
-        <LuHouse size={18} />
-      </Link>
-      <LuArrowRight size={18} />
-      <Link to="/$school" params={{ school }}>
-        {school}
-      </Link>
-      {year && (
-        <>
-          <LuArrowRight size={18} />
-          <Link to="/$school/$year" params={{ school, year }}>
-            {year}
-          </Link>
-        </>
-      )}
+    <div className="flex w-full items-center gap-2 text-lg max-sm:flex-col max-sm:items-start max-sm:gap-4">
+      <div className="flex items-center gap-2 text-lg">
+        <Link to="/">
+          <LuHouse size={18} />
+        </Link>
+        <LuArrowRight size={18} />
+        <Link to="/$school" params={{ school }}>
+          {school}
+        </Link>
+        {year && (
+          <>
+            <LuArrowRight size={18} />
+            <Link to="/$school/$year" params={{ school, year }}>
+              {year}
+            </Link>
+          </>
+        )}
+      </div>
       {params.id && (
         <Suspense fallback={null}>
           <RankingInfo id={params.id} />
@@ -53,7 +55,7 @@ function RankingInfo({ id }: { id: string }) {
   if (ranking.error) return null
 
   return (
-    <>
+    <div className="flex items-center justify-center gap-2">
       <LuArrowRight size={18} />
       <Badge
         variant="outline"
@@ -90,6 +92,6 @@ function RankingInfo({ id }: { id: string }) {
           </Badge>
         )}
       </Badge>
-    </>
+    </div>
   )
 }
