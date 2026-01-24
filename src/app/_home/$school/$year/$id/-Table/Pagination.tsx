@@ -21,6 +21,9 @@ interface DataTablePaginationProps<TData> {
 export default function Pagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
+  "use no memo"
+  // react-compiler is not compatible at the moment, it causes UI to not rerender
+  // when table/pagination state changes
   return (
     <div className="my-2 flex items-center justify-end max-sm:flex-col max-sm:items-start max-sm:gap-2 sm:space-x-6">
       <div className="sm:flex-1">
@@ -31,18 +34,18 @@ export default function Pagination<TData>({
       <div className="flex items-center space-x-2">
         <p className="font-medium text-sm">Righe per pagina</p>
         <Select
-          value={`${table.getState().pagination.pageSize}`}
+          value={table.getState().pagination.pageSize.toString()}
           onValueChange={(value) => {
-            table.setPageSize(Number(value))
+            table.setPageSize(parseInt(value, 10))
           }}
         >
           <SelectTrigger className="h-8 w-[70px]">
-            <SelectValue placeholder={table.getState().pagination.pageSize} />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent side="top">
-            {[15, 30, 50, 100].map((pageSize) => (
-              <SelectItem key={pageSize} value={`${pageSize}`}>
-                {pageSize}
+            {[15, 30, 50, 100].map((e) => (
+              <SelectItem key={e} value={e.toString()} itemType="">
+                {e}
               </SelectItem>
             ))}
           </SelectContent>
