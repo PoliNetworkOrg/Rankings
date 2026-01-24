@@ -1,0 +1,70 @@
+import { Button } from "@/components/ui/button"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import type { PhaseLink } from "@/utils/types/data/phase"
+import type { State } from "@/utils/types/state"
+
+export type RankingComboboxProps = {
+  rankingOpen: State<boolean>
+  phases: PhaseLink[]
+  selectedPhase: PhaseLink
+  onChange: (link: PhaseLink) => void
+}
+
+export default function RankingCombobox({
+  rankingOpen,
+  selectedPhase,
+  onChange,
+  phases,
+}: RankingComboboxProps) {
+  const [open, setOpen] = rankingOpen
+  function handleChange(value: string): void {
+    setOpen(false)
+    const phase = phases.find((p) => p.href === value)
+    if (!phase) return
+    onChange(phase)
+  }
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" className="h-full justify-start">
+          {selectedPhase.name}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="p-0" side="bottom" align="start">
+        <Command onValueChange={handleChange}>
+          <CommandInput placeholder="Cambia graduatoria..." />
+          <CommandList>
+            <CommandEmpty>Nessuna graduatoria trovata</CommandEmpty>
+            <CommandGroup>
+              <ScrollArea className={phases.length > 6 ? "h-72" : ""}>
+                {phases.map((phase) => (
+                  <CommandItem
+                    key={phase.href}
+                    onSelect={handleChange}
+                    value={phase.href}
+                  >
+                    {phase.name}
+                  </CommandItem>
+                ))}
+              </ScrollArea>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  )
+}

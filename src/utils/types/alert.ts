@@ -1,3 +1,3 @@
-import { ALERT_LEVELS } from "../constants";
+import type { ALERT_LEVELS } from "../constants"
 
-export type Level = (typeof ALERT_LEVELS)[number];
+export type Level = (typeof ALERT_LEVELS)[number]

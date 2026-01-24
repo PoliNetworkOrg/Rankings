@@ -1,24 +1,24 @@
-import { useContext } from "react";
+import { Link } from "@tanstack/react-router"
+import { useContext } from "react"
 import {
-  MdOutlineLightMode as LightIcon,
   MdOutlineDarkMode as DarkIcon,
-} from "react-icons/md";
-import logo from "@/static/logo3000.webp";
-import DarkModeContext from "@/contexts/DarkModeContext";
-import { Link } from "@tanstack/router";
-import { Button } from "./ui/button";
+  MdOutlineLightMode as LightIcon,
+} from "react-icons/md"
+import logo from "@/assets/logo3000.webp"
+import DarkModeContext from "@/contexts/DarkModeContext"
+import { Button } from "./ui/button"
 
 export default function Header() {
-  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
   return (
-    <header className="w-full border-b border-slate-800/20 dark:border-slate-300/20">
+    <header className="w-full border-slate-800/20 border-b dark:border-slate-300/20">
       <div className="mx-auto flex max-w-7xl items-center justify-between p-4">
         <div className="flex flex-1">
           <Link
             to="/"
             className="flex items-center gap-3 rounded-md text-black hover:no-underline dark:text-white"
           >
-            <img src={logo} className="h-auto w-10" />
+            <img alt="PoliNetwork's logo" src={logo} className="h-auto w-10" />
             <h1 className="text-lg">
               <span className="mr-2 font-extrabold max-[450px]:hidden">
                 PoliNetwork
@@ -39,5 +39,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  );
+  )
 }
