@@ -49,18 +49,14 @@ export default function LocationsSelect(props: Props) {
 }
 
 function LocationCombobox({ value, onChange, locations }: Props) {
+  "use no memo"
   const [open, setOpen] = useState(false)
   const selected = locations.find(
     (l) => l.toLowerCase() === value.toLowerCase()
   )
 
-  function handleOpen(v: boolean) {
-    setOpen(v)
-    console.log(v, open)
-  }
-
   return (
-    <Popover open={open} onOpenChange={handleOpen}>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="justify-start">
           {selected ? capitaliseWords(selected) : "Seleziona una sede..."}
@@ -75,10 +71,11 @@ function LocationCombobox({ value, onChange, locations }: Props) {
               <ScrollArea className={locations.length > 7 ? "h-72" : ""}>
                 {locations.map((location) => (
                   <CommandItem
+                    autoFocus={selected === location}
                     key={location}
-                    onSelect={(value) => {
-                      onChange(value)
-                      // setOpen(false)
+                    onSelect={(_value) => {
+                      onChange(location)
+                      setOpen(false)
                     }}
                   >
                     {capitaliseWords(location)}

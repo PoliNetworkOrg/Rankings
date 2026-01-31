@@ -23,7 +23,7 @@ export default function PathBreadcrumb() {
   return (
     <div className="flex w-full items-center gap-2 text-lg max-sm:flex-col max-sm:items-start max-sm:gap-4">
       <div className="flex items-center gap-2 text-lg">
-        <Link to="/">
+        <Link aria-label="Home" to="/">
           <LuHouse size={18} />
         </Link>
         <LuArrowRight size={18} />
