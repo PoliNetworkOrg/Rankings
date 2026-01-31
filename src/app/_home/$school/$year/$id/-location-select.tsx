@@ -26,6 +26,7 @@ type Props = {
 }
 
 export default function LocationsSelect(props: Props) {
+  "use no memo"
   const { isMobile } = useContext(MobileContext)
   const { locations } = props
   if (locations.length === 0) return null
@@ -53,8 +54,13 @@ function LocationCombobox({ value, onChange, locations }: Props) {
     (l) => l.toLowerCase() === value.toLowerCase()
   )
 
+  function handleOpen(v: boolean) {
+    setOpen(v)
+    console.log(v, open)
+  }
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={handleOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="justify-start">
           {selected ? capitaliseWords(selected) : "Seleziona una sede..."}
@@ -72,7 +78,7 @@ function LocationCombobox({ value, onChange, locations }: Props) {
                     key={location}
                     onSelect={(value) => {
                       onChange(value)
-                      setOpen(false)
+                      // setOpen(false)
                     }}
                   >
                     {capitaliseWords(location)}
