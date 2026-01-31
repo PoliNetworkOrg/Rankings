@@ -81,11 +81,13 @@ function RankingInfo({ id }: { id: string }) {
             : `${numberToRoman(ranking.data.phase.primary)} Fase`}
         </Badge>
         <Badge variant="secondary">
-          {numberToRoman(ranking.data.phase.secondary)} Grad.
+          {ranking.data.phase.secondary
+            ? `${numberToRoman(ranking.data.phase.secondary)} Grad.`
+            : "Generica"}
         </Badge>
         {ranking.data.phase.isExtraEu && (
           <Badge
-            className="dark:border-amber-500 dark:text-amber-500"
+            className="border-dashed dark:border-amber-500 dark:text-amber-500"
             variant="outline"
           >
             Extra-UE

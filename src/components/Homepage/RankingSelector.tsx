@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router"
 import { useContext, useMemo } from "react"
 import MobileContext from "@/contexts/MobileContext"
 import { phaseGroupLabel } from "@/utils/phase"
-import { numberToRoman } from "@/utils/strings/numbers"
 import type { PhaseLink } from "@/utils/types/data/phase"
 import type { School } from "@/utils/types/data/school"
 import { cn } from "@/utils/ui"
@@ -265,5 +264,5 @@ function getRankingLabel(phase: PhaseLink) {
   if (phase.secondary === 0) {
     return "Generica"
   }
-  return numberToRoman(phase.secondary)
+  return `${phase.secondary}ª`
 }
