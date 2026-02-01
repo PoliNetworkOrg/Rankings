@@ -122,7 +122,7 @@ export function getColumns(
           },
           filterFn: (row, id, filter) => {
             const boolVal: boolean | undefined = row.getValue(id)
-            if (!filter) return true
+            if (!filter || filter.length === 0) return true
             if (boolVal === undefined) return false
             const value = Formatter.displayBool(boolVal).toLowerCase()
             return filter.includes(value.toLowerCase())
