@@ -149,6 +149,7 @@ export function StudentIdSearch({ currentId }: { currentId?: string }) {
             >
               <Input
                 type="text"
+                aria-label="Numero matricola"
                 placeholder="Numero matricola"
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
