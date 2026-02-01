@@ -26,33 +26,6 @@ import { CourseCombobox } from "./-course-combobox"
 import LocationsSelect from "./-location-select"
 import Table from "./-Table"
 
-// function TEMP_getCoursesMap(
-//   ranking: NewRanking
-// ): CustomMap<string, CourseInfo> {
-//   const courses: CustomMap<string, CourseInfo> = new CustomMap()
-//   courses.set(ABS_ORDER, {
-//     value: ABS_ORDER,
-//     label: "Tutti i corsi",
-//     locations: [],
-//   })
-//   Object.entries(ranking.courses).forEach(([t, l]) => {
-//     const lowerTitle = t.toLowerCase()
-//     const title = capitaliseWords(t)
-//
-//     const locations = l.map((cl) => ({
-//       value: cl.toLowerCase(),
-//       label: capitaliseWords(cl),
-//       numStudents: 0,
-//     }))
-//     courses.set(lowerTitle, {
-//       locations,
-//       label: title,
-//       value: lowerTitle,
-//     })
-//   })
-//   return courses
-// }
-
 function getBestCourse(
   courses: NewStudentResultCourse[]
 ): NewStudentResultCourse | null {
@@ -139,13 +112,6 @@ function getCoursesMap(
 }
 
 export const Route = createFileRoute("/_home/$school/$year/$id/")({
-  // loader: async () => {
-  //   const res = await axios.get(
-  //     "http://localhost:8120/2024_20102_491d_html.json"
-  //   )
-  //   const ranking: NewRanking = res.data
-  //   return { ranking }
-  // },
   params: {
     parse: ({ school, year, id }) => {
       if (isSchool(school)) return { school, year: parseInt(year, 10), id }
@@ -185,59 +151,20 @@ function RouteComponent() {
 }
 
 function Component({ ranking }: { ranking: NewRanking }) {
-  //   const res = await axios.get(
-  //     "http://localhost:8120/2024_20102_491d_html.json"
-  //   )
   const { isMobile } = useContext(MobileContext)
-
-  // const isAbsOrder = useMemo(
-  //   () => selectedCourse === ABS_ORDER,
-  //   [selectedCourse],
-  // );
-  //
 
   const courses = getCoursesMap(ranking.courses)
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null)
 
   const courseLocations = selectedCourse ? courses.get(selectedCourse) : null
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
-  //
-  // const [phases, setPhases] = useState<Phases>(_phases);
-  // const [selectedPhaseLink, setSelectedPhaseLink] = useState<
-  //   PhaseLink | undefined
-  // >(initialPhaseLink);
-  // const [selectedPhaseGroup, setSelectedPhaseGroup] = useState<
-  //   PhaseGroup | undefined
-  // >(initialPhaseGroup);
-  //
-  // function handlePhaseChange(link: PhaseLink, group: PhaseGroup): void {
-  //   setSelectedPhaseLink(link);
-  //   setSelectedPhaseGroup(group);
-  //   navigate({
-  //     to: "/view/$school/$year/$phase",
-  //     params: { school, year, phase: link.href },
-  //   });
-  // }
-  //
-  // async function updateAvailablePhases(): Promise<void> {
-  //   // check if this needs a useCallback to update
-  //   // isAbsOrder value between re-renders
-  //   if (isAbsOrder) return setPhases(_phases);
-  //
-  //   // check if this needs a useCallback to update
-  //   // school year and table
-  //   const coursePhases = await data.getPhases(
-  //     school,
-  //     year,
-  //     table as CourseTable,
-  //   );
-  //   const phases = coursePhases ?? _phases;
-  //   setPhases(phases);
-  // }
-  //
+
   function handleCourseChange(value: string | null): void {
     setSelectedCourse(value)
-    if (!value) return
+    if (!value) {
+      setSelectedLocation(null)
+      return
+    }
 
     const courseLocations = courses.get(value)
     if (courseLocations) {
@@ -251,34 +178,29 @@ function Component({ ranking }: { ranking: NewRanking }) {
   }
   //
   function handleLocationChange(value: string): void {
-    if (!courseLocations) return
+    if (!courseLocations || courseLocations.length === 0) {
+      setSelectedLocation(null)
+      return
+    }
+
     setSelectedLocation(value)
     const fallback = fallbackSelectedLocation(courseLocations, value)
     if (fallback) setSelectedLocation(fallback)
-
-    // updateAvailablePhases();
   }
 
   const table: StudentTableRow[] = useMemo(() => {
     return filterByCourse(ranking, selectedCourse, selectedLocation)
   }, [ranking, selectedCourse, selectedLocation])
 
-  // const table: StudentTableRow[] = ranking.rows.map((r) => ({
-  //   ...r,
-  //   course: null,
-  // }))
-
   return (
     <Page
-      className={`flex items-center gap-4 px-0 ${
-        isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-      }`}
+      className={`flex items-center gap-4 px-0 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+        }`}
       fullWidth
     >
       <div
-        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${
-          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-        }`}
+        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+          }`}
       >
         <PathBreadcrumb />
         <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">
