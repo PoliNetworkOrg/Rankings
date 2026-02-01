@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { Link, useNavigate } from "@tanstack/react-router"
 import { Suspense, useEffect, useState } from "react"
-import { LuInfo, LuLock, LuSearch, LuShieldCheck } from "react-icons/lu"
+import { LuInfo, LuLock, LuShieldCheck } from "react-icons/lu"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useQueries } from "@/hooks/use-queries"
