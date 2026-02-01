@@ -1,32 +1,37 @@
-import { useMemo } from "react"
 import { AiOutlineBulb } from "react-icons/ai"
 import type { BySchoolYearIndex } from "@/utils/types/data/ranking"
+import type { School } from "@/utils/types/data/school"
 
 type Props = {
   data: BySchoolYearIndex
+  schoolFilter?: School
 }
 
-export function ArchiveTip({ data }: Props) {
-  const stats = useMemo(() => {
-    const years = new Set<number>()
-    let totalRankings = 0
+function getStats(data: BySchoolYearIndex, schoolFilter?: School) {
+  const years = new Set<number>()
+  let totalRankings = 0
 
-    for (const schoolData of Object.values(data)) {
-      for (const [year, rankings] of Object.entries(schoolData)) {
-        years.add(Number(year))
-        totalRankings += rankings.length
-      }
+  const filtered = schoolFilter ? { [schoolFilter]: data[schoolFilter] } : data
+
+  for (const schoolData of Object.values(filtered)) {
+    for (const [year, rankings] of Object.entries(schoolData)) {
+      years.add(Number(year))
+      totalRankings += rankings.length
     }
+  }
 
-    const sortedYears = [...years].sort((a, b) => a - b)
+  const sortedYears = [...years].sort((a, b) => a - b)
 
-    return {
-      yearCount: years.size,
-      minYear: sortedYears[0],
-      maxYear: sortedYears[sortedYears.length - 1],
-      totalRankings,
-    }
-  }, [data])
+  return {
+    yearCount: years.size,
+    minYear: sortedYears[0],
+    maxYear: sortedYears[sortedYears.length - 1],
+    totalRankings,
+  }
+}
+
+export function ArchiveTip({ data, schoolFilter }: Props) {
+  const stats = getStats(data, schoolFilter)
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-indigo-100 bg-linear-to-br from-indigo-50 via-white to-purple-50 p-5 dark:border-indigo-900/50 dark:from-indigo-950/30 dark:via-slate-900 dark:to-purple-950/30">
@@ -41,7 +46,9 @@ export function ArchiveTip({ data }: Props) {
           className="text-yellow-600 dark:text-yellow-200"
         />
         <p className="text-slate-700 text-sm leading-relaxed dark:text-slate-300">
-          L'archivio contiene{" "}
+          L'archivio{" "}
+          {schoolFilter && <span className="font-bold">{schoolFilter}</span>}{" "}
+          contiene{" "}
           <span className="inline-flex items-center rounded-full bg-indigo-100 px-2 py-0.5 font-semibold text-indigo-700 text-xs dark:bg-indigo-900/50 dark:text-indigo-300">
             {stats.totalRankings} graduatorie
           </span>{" "}
@@ -49,7 +56,7 @@ export function ArchiveTip({ data }: Props) {
           <span className="inline-flex items-center rounded-full bg-purple-100 px-2 py-0.5 font-semibold text-purple-700 text-xs dark:bg-purple-900/50 dark:text-purple-300">
             {stats.yearCount} anni
           </span>{" "}
-          <span className="text-slate-500 dark:text-slate-400">
+          <span className="whitespace-nowrap text-slate-500 dark:text-slate-400">
             ({stats.minYear} - {stats.maxYear})
           </span>
         </p>
