@@ -47,19 +47,12 @@ function updateDOMWithTheme(isDarkMode: boolean): void {
 type Props = React.HTMLAttributes<React.ProviderProps<IDarkModeContext>>
 export function DarkModeProvider({ ...p }: Props) {
   const [isDarkMode, setIsDarkMode] = useState(getInitialValue())
-  updateDOMWithTheme(isDarkMode)
-
-  const toggleDarkMode = () => {
-    setIsDarkMode((value) => {
-      const newValue = !value
-      localStorage.setItem(LOCAL_STORAGE.darkMode, JSON.stringify(newValue))
-
-      updateDOMWithTheme(newValue)
-      return newValue
-    })
-  }
+  const toggleDarkMode = () => setIsDarkMode((value) => !value)
 
   useEffect(() => {
+    updateDOMWithTheme(isDarkMode)
+    localStorage.setItem(LOCAL_STORAGE.darkMode, JSON.stringify(isDarkMode))
+
     if (!isDarkMode)
       toast.warning("Light mode is experimental, expect issues", {
         id: "light-mode-warn",
