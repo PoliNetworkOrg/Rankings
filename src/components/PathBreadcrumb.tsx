@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { Link, useParams } from "@tanstack/react-router"
 import { Suspense } from "react"
+import { ErrorBoundary } from "react-error-boundary"
 import { LuArrowRight, LuHouse } from "react-icons/lu"
 import { useQueries } from "@/hooks/use-queries"
 import { numberToRoman } from "@/utils/strings/numbers"
@@ -41,10 +42,12 @@ export default function PathBreadcrumb() {
       </div>
       {params.id && (
         <Suspense fallback={null}>
-          <div className="flex items-center justify-center gap-2">
-            <LuArrowRight size={18} />
-            <RankingInfo id={params.id} withBadgeOutline />
-          </div>
+          <ErrorBoundary fallback={null}>
+            <div className="flex items-center justify-center gap-2">
+              <LuArrowRight size={18} />
+              <RankingInfo id={params.id} withBadgeOutline />
+            </div>
+          </ErrorBoundary>
         </Suspense>
       )}
     </div>
@@ -62,8 +65,6 @@ export function RankingInfo({
 }) {
   const q = useQueries()
   const ranking = useSuspenseQuery(q.ranking(id))
-
-  if (ranking.error) return null
 
   const Content = () => (
     <>
