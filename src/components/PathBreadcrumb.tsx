@@ -41,59 +41,81 @@ export default function PathBreadcrumb() {
       </div>
       {params.id && (
         <Suspense fallback={null}>
-          <RankingInfo id={params.id} />
+          <div className="flex items-center justify-center gap-2">
+            <LuArrowRight size={18} />
+            <RankingInfo id={params.id} withBadgeOutline />
+          </div>
         </Suspense>
       )}
     </div>
   )
 }
 
-function RankingInfo({ id }: { id: string }) {
+export function RankingInfo({
+  id,
+  extended,
+  withBadgeOutline,
+}: {
+  id: string
+  extended?: boolean
+  withBadgeOutline?: boolean
+}) {
   const q = useQueries()
   const ranking = useSuspenseQuery(q.ranking(id))
 
   if (ranking.error) return null
 
-  return (
-    <div className="flex items-center justify-center gap-2">
-      <LuArrowRight size={18} />
+  const Content = () => (
+    <>
       <Badge
-        variant="outline"
+        variant="secondary"
         className={cn(
-          "gap-1 px-1",
+          "pointer-events-none gap-2",
           ranking.data.phase.language === "IT"
-            ? "border-green-500 dark:border-green-700"
-            : "border-blue-300 dark:border-blue-700"
+            ? "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300"
+            : "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300"
         )}
       >
-        <Badge
-          variant="secondary"
-          className={cn(
-            "pointer-events-none gap-2",
-            ranking.data.phase.language === "IT"
-              ? "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300"
-              : "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300"
-          )}
-        >
-          <PhaseFlag phase={ranking.data.phase} />
-          {ranking.data.phase.primary === 0
-            ? "Fase Generale"
-            : `${numberToRoman(ranking.data.phase.primary)} Fase`}
-        </Badge>
-        <Badge variant="secondary">
-          {ranking.data.phase.secondary
-            ? `${numberToRoman(ranking.data.phase.secondary)} Grad.`
-            : "Generica"}
-        </Badge>
-        {ranking.data.phase.isExtraEu && (
-          <Badge
-            className="border-dashed dark:border-amber-500 dark:text-amber-500"
-            variant="outline"
-          >
-            Extra-UE
-          </Badge>
-        )}
+        <PhaseFlag phase={ranking.data.phase} />
+        {ranking.data.phase.primary === 0
+          ? "Fase Generale"
+          : extended
+            ? `${ranking.data.phase.primary}ª Fase`
+            : `${numberToRoman(ranking.data.phase.secondary)} Fase`}
       </Badge>
-    </div>
+      <Badge variant="secondary">
+        {ranking.data.phase.secondary
+          ? extended
+            ? `${ranking.data.phase.secondary}ª Graduatoria`
+            : `${numberToRoman(ranking.data.phase.secondary)} Grad.`
+          : extended
+            ? "Graduatoria Generale"
+            : "Generale"}
+      </Badge>
+      {ranking.data.phase.isExtraEu && (
+        <Badge
+          className="border-dashed dark:border-amber-500 dark:text-amber-500"
+          variant="outline"
+        >
+          Extra-UE
+        </Badge>
+      )}
+    </>
+  )
+
+  return withBadgeOutline ? (
+    <Badge
+      variant="outline"
+      className={cn(
+        "gap-1 px-1",
+        ranking.data.phase.language === "IT"
+          ? "border-green-500 dark:border-green-700"
+          : "border-blue-300 dark:border-blue-700"
+      )}
+    >
+      <Content />
+    </Badge>
+  ) : (
+    <Content />
   )
 }

@@ -51,7 +51,7 @@ export function SchoolCard({ school }: Props) {
     >
       <div
         className={cn(
-          "relative flex h-full min-h-[140px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-gradient-to-br p-5 transition-all duration-300",
+          "relative flex h-full min-h-[140px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-linear-to-br p-5 transition-all duration-300",
           "hover:scale-[1.02] hover:border-slate-300 hover:shadow-lg",
           "dark:border-slate-700 dark:hover:border-slate-600",
           config.gradient,

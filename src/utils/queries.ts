@@ -31,7 +31,7 @@ const defaultQueryKeys = (opts: QueryFactoryOpts) => [
 
 export const queryFactory = (opts: QueryFactoryOpts) => ({
   index: queryOptions({
-    queryKey: ["index", ...defaultQueryKeys(opts)],
+    queryKey: ["index-school-year", ...defaultQueryKeys(opts)],
     queryFn: async () => {
       const res = await fetch(
         getDataUrl("/output/indexes/bySchoolYear.json", opts)
@@ -41,6 +41,19 @@ export const queryFactory = (opts: QueryFactoryOpts) => ({
     retry: 2,
     retryDelay: 300,
     staleTime: 120_000,
+  }),
+
+  idHashIndex: queryOptions({
+    queryKey: ["index-studentid", ...defaultQueryKeys(opts)],
+    queryFn: async () => {
+      const res = await fetch(
+        getDataUrl("/output/indexes/byStudentIdHash.json", opts)
+      )
+      return res.json() as Promise<Record<string, string[]>>
+    },
+    retry: 2,
+    retryDelay: 300,
+    staleTime: 600_000,
   }),
 
   ranking: (id: string) =>

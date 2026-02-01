@@ -5,14 +5,20 @@ import Page from "@/components/custom-ui/Page"
 import Spinner from "@/components/custom-ui/Spinner"
 import { ArchiveTip } from "@/components/Homepage/ArchiveTip"
 import { SchoolCard } from "@/components/Homepage/SchoolCard"
+import { StudentIdSearch } from "@/components/Homepage/StudentIdSearch"
 import { useQueries } from "@/hooks/use-queries"
 
 export const Route = createFileRoute("/_home/")({
   component: RouteComponent,
+  validateSearch: (search: Record<string, unknown>): { studentId?: string } => {
+    const studentId = (search.studentId as string) || undefined
+    return { studentId }
+  },
 })
 
 function RouteComponent() {
   const queries = useQueries()
+  const search = Route.useSearch()
   const { data, isPending, error } = useQuery(queries.index)
 
   const schools = data
@@ -20,8 +26,8 @@ function RouteComponent() {
     : undefined
 
   return (
-    <Page>
-      <div className="flex w-full flex-1 flex-col items-start gap-6 py-4">
+    <Page className="pt-8 pb-4">
+      <div className="flex w-full flex-1 flex-col items-start gap-6">
         <div className="space-y-2">
           <h1 className="font-bold text-2xl text-slate-900 tracking-tight sm:text-3xl dark:text-slate-100">
             Storico Graduatorie PoliMi
@@ -47,8 +53,10 @@ function RouteComponent() {
         )}
         {error instanceof Error && <Alert level="error">{error.message}</Alert>}
 
-        <div className="flex-1"></div>
-        <div className="flex w-full justify-center">
+        <div className="flex w-full flex-1 flex-col items-center justify-start">
+          <StudentIdSearch currentId={search.studentId} />
+        </div>
+        <div className="flex w-full flex-col items-center justify-center gap-4">
           {data && <ArchiveTip data={data} />}
         </div>
       </div>

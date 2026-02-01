@@ -262,7 +262,7 @@ function PhaseRankings({
 
 function getRankingLabel(phase: PhaseLink) {
   if (phase.secondary === 0) {
-    return "Generica"
+    return "Generale"
   }
   return `${phase.secondary}ª`
 }
