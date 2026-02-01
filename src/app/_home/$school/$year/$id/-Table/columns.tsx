@@ -165,28 +165,32 @@ export function getColumns(
     {
       id: "ofa",
       header: "Ofa",
-      columns: Object.keys(rows[0].ofa).map((k) => ({
-        header: k,
-        accessorFn: (row) => row.ofa[k],
-        cell: ({ getValue }) => {
-          const value = getValue()
-          return Formatter.displayBool(value)
-        },
-      })),
+      columns:
+        rows.length > 0
+          ? Object.keys(rows[0].ofa).map((k) => ({
+              header: k,
+              accessorFn: (row) => row.ofa[k],
+              cell: ({ getValue }) => {
+                const value = getValue()
+                return Formatter.displayBool(value)
+              },
+            }))
+          : [],
     },
     {
       header: "Risultati singole sezioni",
       id: "sectionsResults",
-      columns: rows[0].sectionsResults
-        ? Object.keys(rows[0].sectionsResults).map((k) => ({
-            header: k,
-            accessorFn: (row) => row.sectionsResults?.[k],
-            cell: ({ getValue }) => {
-              const value = getValue()
-              return Formatter.displayScore(value)
-            },
-          }))
-        : [],
+      columns:
+        rows.length > 0 && rows[0].sectionsResults
+          ? Object.keys(rows[0].sectionsResults).map((k) => ({
+              header: k,
+              accessorFn: (row) => row.sectionsResults?.[k],
+              cell: ({ getValue }) => {
+                const value = getValue()
+                return Formatter.displayScore(value)
+              },
+            }))
+          : [],
     },
     {
       header: "Risposte corrette",
