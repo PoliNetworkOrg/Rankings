@@ -2,7 +2,7 @@ import { queryOptions } from "@tanstack/react-query"
 import urlJoin from "url-join"
 import type { SettingsState } from "@/stores/settings-store"
 import { type DATA_SOURCE, LINKS } from "./constants"
-import { NotFoundError } from "./errors"
+import { FetchError, NotFoundError } from "./errors"
 import type { BySchoolYearIndex, NewRanking } from "./types/data/ranking"
 
 export type DataSource = (typeof DATA_SOURCE)[keyof typeof DATA_SOURCE]
@@ -63,6 +63,7 @@ export const queryFactory = (opts: QueryFactoryOpts) => ({
         const res = await fetch(getDataUrl(`/output/rankings/${id}.json`, opts))
         // const res = await fetch(getDataUrl(`/output/rankings/${id}.json`))
         if (res.status === 404) throw new NotFoundError()
+        if (!res.ok) throw new FetchError()
         return res.json() as Promise<NewRanking>
       },
       retry: 2,
