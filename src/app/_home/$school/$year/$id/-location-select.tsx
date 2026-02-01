@@ -35,9 +35,9 @@ export default function LocationsSelect(props: Props) {
       <p className="text-sm">Sede</p>
       {locations.length >= 2 ? (
         isMobile ? (
-          LocationCombobox(props)
+          <LocationCombobox {...props} />
         ) : (
-          LocationsTabs(props)
+          <LocationsTabs {...props} />
         )
       ) : (
         <Removable showRemove={false}>
