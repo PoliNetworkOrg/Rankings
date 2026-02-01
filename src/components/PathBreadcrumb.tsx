@@ -81,7 +81,7 @@ export function RankingInfo({
           ? "Fase Generale"
           : extended
             ? `${ranking.data.phase.primary}ª Fase`
-            : `${numberToRoman(ranking.data.phase.secondary)} Fase`}
+            : `${numberToRoman(ranking.data.phase.primary)} Fase`}
       </Badge>
       <Badge variant="secondary">
         {ranking.data.phase.secondary
