@@ -114,8 +114,13 @@ function getCoursesMap(
 export const Route = createFileRoute("/_home/$school/$year/$id/")({
   params: {
     parse: ({ school, year, id }) => {
-      if (isSchool(school)) return { school, year: parseInt(year, 10), id }
-      else throw redirect({ to: "/" })
+      if (!isSchool(school)) throw redirect({ to: "/" })
+
+      const yearInt = parseInt(year, 10)
+      if (Number.isNaN(yearInt))
+        throw redirect({ to: "/$school", params: { school } })
+
+      return { school, year: yearInt, id }
     },
   },
   loader: ({ params }) => {
@@ -194,13 +199,15 @@ function Component({ ranking }: { ranking: NewRanking }) {
 
   return (
     <Page
-      className={`flex items-center gap-4 px-0 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-        }`}
+      className={`flex items-center gap-4 px-0 ${
+        isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+      }`}
       fullWidth
     >
       <div
-        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
-          }`}
+        className={`flex w-full max-w-7xl flex-col gap-4 px-4 ${
+          isMobile ? "flex-col overflow-y-auto overflow-x-hidden" : ""
+        }`}
       >
         <PathBreadcrumb />
         <div className="flex w-full gap-4 max-sm:flex-col sm:items-center">

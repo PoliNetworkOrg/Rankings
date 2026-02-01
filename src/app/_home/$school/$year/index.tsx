@@ -11,8 +11,13 @@ export const Route = createFileRoute("/_home/$school/$year/")({
   component: RouteComponent,
   params: {
     parse: ({ school, year }) => {
-      if (isSchool(school)) return { school, year: parseInt(year, 10) }
-      else throw redirect({ to: "/" })
+      if (!isSchool(school)) throw redirect({ to: "/" })
+
+      const yearInt = parseInt(year, 10)
+      if (Number.isNaN(yearInt))
+        throw redirect({ to: "/$school", params: { school } })
+
+      return { school, year: yearInt }
     },
   },
 })
