@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
 export interface IMobileContext {
   isMobile: boolean
@@ -16,10 +16,14 @@ export function MobileProvider({ ...p }: Props) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   const [width, setWidth] = useState(window.innerWidth)
 
-  window.addEventListener("resize", () => {
-    setWidth(window.innerWidth)
-    setIsMobile(window.innerWidth < 768)
-  })
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+      setIsMobile(window.innerWidth < 768)
+    }
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   return <MobileContext.Provider value={{ isMobile, width }} {...p} />
 }
