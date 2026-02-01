@@ -52,13 +52,19 @@ export function ArchiveTip({ data, schoolFilter }: Props) {
           <span className="inline-flex items-center rounded-full bg-indigo-100 px-2 py-0.5 font-semibold text-indigo-700 text-xs dark:bg-indigo-900/50 dark:text-indigo-300">
             {stats.totalRankings} graduatorie
           </span>{" "}
-          distribuite su{" "}
-          <span className="inline-flex items-center rounded-full bg-purple-100 px-2 py-0.5 font-semibold text-purple-700 text-xs dark:bg-purple-900/50 dark:text-purple-300">
-            {stats.yearCount} anni
-          </span>{" "}
-          <span className="whitespace-nowrap text-slate-500 dark:text-slate-400">
-            ({stats.minYear} - {stats.maxYear})
-          </span>
+          {stats.yearCount !== 0 && (
+            <>
+              distribuite su{" "}
+              <span className="inline-flex items-center rounded-full bg-purple-100 px-2 py-0.5 font-semibold text-purple-700 text-xs dark:bg-purple-900/50 dark:text-purple-300">
+                {stats.yearCount} anni
+              </span>{" "}
+            </>
+          )}
+          {stats.minYear && stats.maxYear && (
+            <span className="whitespace-nowrap text-slate-500 dark:text-slate-400">
+              ({stats.minYear} - {stats.maxYear})
+            </span>
+          )}
         </p>
 
         {/* Warning with subtle styling -- TODO: hidden for now, maybe readd it later (hidden -> flex) */}
