@@ -32,7 +32,7 @@ function RouteComponent() {
           <h1 className="font-bold text-2xl text-slate-900 tracking-tight sm:text-3xl dark:text-slate-100">
             Storico Graduatorie PoliMi
           </h1>
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-base text-slate-600 dark:text-slate-300">
             Consulta le graduatorie storiche del Politecnico di Milano.
             Seleziona un'area di studi per iniziare.
           </p>

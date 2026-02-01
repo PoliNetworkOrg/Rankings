@@ -43,7 +43,7 @@ export function ArchiveTip({ data, schoolFilter }: Props) {
         {/* Stats line with pill badges */}
         <AiOutlineBulb
           size={18}
-          className="text-yellow-600 dark:text-yellow-200"
+          className="shrink-0 text-yellow-600 dark:text-yellow-200"
         />
         <p className="text-slate-700 text-sm leading-relaxed dark:text-slate-300">
           L'archivio{" "}

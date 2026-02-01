@@ -24,7 +24,7 @@
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
-  --font-open-sans: Open Sans, sans-serif;
+  --font-custom: DM Sans, sans-serif;
 
   @keyframes accordion-down {
     from {

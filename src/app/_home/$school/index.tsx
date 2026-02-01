@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link, redirect } from "@tanstack/react-router"
 import Page from "@/components/custom-ui/Page"
+import { ArchiveTip } from "@/components/Homepage/ArchiveTip"
 import PathBreadcrumb from "@/components/PathBreadcrumb"
 import { Badge } from "@/components/ui/badge"
 import { useQueries } from "@/hooks/use-queries"
 import { isSchool } from "@/utils/types/data/school"
 import { cn } from "@/utils/ui"
-import { ArchiveTip } from "@/components/Homepage/ArchiveTip"
 
 export const Route = createFileRoute("/_home/$school/")({
   component: RouteComponent,
@@ -32,15 +32,15 @@ function RouteComponent() {
     <Page>
       <PathBreadcrumb />
       <div className="space-y-1">
-        <h2 className="font-semibold text-slate-900 text-3xl dark:text-slate-100">
+        <h2 className="font-semibold text-3xl text-slate-900 dark:text-slate-100">
           Anno di immatricolazione
         </h2>
-        <p className="text-slate-600 text-md dark:text-slate-300">
+        <p className="text-base text-slate-600 dark:text-slate-300">
           Seleziona l'anno accademico di cui vuoi consultare le graduatorie
         </p>
       </div>
 
-      <div className="mx-auto my-6 flex w-full lg:max-w-3xl flex-col gap-3 sm:gap-6 rounded-xl border border-slate-600 bg-slate-300/20 p-4 sm:p-8 dark:border-slate-800 dark:bg-slate-800/20">
+      <div className="mx-auto my-6 flex w-full flex-col gap-3 rounded-xl border border-slate-600 bg-slate-300/20 p-4 sm:gap-6 sm:p-8 lg:max-w-3xl dark:border-slate-800 dark:bg-slate-800/20">
         <div className="mx-auto grid w-full max-w-3xl grid-cols-[repeat(auto-fit,minmax(130px,1fr))] gap-3 gap-y-4 sm:gap-4">
           {years.map((year, index) => {
             const isFirst = index === 0
@@ -77,7 +77,7 @@ function RouteComponent() {
         )}
       </div>
 
-      <div className="flex w-full flex-col items-center justify-center mt-auto gap-4">
+      <div className="mt-auto flex w-full flex-col items-center justify-center gap-4">
         <ArchiveTip data={data} schoolFilter={school} />
       </div>
     </Page>

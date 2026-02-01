@@ -102,7 +102,7 @@ export function RankingSelector({ phases, school, year }: Props) {
     return LANGUAGES.map((config) => ({
       config,
       groups: groupPhases(phases, config.lang),
-    })).filter((c) => c.groups.length > 0)
+    }))
   }, [phases])
 
   return (
@@ -191,6 +191,11 @@ function LanguageColumn({
             <PhaseRankings group={group} school={school} year={year} />
           </div>
         ))}
+        {groups.length === 0 && (
+          <div className="px-4 py-6 text-center text-slate-600 italic dark:text-slate-400">
+            Nessuna graduatoria presente
+          </div>
+        )}
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { Link, useNavigate } from "@tanstack/react-router"
 import { Suspense, useEffect, useState } from "react"
-import { LuInfo, LuLock, LuShieldCheck } from "react-icons/lu"
+import { LuInfo, LuLock, LuSearch, LuShieldCheck } from "react-icons/lu"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useQueries } from "@/hooks/use-queries"
@@ -132,10 +132,10 @@ export function StudentIdSearch({ currentId }: { currentId?: string }) {
 
       <div className="relative space-y-4">
         <div>
-          <h3 className="font-semibold text-lg text-slate-800 dark:text-slate-200">
-            Ricerca per matricola
+          <h3 className="font-semibold text-slate-800 text-xl dark:text-slate-200">
+            🔍 Ricerca per matricola
           </h3>
-          <p className="mt-1 text-slate-600 text-sm dark:text-slate-400">
+          <p className="mt-2 text-slate-600 text-sm dark:text-slate-400">
             Inserisci il tuo numero di matricola per cercarlo nelle graduatorie
             archiviate
           </p>
