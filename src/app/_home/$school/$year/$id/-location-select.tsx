@@ -92,10 +92,13 @@ function LocationCombobox({ value, onChange, locations }: Props) {
 
 function LocationsTabs({ value, onChange, locations }: Props) {
   return (
-    <Tabs value={value} onValueChange={onChange}>
+    <Tabs value={value.toLowerCase()} onValueChange={onChange}>
       <TabsList>
         {locations.map((location) => (
-          <TabsTrigger value={location} key={location}>
+          <TabsTrigger
+            value={location.toLowerCase()}
+            key={location.toLowerCase()}
+          >
             {capitaliseWords(location)}
           </TabsTrigger>
         ))}
