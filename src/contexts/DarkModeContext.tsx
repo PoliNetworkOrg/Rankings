@@ -44,8 +44,7 @@ function updateDOMWithTheme(isDarkMode: boolean): void {
   }
 }
 
-type Props = React.HTMLAttributes<React.ProviderProps<IDarkModeContext>>
-export function DarkModeProvider({ ...p }: Props) {
+export function DarkModeProvider({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState(getInitialValue())
   const toggleDarkMode = () => setIsDarkMode((value) => !value)
 
@@ -62,7 +61,9 @@ export function DarkModeProvider({ ...p }: Props) {
   }, [isDarkMode])
 
   return (
-    <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }} {...p} />
+    <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
+      {children}
+    </DarkModeContext.Provider>
   )
 }
 
