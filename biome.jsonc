@@ -50,7 +50,7 @@
       "!**/*.ntvs*",
       "!**/*.njsproj",
       "!**/*.sln",
-      "**/routeTree.gen.ts"
+      "!**/routeTree.gen.ts"
     ]
   },
   "linter": {
