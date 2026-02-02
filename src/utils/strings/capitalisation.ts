@@ -4,32 +4,32 @@ export function convertQuoteToAccent(str: string): string {
     .replaceAll(/(E'|e'|È|É)/g, "è")
     .replaceAll(/(I'|i'|Ì)/g, "ì")
     .replaceAll(/(O'|o'|Ò)/g, "ò")
-    .replaceAll(/(U'|u'|Ù)/g, "ù");
+    .replaceAll(/(U'|u'|Ù)/g, "ù")
 }
 
 export function capitaliseWords(
   str: string,
-  doConvertQuoteToAccent = true,
+  doConvertQuoteToAccent = true
 ): string {
-  const words = str.toLowerCase().split(/\b/);
-  const capitalizedWords = words.map((word) => capitaliseWithRules(word));
-  const joined = capitalizedWords.join("");
-  return doConvertQuoteToAccent ? convertQuoteToAccent(joined) : joined;
+  const words = str.toLowerCase().split(/\b/)
+  const capitalizedWords = words.map((word) => capitaliseWithRules(word))
+  const joined = capitalizedWords.join("")
+  return doConvertQuoteToAccent ? convertQuoteToAccent(joined) : joined
 }
 
 function capitaliseWithRules(word: string): string {
-  if (DO_NOT_CAPITALISE.includes(word)) return word;
-  if (DO_UPPER.includes(word)) return word.toUpperCase();
-  return capitalise(word);
+  if (DO_NOT_CAPITALISE.includes(word)) return word
+  if (DO_UPPER.includes(word)) return word.toUpperCase()
+  return capitalise(word)
 }
 
 function capitalise(word: string): string {
-  const firstLetter = word.charAt(0).toUpperCase();
-  const restOfWord = word.slice(1).toLowerCase();
-  return firstLetter + restOfWord;
+  const firstLetter = word.charAt(0).toUpperCase()
+  const restOfWord = word.slice(1).toLowerCase()
+  return firstLetter + restOfWord
 }
 
-const DO_UPPER = ["ue"];
+const DO_UPPER = ["ue", "eu"]
 
 const DO_NOT_CAPITALISE = [
   "e",
@@ -148,4 +148,4 @@ const DO_NOT_CAPITALISE = [
   "dacché",
   "appena",
   "allorquando",
-];
+]

@@ -1,9 +1,9 @@
-import { cn } from "@/utils/ui";
+import { cn } from "@/utils/ui"
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  fullWidth?: boolean;
-  paddingTop?: boolean;
+  children: React.ReactNode
+  fullWidth?: boolean
+  paddingTop?: boolean
 }
 
 export default function Page({
@@ -15,13 +15,13 @@ export default function Page({
   return (
     <div
       className={cn(
-        "relative flex w-full flex-1 flex-col items-center px-4",
+        "relative flex w-full flex-1 flex-col items-start gap-4 px-4 pb-8",
         fullWidth ? "max-w-full" : "mx-auto max-w-7xl",
-        paddingTop ? "py-4 max-sm:py-3" : "pb-4 max-sm:pb-3",
-        className,
+        paddingTop ? "pt-4 max-sm:pt-3" : "",
+        className
       )}
     >
       {children}
     </div>
-  );
+  )
 }

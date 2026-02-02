@@ -1,18 +1,18 @@
-import { HTMLAttributes, useContext } from "react";
-import { PuffLoader } from "react-spinners";
-import DarkModeContext from "@/contexts/DarkModeContext";
-import { cn } from "@/utils/ui";
+import { type HTMLAttributes, useContext } from "react"
+import { PuffLoader } from "react-spinners"
+import DarkModeContext from "@/contexts/DarkModeContext"
+import { cn } from "@/utils/ui"
 
 type Props = HTMLAttributes<HTMLDivElement> & {
-  loading?: boolean;
-};
+  loading?: boolean
+}
 
 export default function Spinner({
   loading = true,
   className,
   ...props
 }: Props) {
-  const { isDarkMode } = useContext(DarkModeContext);
+  const { isDarkMode } = useContext(DarkModeContext)
   return (
     <div
       className={cn("flex flex-1 items-center justify-center", className)}
@@ -23,5 +23,5 @@ export default function Spinner({
         loading={loading}
       />
     </div>
-  );
+  )
 }

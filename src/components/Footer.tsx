@@ -1,11 +1,11 @@
-import { Link as RouterLink, LinkPropsOptions } from "@tanstack/router";
-import { LINKS } from "@/utils/constants";
-import { cn } from "@/utils/ui";
-import { HTMLAttributes } from "react";
+import { Link as RouterLink } from "@tanstack/react-router"
+import type { HTMLAttributes } from "react"
+import { LINKS } from "@/utils/constants"
+import { cn } from "@/utils/ui"
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-slate-800/20 dark:border-slate-300/30">
+    <footer className="w-full border-slate-800/20 border-t dark:border-slate-300/30">
       <div
         id="footer-container"
         className="mx-auto flex max-w-7xl items-start justify-between gap-8 p-4 max-md:flex-col max-md:gap-4"
@@ -17,7 +17,7 @@ export default function Footer() {
               PoliNetwork
             </ExternalLink>
           </p>
-          <p className="text-xs text-slate-400">
+          <p className="text-slate-400 text-xs">
             L'accuratezza o l'affidabilità dei contenuti di questo sito non è
             garantita. <br /> Consulta il sito ufficiale del{" "}
             <ExternalLink href="https://polimi.it">
@@ -27,7 +27,7 @@ export default function Footer() {
           </p>
         </FooterColumn>
 
-        <FooterColumn className="flex-shrink-0">
+        <FooterColumn className="shrink-0">
           <nav className="flex justify-end gap-8 max-md:justify-center">
             <Link to="/about">About</Link>
             <Link to="/source">Source</Link>
@@ -36,7 +36,7 @@ export default function Footer() {
         </FooterColumn>
       </div>
     </footer>
-  );
+  )
 }
 
 function FooterColumn({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
@@ -45,10 +45,12 @@ function FooterColumn({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       className={cn("flex flex-col gap-2 max-md:w-full", className)}
       {...props}
     />
-  );
+  )
 }
 
-function Link(props: LinkPropsOptions & { children: React.ReactNode }) {
+function Link(
+  props: Parameters<typeof RouterLink>[0] & { children: React.ReactNode }
+) {
   return (
     <li className="flex justify-center">
       <RouterLink
@@ -56,7 +58,7 @@ function Link(props: LinkPropsOptions & { children: React.ReactNode }) {
         className="text-black underline underline-offset-2 dark:text-white"
       />
     </li>
-  );
+  )
 }
 
 function ExternalLink({
@@ -71,11 +73,12 @@ function ExternalLink({
       {...props}
       target={target}
       rel={rel}
-      className={
-        "text-black underline underline-offset-2 dark:text-inherit" + className
-      }
+      className={cn(
+        `text-black underline underline-offset-2 dark:text-inherit`,
+        className
+      )}
     >
       {children}
     </a>
-  );
+  )
 }

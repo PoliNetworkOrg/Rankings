@@ -1,0 +1,67 @@
+import { useQuery } from "@tanstack/react-query"
+import { createFileRoute } from "@tanstack/react-router"
+import { useEffect, useState } from "react"
+import Alert from "@/components/custom-ui/Alert"
+import Page from "@/components/custom-ui/Page"
+import Spinner from "@/components/custom-ui/Spinner"
+import { ArchiveTip } from "@/components/Homepage/ArchiveTip"
+import { SchoolCard } from "@/components/Homepage/SchoolCard"
+import { StudentIdSearch } from "@/components/Homepage/StudentIdSearch"
+import { useQueries } from "@/hooks/use-queries"
+import { LOCAL_STORAGE } from "@/utils/constants"
+
+export const Route = createFileRoute("/_home/")({
+  component: RouteComponent,
+})
+
+function RouteComponent() {
+  const queries = useQueries()
+  const { data, isPending, error } = useQuery(queries.index)
+
+  const schools = data
+    ? (Object.keys(data) as (keyof typeof data)[])
+    : undefined
+
+  const [currentId, setCurrentId] = useState<string | null>(null)
+  useEffect(() => {
+    setCurrentId(localStorage.getItem(LOCAL_STORAGE.searchedStudentId))
+  }, [])
+
+  return (
+    <Page className="pt-8 pb-4">
+      <div className="flex w-full flex-1 flex-col items-start gap-6">
+        <div className="space-y-2">
+          <h1 className="font-bold text-2xl text-slate-900 tracking-tight sm:text-3xl dark:text-slate-100">
+            Storico Graduatorie PoliMi
+          </h1>
+          <p className="text-base text-slate-600 dark:text-slate-300">
+            Consulta le graduatorie storiche del Politecnico di Milano.
+            Seleziona un'area di studi per iniziare.
+          </p>
+        </div>
+
+        {schools && (
+          <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
+            {schools.map((school) => (
+              <SchoolCard key={school} school={school} />
+            ))}
+          </div>
+        )}
+
+        {isPending && (
+          <div className="flex w-full justify-center py-12">
+            <Spinner />
+          </div>
+        )}
+        {error instanceof Error && <Alert level="error">{error.message}</Alert>}
+
+        <div className="flex w-full flex-1 flex-col items-center justify-start">
+          <StudentIdSearch currentId={currentId} />
+        </div>
+        <div className="flex w-full flex-col items-center justify-center gap-4">
+          {data && <ArchiveTip data={data} />}
+        </div>
+      </div>
+    </Page>
+  )
+}
