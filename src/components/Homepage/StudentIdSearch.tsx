@@ -5,7 +5,7 @@ import { LuInfo, LuLock, LuShieldCheck } from "react-icons/lu"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useQueries } from "@/hooks/use-queries"
-import { LOCAL_STORAGE } from "@/utils/constants"
+import { useStudentId } from "@/hooks/use-student-id"
 import { sha256 } from "@/utils/strings/crypto"
 import type { IndexEntry } from "@/utils/types/data/ranking"
 import type { School } from "@/utils/types/data/school"
@@ -68,8 +68,9 @@ function getSortedGroups(results: GroupedResults | null) {
   })
 }
 
-export function StudentIdSearch({ currentId }: { currentId: string | null }) {
+export function StudentIdSearch() {
   const [studentId, setStudentId] = useState("")
+  const [currentId, setSavedId] = useStudentId()
   const [prevCurrentId, setPrevCurrentId] = useState<string | null>(null)
   const [submittedId, setSubmittedId] = useState<string | null>(null)
 
@@ -101,16 +102,15 @@ export function StudentIdSearch({ currentId }: { currentId: string | null }) {
   const clear = async () => {
     setSubmittedId(null)
     setStudentId("")
-    localStorage.removeItem(LOCAL_STORAGE.searchedStudentId)
+    setSavedId(null)
   }
 
   useEffect(() => {
     if (studentIdIndex && submittedId !== null) {
-      if (studentIdIndex[submittedId])
-        localStorage.setItem(LOCAL_STORAGE.searchedStudentId, studentId)
-      else localStorage.removeItem(LOCAL_STORAGE.searchedStudentId)
+      if (studentIdIndex[submittedId]) setSavedId(studentId)
+      else setSavedId(null)
     }
-  }, [studentIdIndex, submittedId, studentId])
+  }, [studentIdIndex, submittedId, studentId, setSavedId])
 
   useEffect(() => {
     if (

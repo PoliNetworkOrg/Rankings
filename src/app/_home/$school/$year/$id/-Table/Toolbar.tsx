@@ -4,6 +4,7 @@ import { LuCircleX } from "react-icons/lu"
 import { Removable } from "@/components/custom-ui/Removable"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useStudentId } from "@/hooks/use-student-id"
 // import { MdDownload } from "react-icons/md";
 // import { FilterBtn } from "./FilterBtn";
 // import { enrollStatusOpts, enrollAllowedOpts } from "./columns";
@@ -22,83 +23,85 @@ export function Toolbar({ has, onCsvClick: _, table }: Props) {
   // const enrollStatusCol = table.getColumn("enrollStatus");
   // const enrollAllowedCol = table.getColumn("enrollAllowed");
 
+  const [savedId] = useStudentId()
   const [matricolaFilter, setMatricolaFilter] = useState<string>("")
   const [matricolaFilterSubmitted, setMatricolaFilterSubmitted] =
     useState<boolean>(false)
-  const { rows: filteredRows } = table.getFilteredRowModel()
 
-  function filterTableMatricolaCol(value?: string) {
-    idCol?.setFilterValue(value)
-  }
-
-  function handleClearMatricolaFilter() {
+  function reset() {
     setMatricolaFilter("")
-    filterTableMatricolaCol()
+    idCol?.setFilterValue(undefined)
     setMatricolaFilterSubmitted(false)
   }
 
-  function handleMatricolaFilterChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ) {
-    if (matricolaFilterSubmitted) filterTableMatricolaCol()
-    const input = event.target.value
-    setMatricolaFilter(input)
-    setMatricolaFilterSubmitted(false)
-  }
-
-  async function handleMatricolaFilterSubmit(
-    e: React.FormEvent<HTMLFormElement>
-  ) {
-    e.preventDefault()
-
-    if (matricolaFilter.length === 0) handleClearMatricolaFilter()
-    else {
-      const hash = await sha256(matricolaFilter)
-      filterTableMatricolaCol(hash)
-      setMatricolaFilterSubmitted(true)
+  async function submit(matricola: string) {
+    if (matricola.length === 0) {
+      reset()
+      return
     }
+
+    const hash = await sha256(matricola)
+    idCol?.setFilterValue(hash)
+    setMatricolaFilterSubmitted(true)
   }
 
   return (
     <div className="flex w-full flex-wrap items-start justify-start gap-6 max-2xs:flex-col">
       {has.id && idCol && (
-        <div className="grid grid-cols-[auto_220px] grid-rows-[auto_auto] gap-x-4 gap-y-1">
+        <div className="flex flex-row items-center gap-x-4 gap-y-1">
           <p className="self-center text-sm">Matricola</p>
-          {filteredRows.length > 0 && matricolaFilterSubmitted ? (
-            <Removable
-              onRemove={handleClearMatricolaFilter}
-              className="justify-between"
-            >
+          {matricolaFilterSubmitted &&
+          table.getFilteredRowModel().rows.length !== 0 ? (
+            <Removable onRemove={reset} className="justify-between">
               {matricolaFilter}
             </Removable>
           ) : (
             <>
               <form
                 className="relative w-full"
-                onSubmit={handleMatricolaFilterSubmit}
+                onSubmit={async (e) => {
+                  e.preventDefault()
+                  await submit(matricolaFilter)
+                }}
               >
                 <Input
+                  className={
+                    matricolaFilterSubmitted
+                      ? "border-red-600 dark:border-red-800"
+                      : ""
+                  }
                   placeholder="AX1234"
                   value={matricolaFilter}
-                  onChange={handleMatricolaFilterChange}
+                  onChange={(e) => {
+                    setMatricolaFilterSubmitted(false)
+                    setMatricolaFilter(e.target.value)
+                  }}
                 />
                 {matricolaFilter.length > 0 && (
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon"
-                    className="-translate-y-1/2 absolute top-1/2 right-1 h-7 w-7 text-gray-500 hover:bg-transparent hover:text-gray-900 dark:text-gray-400 dark:hover:bg-transparent dark:hover:text-gray-100"
-                    onClick={handleClearMatricolaFilter}
+                    className="absolute top-1 right-1 h-7 w-7 text-gray-500 hover:bg-transparent hover:text-gray-900 dark:text-gray-400 dark:hover:bg-transparent dark:hover:text-gray-100"
+                    onClick={reset}
                   >
                     <LuCircleX className="h-5 w-5" />
                     <span className="sr-only">Clear</span>
                   </Button>
                 )}
               </form>
-              {matricolaFilterSubmitted && (
-                <p className="col-start-2 text-red-600 text-sm dark:text-red-400">
-                  Matricola non trovata, ricontrolla.
-                </p>
+              {savedId && (
+                <Button
+                  aria-label="Seleziona ricerca recente"
+                  variant="outline"
+                  className="whitespace-nowrap text-center"
+                  onClick={async () => {
+                    await submit(savedId)
+                    setMatricolaFilter(savedId)
+                  }}
+                >
+                  📋 {savedId}
+                </Button>
               )}
             </>
           )}
