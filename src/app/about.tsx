@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { FaTelegram } from "react-icons/fa"
 import Page from "@/components/custom-ui/Page"
-import { CREDITS } from "@/utils/constants"
+import { CREDITS, LINKS } from "@/utils/constants"
 
 export const Route = createFileRoute("/about")({
   component: RouteComponent,
@@ -12,12 +12,12 @@ function RouteComponent() {
     <Page className="items-center">
       <div className="flex flex-col gap-8 p-8 text-justify">
         <h2 className="text-center font-bold text-lg">About</h2>
-        <div>
+        <div className="space-y-1">
           <p>
             Il seguente progetto mira a conservare lo storico delle graduatorie
             d'ammissione al Politecnico di Milano.
           </p>
-          <p className="my-1">
+          <p>
             Propone una visualizzazione graficamente migliore, responsive,
             sviluppata dal nostro team di design.
           </p>
@@ -50,16 +50,26 @@ function RouteComponent() {
           </ul>
         </div>
 
-        <div>
-          Sei interessato a contribuire allo sviluppo dei progetti del network
-          e/o conoscere di più la nostra realtà?{" "}
-          <a
-            target="_blank"
-            rel="noreferrer noopener"
-            href="https://polinetwork.org/learnmore/contacts/"
-          >
-            Contattaci!
-          </a>
+        <div className="space-y-1">
+          <p>
+            Per segnalare eventuali bug o problemi del sito, utilizza la{" "}
+            <a target="_blank" rel="noreferrer noopener" href={LINKS.issuesUrl}>
+              sezione Issues della nostra repository
+            </a>
+            .
+          </p>
+
+          <p>
+            Sei interessato a contribuire allo sviluppo dei progetti del network
+            e/o conoscere di più la nostra realtà?{" "}
+            <a
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://polinetwork.org/learnmore/contacts/"
+            >
+              Contattaci!
+            </a>
+          </p>
         </div>
 
         <div className="flex items-center justify-between">

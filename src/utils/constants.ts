@@ -5,6 +5,7 @@ export const LINKS = {
     dati: "https://github.com/PoliNetworkOrg/rankings-dati",
     script: "https://github.com/PoliNetworkOrg/rankings-backend-go",
   },
+  issuesUrl: "https://github.com/PoliNetworkOrg/Rankings/issues",
   dataRepoUrlRaw:
     "https://raw.githubusercontent.com/PoliNetworkOrg/rankings-data",
   dataRepoUrl: "https://github.com/PoliNetworkOrg/rankings-data",
