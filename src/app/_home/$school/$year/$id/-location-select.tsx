@@ -73,6 +73,7 @@ function LocationCombobox({ value, onChange, locations }: Props) {
                   <CommandItem
                     autoFocus={selected === location}
                     key={location}
+                    value={location.toLowerCase()}
                     onSelect={(_value) => {
                       onChange(location)
                       setOpen(false)
