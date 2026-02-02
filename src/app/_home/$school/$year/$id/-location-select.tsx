@@ -64,9 +64,9 @@ function LocationCombobox({ value, onChange, locations }: Props) {
       </PopoverTrigger>
       <PopoverContent className="p-0" side="bottom" align="start">
         <Command>
-          <CommandInput placeholder="Cambia corso..." />
+          <CommandInput placeholder="Cambia sede..." />
           <CommandList>
-            <CommandEmpty>No courses found.</CommandEmpty>
+            <CommandEmpty>Nessuna sede trovata.</CommandEmpty>
             <CommandGroup>
               <ScrollArea className={locations.length > 7 ? "h-72" : ""}>
                 {locations.map((location) => (
