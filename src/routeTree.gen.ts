@@ -65,9 +65,9 @@ export interface FileRoutesByFullPath {
   '/source': typeof SourceRoute
   '/test': typeof TestRoute
   '/': typeof HomeIndexRoute
-  '/$school': typeof HomeSchoolIndexRoute
-  '/$school/$year': typeof HomeSchoolYearIndexRoute
-  '/$school/$year/$id': typeof HomeSchoolYearIdIndexRoute
+  '/$school/': typeof HomeSchoolIndexRoute
+  '/$school/$year/': typeof HomeSchoolYearIndexRoute
+  '/$school/$year/$id/': typeof HomeSchoolYearIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
@@ -98,9 +98,9 @@ export interface FileRouteTypes {
     | '/source'
     | '/test'
     | '/'
-    | '/$school'
-    | '/$school/$year'
-    | '/$school/$year/$id'
+    | '/$school/'
+    | '/$school/$year/'
+    | '/$school/$year/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/about'
@@ -174,21 +174,21 @@ declare module '@tanstack/react-router' {
     '/_home/$school/': {
       id: '/_home/$school/'
       path: '/$school'
-      fullPath: '/$school'
+      fullPath: '/$school/'
       preLoaderRoute: typeof HomeSchoolIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_home/$school/$year/': {
       id: '/_home/$school/$year/'
       path: '/$school/$year'
-      fullPath: '/$school/$year'
+      fullPath: '/$school/$year/'
       preLoaderRoute: typeof HomeSchoolYearIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_home/$school/$year/$id/': {
       id: '/_home/$school/$year/$id/'
       path: '/$school/$year/$id'
-      fullPath: '/$school/$year/$id'
+      fullPath: '/$school/$year/$id/'
       preLoaderRoute: typeof HomeSchoolYearIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
