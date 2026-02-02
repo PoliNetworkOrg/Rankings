@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query"
-import { Link, useNavigate } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router"
 import { Suspense, useEffect, useState } from "react"
 import { LuInfo, LuLock, LuShieldCheck } from "react-icons/lu"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useQueries } from "@/hooks/use-queries"
+import { LOCAL_STORAGE } from "@/utils/constants"
 import { sha256 } from "@/utils/strings/crypto"
 import type { IndexEntry } from "@/utils/types/data/ranking"
 import type { School } from "@/utils/types/data/school"
@@ -67,12 +68,10 @@ function getSortedGroups(results: GroupedResults | null) {
   })
 }
 
-export function StudentIdSearch({ currentId }: { currentId?: string }) {
+export function StudentIdSearch({ currentId }: { currentId: string | null }) {
   const [studentId, setStudentId] = useState("")
   const [prevCurrentId, setPrevCurrentId] = useState<string | null>(null)
   const [submittedId, setSubmittedId] = useState<string | null>(null)
-
-  const navigate = useNavigate({ from: "/" })
 
   const queries = useQueries()
   const { data: studentIdIndex, isLoading: isLoadingIdIndex } = useQuery(
@@ -102,20 +101,20 @@ export function StudentIdSearch({ currentId }: { currentId?: string }) {
   const clear = async () => {
     setSubmittedId(null)
     setStudentId("")
-    await navigate({ search: undefined })
+    localStorage.removeItem(LOCAL_STORAGE.searchedStudentId)
   }
 
   useEffect(() => {
     if (studentIdIndex && submittedId !== null) {
-      void navigate({
-        search: studentIdIndex[submittedId] ? { studentId } : undefined,
-      })
+      if (studentIdIndex[submittedId])
+        localStorage.setItem(LOCAL_STORAGE.searchedStudentId, studentId)
+      else localStorage.removeItem(LOCAL_STORAGE.searchedStudentId)
     }
-  }, [studentIdIndex, submittedId, studentId, navigate])
+  }, [studentIdIndex, submittedId, studentId])
 
   useEffect(() => {
     if (
-      currentId !== undefined &&
+      currentId !== null &&
       currentId !== prevCurrentId &&
       currentId.length >= 6
     ) {

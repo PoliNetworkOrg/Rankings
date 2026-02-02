@@ -34,6 +34,7 @@ export const SALT = "saltPoliNetwork" as const
 
 export const LOCAL_STORAGE = {
   darkMode: "pnr_dark_mode",
+  searchedStudentId: "pnr_searched_student_id",
 }
 
 type Credit = {

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
+import { useEffect, useState } from "react"
 import Alert from "@/components/custom-ui/Alert"
 import Page from "@/components/custom-ui/Page"
 import Spinner from "@/components/custom-ui/Spinner"
@@ -7,23 +8,24 @@ import { ArchiveTip } from "@/components/Homepage/ArchiveTip"
 import { SchoolCard } from "@/components/Homepage/SchoolCard"
 import { StudentIdSearch } from "@/components/Homepage/StudentIdSearch"
 import { useQueries } from "@/hooks/use-queries"
+import { LOCAL_STORAGE } from "@/utils/constants"
 
 export const Route = createFileRoute("/_home/")({
   component: RouteComponent,
-  validateSearch: (search: Record<string, unknown>): { studentId?: string } => {
-    const studentId = (search.studentId as string) || undefined
-    return { studentId }
-  },
 })
 
 function RouteComponent() {
   const queries = useQueries()
-  const search = Route.useSearch()
   const { data, isPending, error } = useQuery(queries.index)
 
   const schools = data
     ? (Object.keys(data) as (keyof typeof data)[])
     : undefined
+
+  const [currentId, setCurrentId] = useState<string | null>(null)
+  useEffect(() => {
+    setCurrentId(localStorage.getItem(LOCAL_STORAGE.searchedStudentId))
+  }, [])
 
   return (
     <Page className="pt-8 pb-4">
@@ -54,7 +56,7 @@ function RouteComponent() {
         {error instanceof Error && <Alert level="error">{error.message}</Alert>}
 
         <div className="flex w-full flex-1 flex-col items-center justify-start">
-          <StudentIdSearch currentId={search.studentId} />
+          <StudentIdSearch currentId={currentId} />
         </div>
         <div className="flex w-full flex-col items-center justify-center gap-4">
           {data && <ArchiveTip data={data} />}
