@@ -31,7 +31,7 @@ function RouteComponent() {
                 <p className="flex items-center justify-start">
                   {credit.name}
                   {credit.role && (
-                    <span className="text-slate-700 dark:text-slate-400 font-light">
+                    <span className="font-light text-slate-700 dark:text-slate-400">
                       &nbsp;{credit.role}
                     </span>
                   )}
@@ -52,7 +52,7 @@ function RouteComponent() {
               </li>
             ))}
           </ul>
-          <p className="text-xs italic text-slate-700 dark:text-slate-400">
+          <p className="text-slate-700 text-xs italic dark:text-slate-400">
             Per Content si intendono contributori che hanno fornito graduatorie
             mancanti (con link originali o dati grezzi) o altri dati da
             visualizzare.
