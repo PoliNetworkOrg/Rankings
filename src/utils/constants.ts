@@ -59,4 +59,9 @@ export const CREDITS: Credit[] = [
     role: "Designer",
     tgLink: "https://t.me/giovannimalausa",
   },
+  {
+    name: "Matteo Zenti",
+    role: "Content",
+    tgLink: "https://t.me/matteo_zenti",
+  },
 ]
