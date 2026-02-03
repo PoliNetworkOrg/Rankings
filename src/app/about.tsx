@@ -23,14 +23,18 @@ function RouteComponent() {
           </p>
         </div>
 
-        <div>
+        <div className="space-y-2">
           <h3>Partecipanti e collaboratori:</h3>
           <ul className="flex list-disc flex-col gap-1 py-1 pl-4">
             {CREDITS.map((credit) => (
               <li key={credit.name}>
                 <p className="flex items-center justify-start">
                   {credit.name}
-                  {credit.role && <span>&nbsp;({credit.role})</span>}
+                  {credit.role && (
+                    <span className="text-slate-700 dark:text-slate-400 font-light">
+                      &nbsp;{credit.role}
+                    </span>
+                  )}
                   {credit.tgLink && (
                     <>
                       &nbsp;
@@ -48,6 +52,11 @@ function RouteComponent() {
               </li>
             ))}
           </ul>
+          <p className="text-xs italic text-slate-700 dark:text-slate-400">
+            Per Content si intendono contributori che hanno fornito graduatorie
+            mancanti (con link originali o dati grezzi) o altri dati da
+            visualizzare.
+          </p>
         </div>
 
         <div className="space-y-1">
@@ -72,8 +81,10 @@ function RouteComponent() {
           </p>
         </div>
 
-        <div className="flex items-center justify-between">
-          <p className="opacity-60">Versione: {APP_VERSION}</p>
+        <div className="flex items-center justify-between max-sm:flex-col max-sm:items-start">
+          <p className="text-slate-800 dark:text-slate-300">
+            Versione: {APP_VERSION}
+          </p>
           <p>
             Sviluppato con amore da{" "}
             <a
