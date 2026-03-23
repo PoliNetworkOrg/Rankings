@@ -115,6 +115,10 @@ export function getColumns(
           accessorKey: "canEnroll",
           header: "Consentita",
           id: "canEnroll",
+          accessorFn: (row) => {
+            if (row.course) return row.course.canEnroll
+            return row.canEnroll
+          },
           cell: ({ getValue }) => {
             const value = getValue()
             const str = Formatter.displayBool(value)
@@ -148,7 +152,8 @@ export function getColumns(
           id: "canEnrollCourse",
           header: "Corso",
           accessorFn: (row) => {
-            if (!row.course || !row.canEnroll) return "-"
+            if (!row.canEnroll || !row.course) return "-"
+            if (row.course && !row.course.canEnroll) return "-"
 
             return row.course.location
               ? `${row.course.title} (${row.course.location})`
@@ -168,13 +173,13 @@ export function getColumns(
       columns:
         rows.length > 0
           ? Object.keys(rows[0].ofa).map((k) => ({
-              header: k,
-              accessorFn: (row) => row.ofa[k],
-              cell: ({ getValue }) => {
-                const value = getValue()
-                return Formatter.displayBool(value)
-              },
-            }))
+            header: k,
+            accessorFn: (row) => row.ofa[k],
+            cell: ({ getValue }) => {
+              const value = getValue()
+              return Formatter.displayBool(value)
+            },
+          }))
           : [],
     },
     {
@@ -183,13 +188,13 @@ export function getColumns(
       columns:
         rows.length > 0 && rows[0].sectionsResults
           ? Object.keys(rows[0].sectionsResults).map((k) => ({
-              header: k,
-              accessorFn: (row) => row.sectionsResults?.[k],
-              cell: ({ getValue }) => {
-                const value = getValue()
-                return Formatter.displayScore(value)
-              },
-            }))
+            header: k,
+            accessorFn: (row) => row.sectionsResults?.[k],
+            cell: ({ getValue }) => {
+              const value = getValue()
+              return Formatter.displayScore(value)
+            },
+          }))
           : [],
     },
     {
